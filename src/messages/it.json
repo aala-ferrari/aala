@@ -1,0 +1,80 @@
+{
+  "brand": {
+    "name": "Albania Auto Legal Alliance",
+    "short": "AALA",
+    "tagline": "Auto · Legal · CRM · Medical · Webpages — una sola alleanza."
+  },
+  "nav": {
+    "services": "Servizi",
+    "pricing": "Prezzi",
+    "about": "Chi siamo",
+    "contact": "Contatti",
+    "login": "Accedi",
+    "signup": "Registrati",
+    "account": "Area cliente"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Un solo partner. Cinque servizi premium.",
+      "title": "Tecnologia che <gold>protegge</gold>, <gold>vende</gold> e <gold>fa crescere</gold> la tua impresa.",
+      "subtitle": "CRM su misura, gestionali per noleggi auto, software legale in abbonamento e turismo dentale con clienti qualificati. Tutto sotto una sola alleanza.",
+      "ctaPrimary": "Scopri i servizi",
+      "ctaSecondary": "Parla con noi"
+    },
+    "services": {
+      "title": "Cinque verticali. Una sola promessa: affidabilità.",
+      "subtitle": "Scegli il servizio che ti serve oggi. Aggiungi gli altri quando vorrai.",
+      "medical": {
+        "name": "CRM · Webpages",
+        "desc": "CRM su misura per ogni settore — studi medici, cliniche, qualsiasi azienda. Più siti web 100% customizzati, niente template pronti."
+      },
+      "auto": {
+        "name": "Gestionale Auto",
+        "desc": "Software per noleggio auto: flotta, prenotazioni, contratti, manutenzione, mobile inclusa."
+      },
+      "legal": {
+        "name": "Super Avocati",
+        "desc": "Suite SaaS per studi legali: pratiche, scadenze, calendario, ricerca documentale assistita. Affianca l'avvocato nella risoluzione di cause civili, penali e amministrative grazie all'intelligenza artificiale integrata di Super Avocati."
+      },
+      "dental": {
+        "name": "Dental Tourism",
+        "desc": "Agenzia turismo dentale: portiamo pazienti qualificati internazionali alla tua clinica."
+      },
+      "learnMore": "Scopri di più"
+    },
+    "values": {
+      "title": "Perché scegliere AALA",
+      "items": {
+        "trust": { "title": "Affidabilità", "desc": "Anni di esperienza in 4 settori verticali, prodotti già in produzione." },
+        "luxury": { "title": "Qualità", "desc": "Software pensato e disegnato per durare, non per stupire e basta." },
+        "security": { "title": "Sicurezza", "desc": "Architettura cloud sicura, GDPR, backup, SSO unificato." },
+        "support": { "title": "Supporto", "desc": "Un solo referente per tutti i tuoi servizi. Risposte in 24 ore." }
+      }
+    },
+    "cta": {
+      "title": "Pronto a iniziare?",
+      "subtitle": "Una telefonata, un percorso su misura.",
+      "button": "Richiedi una consulenza"
+    }
+  },
+  "pricing": {
+    "title": "Prezzi trasparenti",
+    "subtitle": "Una-tantum per progetti custom, abbonamenti per i prodotti SaaS.",
+    "monthly": "Mensile",
+    "annual": "Annuale",
+    "annualSave": "risparmia 20%",
+    "perMonth": "/mese",
+    "perYear": "/anno",
+    "oneTime": "una tantum",
+    "buy": "Acquista",
+    "subscribe": "Abbonati",
+    "contact": "Contatta",
+    "popular": "Più richiesto"
+  },
+  "footer": {
+    "rights": "Tutti i diritti riservati.",
+    "privacy": "Privacy",
+    "terms": "Termini",
+    "cookies": "Cookie"
+  }
+}

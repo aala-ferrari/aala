@@ -1,0 +1,59 @@
+{
+  "brand": {
+    "name": "Albania Auto Legal Alliance",
+    "short": "AALA",
+    "tagline": "Auto · Legal · CRM · Medical · Webpages — una sola alianza."
+  },
+  "nav": {
+    "services": "Servicios",
+    "pricing": "Precios",
+    "about": "Nosotros",
+    "contact": "Contacto",
+    "login": "Acceder",
+    "signup": "Registrarse",
+    "account": "Mi cuenta"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Un solo partner. Cinco servicios premium.",
+      "title": "Tecnología que <gold>protege</gold>, <gold>vende</gold> y <gold>hace crecer</gold> tu empresa.",
+      "subtitle": "CRM a medida, gestión de alquiler de coches, software legal por suscripción y turismo dental con clientes cualificados. Todo bajo una sola alianza.",
+      "ctaPrimary": "Descubre los servicios",
+      "ctaSecondary": "Habla con nosotros"
+    },
+    "services": {
+      "title": "Cinco verticales. Una promesa: fiabilidad.",
+      "subtitle": "Elige el servicio que necesitas hoy. Añade los demás cuando quieras.",
+      "medical": { "name": "CRM · Webpages", "desc": "CRM a medida para cualquier sector — médicos, clínicas, empresas. Además sitios web 100% personalizados, sin plantillas." },
+      "auto": { "name": "Gestor Auto", "desc": "Software de alquiler de coches: flota, reservas, contratos, mantenimiento, móvil incluido." },
+      "legal": { "name": "Super Avocati", "desc": "Suite SaaS para despachos: expedientes, vencimientos, calendario, búsqueda documental con IA. Acompaña al abogado en la resolución de causas civiles, penales y administrativas gracias a la inteligencia artificial integrada de Super Avocati." },
+      "dental": { "name": "Turismo Dental", "desc": "Agencia de turismo dental: traemos pacientes internacionales cualificados a tu clínica." },
+      "learnMore": "Saber más"
+    },
+    "values": {
+      "title": "Por qué elegir AALA",
+      "items": {
+        "trust": { "title": "Fiabilidad", "desc": "Años de experiencia en 4 verticales, productos ya en producción." },
+        "luxury": { "title": "Calidad", "desc": "Software diseñado para durar, no solo para impresionar." },
+        "security": { "title": "Seguridad", "desc": "Arquitectura cloud segura, RGPD, backups, SSO unificado." },
+        "support": { "title": "Soporte", "desc": "Un único contacto para todos tus servicios. Respuestas en 24 horas." }
+      }
+    },
+    "cta": { "title": "¿Listo para empezar?", "subtitle": "Una llamada, un camino a medida.", "button": "Solicita una consulta" }
+  },
+  "pricing": {
+    "title": "Precios transparentes",
+    "subtitle": "Pago único para proyectos a medida, suscripciones para productos SaaS.",
+    "monthly": "Mensual",
+    "annual": "Anual",
+    "annualSave": "ahorra 20%",
+    "perMonth": "/mes",
+    "perYear": "/año",
+    "oneTime": "pago único",
+    "buy": "Comprar",
+    "subscribe": "Suscribirse",
+    "contact": "Contactar",
+    "popular": "Más popular"
+  },
+  "footer": { "rights": "Todos los derechos reservados.", "privacy": "Privacidad", "terms": "Términos", "cookies": "Cookies" }
+}

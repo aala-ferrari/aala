@@ -1,0 +1,59 @@
+{
+  "brand": {
+    "name": "Albania Auto Legal Alliance",
+    "short": "AALA",
+    "tagline": "Auto · Legal · CRM · Medical · Webpages — one alliance."
+  },
+  "nav": {
+    "services": "Services",
+    "pricing": "Pricing",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Sign in",
+    "signup": "Sign up",
+    "account": "Account"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "One partner. Five premium services.",
+      "title": "Technology that <gold>protects</gold>, <gold>sells</gold> and <gold>grows</gold> your business.",
+      "subtitle": "Tailor-made CRMs, car rental management, subscription legal software, and dental tourism with qualified clients. All under one alliance.",
+      "ctaPrimary": "Explore services",
+      "ctaSecondary": "Talk to us"
+    },
+    "services": {
+      "title": "Five verticals. One promise: reliability.",
+      "subtitle": "Pick the service you need today. Add the others whenever you want.",
+      "medical": { "name": "CRM · Webpages", "desc": "Tailor-made CRMs for any sector — medical, clinics, any business. Plus 100% custom websites, no ready-made templates." },
+      "auto": { "name": "Auto Manager", "desc": "Car rental software: fleet, bookings, contracts, maintenance, mobile included." },
+      "legal": { "name": "Super Avocati", "desc": "SaaS suite for law firms: cases, deadlines, calendar, AI-assisted document search. Supports the lawyer in resolving civil, criminal and administrative cases through Super Avocati's integrated artificial intelligence." },
+      "dental": { "name": "Dental Tourism", "desc": "Dental tourism agency: we bring qualified international patients to your clinic." },
+      "learnMore": "Learn more"
+    },
+    "values": {
+      "title": "Why choose AALA",
+      "items": {
+        "trust": { "title": "Reliability", "desc": "Years of vertical experience, products already in production." },
+        "luxury": { "title": "Quality", "desc": "Software designed to last, not just to impress." },
+        "security": { "title": "Security", "desc": "Secure cloud architecture, GDPR, backups, unified SSO." },
+        "support": { "title": "Support", "desc": "One point of contact for all your services. 24-hour replies." }
+      }
+    },
+    "cta": { "title": "Ready to start?", "subtitle": "One call, a tailored path.", "button": "Request a consultation" }
+  },
+  "pricing": {
+    "title": "Transparent pricing",
+    "subtitle": "One-off for custom projects, subscriptions for SaaS products.",
+    "monthly": "Monthly",
+    "annual": "Annual",
+    "annualSave": "save 20%",
+    "perMonth": "/month",
+    "perYear": "/year",
+    "oneTime": "one-time",
+    "buy": "Buy",
+    "subscribe": "Subscribe",
+    "contact": "Contact",
+    "popular": "Most popular"
+  },
+  "footer": { "rights": "All rights reserved.", "privacy": "Privacy", "terms": "Terms", "cookies": "Cookies" }
+}
