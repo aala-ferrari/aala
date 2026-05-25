@@ -1,18 +1,20 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { Stethoscope, Car, Scale, Smile, ExternalLink, ArrowLeft } from 'lucide-react';
+import { Stethoscope, Car, Scale, Smile, Smartphone, ExternalLink, ArrowLeft } from 'lucide-react';
 import { VERTICALS, type VerticalKey } from '@/lib/products';
 import { MedicalMockup } from '@/components/mockups/MedicalMockup';
 import { AutoMockup } from '@/components/mockups/AutoMockup';
 import { LegalMockup } from '@/components/mockups/LegalMockup';
 import { DentalMockup } from '@/components/mockups/DentalMockup';
+import { TaxiMockup } from '@/components/mockups/TaxiMockup';
 
-const ICONS = { medical: Stethoscope, auto: Car, legal: Scale, dental: Smile };
+const ICONS = { medical: Stethoscope, auto: Car, legal: Scale, dental: Smile, taxi: Smartphone };
 const MOCKUPS = {
   medical: MedicalMockup,
   auto: AutoMockup,
   legal: LegalMockup,
   dental: DentalMockup,
+  taxi: TaxiMockup,
 };
 
 // URL del prodotto vero (locale: tutti girano sul Mac).
@@ -21,6 +23,7 @@ const LIVE_PRODUCT_URL: Partial<Record<VerticalKey, string>> = {
   auto: 'http://localhost:4011',
   legal: 'http://localhost:5050',
   dental: 'https://medicalalbania.com',
+  // taxi in sviluppo
 };
 
 export default function DemoLandingPage({

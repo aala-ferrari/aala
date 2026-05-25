@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, ExternalLink, KeyRound, Stethoscope, Car, Scale, Smile } from 'lucide-react';
+import { ArrowRight, ExternalLink, KeyRound, Stethoscope, Car, Scale, Smile, Smartphone } from 'lucide-react';
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
 import { useState } from 'react';
@@ -10,6 +10,7 @@ import { MedicalMockup } from '@/components/mockups/MedicalMockup';
 import { AutoMockup } from '@/components/mockups/AutoMockup';
 import { LegalMockup } from '@/components/mockups/LegalMockup';
 import { DentalMockup } from '@/components/mockups/DentalMockup';
+import { TaxiMockup } from '@/components/mockups/TaxiMockup';
 import { DemoRequestModal } from './DemoRequestModal';
 
 const MOCKUP_BY_VERTICAL: Record<VerticalKey, () => JSX.Element> = {
@@ -17,9 +18,10 @@ const MOCKUP_BY_VERTICAL: Record<VerticalKey, () => JSX.Element> = {
   auto: AutoMockup,
   legal: LegalMockup,
   dental: DentalMockup,
+  taxi: TaxiMockup,
 };
 
-const ICONS = { medical: Stethoscope, auto: Car, legal: Scale, dental: Smile };
+const ICONS = { medical: Stethoscope, auto: Car, legal: Scale, dental: Smile, taxi: Smartphone };
 
 // URL del prodotto vero per il bottone "Apri demo dal vivo".
 // Locale: tutti girano sul Mac sui rispettivi porti.

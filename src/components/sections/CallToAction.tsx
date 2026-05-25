@@ -11,7 +11,7 @@ export function CallToAction() {
   const locale = useLocale();
 
   return (
-    <section className="relative py-32">
+    <section className="relative pt-12 pb-0 sm:pt-16">
       <div className="container-aala">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -47,7 +47,8 @@ export function CallToAction() {
             />
 
             {/* Contenuto testuale */}
-            <div className="relative z-10 flex flex-col items-center justify-center px-8 py-20 text-center sm:px-12 sm:py-28">
+            <div className="absolute inset-0 z-10 flex flex-col justify-between">
+            <div className="flex flex-col items-center px-6 pt-10 text-center sm:px-12 sm:pt-14">
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -56,7 +57,7 @@ export function CallToAction() {
                 className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-canvas-paper/80 px-4 py-1.5 text-xs text-ink-soft backdrop-blur"
               >
                 <Sparkles className="h-3.5 w-3.5 text-gold" />
-                <span className="uppercase tracking-[0.2em]">In sintonia con la tua impresa</span>
+                <span className="uppercase tracking-[0.2em]">{t('badge')}</span>
               </motion.div>
 
               <motion.p
@@ -68,19 +69,22 @@ export function CallToAction() {
               >
                 {t('subtitle')}
               </motion.p>
+            </div>
 
+            {/* Bottone in fondo al box, sotto al pianeta */}
+            <div className="relative z-10 flex justify-center pb-20 sm:pb-24">
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: 0.6 }}
-                className="mt-32 sm:mt-44"
               >
                 <Button href={`/${locale}/contatti`}>
                   {t('button')}
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </motion.div>
+            </div>
             </div>
           </div>
         </motion.div>

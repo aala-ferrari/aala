@@ -2,7 +2,7 @@
   "brand": {
     "name": "Albania Auto Legal Alliance",
     "short": "AALA",
-    "tagline": "Auto · Legal · CRM · Medical · Webpages — una sola alleanza."
+    "tagline": "Auto · Legal · CRM · Medical · Webpages · Taxi App — una sola alleanza."
   },
   "nav": {
     "services": "Servizi",
@@ -32,9 +32,13 @@
         "name": "Gestionale Auto",
         "desc": "Software per noleggio auto: flotta, prenotazioni, contratti, manutenzione, mobile inclusa."
       },
+      "taxi": {
+        "name": "Taxi App",
+        "desc": "Applicazione mobile e backend per gestire flotte taxi in stile Bolt: corsa istantanea, autisti, pagamenti, mappa live, valutazioni."
+      },
       "legal": {
-        "name": "Super Avocati",
-        "desc": "Suite SaaS per studi legali: pratiche, scadenze, calendario, ricerca documentale assistita. Affianca l'avvocato nella risoluzione di cause civili, penali e amministrative grazie all'intelligenza artificiale integrata di Super Avocati."
+        "name": "Super Avokati",
+        "desc": "Suite SaaS per studi legali: pratiche, scadenze, calendario, ricerca documentale assistita. Affianca l'avvocato nella risoluzione di cause civili, penali e amministrative grazie all'intelligenza artificiale integrata di Super Avokati. <em>Attualmente disponibile solo per il diritto albanese — coming soon anche Italia.</em>"
       },
       "dental": {
         "name": "Dental Tourism",
@@ -43,15 +47,20 @@
       "learnMore": "Scopri di più"
     },
     "values": {
+      "eyebrow": "I nostri valori",
       "title": "Perché scegliere AALA",
+      "subtitle": "Da Tirana al mondo: un'alleanza di servizi premium per imprese che non accettano compromessi.",
+      "legendAala": "AALA · 10 città",
+      "legendWorld": "Capitali mondiali",
       "items": {
-        "trust": { "title": "Affidabilità", "desc": "Anni di esperienza in 4 settori verticali, prodotti già in produzione." },
-        "luxury": { "title": "Qualità", "desc": "Software pensato e disegnato per durare, non per stupire e basta." },
-        "security": { "title": "Sicurezza", "desc": "Architettura cloud sicura, GDPR, backup, SSO unificato." },
-        "support": { "title": "Supporto", "desc": "Un solo referente per tutti i tuoi servizi. Risposte in 24 ore." }
+        "trust": { "title": "Affidabilità", "desc": "Non vendiamo promesse. Quattro prodotti già operativi, anni di iterazioni con clienti veri. Quello che mostriamo, funziona — oggi." },
+        "luxury": { "title": "Qualità", "desc": "L'eleganza è ciò che resta quando togli il superfluo. Software disegnati per essere intuitivi al primo sguardo, indispensabili al primo utilizzo." },
+        "security": { "title": "Sicurezza", "desc": "Cifratura at-rest e in-transit, GDPR, backup geo-ridondanti, SSO unificato. La sicurezza dei vostri dati non è una caratteristica: è la fondazione." },
+        "support": { "title": "Supporto", "desc": "Un solo nome, un solo numero. Niente bot, niente ticket smarriti. Quando vi serve aiuto, parlate con chi può davvero risolvere." }
       }
     },
     "cta": {
+      "badge": "In sintonia con la tua impresa",
       "title": "Pronto a iniziare?",
       "subtitle": "Una telefonata, un percorso su misura.",
       "button": "Richiedi una consulenza"
@@ -70,6 +79,88 @@
     "subscribe": "Abbonati",
     "contact": "Contatta",
     "popular": "Più richiesto"
+  },
+  "about": {
+    "eyebrow": "Chi siamo",
+    "titlePre": "Una ",
+    "titleHighlight": "alleanza",
+    "titlePost": " di competenze.",
+    "p1": "Quattro mondi che, a prima vista, non si parlano: studi medici, concessionarie d'auto, avvocati, cliniche di turismo dentale. Linguaggi diversi, ritmi diversi, regole diverse.",
+    "p2": "Eppure, scava sotto la superficie e troverai la stessa ossessione in ognuno di loro — <strong>governare il tempo</strong>, <strong>custodire la fiducia</strong>, <strong>mantenere il controllo</strong> quando le cose si complicano. È in quella radice comune che AALA è nata.",
+    "p3": "<brand>Albania Auto Legal Alliance</brand> non è uno studio di sviluppo software qualunque. È un'alleanza di competenze costruite negli anni, prodotto dopo prodotto, cliente dopo cliente. Quando un imprenditore ci sceglie, non firma per un fornitore: firma per un partner che parla quattro lingue professionali e ne capisce ognuna.",
+    "p4": "Lavoriamo a una regola semplice e implacabile: <em>niente template, niente soluzioni «quasi giuste» adattate al ribasso</em>. Ogni CRM, ogni gestionale, ogni applicazione legale, ogni sito web nasce per il contesto in cui dovrà vivere — e durare. La qualità non è un'aspirazione: è la condizione di esistenza.",
+    "p5": "<strong>Da Tirana al mondo</strong>, una sola promessa di servizio. Una sola persona di riferimento. Una sola alleanza che cresce insieme alla tua impresa. Perché chi gestisce qualcosa di importante non ha tempo per coordinare dieci fornitori — vuole sapere che dietro tutto c'è un nome, un volto, una mano sicura.",
+    "quote": "Costruiamo software che durano,\nnon che stupiscono e basta."
+  },
+  "contact": {
+    "eyebrow": "Contatti",
+    "titleHighlight": "Parliamone.",
+    "subtitle": "Raccontaci il tuo progetto. Ti rispondiamo entro 24 ore con un percorso su misura.",
+    "phone": "+39 — da configurare",
+    "location": "Tirana · Milano",
+    "form": {
+      "name": "Nome",
+      "company": "Azienda",
+      "email": "Email",
+      "phone": "Telefono",
+      "service": "Servizio di interesse",
+      "message": "Messaggio",
+      "send": "Invia messaggio",
+      "sending": "Invio...",
+      "received": "Messaggio ricevuto.",
+      "willReply": "Ti risponderemo entro 24 ore.",
+      "services": {
+        "medical": "CRM su misura (qualsiasi settore)",
+        "webpages": "Sito web customizzato",
+        "auto": "Gestionale Auto",
+        "taxi": "Taxi App (stile Bolt)",
+        "legal": "Super Avokati (studio legale)",
+        "dental": "Dental Tourism (clinica)",
+        "other": "Altro / Non so"
+      }
+    }
+  },
+  "pricingPage": {
+    "eyebrow": "Prezzi",
+    "titlePre": "",
+    "titleHighlight": "Prezzi",
+    "titlePost": " trasparenti",
+    "subtitle": "Una-tantum per progetti custom. Abbonamenti mensili per i prodotti SaaS. Nessun costo nascosto, nessuna sorpresa."
+  },
+  "demoEntry": {
+    "eyebrow": "Accesso demo",
+    "titlePre": "Hai un ",
+    "titleHighlight": "codice?",
+    "subtitle": "Inserisci il codice di 9 caratteri che ti abbiamo inviato. Funziona una sola volta ed è valido 7 giorni.",
+    "placeholder": "ES-A4F8B2",
+    "submit": "Entra",
+    "verifying": "Verifico...",
+    "openingProduct": "Apro il prodotto...",
+    "fallbackLink": "Se non parte, click qui",
+    "noCodeYet": "Non hai ancora un codice?",
+    "requestAccess": "Richiedi accesso"
+  },
+  "legalPages": {
+    "privacy": {
+      "title": "Privacy Policy",
+      "lastUpdated": "Ultimo aggiornamento: da definire",
+      "placeholder1": "Questo è un placeholder. Il testo definitivo va redatto con un legale in base ai trattamenti effettivi (raccolta lead, pagamenti, cookies, servizi cloud Supabase/Stripe/Vercel).",
+      "placeholder2": "Punti minimi da coprire: titolare del trattamento, base giuridica, categorie di dati, conservazione, diritti GDPR, contatti DPO."
+    },
+    "terms": {
+      "title": "Termini di servizio",
+      "placeholder": "Placeholder — da redigere con consulenza legale."
+    },
+    "cookie": {
+      "title": "Cookie policy",
+      "placeholder": "Placeholder — da redigere e linkare a banner consensi."
+    }
+  },
+  "notFound": {
+    "label": "404",
+    "title": "Pagina non trovata",
+    "subtitle": "La pagina che stai cercando non esiste o è stata spostata.",
+    "back": "Torna alla home"
   },
   "footer": {
     "rights": "Tutti i diritti riservati.",

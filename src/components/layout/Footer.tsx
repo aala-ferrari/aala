@@ -9,8 +9,8 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative mt-32 border-t border-ink-line bg-canvas-warm/40">
-      <div className="container-aala grid grid-cols-2 gap-10 py-16 md:grid-cols-4">
+    <footer className="relative mt-12 border-t border-ink-line bg-canvas-warm/40 sm:mt-16">
+      <div className="container-aala grid grid-cols-2 gap-10 py-10 md:grid-cols-4 sm:py-12">
         <div className="col-span-2">
           <p className="font-display text-2xl text-ink">{tBrand('name')}</p>
           <p className="mt-2 max-w-xs text-sm text-ink-soft">{tBrand('tagline')}</p>
@@ -39,7 +39,7 @@ export function Footer() {
       <div className="border-t border-ink-line/70">
         <div className="container-aala flex flex-col items-center justify-between gap-2 py-6 text-xs text-ink-mute md:flex-row">
           <p>© {year} {tBrand('short')}. {t('rights')}</p>
-          <p>Auto · Legal · CRM · Medical · Webpages</p>
+          <p>Auto · Legal · CRM · Medical · Webpages · Taxi App</p>
         </div>
       </div>
     </footer>

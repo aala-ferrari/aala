@@ -2,7 +2,7 @@
   "brand": {
     "name": "Albania Auto Legal Alliance",
     "short": "AALA",
-    "tagline": "Auto · Legal · CRM · Medical · Webpages — eine Allianz."
+    "tagline": "Auto · Legal · CRM · Medical · Webpages · Taxi App — eine Allianz."
   },
   "nav": {
     "services": "Leistungen",
@@ -26,20 +26,25 @@
       "subtitle": "Wählen Sie den Dienst, den Sie heute brauchen. Fügen Sie die anderen später hinzu.",
       "medical": { "name": "CRM · Webpages", "desc": "Maßgeschneiderte CRMs für jeden Bereich — Medizin, Kliniken, Unternehmen. Plus 100% individuelle Websites, keine Vorlagen." },
       "auto": { "name": "Auto Manager", "desc": "Autovermietungs-Software: Flotte, Buchungen, Verträge, Wartung, Mobile inklusive." },
-      "legal": { "name": "Super Avocati", "desc": "SaaS-Suite für Kanzleien: Fälle, Fristen, Kalender, KI-gestützte Dokumentensuche. Unterstützt den Anwalt bei der Lösung zivil-, straf- und verwaltungsrechtlicher Fälle dank der integrierten künstlichen Intelligenz von Super Avocati." },
+      "taxi": { "name": "Taxi App", "desc": "Mobile App und Backend für Bolt-ähnliche Taxi-Flotten: Sofortfahrten, Fahrer, Zahlungen, Live-Karte, Bewertungen." },
+      "legal": { "name": "Super Avokati", "desc": "SaaS-Suite für Kanzleien: Fälle, Fristen, Kalender, KI-gestützte Dokumentensuche. Unterstützt den Anwalt bei der Lösung zivil-, straf- und verwaltungsrechtlicher Fälle dank der integrierten künstlichen Intelligenz von Super Avokati. <em>Derzeit nur für albanisches Recht verfügbar — Italien folgt bald.</em>" },
       "dental": { "name": "Dentaltourismus", "desc": "Dentaltourismus-Agentur: Wir bringen qualifizierte internationale Patienten in Ihre Klinik." },
       "learnMore": "Mehr erfahren"
     },
     "values": {
+      "eyebrow": "Unsere Werte",
       "title": "Warum AALA",
+      "subtitle": "Von Tirana in die Welt: eine Allianz von Premium-Diensten für Unternehmen, die keine Kompromisse eingehen.",
+      "legendAala": "AALA · 10 Städte",
+      "legendWorld": "Weltmetropolen",
       "items": {
-        "trust": { "title": "Zuverlässigkeit", "desc": "Jahre Erfahrung in 4 Bereichen, Produkte schon im Einsatz." },
-        "luxury": { "title": "Qualität", "desc": "Software, die hält, nicht nur beeindruckt." },
-        "security": { "title": "Sicherheit", "desc": "Sichere Cloud-Architektur, DSGVO, Backups, einheitliches SSO." },
-        "support": { "title": "Support", "desc": "Ein Ansprechpartner für alle Dienste. Antworten innerhalb von 24 Stunden." }
+        "trust": { "title": "Zuverlässigkeit", "desc": "Wir verkaufen keine Versprechen. Vier Produkte bereits im Einsatz, Jahre von Iterationen mit echten Kunden. Was wir zeigen, funktioniert — heute." },
+        "luxury": { "title": "Qualität", "desc": "Eleganz ist, was bleibt, wenn man das Überflüssige entfernt. Software, gestaltet, um auf den ersten Blick intuitiv und beim ersten Einsatz unverzichtbar zu sein." },
+        "security": { "title": "Sicherheit", "desc": "Verschlüsselung at-rest und in-transit, DSGVO, geo-redundante Backups, einheitliches SSO. Die Sicherheit Ihrer Daten ist kein Feature: Sie ist das Fundament." },
+        "support": { "title": "Support", "desc": "Ein Name, eine Nummer. Keine Bots, keine verlorenen Tickets. Wenn Sie Hilfe brauchen, sprechen Sie mit jemandem, der wirklich lösen kann." }
       }
     },
-    "cta": { "title": "Bereit zu starten?", "subtitle": "Ein Anruf, ein maßgeschneiderter Weg.", "button": "Beratung anfordern" }
+    "cta": { "badge": "Im Einklang mit Ihrem Unternehmen", "title": "Bereit zu starten?", "subtitle": "Ein Anruf, ein maßgeschneiderter Weg.", "button": "Beratung anfordern" }
   },
   "pricing": {
     "title": "Transparente Preise",
@@ -54,6 +59,88 @@
     "subscribe": "Abonnieren",
     "contact": "Kontakt",
     "popular": "Am beliebtesten"
+  },
+  "about": {
+    "eyebrow": "Über uns",
+    "titlePre": "Eine ",
+    "titleHighlight": "Allianz",
+    "titlePost": " der Kompetenzen.",
+    "p1": "Vier Welten, die auf den ersten Blick nicht dieselbe Sprache sprechen: Arztpraxen, Autohäuser, Anwälte, Dentaltourismus-Kliniken. Verschiedene Vokabulare, verschiedene Rhythmen, verschiedene Regeln.",
+    "p2": "Doch wer unter der Oberfläche gräbt, findet bei jedem dieselbe Besessenheit — <strong>die Zeit beherrschen</strong>, <strong>das Vertrauen hüten</strong>, <strong>die Kontrolle behalten</strong>, wenn die Dinge kompliziert werden. In dieser gemeinsamen Wurzel ist AALA entstanden.",
+    "p3": "<brand>Albania Auto Legal Alliance</brand> ist kein gewöhnliches Software-Studio. Es ist eine Allianz von Kompetenzen, die Jahr für Jahr, Produkt für Produkt, Kunde für Kunde aufgebaut wurde. Wenn ein Unternehmer uns wählt, unterschreibt er nicht für einen Lieferanten: Er unterschreibt für einen Partner, der vier professionelle Sprachen spricht und jede einzelne versteht.",
+    "p4": "Wir arbeiten nach einer einfachen, unerbittlichen Regel: <em>keine Vorlagen, keine «fast richtigen» Billiglösungen</em>. Jedes CRM, jedes Management-Tool, jede Rechtsanwendung, jede Website wird für den Kontext gebaut, in dem sie leben — und bestehen wird. Qualität ist keine Aspiration: Sie ist die Existenzbedingung.",
+    "p5": "<strong>Von Tirana in die Welt</strong>, ein einziges Service-Versprechen. Ein einziger Ansprechpartner. Eine einzige Allianz, die mit Ihrem Unternehmen wächst. Denn wer etwas Wichtiges leitet, hat keine Zeit, zehn Lieferanten zu koordinieren — er will wissen, dass hinter allem ein Name, ein Gesicht, eine sichere Hand steht.",
+    "quote": "Wir bauen Software, die hält,\nnicht Software, die nur beeindruckt."
+  },
+  "contact": {
+    "eyebrow": "Kontakt",
+    "titleHighlight": "Sprechen wir.",
+    "subtitle": "Erzählen Sie uns von Ihrem Projekt. Wir antworten innerhalb von 24 Stunden mit einem maßgeschneiderten Weg.",
+    "phone": "+39 — noch zu konfigurieren",
+    "location": "Tirana · Mailand",
+    "form": {
+      "name": "Name",
+      "company": "Unternehmen",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "service": "Interessierter Dienst",
+      "message": "Nachricht",
+      "send": "Nachricht senden",
+      "sending": "Senden...",
+      "received": "Nachricht erhalten.",
+      "willReply": "Wir antworten innerhalb von 24 Stunden.",
+      "services": {
+        "medical": "Maßgeschneidertes CRM (jede Branche)",
+        "webpages": "Maßgeschneiderte Website",
+        "auto": "Auto Manager",
+        "taxi": "Taxi App (Bolt-Stil)",
+        "legal": "Super Avokati (Kanzlei)",
+        "dental": "Dental Tourism (Klinik)",
+        "other": "Anderes / Weiß nicht"
+      }
+    }
+  },
+  "pricingPage": {
+    "eyebrow": "Preise",
+    "titlePre": "Transparente ",
+    "titleHighlight": "Preise",
+    "titlePost": "",
+    "subtitle": "Einmalzahlung für Custom-Projekte. Monatliche Abonnements für SaaS-Produkte. Keine versteckten Kosten, keine Überraschungen."
+  },
+  "demoEntry": {
+    "eyebrow": "Demo-Zugang",
+    "titlePre": "Hast du einen ",
+    "titleHighlight": "Code?",
+    "subtitle": "Gib den 9-stelligen Code ein, den wir dir geschickt haben. Er funktioniert einmalig und ist 7 Tage gültig.",
+    "placeholder": "DE-A4F8B2",
+    "submit": "Eintreten",
+    "verifying": "Überprüfe...",
+    "openingProduct": "Öffne Produkt...",
+    "fallbackLink": "Falls nicht startet, hier klicken",
+    "noCodeYet": "Hast du noch keinen Code?",
+    "requestAccess": "Zugang anfordern"
+  },
+  "legalPages": {
+    "privacy": {
+      "title": "Datenschutzerklärung",
+      "lastUpdated": "Letzte Aktualisierung: noch zu definieren",
+      "placeholder1": "Dies ist ein Platzhalter. Der endgültige Text muss mit einem Anwalt entsprechend den tatsächlichen Datenverarbeitungen erstellt werden.",
+      "placeholder2": "Mindestpunkte: Verantwortlicher, Rechtsgrundlage, Datenkategorien, Aufbewahrung, DSGVO-Rechte, DPO-Kontakt."
+    },
+    "terms": {
+      "title": "AGB",
+      "placeholder": "Platzhalter — mit Rechtsberatung zu erstellen."
+    },
+    "cookie": {
+      "title": "Cookie-Richtlinie",
+      "placeholder": "Platzhalter — zu erstellen und mit Einwilligungsbanner zu verknüpfen."
+    }
+  },
+  "notFound": {
+    "label": "404",
+    "title": "Seite nicht gefunden",
+    "subtitle": "Die gesuchte Seite existiert nicht oder wurde verschoben.",
+    "back": "Zurück zur Startseite"
   },
   "footer": { "rights": "Alle Rechte vorbehalten.", "privacy": "Datenschutz", "terms": "AGB", "cookies": "Cookies" }
 }

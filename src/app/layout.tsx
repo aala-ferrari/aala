@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     template: '%s · AALA',
   },
   description:
-    'Auto · Legal · CRM · Medical · Webpages. Una sola alleanza per il software della tua impresa.',
+    'Auto · Legal · CRM · Medical · Webpages · Taxi App. Una sola alleanza per il software della tua impresa.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://aala.example'),
 };
 

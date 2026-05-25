@@ -1,14 +1,14 @@
 'use client';
 
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, Environment, MeshDistortMaterial } from '@react-three/drei';
+import { Float, MeshDistortMaterial, Environment } from '@react-three/drei';
 import { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 
 function GoldSphere() {
   const ref = useRef<THREE.Mesh>(null);
 
-  useFrame((state, dt) => {
+  useFrame((_state, dt) => {
     if (!ref.current) return;
     ref.current.rotation.y += dt * 0.18;
     ref.current.rotation.x += dt * 0.05;
@@ -53,69 +53,197 @@ function GoldRing() {
   );
 }
 
-function Particles({ count = 80 }: { count?: number }) {
-  const ref = useRef<THREE.Points>(null);
+/**
+ * Sfere distanti orbitanti — danno profondità e scala
+ */
+function DistantSpheres() {
+  const groupRef = useRef<THREE.Group>(null);
 
-  const { positions, sizes } = useMemo(() => {
-    const positions = new Float32Array(count * 3);
-    const sizes = new Float32Array(count);
+  const spheres = useMemo(
+    () => [
+      { radius: 5.5, speed: 0.05, phase: 0, size: 0.4, tilt: 0.3, color: '#c9a849' },
+      { radius: 6.8, speed: -0.03, phase: 2.1, size: 0.32, tilt: -0.5, color: '#ecdcb0' },
+      { radius: 7.5, speed: 0.04, phase: 4.5, size: 0.28, tilt: 0.7, color: '#b08a3e' },
+      { radius: 8.2, speed: -0.02, phase: 5.8, size: 0.5, tilt: -0.2, color: '#d4af37' },
+    ],
+    []
+  );
+
+  useFrame((s) => {
+    if (!groupRef.current) return;
+    groupRef.current.children.forEach((child, i) => {
+      const sp = spheres[i];
+      const t = s.clock.elapsedTime * sp.speed + sp.phase;
+      child.position.x = Math.cos(t) * sp.radius;
+      child.position.z = Math.sin(t) * sp.radius - 2; // sempre dietro la bolla
+      child.position.y = Math.sin(t * 1.3 + sp.tilt) * 1.5;
+    });
+  });
+
+  return (
+    <group ref={groupRef}>
+      {spheres.map((s, i) => (
+        <mesh key={i}>
+          <sphereGeometry args={[s.size, 24, 24]} />
+          <meshStandardMaterial
+            color={s.color}
+            metalness={0.85}
+            roughness={0.25}
+            emissive={s.color}
+            emissiveIntensity={0.35}
+          />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+/**
+ * Pavimento riflettente sotto la bolla — luxury showroom feel.
+ */
+function ReflectiveFloor() {
+  return (
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2.6, 0]}>
+      <circleGeometry args={[6, 64]} />
+      <meshStandardMaterial
+        color="#f6f1e6"
+        metalness={0.6}
+        roughness={0.45}
+        transparent
+        opacity={0.5}
+        depthWrite={false}
+      />
+    </mesh>
+  );
+}
+
+/**
+ * Ombra-alone del pianeta sul pavimento
+ */
+function GroundShadow() {
+  return (
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2.55, 0]}>
+      <circleGeometry args={[2.2, 48]} />
+      <meshBasicMaterial color="#15192a" transparent opacity={0.12} depthWrite={false} />
+    </mesh>
+  );
+}
+
+/**
+ * Micro-bolle d'oro che orbitano in spazio attorno alla bolla principale.
+ * Sostituiscono le vecchie "particelle squadrate" (point sprites).
+ */
+function MicroBolle({ count = 40 }: { count?: number }) {
+  const groupRef = useRef<THREE.Group>(null);
+
+  const items = useMemo(() => {
+    const arr: {
+      pos: [number, number, number];
+      size: number;
+      pulseSpeed: number;
+      phase: number;
+    }[] = [];
     for (let i = 0; i < count; i++) {
       const r = 3 + Math.random() * 2.5;
       const theta = Math.random() * Math.PI * 2;
       const phi = (Math.random() - 0.5) * Math.PI * 0.8;
-      positions[i * 3 + 0] = Math.cos(theta) * Math.cos(phi) * r;
-      positions[i * 3 + 1] = Math.sin(phi) * r;
-      positions[i * 3 + 2] = Math.sin(theta) * Math.cos(phi) * r;
-      sizes[i] = 0.02 + Math.random() * 0.05;
+      arr.push({
+        pos: [
+          Math.cos(theta) * Math.cos(phi) * r,
+          Math.sin(phi) * r,
+          Math.sin(theta) * Math.cos(phi) * r,
+        ],
+        size: 0.025 + Math.random() * 0.045,
+        pulseSpeed: 0.6 + Math.random() * 0.9,
+        phase: Math.random() * Math.PI * 2,
+      });
     }
-    return { positions, sizes };
+    return arr;
   }, [count]);
 
-  useFrame((s, dt) => {
-    if (!ref.current) return;
-    ref.current.rotation.y += dt * 0.04;
+  useFrame((_s, dt) => {
+    if (!groupRef.current) return;
+    groupRef.current.rotation.y += dt * 0.04;
   });
 
   return (
-    <points ref={ref}>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          args={[positions, 3]}
-        />
-        <bufferAttribute attach="attributes-size" args={[sizes, 1]} />
-      </bufferGeometry>
-      <pointsMaterial
-        size={0.06}
-        color="#b08a3e"
-        sizeAttenuation
-        transparent
-        opacity={0.7}
-        depthWrite={false}
+    <group ref={groupRef}>
+      {items.map((p, i) => (
+        <MicroBollaDot key={i} {...p} />
+      ))}
+    </group>
+  );
+}
+
+function MicroBollaDot({
+  pos,
+  size,
+  pulseSpeed,
+  phase,
+}: {
+  pos: [number, number, number];
+  size: number;
+  pulseSpeed: number;
+  phase: number;
+}) {
+  const ref = useRef<THREE.Mesh>(null);
+  useFrame((s) => {
+    if (!ref.current) return;
+    const t = s.clock.elapsedTime;
+    const wave = (Math.sin(t * pulseSpeed + phase) + 1) / 2;
+    const mat = ref.current.material as THREE.MeshStandardMaterial;
+    mat.emissiveIntensity = 0.6 + wave * 1.6;
+    ref.current.scale.setScalar(0.85 + wave * 0.4);
+  });
+  return (
+    <mesh ref={ref} position={pos}>
+      <sphereGeometry args={[size, 12, 12]} />
+      <meshStandardMaterial
+        color="#d4af37"
+        emissive="#f5e6a8"
+        emissiveIntensity={1}
+        metalness={0.6}
+        roughness={0.3}
       />
-    </points>
+    </mesh>
   );
 }
 
 export function LuxuryScene() {
   return (
     <Canvas
-      camera={{ position: [0, 0, 5.4], fov: 45 }}
+      camera={{ position: [0, 0.3, 5.4], fov: 45 }}
       dpr={[1, 1.8]}
       gl={{ antialias: true, alpha: true }}
       className="!absolute inset-0"
     >
       <color attach="background" args={['#00000000']} />
-      <ambientLight intensity={0.4} />
-      <directionalLight position={[5, 4, 5]} intensity={1.4} color="#ffe9b0" />
-      <directionalLight position={[-4, 2, -3]} intensity={0.7} color="#fff7e0" />
-      <pointLight position={[0, 0, 3]} intensity={1.2} color="#c9a849" distance={6} />
+
+      {/* Lighting drammatico da showroom di lusso */}
+      <ambientLight intensity={0.35} />
+      <directionalLight position={[5, 6, 5]} intensity={1.8} color="#ffe9b0" castShadow />
+      <directionalLight position={[-5, 3, -3]} intensity={0.5} color="#fff7e0" />
+      <directionalLight position={[3, -2, 4]} intensity={0.5} color="#d4af37" />
+      <pointLight position={[0, 0, 3]} intensity={1.3} color="#c9a849" distance={6} />
+      {/* Spotlight dall'alto sulla bolla — effetto teatro */}
+      <spotLight
+        position={[0, 6, 2]}
+        angle={0.6}
+        penumbra={0.5}
+        intensity={2.2}
+        color="#fff2c4"
+        target-position={[0, 0, 0]}
+      />
 
       <Environment preset="studio" />
 
+      <DistantSpheres />
+      <ReflectiveFloor />
+      <GroundShadow />
+
       <GoldSphere />
       <GoldRing />
-      <Particles count={120} />
+      <MicroBolle count={40} />
     </Canvas>
   );
 }

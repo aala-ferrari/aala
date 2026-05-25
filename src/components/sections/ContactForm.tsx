@@ -1,19 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { Send, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const SERVICES = [
-  { value: 'medical',  label: 'CRM su misura (qualsiasi settore)' },
-  { value: 'webpages', label: 'Sito web customizzato' },
-  { value: 'auto',     label: 'Gestionale Auto' },
-  { value: 'legal',    label: 'Super Avocati (studio legale)' },
-  { value: 'dental',   label: 'Dental Tourism (clinica)' },
-  { value: 'other',    label: 'Altro / Non so' },
-];
+const SERVICE_VALUES = ['medical', 'webpages', 'auto', 'taxi', 'legal', 'dental', 'other'] as const;
 
 export function ContactForm() {
+  const t = useTranslations('contact.form');
   const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [error, setError] = useState<string | null>(null);
 
@@ -44,8 +39,8 @@ export function ContactForm() {
         <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gold/15 text-gold">
           <Check className="h-7 w-7" />
         </div>
-        <h3 className="font-display text-2xl text-ink">Messaggio ricevuto.</h3>
-        <p className="text-ink-soft">Ti risponderemo entro 24 ore.</p>
+        <h3 className="font-display text-2xl text-ink">{t('received')}</h3>
+        <p className="text-ink-soft">{t('willReply')}</p>
       </div>
     );
   }
@@ -53,25 +48,25 @@ export function ContactForm() {
   return (
     <form onSubmit={onSubmit} className="card-paper space-y-5 p-8">
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field name="name" label="Nome" required />
-        <Field name="company" label="Azienda" />
+        <Field name="name" label={t('name')} required />
+        <Field name="company" label={t('company')} />
       </div>
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field name="email" type="email" label="Email" required />
-        <Field name="phone" label="Telefono" />
+        <Field name="email" type="email" label={t('email')} required />
+        <Field name="phone" label={t('phone')} />
       </div>
 
       <label className="block">
         <span className="mb-2 block text-xs font-medium uppercase tracking-widest text-ink-mute">
-          Servizio di interesse
+          {t('service')}
         </span>
         <select
           name="service"
           className="w-full rounded-lg border border-ink-line bg-white px-4 py-3 text-sm text-ink outline-none transition focus:border-gold"
         >
-          {SERVICES.map((s) => (
-            <option key={s.value} value={s.value}>
-              {s.label}
+          {SERVICE_VALUES.map((v) => (
+            <option key={v} value={v}>
+              {t(`services.${v}` as any)}
             </option>
           ))}
         </select>
@@ -79,7 +74,7 @@ export function ContactForm() {
 
       <label className="block">
         <span className="mb-2 block text-xs font-medium uppercase tracking-widest text-ink-mute">
-          Messaggio
+          {t('message')}
         </span>
         <textarea
           name="message"
@@ -94,7 +89,7 @@ export function ContactForm() {
         disabled={state === 'sending'}
         className={cn('btn-primary w-full justify-center', state === 'sending' && 'opacity-60')}
       >
-        {state === 'sending' ? 'Invio...' : 'Invia messaggio'}
+        {state === 'sending' ? t('sending') : t('send')}
         <Send className="h-4 w-4" />
       </button>
 

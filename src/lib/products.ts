@@ -1,4 +1,4 @@
-export type VerticalKey = 'medical' | 'auto' | 'legal' | 'dental';
+export type VerticalKey = 'medical' | 'auto' | 'legal' | 'dental' | 'taxi';
 
 export interface Plan {
   id: string;
@@ -133,10 +133,10 @@ export const VERTICALS: Record<VerticalKey, Vertical> = {
     accentRgb: '234, 179, 8',
     hero: {
       iconKey: 'legal',
-      eyebrow: 'Super Avocati',
+      eyebrow: 'Super Avokati',
       title: 'La suite SaaS che fa lavorare meno il tuo studio legale.',
       subtitle:
-        'Pratiche, scadenze, calendario udienze, ricerca documentale con AI, fatturazione. Tutto integrato, tutto sicuro.',
+        'Pratiche, scadenze, calendario udienze, ricerca documentale con AI, fatturazione. Tutto integrato, tutto sicuro. Attualmente disponibile per il diritto albanese — versione italiana coming soon.',
     },
     features: [
       { title: 'Pratiche & scadenze', desc: 'Gestione fascicoli, scadenzario automatico, alert su udienze e termini.' },
@@ -225,6 +225,58 @@ export const VERTICALS: Record<VerticalKey, Vertical> = {
           'Campagne ads su Meta (Facebook + Instagram)',
           'Acquisizione clienti dedicata',
           'Strategia di crescita su misura',
+        ],
+      },
+    ],
+  },
+  taxi: {
+    key: 'taxi',
+    slug: 'taxi',
+    accent: '#f5b800',
+    accentRgb: '245, 184, 0',
+    hero: {
+      iconKey: 'taxi',
+      eyebrow: 'Taxi App',
+      title: 'La tua flotta taxi, stile Bolt. Brandizzata, controllata, redditizia.',
+      subtitle:
+        'App mobile per autisti e clienti, dispatching automatico, pagamenti integrati, mappa live, valutazioni. Tutto col tuo brand, sul tuo dominio.',
+    },
+    features: [
+      { title: 'App passeggero', desc: 'Prenotazione istantanea, stima costo, traccia auto in tempo reale, pagamento in-app.' },
+      { title: 'App driver', desc: 'Accettazione corse, navigazione integrata, guadagni in diretta, supporto immediato.' },
+      { title: 'Centrale dispatch', desc: 'Assegnazione automatica per prossimità e rating, override manuale, code-zone calde.' },
+      { title: 'Pagamenti & fiscalità', desc: 'Carta, Apple Pay, Google Pay, fatturazione elettronica, ripartizione commissioni driver.' },
+    ],
+    plans: [
+      {
+        id: 'taxi-starter',
+        name: 'Starter (fino 20 driver)',
+        price: 490,
+        currency: 'EUR',
+        billing: 'monthly',
+        features: ['App driver + cliente', 'Dispatch automatico', 'Pagamenti carta', 'Supporto email'],
+      },
+      {
+        id: 'taxi-fleet',
+        name: 'Fleet (fino 100 driver)',
+        price: 1490,
+        currency: 'EUR',
+        billing: 'monthly',
+        features: ['Tutto Starter +', 'Multi-città', 'Pricing dinamico', 'Reportistica avanzata', 'Supporto prioritario'],
+        popular: true,
+      },
+      {
+        id: 'taxi-platform',
+        name: 'Platform — Tutto tuo',
+        price: 7500,
+        currency: 'EUR',
+        billing: 'one-time',
+        features: [
+          'App con tuo brand su App Store + Play Store',
+          'Backend + dispatching personalizzato',
+          'Dominio + VPS hosting inclusi',
+          'Setup completo + training',
+          'Nessun canone mensile sulla piattaforma',
         ],
       },
     ],

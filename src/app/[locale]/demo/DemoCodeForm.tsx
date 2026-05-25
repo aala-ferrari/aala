@@ -5,14 +5,24 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { Loader2, ArrowRight, AlertCircle, ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
+interface Labels {
+  placeholder: string;
+  submit: string;
+  verifying: string;
+  openingProduct: string;
+  fallbackLink: string;
+}
+
 export function DemoCodeForm({
   locale,
   initialCode,
   autoSubmit,
+  labels,
 }: {
   locale: string;
   initialCode?: string;
   autoSubmit?: boolean;
+  labels: Labels;
 }) {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -35,11 +45,9 @@ export function DemoCodeForm({
         if (!res.ok) throw new Error(json.error ?? 'Errore');
 
         if (json.external) {
-          // prodotto online → redirect fuori dal sito
           setRedirecting(json.redirectTo);
           window.location.href = json.redirectTo;
         } else {
-          // landing interna
           router.push(`/${locale}${json.redirectTo}`);
         }
       } catch (err) {
@@ -50,7 +58,6 @@ export function DemoCodeForm({
     [locale, router]
   );
 
-  // Auto-submit se il codice è passato in URL (?code=XXX) — UX "link diretto"
   useEffect(() => {
     if (autoSubmit && initialCode && initialCode.length >= 4) {
       submit(initialCode.toUpperCase());
@@ -68,9 +75,9 @@ export function DemoCodeForm({
     return (
       <div className="flex flex-col items-center gap-3 py-6 text-center">
         <Loader2 className="h-6 w-6 animate-spin text-gold" />
-        <p className="text-sm text-ink-soft">Apro il prodotto...</p>
+        <p className="text-sm text-ink-soft">{labels.openingProduct}</p>
         <a href={redirecting} className="inline-flex items-center gap-1 text-xs text-gold hover:underline">
-          Se non parte, click qui <ExternalLink className="h-3 w-3" />
+          {labels.fallbackLink} <ExternalLink className="h-3 w-3" />
         </a>
       </div>
     );
@@ -83,7 +90,7 @@ export function DemoCodeForm({
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value.toUpperCase())}
-        placeholder="ES-A4F8B2"
+        placeholder={labels.placeholder}
         maxLength={20}
         className="w-full rounded-xl border border-ink-line bg-white px-5 py-4 text-center font-mono text-2xl font-bold tracking-[0.2em] text-ink outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/30"
         autoComplete="off"
@@ -101,11 +108,11 @@ export function DemoCodeForm({
       >
         {loading ? (
           <>
-            <Loader2 className="h-4 w-4 animate-spin" /> Verifico...
+            <Loader2 className="h-4 w-4 animate-spin" /> {labels.verifying}
           </>
         ) : (
           <>
-            Entra <ArrowRight className="h-4 w-4" />
+            {labels.submit} <ArrowRight className="h-4 w-4" />
           </>
         )}
       </button>

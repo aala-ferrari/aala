@@ -7,7 +7,7 @@ const LeadSchema = z.object({
   email: z.string().email(),
   phone: z.string().max(40).optional(),
   company: z.string().max(160).optional(),
-  service: z.enum(['medical', 'webpages', 'auto', 'legal', 'dental', 'other']).optional(),
+  service: z.enum(['medical', 'webpages', 'auto', 'taxi', 'legal', 'dental', 'other']).optional(),
   message: z.string().min(5).max(4000),
   locale: z.string().max(5).optional(),
 });

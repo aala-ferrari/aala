@@ -143,3 +143,33 @@
   .text-pretty { text-wrap: pretty; }
   .font-display-stretch { font-stretch: 110%; letter-spacing: -0.02em; }
 }
+
+/* Animazioni hero background */
+@keyframes blobDrift1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(60px, 30px) scale(1.05); }
+  66%      { transform: translate(-30px, 50px) scale(0.95); }
+}
+@keyframes blobDrift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(-60px, 40px) scale(1.08); }
+}
+@keyframes blobDrift3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40%      { transform: translate(40px, -30px) scale(1.06); }
+  80%      { transform: translate(-30px, 20px) scale(0.94); }
+}
+
+/* Particelle dorate che salgono lentamente */
+@keyframes dustRise {
+  0%   { transform: translateY(0) translateX(0); opacity: 0; }
+  10%  { opacity: 0.9; }
+  90%  { opacity: 0.9; }
+  100% { transform: translateY(-110vh) translateX(20px); opacity: 0; }
+}
+
+/* God rays che pulsano lievemente */
+@keyframes godRayPulse {
+  0%, 100% { opacity: var(--ray-opacity, 0.5); transform: translateX(0); }
+  50%      { opacity: calc(var(--ray-opacity, 0.5) * 1.5); transform: translateX(10px); }
+}

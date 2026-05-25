@@ -4,7 +4,7 @@ import type { VerticalKey } from './products';
 const VERTICAL_LABEL: Record<VerticalKey, string> = {
   medical: 'Medical CRM',
   auto: 'Gestionale Auto',
-  legal: 'Super Avocati',
+  legal: 'Super Avokati',
   dental: 'Dental Tourism',
 };
 
@@ -167,7 +167,7 @@ function renderDemoEmailHtml(o: {
           <td style="padding:24px 40px;background:#fbf8f0;border-top:1px solid #e7e0cf;text-align:center;">
             <p style="margin:0;font-size:12px;color:#8a8f9e;">
               Hai ricevuto questa email perché hai richiesto un accesso demo.<br>
-              Auto · Legal · CRM · Medical · Webpages
+              Auto · Legal · CRM · Medical · Webpages · Taxi App
             </p>
           </td>
         </tr>

@@ -2,7 +2,7 @@
   "brand": {
     "name": "Albania Auto Legal Alliance",
     "short": "AALA",
-    "tagline": "Auto · Legal · CRM · Medical · Webpages — una sola alianza."
+    "tagline": "Auto · Legal · CRM · Medical · Webpages · Taxi App — una sola alianza."
   },
   "nav": {
     "services": "Servicios",
@@ -26,20 +26,25 @@
       "subtitle": "Elige el servicio que necesitas hoy. Añade los demás cuando quieras.",
       "medical": { "name": "CRM · Webpages", "desc": "CRM a medida para cualquier sector — médicos, clínicas, empresas. Además sitios web 100% personalizados, sin plantillas." },
       "auto": { "name": "Gestor Auto", "desc": "Software de alquiler de coches: flota, reservas, contratos, mantenimiento, móvil incluido." },
-      "legal": { "name": "Super Avocati", "desc": "Suite SaaS para despachos: expedientes, vencimientos, calendario, búsqueda documental con IA. Acompaña al abogado en la resolución de causas civiles, penales y administrativas gracias a la inteligencia artificial integrada de Super Avocati." },
+      "taxi": { "name": "Taxi App", "desc": "App móvil y backend para gestionar flotas de taxi estilo Bolt: viajes instantáneos, conductores, pagos, mapa en vivo, valoraciones." },
+      "legal": { "name": "Super Avokati", "desc": "Suite SaaS para despachos: expedientes, vencimientos, calendario, búsqueda documental con IA. Acompaña al abogado en la resolución de causas civiles, penales y administrativas gracias a la inteligencia artificial integrada de Super Avokati. <em>Actualmente disponible solo para el derecho albanés — Italia próximamente.</em>" },
       "dental": { "name": "Turismo Dental", "desc": "Agencia de turismo dental: traemos pacientes internacionales cualificados a tu clínica." },
       "learnMore": "Saber más"
     },
     "values": {
+      "eyebrow": "Nuestros valores",
       "title": "Por qué elegir AALA",
+      "subtitle": "De Tirana al mundo: una alianza de servicios premium para empresas que no aceptan compromisos.",
+      "legendAala": "AALA · 10 ciudades",
+      "legendWorld": "Capitales mundiales",
       "items": {
-        "trust": { "title": "Fiabilidad", "desc": "Años de experiencia en 4 verticales, productos ya en producción." },
-        "luxury": { "title": "Calidad", "desc": "Software diseñado para durar, no solo para impresionar." },
-        "security": { "title": "Seguridad", "desc": "Arquitectura cloud segura, RGPD, backups, SSO unificado." },
-        "support": { "title": "Soporte", "desc": "Un único contacto para todos tus servicios. Respuestas en 24 horas." }
+        "trust": { "title": "Fiabilidad", "desc": "No vendemos promesas. Cuatro productos ya operativos, años de iteraciones con clientes reales. Lo que mostramos, funciona — hoy." },
+        "luxury": { "title": "Calidad", "desc": "La elegancia es lo que queda cuando quitas lo superfluo. Software diseñado para ser intuitivo a primera vista, indispensable al primer uso." },
+        "security": { "title": "Seguridad", "desc": "Cifrado en reposo y en tránsito, RGPD, backups geo-redundantes, SSO unificado. La seguridad de vuestros datos no es una característica: es el fundamento." },
+        "support": { "title": "Soporte", "desc": "Un solo nombre, un solo número. Sin bots, sin tickets perdidos. Cuando necesitas ayuda, hablas con quien realmente puede resolver." }
       }
     },
-    "cta": { "title": "¿Listo para empezar?", "subtitle": "Una llamada, un camino a medida.", "button": "Solicita una consulta" }
+    "cta": { "badge": "En sintonía con tu empresa", "title": "¿Listo para empezar?", "subtitle": "Una llamada, un camino a medida.", "button": "Solicita una consulta" }
   },
   "pricing": {
     "title": "Precios transparentes",
@@ -54,6 +59,88 @@
     "subscribe": "Suscribirse",
     "contact": "Contactar",
     "popular": "Más popular"
+  },
+  "about": {
+    "eyebrow": "Nosotros",
+    "titlePre": "Una ",
+    "titleHighlight": "alianza",
+    "titlePost": " de competencias.",
+    "p1": "Cuatro mundos que, a primera vista, no hablan el mismo idioma: consultas médicas, concesionarios, despachos legales, clínicas de turismo dental. Vocabularios distintos, ritmos distintos, reglas distintas.",
+    "p2": "Sin embargo, rasca bajo la superficie y encontrarás la misma obsesión en cada uno — <strong>dominar el tiempo</strong>, <strong>custodiar la confianza</strong>, <strong>mantener el control</strong> cuando las cosas se complican. En esa raíz común nació AALA.",
+    "p3": "<brand>Albania Auto Legal Alliance</brand> no es un estudio de software cualquiera. Es una alianza de competencias construidas año tras año, producto tras producto, cliente tras cliente. Cuando un empresario nos elige, no firma con un proveedor: firma con un socio que habla cuatro lenguajes profesionales y entiende cada uno.",
+    "p4": "Trabajamos con una regla simple e implacable: <em>sin plantillas, sin soluciones «casi buenas» adaptadas al precio más bajo</em>. Cada CRM, cada gestor, cada aplicación legal, cada sitio web nace para el contexto en el que vivirá — y durará. La calidad no es una aspiración: es la condición de existencia.",
+    "p5": "<strong>De Tirana al mundo</strong>, una sola promesa de servicio. Un solo punto de contacto. Una sola alianza que crece junto a tu empresa. Porque quien gestiona algo importante no tiene tiempo de coordinar diez proveedores — quiere saber que detrás de todo hay un nombre, una cara, una mano firme.",
+    "quote": "Construimos software que dura,\nno que solo impresiona."
+  },
+  "contact": {
+    "eyebrow": "Contacto",
+    "titleHighlight": "Hablemos.",
+    "subtitle": "Cuéntanos tu proyecto. Te responderemos en 24 horas con un camino a medida.",
+    "phone": "+39 — por configurar",
+    "location": "Tirana · Milán",
+    "form": {
+      "name": "Nombre",
+      "company": "Empresa",
+      "email": "Email",
+      "phone": "Teléfono",
+      "service": "Servicio de interés",
+      "message": "Mensaje",
+      "send": "Enviar mensaje",
+      "sending": "Enviando...",
+      "received": "Mensaje recibido.",
+      "willReply": "Te responderemos en 24 horas.",
+      "services": {
+        "medical": "CRM a medida (cualquier sector)",
+        "webpages": "Sitio web personalizado",
+        "auto": "Gestor Auto",
+        "taxi": "Taxi App (estilo Bolt)",
+        "legal": "Super Avokati (despacho)",
+        "dental": "Dental Tourism (clínica)",
+        "other": "Otro / No sé"
+      }
+    }
+  },
+  "pricingPage": {
+    "eyebrow": "Precios",
+    "titlePre": "Precios ",
+    "titleHighlight": "transparentes",
+    "titlePost": "",
+    "subtitle": "Pago único para proyectos a medida. Suscripciones mensuales para los SaaS. Sin costes ocultos, sin sorpresas."
+  },
+  "demoEntry": {
+    "eyebrow": "Acceso demo",
+    "titlePre": "¿Tienes un ",
+    "titleHighlight": "código?",
+    "subtitle": "Introduce el código de 9 caracteres que te hemos enviado. Funciona una sola vez y es válido 7 días.",
+    "placeholder": "ES-A4F8B2",
+    "submit": "Entrar",
+    "verifying": "Verificando...",
+    "openingProduct": "Abriendo producto...",
+    "fallbackLink": "Si no arranca, haz click aquí",
+    "noCodeYet": "¿Todavía no tienes un código?",
+    "requestAccess": "Solicita acceso"
+  },
+  "legalPages": {
+    "privacy": {
+      "title": "Política de privacidad",
+      "lastUpdated": "Última actualización: por definir",
+      "placeholder1": "Este es un texto provisional. El definitivo debe redactarse con un abogado en base a los tratamientos reales (recogida de leads, pagos, cookies, servicios cloud Supabase/Stripe/Vercel).",
+      "placeholder2": "Puntos mínimos a cubrir: responsable del tratamiento, base jurídica, categorías de datos, conservación, derechos RGPD, contacto DPO."
+    },
+    "terms": {
+      "title": "Términos de servicio",
+      "placeholder": "Texto provisional — a redactar con asesoría legal."
+    },
+    "cookie": {
+      "title": "Política de cookies",
+      "placeholder": "Texto provisional — a redactar y enlazar a un banner de consentimiento."
+    }
+  },
+  "notFound": {
+    "label": "404",
+    "title": "Página no encontrada",
+    "subtitle": "La página que buscas no existe o ha sido movida.",
+    "back": "Volver al inicio"
   },
   "footer": { "rights": "Todos los derechos reservados.", "privacy": "Privacidad", "terms": "Términos", "cookies": "Cookies" }
 }

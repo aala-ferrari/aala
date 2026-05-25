@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import { useState } from 'react';
-import { Stethoscope, Car, Scale, Smile, ArrowUpRight, Check } from 'lucide-react';
+import { Stethoscope, Car, Scale, Smile, Smartphone, ArrowUpRight, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { MiniBolla } from '@/components/3d/MiniBolla';
 
-type Vertical = 'medical' | 'auto' | 'legal' | 'dental';
+type Vertical = 'medical' | 'auto' | 'legal' | 'dental' | 'taxi';
 
 const VERTICALS: {
   key: Vertical;
@@ -54,6 +54,18 @@ const VERTICALS: {
     rgb: '42, 122, 92',
     highlights: ['Lead qualificati', 'Campagne multilingua', 'Esclusiva di zona'],
   },
+  {
+    key: 'taxi',
+    href: '/servizi/taxi',
+    icon: Smartphone,
+    color: '#f5b800',
+    rgb: '245, 184, 0',
+    highlights: [
+      'App passeggero + driver brandizzate',
+      'Dispatching automatico stile Bolt',
+      'Pagamenti integrati + mappa live',
+    ],
+  },
 ];
 
 export function Services() {
@@ -61,7 +73,7 @@ export function Services() {
   const locale = useLocale();
 
   return (
-    <section id="services" className="relative py-32">
+    <section id="services" className="relative py-16 sm:py-24">
       <div className="container-aala">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -78,7 +90,7 @@ export function Services() {
           <p className="mt-4 text-lg text-ink-soft">{t('subtitle')}</p>
         </motion.div>
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2">
+        <div className="mt-10 grid gap-6 sm:mt-14 sm:grid-cols-2 lg:grid-cols-3">
           {VERTICALS.map((v, i) => (
             <ServiceCard
               key={v.key}
@@ -86,7 +98,7 @@ export function Services() {
               index={i}
               locale={locale}
               name={t(`${v.key}.name`)}
-              desc={t(`${v.key}.desc`)}
+              desc={t.rich(`${v.key}.desc`, { em: (chunks) => <em className="text-ink-soft/80">{chunks}</em> })}
               learnMore={t('learnMore')}
             />
           ))}
@@ -108,7 +120,7 @@ function ServiceCard({
   index: number;
   locale: string;
   name: string;
-  desc: string;
+  desc: React.ReactNode;
   learnMore: string;
 }) {
   const Icon = vertical.icon;

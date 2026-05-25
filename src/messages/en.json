@@ -2,7 +2,7 @@
   "brand": {
     "name": "Albania Auto Legal Alliance",
     "short": "AALA",
-    "tagline": "Auto · Legal · CRM · Medical · Webpages — one alliance."
+    "tagline": "Auto · Legal · CRM · Medical · Webpages · Taxi App — one alliance."
   },
   "nav": {
     "services": "Services",
@@ -26,20 +26,25 @@
       "subtitle": "Pick the service you need today. Add the others whenever you want.",
       "medical": { "name": "CRM · Webpages", "desc": "Tailor-made CRMs for any sector — medical, clinics, any business. Plus 100% custom websites, no ready-made templates." },
       "auto": { "name": "Auto Manager", "desc": "Car rental software: fleet, bookings, contracts, maintenance, mobile included." },
-      "legal": { "name": "Super Avocati", "desc": "SaaS suite for law firms: cases, deadlines, calendar, AI-assisted document search. Supports the lawyer in resolving civil, criminal and administrative cases through Super Avocati's integrated artificial intelligence." },
+      "taxi": { "name": "Taxi App", "desc": "Mobile app and backend to run Bolt-style taxi fleets: instant rides, drivers, payments, live map, ratings." },
+      "legal": { "name": "Super Avokati", "desc": "SaaS suite for law firms: cases, deadlines, calendar, AI-assisted document search. Supports the lawyer in resolving civil, criminal and administrative cases through Super Avokati's integrated artificial intelligence. <em>Currently available for Albanian law only — Italy coming soon.</em>" },
       "dental": { "name": "Dental Tourism", "desc": "Dental tourism agency: we bring qualified international patients to your clinic." },
       "learnMore": "Learn more"
     },
     "values": {
+      "eyebrow": "Our values",
       "title": "Why choose AALA",
+      "subtitle": "From Tirana to the world: an alliance of premium services for businesses that accept no compromise.",
+      "legendAala": "AALA · 10 cities",
+      "legendWorld": "World capitals",
       "items": {
-        "trust": { "title": "Reliability", "desc": "Years of vertical experience, products already in production." },
-        "luxury": { "title": "Quality", "desc": "Software designed to last, not just to impress." },
-        "security": { "title": "Security", "desc": "Secure cloud architecture, GDPR, backups, unified SSO." },
-        "support": { "title": "Support", "desc": "One point of contact for all your services. 24-hour replies." }
+        "trust": { "title": "Reliability", "desc": "We don't sell promises. Four products already in production, years of iterations with real clients. What we show, works — today." },
+        "luxury": { "title": "Quality", "desc": "Elegance is what remains when you remove the superfluous. Software designed to be intuitive at first glance, essential at first use." },
+        "security": { "title": "Security", "desc": "At-rest and in-transit encryption, GDPR, geo-redundant backups, unified SSO. The security of your data is not a feature: it's the foundation." },
+        "support": { "title": "Support", "desc": "One name, one number. No bots, no lost tickets. When you need help, you talk to someone who can truly solve." }
       }
     },
-    "cta": { "title": "Ready to start?", "subtitle": "One call, a tailored path.", "button": "Request a consultation" }
+    "cta": { "badge": "In tune with your business", "title": "Ready to start?", "subtitle": "One call, a tailored path.", "button": "Request a consultation" }
   },
   "pricing": {
     "title": "Transparent pricing",
@@ -54,6 +59,88 @@
     "subscribe": "Subscribe",
     "contact": "Contact",
     "popular": "Most popular"
+  },
+  "about": {
+    "eyebrow": "About",
+    "titlePre": "An ",
+    "titleHighlight": "alliance",
+    "titlePost": " of expertise.",
+    "p1": "Four worlds that, at first glance, don't speak the same language: medical practices, car dealerships, lawyers, dental tourism clinics. Different vocabularies, different rhythms, different rules.",
+    "p2": "Yet, dig beneath the surface and you'll find the same obsession in each one — <strong>mastering time</strong>, <strong>safeguarding trust</strong>, <strong>keeping control</strong> when things get complicated. It's in that shared root that AALA was born.",
+    "p3": "<brand>Albania Auto Legal Alliance</brand> is not just another software studio. It's an alliance of skills built year after year, product after product, client after client. When an entrepreneur chooses us, they don't sign for a vendor: they sign for a partner who speaks four professional languages and understands each one.",
+    "p4": "We work by one simple, unbending rule: <em>no templates, no 'good enough' solutions adapted on the cheap</em>. Every CRM, every management tool, every legal application, every website is built for the context in which it will live — and last. Quality isn't an aspiration: it's the condition of existence.",
+    "p5": "<strong>From Tirana to the world</strong>, one promise of service. One point of contact. One alliance that grows with your business. Because whoever runs something important doesn't have time to coordinate ten vendors — they want to know that behind everything there's one name, one face, one steady hand.",
+    "quote": "We build software that lasts,\nnot software that merely impresses."
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "titleHighlight": "Let's talk.",
+    "subtitle": "Tell us about your project. We'll reply within 24 hours with a tailored path.",
+    "phone": "+39 — to be configured",
+    "location": "Tirana · Milan",
+    "form": {
+      "name": "Name",
+      "company": "Company",
+      "email": "Email",
+      "phone": "Phone",
+      "service": "Service of interest",
+      "message": "Message",
+      "send": "Send message",
+      "sending": "Sending...",
+      "received": "Message received.",
+      "willReply": "We'll reply within 24 hours.",
+      "services": {
+        "medical": "Custom CRM (any sector)",
+        "webpages": "Custom website",
+        "auto": "Auto Manager",
+        "taxi": "Taxi App (Bolt-style)",
+        "legal": "Super Avokati (law firm)",
+        "dental": "Dental Tourism (clinic)",
+        "other": "Other / Not sure"
+      }
+    }
+  },
+  "pricingPage": {
+    "eyebrow": "Pricing",
+    "titlePre": "Transparent ",
+    "titleHighlight": "pricing",
+    "titlePost": "",
+    "subtitle": "One-off for custom projects. Monthly subscriptions for SaaS products. No hidden costs, no surprises."
+  },
+  "demoEntry": {
+    "eyebrow": "Demo access",
+    "titlePre": "Got a ",
+    "titleHighlight": "code?",
+    "subtitle": "Enter the 9-character code we sent you. It works once and is valid for 7 days.",
+    "placeholder": "EN-A4F8B2",
+    "submit": "Enter",
+    "verifying": "Verifying...",
+    "openingProduct": "Opening product...",
+    "fallbackLink": "If it doesn't start, click here",
+    "noCodeYet": "Don't have a code yet?",
+    "requestAccess": "Request access"
+  },
+  "legalPages": {
+    "privacy": {
+      "title": "Privacy Policy",
+      "lastUpdated": "Last updated: to be defined",
+      "placeholder1": "This is a placeholder. The final text should be drafted with a lawyer based on actual processing activities (lead collection, payments, cookies, cloud services Supabase/Stripe/Vercel).",
+      "placeholder2": "Minimum points to cover: data controller, legal basis, data categories, retention, GDPR rights, DPO contact."
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "placeholder": "Placeholder — to be drafted with legal counsel."
+    },
+    "cookie": {
+      "title": "Cookie Policy",
+      "placeholder": "Placeholder — to be drafted and linked to a consent banner."
+    }
+  },
+  "notFound": {
+    "label": "404",
+    "title": "Page not found",
+    "subtitle": "The page you're looking for doesn't exist or has been moved.",
+    "back": "Back to home"
   },
   "footer": { "rights": "All rights reserved.", "privacy": "Privacy", "terms": "Terms", "cookies": "Cookies" }
 }

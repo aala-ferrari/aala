@@ -11,7 +11,7 @@ export function Values() {
   const t = useTranslations('home.values');
 
   return (
-    <section className="relative bg-canvas-warm/40 py-24 sm:py-32">
+    <section className="relative bg-canvas-warm/40 py-16 sm:py-24">
       <div aria-hidden className="absolute inset-0 -z-10 bg-radial-gold opacity-40" />
 
       <div className="container-aala">
@@ -25,19 +25,18 @@ export function Values() {
         >
           <div className="gold-rule mx-auto mb-8 w-24" />
           <p className="mb-3 text-xs uppercase tracking-[0.25em] text-gold">
-            I nostri valori
+            {t('eyebrow')}
           </p>
           <h2 className="font-display text-4xl tracking-tight text-ink sm:text-5xl">
             {t('title')}
           </h2>
           <p className="mt-4 text-base text-ink-soft">
-            Da Tirana al mondo: un'alleanza di servizi premium per imprese
-            che non accettano compromessi.
+            {t('subtitle')}
           </p>
         </motion.div>
 
         {/* Layout: globo + valori */}
-        <div className="mt-16 grid items-center gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+        <div className="mt-10 grid items-center gap-10 sm:mt-14 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
           {/* GLOBO */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -52,11 +51,11 @@ export function Values() {
             <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11px] uppercase tracking-widest text-ink-mute">
               <span className="flex items-center gap-1.5">
                 <span className="h-2 w-2 rounded-full bg-gold shadow-[0_0_8px_2px_rgba(245,230,168,0.6)]" />
-                AALA · 10 città
+                {t('legendAala')}
               </span>
               <span className="flex items-center gap-1.5">
                 <span className="h-1.5 w-1.5 rounded-full bg-gold-deep/70" />
-                Capitali mondiali
+                {t('legendWorld')}
               </span>
             </div>
           </motion.div>

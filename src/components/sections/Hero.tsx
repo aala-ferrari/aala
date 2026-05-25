@@ -11,7 +11,7 @@ export function Hero() {
   const locale = useLocale();
 
   return (
-    <section className="relative isolate flex min-h-[100svh] items-center overflow-hidden pt-16">
+    <section className="relative isolate flex min-h-[92svh] items-center overflow-hidden pt-16 pb-12 sm:pb-20">
       <HeroBackground />
 
       <div className="container-aala relative">
@@ -52,7 +52,12 @@ export function Hero() {
               hidden: { opacity: 0, y: 20 },
               show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } },
             }}
-            className="mx-auto mt-8 max-w-2xl text-pretty text-base leading-relaxed text-ink-soft sm:text-lg"
+            className="mx-auto mt-8 max-w-2xl text-pretty text-base font-medium leading-relaxed sm:text-lg"
+            style={{
+              color: '#08090f',
+              textShadow:
+                '0 0 6px rgba(255,255,255,0.95), 0 0 12px rgba(255,255,255,0.7), 0 1px 2px rgba(255,255,255,0.9)',
+            }}
           >
             {t('subtitle')}
           </motion.p>
