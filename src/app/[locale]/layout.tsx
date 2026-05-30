@@ -7,6 +7,7 @@ import { locales, type Locale } from '@/i18n';
 import { Nav } from '@/components/layout/Nav';
 import { Footer } from '@/components/layout/Footer';
 import { FloatingActions } from '@/components/layout/FloatingActions';
+import { BollaLauncher } from '@/components/bolla/BollaLauncher';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
 const fraunces = Fraunces({
@@ -40,6 +41,7 @@ export default async function LocaleLayout({
           <main className="relative">{children}</main>
           <Footer />
           <FloatingActions />
+          <BollaLauncher />
         </NextIntlClientProvider>
       </body>
     </html>
