@@ -43,16 +43,16 @@ export function BollaLauncher() {
             <span className="bolla-ripple" aria-hidden />
             <span className="bolla-ripple bolla-ripple-delay" aria-hidden />
 
-            {/* sfera dorata brillante che respira */}
+            {/* sfera dorata brillante, decisa, con bordo che stacca dal cream */}
             <span
-              className="relative flex h-full w-full items-center justify-center rounded-full"
+              className="relative flex h-full w-full items-center justify-center rounded-full ring-2 ring-gold-deep/60"
               style={{
                 background:
-                  'radial-gradient(circle at 32% 26%, #fff6d8 0%, #f2d488 35%, #d4a857 60%, #a07a26 100%)',
+                  'radial-gradient(circle at 32% 26%, #fff3c4 0%, #f0c860 30%, #d4a02e 60%, #8a6717 100%)',
                 animation: 'bollaGlow 2.4s ease-in-out infinite',
               }}
             >
-              <span className="text-2xl drop-shadow-[0_1px_2px_rgba(120,90,30,0.5)]">🫧</span>
+              <span className="text-2xl drop-shadow-[0_1px_2px_rgba(80,55,10,0.6)]">🫧</span>
             </span>
           </button>
 
