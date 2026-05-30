@@ -142,5 +142,22 @@
     "subtitle": "Die gesuchte Seite existiert nicht oder wurde verschoben.",
     "back": "Zurück zur Startseite"
   },
-  "footer": { "rights": "Alle Rechte vorbehalten.", "privacy": "Datenschutz", "terms": "AGB", "cookies": "Cookies" }
+  "footer": { "rights": "Alle Rechte vorbehalten.", "privacy": "Datenschutz", "terms": "AGB", "cookies": "Cookies" },
+  "bolla": {
+    "title": "Die AALA-Blase",
+    "statusIdle": "Assistentin · immer aktiv",
+    "statusThinking": "denkt nach…",
+    "welcome": "Hallo! Ich bin die AALA-Blase 🫧 Erzähl mir von deinem Unternehmen oder frag nach unseren Diensten — ich verstehe, was du brauchst, und führe dich.",
+    "placeholder": "Schreib der Blase…",
+    "whatsappChip": "📱 Schreib uns auf WhatsApp",
+    "error": "Ups, ich habe kurz die Verbindung verloren. Versuch es gleich nochmal 🙂",
+    "chips": {
+      "medical": "🩺 Arztpraxis",
+      "legal": "⚖️ Kanzlei",
+      "auto": "🚗 Autovermietung",
+      "dental": "🦷 Zahnklinik",
+      "taxi": "🚕 Taxi / Fahrdienst",
+      "webpages": "🌐 Website"
+    }
+  }
 }

@@ -142,5 +142,22 @@
     "subtitle": "The page you're looking for doesn't exist or has been moved.",
     "back": "Back to home"
   },
-  "footer": { "rights": "All rights reserved.", "privacy": "Privacy", "terms": "Terms", "cookies": "Cookies" }
+  "footer": { "rights": "All rights reserved.", "privacy": "Privacy", "terms": "Terms", "cookies": "Cookies" },
+  "bolla": {
+    "title": "The AALA Bubble",
+    "statusIdle": "assistant · always on",
+    "statusThinking": "thinking…",
+    "welcome": "Hi! I'm the AALA Bubble 🫧 Tell me about your business or ask about our services — I'll understand what you need and guide you.",
+    "placeholder": "Write to the Bubble…",
+    "whatsappChip": "📱 Message us on WhatsApp",
+    "error": "Oops, I lost the connection for a moment. Try again shortly 🙂",
+    "chips": {
+      "medical": "🩺 Medical practice",
+      "legal": "⚖️ Law firm",
+      "auto": "🚗 Car rental",
+      "dental": "🦷 Dental clinic",
+      "taxi": "🚕 Taxi / ride-hailing",
+      "webpages": "🌐 Website"
+    }
+  }
 }

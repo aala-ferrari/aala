@@ -167,5 +167,22 @@
     "privacy": "Privacy",
     "terms": "Termini",
     "cookies": "Cookie"
+  },
+  "bolla": {
+    "title": "La Bolla di AALA",
+    "statusIdle": "assistente · sempre attiva",
+    "statusThinking": "sta pensando…",
+    "welcome": "Ciao! Sono la Bolla di AALA 🫧 Raccontami della tua impresa o chiedimi dei nostri servizi — capisco di cosa hai bisogno e ti guido.",
+    "placeholder": "Scrivi alla Bolla…",
+    "whatsappChip": "📱 Scrivici su WhatsApp",
+    "error": "Ops, ho perso il collegamento un istante. Riprova tra poco 🙂",
+    "chips": {
+      "medical": "🩺 Studio medico",
+      "legal": "⚖️ Studio legale",
+      "auto": "🚗 Noleggio auto",
+      "dental": "🦷 Clinica dentale",
+      "taxi": "🚕 Taxi / NCC",
+      "webpages": "🌐 Sito web"
+    }
   }
 }

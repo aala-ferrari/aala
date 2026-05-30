@@ -1,0 +1,188 @@
+{
+  "brand": {
+    "name": "Albania Auto Legal Alliance",
+    "short": "AALA",
+    "tagline": "Auto · Legal · CRM · Medical · Webpages · Taxi App — një aleancë e vetme."
+  },
+  "nav": {
+    "services": "Shërbimet",
+    "pricing": "Çmimet",
+    "about": "Rreth nesh",
+    "contact": "Kontakt",
+    "login": "Hyr",
+    "signup": "Regjistrohu",
+    "account": "Llogaria ime"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Një partner i vetëm. Pesë shërbime premium.",
+      "title": "Teknologji që <gold>mbron</gold>, <gold>shet</gold> dhe <gold>rrit</gold> biznesin tënd.",
+      "subtitle": "CRM të personalizuara, sisteme për qira makinash, software ligjor me abonim dhe turizëm dentar me klientë të kualifikuar. Gjithçka nën një aleancë të vetme.",
+      "ctaPrimary": "Zbulo shërbimet",
+      "ctaSecondary": "Fol me ne"
+    },
+    "services": {
+      "title": "Pesë vertikale. Një premtim i vetëm: besueshmëria.",
+      "subtitle": "Zgjidh shërbimin që të duhet sot. Shto të tjerët kur të duash.",
+      "medical": {
+        "name": "CRM · Webpages",
+        "desc": "CRM të personalizuara për çdo sektor — studio mjekësore, klinika, çdo biznes. Plus faqe interneti 100% të personalizuara, pa shabllone të gatshme."
+      },
+      "auto": {
+        "name": "Menaxhim Makinash",
+        "desc": "Software për qira makinash: flota, rezervime, kontrata, mirëmbajtje, mobile e përfshirë."
+      },
+      "taxi": {
+        "name": "Taxi App",
+        "desc": "Aplikacion mobile dhe backend për menaxhimin e flotave të taksive në stil Bolt: udhëtim i menjëhershëm, shoferë, pagesa, hartë live, vlerësime."
+      },
+      "legal": {
+        "name": "Super Avokati",
+        "desc": "Suitë SaaS për studio ligjore: praktika, afate, kalendar, kërkim dokumentesh i asistuar. Ndihmon avokatin në zgjidhjen e çështjeve civile, penale dhe administrative falë inteligjencës artificiale të integruar të Super Avokatit. <em>Aktualisht i disponueshëm vetëm për të drejtën shqiptare — së shpejti edhe Itali.</em>"
+      },
+      "dental": {
+        "name": "Dental Tourism",
+        "desc": "Agjenci turizmi dentar: sjellim pacientë ndërkombëtarë të kualifikuar në klinikën tënde."
+      },
+      "learnMore": "Mëso më shumë"
+    },
+    "values": {
+      "eyebrow": "Vlerat tona",
+      "title": "Pse të zgjedhësh AALA",
+      "subtitle": "Nga Tirana në botë: një aleancë shërbimesh premium për bizneset që nuk pranojnë kompromise.",
+      "legendAala": "AALA · 10 qytete",
+      "legendWorld": "Kryeqytetet botërore",
+      "items": {
+        "trust": { "title": "Besueshmëri", "desc": "Nuk shesim premtime. Katër produkte tashmë operative, vite iterimesh me klientë realë. Ajo që tregojmë, funksionon — sot." },
+        "luxury": { "title": "Cilësi", "desc": "Elegancë është ajo që mbetet kur heq të tepërtën. Software të dizajnuara për të qenë intuitive që në shikimin e parë, të domosdoshme që në përdorimin e parë." },
+        "security": { "title": "Siguri", "desc": "Enkriptim at-rest dhe in-transit, GDPR, backup geo-redondante, SSO i unifikuar. Siguria e të dhënave tuaja nuk është një veçori: është themeli." },
+        "support": { "title": "Mbështetje", "desc": "Një emër i vetëm, një numër i vetëm. Pa bot, pa tiketa të humbura. Kur ju duhet ndihmë, flisni me dikë që mund të zgjidhë vërtet." }
+      }
+    },
+    "cta": {
+      "badge": "Në harmoni me biznesin tënd",
+      "title": "Gati për të filluar?",
+      "subtitle": "Një telefonatë, një rrugë e personalizuar.",
+      "button": "Kërko një konsulencë"
+    }
+  },
+  "pricing": {
+    "title": "Çmime transparente",
+    "subtitle": "Një herë për projekte custom, abonime për produktet SaaS.",
+    "monthly": "Mujore",
+    "annual": "Vjetore",
+    "annualSave": "kurse 20%",
+    "perMonth": "/muaj",
+    "perYear": "/vit",
+    "oneTime": "një herë",
+    "buy": "Bli",
+    "subscribe": "Abonohu",
+    "contact": "Kontakto",
+    "popular": "Më i kërkuari"
+  },
+  "about": {
+    "eyebrow": "Rreth nesh",
+    "titlePre": "Një ",
+    "titleHighlight": "aleancë",
+    "titlePost": " kompetencash.",
+    "p1": "Katër botë që, në shikim të parë, nuk flasin me njëra-tjetrën: studio mjekësore, koncesionarë makinash, avokatë, klinika turizmi dentar. Gjuhë të ndryshme, ritme të ndryshme, rregulla të ndryshme.",
+    "p2": "E megjithatë, gërmo nën sipërfaqe dhe do gjesh të njëjtin obsesion te secili prej tyre — <strong>të sundosh kohën</strong>, <strong>të ruash besimin</strong>, <strong>të mbash kontrollin</strong> kur gjërat ndërlikohen. Pikërisht në atë rrënjë të përbashkët lindi AALA.",
+    "p3": "<brand>Albania Auto Legal Alliance</brand> nuk është një studio çfarëdo zhvillimi software. Është një aleancë kompetencash të ndërtuara ndër vite, produkt pas produkti, klient pas klienti. Kur një sipërmarrës na zgjedh, nuk firmos për një furnizues: firmos për një partner që flet katër gjuhë profesionale dhe i kupton të gjitha.",
+    "p4": "Punojmë sipas një rregulli të thjeshtë e të pamëshirshëm: <em>pa shabllone, pa zgjidhje «pothuajse të sakta» të përshtatura me ulje</em>. Çdo CRM, çdo sistem menaxhimi, çdo aplikacion ligjor, çdo faqe interneti lind për kontekstin ku do të jetojë — dhe do të zgjasë. Cilësia nuk është një aspiratë: është kushti i ekzistencës.",
+    "p5": "<strong>Nga Tirana në botë</strong>, një premtim i vetëm shërbimi. Një person i vetëm referimi. Një aleancë e vetme që rritet bashkë me biznesin tënd. Sepse kush menaxhon diçka të rëndësishme nuk ka kohë të koordinojë dhjetë furnizues — dëshiron të dijë se prapa gjithçkaje ka një emër, një fytyrë, një dorë të sigurt.",
+    "quote": "Ndërtojmë software që zgjasin,\njo që vetëm mahnitin."
+  },
+  "contact": {
+    "eyebrow": "Kontakt",
+    "titleHighlight": "Të flasim.",
+    "subtitle": "Na trego për projektin tënd. Të përgjigjemi brenda 24 orësh me një rrugë të personalizuar.",
+    "phone": "+39 — për t'u konfiguruar",
+    "location": "Tiranë · Milano",
+    "form": {
+      "name": "Emri",
+      "company": "Kompania",
+      "email": "Email",
+      "phone": "Telefoni",
+      "service": "Shërbimi me interes",
+      "message": "Mesazhi",
+      "send": "Dërgo mesazhin",
+      "sending": "Duke dërguar...",
+      "received": "Mesazhi u mor.",
+      "willReply": "Do të përgjigjemi brenda 24 orësh.",
+      "services": {
+        "medical": "CRM e personalizuar (çdo sektor)",
+        "webpages": "Faqe interneti e personalizuar",
+        "auto": "Menaxhim Makinash",
+        "taxi": "Taxi App (stil Bolt)",
+        "legal": "Super Avokati (studio ligjore)",
+        "dental": "Dental Tourism (klinikë)",
+        "other": "Tjetër / Nuk e di"
+      }
+    }
+  },
+  "pricingPage": {
+    "eyebrow": "Çmimet",
+    "titlePre": "Çmime ",
+    "titleHighlight": "transparente",
+    "titlePost": "",
+    "subtitle": "Një herë për projekte custom. Abonime mujore për produktet SaaS. Pa kosto të fshehura, pa surpriza."
+  },
+  "demoEntry": {
+    "eyebrow": "Akses demo",
+    "titlePre": "Ke një ",
+    "titleHighlight": "kod?",
+    "subtitle": "Fut kodin me 9 karaktere që të kemi dërguar. Funksionon vetëm një herë dhe është i vlefshëm 7 ditë.",
+    "placeholder": "SQ-A4F8B2",
+    "submit": "Hyr",
+    "verifying": "Duke verifikuar...",
+    "openingProduct": "Duke hapur produktin...",
+    "fallbackLink": "Nëse nuk niset, kliko këtu",
+    "noCodeYet": "Nuk ke ende një kod?",
+    "requestAccess": "Kërko akses"
+  },
+  "legalPages": {
+    "privacy": {
+      "title": "Politika e Privatësisë",
+      "lastUpdated": "Përditësimi i fundit: për t'u përcaktuar",
+      "placeholder1": "Ky është një tekst i përkohshëm. Teksti përfundimtar duhet hartuar me një jurist sipas trajtimeve realë (mbledhje lead-esh, pagesa, cookies, shërbime cloud Supabase/Stripe/Vercel).",
+      "placeholder2": "Pikat minimale: kontrolluesi i të dhënave, baza ligjore, kategoritë e të dhënave, ruajtja, të drejtat GDPR, kontakti DPO."
+    },
+    "terms": {
+      "title": "Kushtet e shërbimit",
+      "placeholder": "Tekst i përkohshëm — për t'u hartuar me konsulencë ligjore."
+    },
+    "cookie": {
+      "title": "Politika e Cookie-ve",
+      "placeholder": "Tekst i përkohshëm — për t'u hartuar dhe lidhur me banner pëlqimi."
+    }
+  },
+  "notFound": {
+    "label": "404",
+    "title": "Faqja nuk u gjet",
+    "subtitle": "Faqja që po kërkon nuk ekziston ose është zhvendosur.",
+    "back": "Kthehu në fillim"
+  },
+  "footer": {
+    "rights": "Të gjitha të drejtat e rezervuara.",
+    "privacy": "Privatësia",
+    "terms": "Kushtet",
+    "cookies": "Cookie"
+  },
+  "bolla": {
+    "title": "Flluska e AALA-s",
+    "statusIdle": "asistente · gjithmonë aktive",
+    "statusThinking": "po mendon…",
+    "welcome": "Përshëndetje! Jam Flluska e AALA-s 🫧 Më trego për biznesin tënd ose pyetmë për shërbimet tona — e kuptoj çfarë të duhet dhe të udhëzoj.",
+    "placeholder": "Shkruaji Flluskës…",
+    "whatsappChip": "📱 Na shkruaj në WhatsApp",
+    "error": "Ups, humba lidhjen për një çast. Provo sërish pas pak 🙂",
+    "chips": {
+      "medical": "🩺 Studio mjekësore",
+      "legal": "⚖️ Studio ligjore",
+      "auto": "🚗 Qira makinash",
+      "dental": "🦷 Klinikë dentare",
+      "taxi": "🚕 Taksi / NCC",
+      "webpages": "🌐 Faqe interneti"
+    }
+  }
+}

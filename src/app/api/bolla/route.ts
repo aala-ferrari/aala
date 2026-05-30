@@ -15,6 +15,22 @@ interface ChatMessage {
 interface BollaApiBody {
   messages: ChatMessage[];
   state?: BollaState;
+  locale?: string;
+}
+
+// Lingua in cui la Bolla deve rispondere
+const LANG_NAME: Record<string, string> = {
+  it: 'italiano',
+  en: 'inglese (English)',
+  es: 'spagnolo (Español)',
+  fr: 'francese (Français)',
+  de: 'tedesco (Deutsch)',
+  sq: 'albanese (Shqip)',
+};
+
+function langInstruction(locale?: string): string {
+  const name = LANG_NAME[locale ?? 'it'] ?? LANG_NAME.it;
+  return `\n\nLINGUA OBBLIGATORIA: rispondi SEMPRE in ${name}, sia il campo "reply" sia i "chips". Scrivi in modo naturale e madrelingua in questa lingua. (Eccezione: tieni invariato il chip "📱 Scrivici su WhatsApp" — l'emoji resta, ma puoi tradurre il testo nella lingua scelta.)`;
 }
 
 // ──────────────────────────────────────────────────────────────
@@ -46,16 +62,25 @@ Rispondi SEMPRE e SOLO con un oggetto JSON valido (nient'altro, nessun testo fuo
   "reply": "la tua risposta all'utente (stringa, può contenere \\n per andare a capo)",
   "service": "medical|auto|legal|dental|taxi|webpages oppure null se non identificato",
   "chips": ["1-4 brevi suggerimenti cliccabili pertinenti, max 4 parole ciascuno"],
-  "lead": null oppure { "name": "...", "email": "..." } SOLO quando hai raccolto ENTRAMBI nome ed email validi
+  "whatsapp": true oppure false
 }
 
-Regole per i chips: proponi azioni utili come "Voglio una demo", "Quanto costa?", "Lasciami ricontattare", o i nomi dei servizi. Se stai chiedendo nome o email, lascia chips vuoto [].
-Quando l'utente vuole essere ricontattato o vuole una demo, chiedi prima il nome, poi l'email. Solo quando hai entrambi, valorizza "lead".`;
+Regole per i chips: proponi azioni utili come "Quanto costa?", o i nomi dei servizi.
+
+IMPORTANTE — gestione di demo, personalizzazioni, preventivi, "voglio parlare con qualcuno", contatto:
+NON chiedere nome né email. Invece, invita l'utente a continuare su WhatsApp dove un consulente umano lo segue subito. In questi casi:
+- metti "whatsapp": true
+- nella reply di' qualcosa tipo "Perfetto! Continuiamo su WhatsApp, così un nostro consulente ti segue subito e ti prepara [la demo / un preventivo su misura]."
+- INSERISCI tra i chips ESATTAMENTE questa voce: "📱 Scrivici su WhatsApp"
+In tutti gli altri casi (info, prezzi, spiegazioni) "whatsapp": false.`;
 
 // ──────────────────────────────────────────────────────────────
 // Backend 1: Anthropic API (se c'è la chiave) — funziona ovunque
 // ──────────────────────────────────────────────────────────────
-async function callAnthropicAPI(messages: ChatMessage[]): Promise<string | null> {
+async function callAnthropicAPI(
+  messages: ChatMessage[],
+  system: string
+): Promise<string | null> {
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key) return null;
 
@@ -70,7 +95,7 @@ async function callAnthropicAPI(messages: ChatMessage[]): Promise<string | null>
       body: JSON.stringify({
         model: MODEL,
         max_tokens: 1024,
-        system: SYSTEM_PROMPT,
+        system,
         messages: messages.map((m) => ({ role: m.role, content: m.content })),
       }),
     });
@@ -85,13 +110,16 @@ async function callAnthropicAPI(messages: ChatMessage[]): Promise<string | null>
 // ──────────────────────────────────────────────────────────────
 // Backend 2: Claude Code CLI (subscription, gratis) — solo locale
 // ──────────────────────────────────────────────────────────────
-function callClaudeCLI(messages: ChatMessage[]): Promise<string | null> {
+function callClaudeCLI(
+  messages: ChatMessage[],
+  system: string
+): Promise<string | null> {
   return new Promise((resolve) => {
     // costruisco il prompt: system + storico
     const convo = messages
       .map((m) => `${m.role === 'user' ? 'UTENTE' : 'BOLLA'}: ${m.content}`)
       .join('\n');
-    const prompt = `${SYSTEM_PROMPT}\n\n--- Conversazione finora ---\n${convo}\n\nRispondi ora (solo JSON):`;
+    const prompt = `${system}\n\n--- Conversazione finora ---\n${convo}\n\nRispondi ora (solo JSON):`;
 
     let out = '';
     let done = false;
@@ -141,19 +169,27 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'no messages' }, { status: 400 });
   }
 
+  // system prompt + istruzione lingua (la Bolla risponde nella lingua dell'utente)
+  const system = SYSTEM_PROMPT + langInstruction(body.locale);
+
   // prova i backend Claude in ordine
-  let raw = await callAnthropicAPI(messages);
-  if (!raw) raw = await callClaudeCLI(messages);
+  let raw = await callAnthropicAPI(messages, system);
+  if (!raw) raw = await callClaudeCLI(messages, system);
 
   if (raw) {
     const parsed = extractJSON(raw);
     if (parsed && typeof parsed.reply === 'string') {
+      const chips: string[] = Array.isArray(parsed.chips) ? parsed.chips.slice(0, 4) : [];
+      // se vuole WhatsApp ma il chip non c'è, lo aggiungo io
+      if (parsed.whatsapp && !chips.some((c) => c.toLowerCase().includes('whatsapp'))) {
+        chips.push('📱 Scrivici su WhatsApp');
+      }
       return NextResponse.json({
         source: 'claude',
         reply: parsed.reply,
         service: parsed.service ?? null,
-        chips: Array.isArray(parsed.chips) ? parsed.chips.slice(0, 4) : [],
-        lead: parsed.lead ?? null,
+        chips,
+        whatsapp: Boolean(parsed.whatsapp),
       });
     }
   }

@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 import { locales } from '@/i18n';
 
 const LANG_LABEL: Record<string, string> = {
-  it: 'IT', en: 'EN', es: 'ES', fr: 'FR', de: 'DE',
+  it: 'IT', en: 'EN', es: 'ES', fr: 'FR', de: 'DE', sq: 'SQ',
 };
 
 export function Nav() {

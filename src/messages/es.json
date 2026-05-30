@@ -142,5 +142,22 @@
     "subtitle": "La página que buscas no existe o ha sido movida.",
     "back": "Volver al inicio"
   },
-  "footer": { "rights": "Todos los derechos reservados.", "privacy": "Privacidad", "terms": "Términos", "cookies": "Cookies" }
+  "footer": { "rights": "Todos los derechos reservados.", "privacy": "Privacidad", "terms": "Términos", "cookies": "Cookies" },
+  "bolla": {
+    "title": "La Burbuja de AALA",
+    "statusIdle": "asistente · siempre activa",
+    "statusThinking": "pensando…",
+    "welcome": "¡Hola! Soy la Burbuja de AALA 🫧 Cuéntame sobre tu empresa o pregúntame por nuestros servicios — entiendo lo que necesitas y te guío.",
+    "placeholder": "Escribe a la Burbuja…",
+    "whatsappChip": "📱 Escríbenos por WhatsApp",
+    "error": "Vaya, perdí la conexión un momento. Inténtalo de nuevo enseguida 🙂",
+    "chips": {
+      "medical": "🩺 Consulta médica",
+      "legal": "⚖️ Despacho legal",
+      "auto": "🚗 Alquiler de coches",
+      "dental": "🦷 Clínica dental",
+      "taxi": "🚕 Taxi / VTC",
+      "webpages": "🌐 Sitio web"
+    }
+  }
 }

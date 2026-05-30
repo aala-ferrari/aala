@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
+import { useTranslations, useLocale } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, X, Sparkles } from 'lucide-react';
 import { BOLLA_COLORS, type BollaMood } from '@/lib/bolla-brain';
@@ -23,29 +24,48 @@ interface ApiReply {
   service: string | null;
   chips: string[];
   chipActions?: string[];
-  lead: { name: string; email: string; service?: string } | null;
+  whatsapp?: boolean;
 }
 
-const WELCOME =
-  'Ciao! Sono la Bolla di AALA 🫧 Raccontami della tua impresa o chiedimi dei nostri servizi — capisco di cosa hai bisogno e ti guido.';
-const WELCOME_CHIPS = [
-  '🩺 Studio medico',
-  '⚖️ Studio legale',
-  '🚗 Noleggio auto',
-  '🦷 Clinica dentale',
-  '🚕 Taxi / NCC',
-  '🌐 Sito web',
-];
+const WHATSAPP_NUMBER = '355699555777';
+const SERVICE_LABELS: Record<string, string> = {
+  medical: 'il CRM Medical',
+  auto: 'il Gestionale Auto',
+  legal: 'Super Avokati',
+  dental: 'il Dental Tourism',
+  taxi: 'la Taxi App',
+  webpages: 'un sito web su misura',
+};
+
+function openWhatsApp(service: string | null) {
+  const what = service && SERVICE_LABELS[service] ? SERVICE_LABELS[service] : 'i vostri servizi';
+  const msg = `Ciao AALA! Ho parlato con la Bolla sul sito e vorrei più informazioni / una demo su ${what}.`;
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
 
 export function BollaAssistant({ onClose }: { onClose: () => void }) {
+  const t = useTranslations('bolla');
+  const locale = useLocale();
+
+  const welcomeChips = [
+    t('chips.medical'),
+    t('chips.legal'),
+    t('chips.auto'),
+    t('chips.dental'),
+    t('chips.taxi'),
+    t('chips.webpages'),
+  ];
+
   const [messages, setMessages] = useState<Msg[]>([
-    { role: 'assistant', content: WELCOME },
+    { role: 'assistant', content: t('welcome') },
   ]);
-  const [chips, setChips] = useState<string[]>(WELCOME_CHIPS);
+  const [chips, setChips] = useState<string[]>(welcomeChips);
   const [mood, setMood] = useState<BollaMood>('idle');
   const [color, setColor] = useState(BOLLA_COLORS.default);
   const [input, setInput] = useState('');
   const [busy, setBusy] = useState(false);
+  const [currentService, setCurrentService] = useState<string | null>(null);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -63,6 +83,12 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
       const clean = text.trim();
       if (!clean || busy) return;
 
+      // chip WhatsApp → apri la chat con messaggio precompilato, non inviare alla Bolla
+      if (clean.toLowerCase().includes('whatsapp')) {
+        openWhatsApp(currentService);
+        return;
+      }
+
       const nextMsgs: Msg[] = [...messages, { role: 'user', content: clean }];
       setMessages(nextMsgs);
       setInput('');
@@ -74,49 +100,30 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
         const res = await fetch('/api/bolla', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ messages: nextMsgs }),
+          body: JSON.stringify({ messages: nextMsgs, locale }),
         });
         const data: ApiReply = await res.json();
 
-        // colore bolla in base al servizio rilevato
+        // colore bolla + servizio corrente
         if (data.service && BOLLA_COLORS[data.service]) {
           setColor(BOLLA_COLORS[data.service]);
         }
+        if (data.service) setCurrentService(data.service);
 
         setMood('speaking');
         setMessages((m) => [...m, { role: 'assistant', content: data.reply }]);
         setChips(data.chips ?? []);
 
-        // se Claude ha raccolto un lead → lo salvo nel CRM AALA
-        if (data.lead?.name && data.lead?.email) {
-          fetch('/api/leads', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              name: data.lead.name,
-              email: data.lead.email,
-              service: data.service ?? data.lead.service ?? 'other',
-              message: 'Lead raccolto dalla Bolla AALA (assistente AI).',
-            }),
-          }).catch(() => {});
-        }
-
         // torna idle dopo un attimo
         setTimeout(() => setMood('idle'), 2600);
       } catch {
-        setMessages((m) => [
-          ...m,
-          {
-            role: 'assistant',
-            content: 'Ops, ho perso il collegamento un istante. Riprova tra poco 🙂',
-          },
-        ]);
+        setMessages((m) => [...m, { role: 'assistant', content: t('error') }]);
         setMood('idle');
       } finally {
         setBusy(false);
       }
     },
-    [messages, busy]
+    [messages, busy, currentService, locale, t]
   );
 
   return (
@@ -125,14 +132,14 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 30, scale: 0.96 }}
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed inset-x-3 bottom-3 z-[60] mx-auto flex max-h-[80vh] w-auto max-w-md flex-col overflow-hidden rounded-3xl sm:inset-x-auto sm:right-6 sm:bottom-6 sm:w-[400px]"
+      className="fixed inset-x-3 bottom-3 z-[60] mx-auto flex max-h-[80vh] w-auto max-w-md flex-col overflow-hidden rounded-3xl sm:inset-x-auto sm:left-6 sm:bottom-6 sm:mx-0 sm:w-[400px]"
       style={{
         background: 'linear-gradient(180deg, #fbf8f0 0%, #f6f1e6 100%)',
         boxShadow: '0 30px 80px -20px rgba(15,25,42,0.35), 0 0 0 1px rgba(231,224,207,0.9)',
       }}
     >
       {/* ── Header con la Bolla 3D viva ── */}
-      <div className="relative overflow-hidden px-5 pt-5 pb-3">
+      <div className="relative shrink-0 overflow-hidden px-5 pt-5 pb-3">
         <div
           aria-hidden
           className="absolute inset-0 -z-10"
@@ -149,11 +156,11 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
           </div>
           <div className="flex-1">
             <p className="flex items-center gap-1.5 font-display text-lg leading-tight text-ink">
-              La Bolla di AALA
+              {t('title')}
               <Sparkles className="h-3.5 w-3.5 text-gold" />
             </p>
             <p className="text-xs text-ink-soft">
-              {mood === 'thinking' ? 'sta pensando…' : 'assistente · sempre attiva'}
+              {mood === 'thinking' ? t('statusThinking') : t('statusIdle')}
             </p>
           </div>
           <button
@@ -166,10 +173,10 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
         </div>
       </div>
 
-      <div className="h-px bg-ink-line/60" />
+      <div className="h-px shrink-0 bg-ink-line/60" />
 
-      {/* ── Messaggi ── */}
-      <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-5 py-4">
+      {/* ── Messaggi (unica zona che scrolla) ── */}
+      <div ref={scrollRef} className="min-h-0 flex-1 space-y-3 overflow-y-auto px-5 py-4">
         {messages.map((m, i) => (
           <MessageBubble key={i} role={m.role} text={m.content} color={color} />
         ))}
@@ -178,16 +185,31 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
 
       {/* ── Chip suggerimenti ── */}
       {chips.length > 0 && !busy && (
-        <div className="flex flex-wrap gap-2 px-5 pb-3">
-          {chips.map((c, i) => (
-            <button
-              key={i}
-              onClick={() => send(c)}
-              className="rounded-full border border-gold/40 bg-canvas-paper px-3 py-1.5 text-xs text-ink transition hover:border-gold hover:bg-gold/10"
-            >
-              {c}
-            </button>
-          ))}
+        <div className="flex shrink-0 flex-wrap gap-2 px-5 pb-3">
+          {chips.map((c, i) => {
+            const isWa = c.toLowerCase().includes('whatsapp');
+            // il chip WhatsApp mostra sempre la versione tradotta nella lingua corrente
+            const label = isWa ? t('whatsappChip') : c;
+            return (
+              <button
+                key={i}
+                onClick={() => send(c)}
+                className={cn(
+                  'rounded-full px-3 py-1.5 text-xs font-medium transition',
+                  isWa
+                    ? 'text-white shadow-sm hover:brightness-105'
+                    : 'border border-gold/40 bg-canvas-paper text-ink hover:border-gold hover:bg-gold/10'
+                )}
+                style={
+                  isWa
+                    ? { background: 'linear-gradient(135deg, #25b34a 0%, #1a8f3c 100%)' }
+                    : undefined
+                }
+              >
+                {label}
+              </button>
+            );
+          })}
         </div>
       )}
 
@@ -197,13 +219,13 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
           e.preventDefault();
           send(input);
         }}
-        className="flex items-center gap-2 border-t border-ink-line/60 bg-canvas-paper/60 p-3"
+        className="flex shrink-0 items-center gap-2 border-t border-ink-line/60 bg-canvas-paper/60 p-3"
       >
         <input
           ref={inputRef}
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Scrivi alla Bolla…"
+          placeholder={t('placeholder')}
           disabled={busy}
           className="flex-1 rounded-full border border-ink-line bg-white px-4 py-2.5 text-sm text-ink outline-none transition focus:border-gold disabled:opacity-60"
         />
