@@ -149,7 +149,10 @@ function Globe() {
   useFrame((_s, dt) => {
     if (groupRef.current) {
       groupRef.current.rotation.y += dt * 0.32;
-      groupRef.current.rotation.x = Math.sin(_s.clock.elapsedTime * 0.15) * 0.08;
+      // Tilt fisso (~26°): inclina il polo nord verso lo spettatore così le
+      // città AALA (Europa/USA, latitudini nord) e gli archi da Tirana
+      // restano al centro della vista invece che schiacciati in alto.
+      groupRef.current.rotation.x = 0.72 + Math.sin(_s.clock.elapsedTime * 0.15) * 0.05;
     }
   });
 

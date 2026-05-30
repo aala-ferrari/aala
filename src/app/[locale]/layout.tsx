@@ -6,6 +6,7 @@ import { Inter, Fraunces } from 'next/font/google';
 import { locales, type Locale } from '@/i18n';
 import { Nav } from '@/components/layout/Nav';
 import { Footer } from '@/components/layout/Footer';
+import { FloatingActions } from '@/components/layout/FloatingActions';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
 const fraunces = Fraunces({
@@ -38,6 +39,7 @@ export default async function LocaleLayout({
           <Nav />
           <main className="relative">{children}</main>
           <Footer />
+          <FloatingActions />
         </NextIntlClientProvider>
       </body>
     </html>

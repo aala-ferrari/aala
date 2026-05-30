@@ -1,30 +1,21 @@
 'use client';
 
-import dynamic from 'next/dynamic';
-import { useEffect, useState, useMemo } from 'react';
+import { useMemo } from 'react';
 
-const LuxuryScene = dynamic(
-  () => import('./LuxuryScene').then((m) => m.LuxuryScene),
-  { ssr: false }
-);
-
+/**
+ * Solo gli effetti ambientali del hero (gradient, blob, particelle, ornamenti).
+ * La bolla 3D è stata estratta in HeroBolla e vive in una colonna del layout,
+ * così il testo non ci finisce mai sopra.
+ */
 export function HeroBackground() {
-  const [enabled, setEnabled] = useState(false);
-
-  useEffect(() => {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const lowMem = (navigator as any).deviceMemory && (navigator as any).deviceMemory < 4;
-    setEnabled(!reduced && !lowMem);
-  }, []);
-
   return (
     <div className="absolute inset-0 -z-10 overflow-hidden">
-      {/* Base più caldo del solo cream — sfumatura ricca champagne/oro */}
+      {/* Base più caldo del solo cream — gradient stratificato (più caldo a destra dove sta la bolla) */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 80% 60% at 70% 25%, rgba(212,168,87,0.40) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 15% 30%, rgba(176,138,62,0.22) 0%, transparent 60%), radial-gradient(ellipse 90% 70% at 50% 100%, rgba(246,241,230,1) 0%, transparent 70%), linear-gradient(180deg, #faf3e3 0%, #f6f1e6 70%, #efe7d3 100%)',
+            'radial-gradient(ellipse 70% 70% at 80% 35%, rgba(212,168,87,0.35) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 10% 25%, rgba(176,138,62,0.16) 0%, transparent 60%), radial-gradient(ellipse 90% 70% at 50% 100%, rgba(246,241,230,1) 0%, transparent 70%), linear-gradient(180deg, #faf3e3 0%, #f6f1e6 70%, #efe7d3 100%)',
         }}
       />
 
@@ -37,19 +28,7 @@ export function HeroBackground() {
       {/* Cornici art-deco verticali */}
       <SideOrnaments />
 
-      <div className="grid-pattern absolute inset-0 opacity-50" />
-
-      {enabled && <LuxuryScene />}
-
-      {/* Vignette agli angoli — spotlight feel */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(ellipse 70% 60% at 50% 50%, transparent 50%, rgba(120,90,30,0.18) 100%)',
-        }}
-      />
+      <div className="grid-pattern absolute inset-0 opacity-40" />
 
       {/* Fade bottom — più sottile per ridurre spazio vuoto */}
       <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent via-canvas/60 to-canvas" />

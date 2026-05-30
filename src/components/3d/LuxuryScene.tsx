@@ -99,37 +99,6 @@ function DistantSpheres() {
 }
 
 /**
- * Pavimento riflettente sotto la bolla — luxury showroom feel.
- */
-function ReflectiveFloor() {
-  return (
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2.6, 0]}>
-      <circleGeometry args={[6, 64]} />
-      <meshStandardMaterial
-        color="#f6f1e6"
-        metalness={0.6}
-        roughness={0.45}
-        transparent
-        opacity={0.5}
-        depthWrite={false}
-      />
-    </mesh>
-  );
-}
-
-/**
- * Ombra-alone del pianeta sul pavimento
- */
-function GroundShadow() {
-  return (
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2.55, 0]}>
-      <circleGeometry args={[2.2, 48]} />
-      <meshBasicMaterial color="#15192a" transparent opacity={0.12} depthWrite={false} />
-    </mesh>
-  );
-}
-
-/**
  * Micro-bolle d'oro che orbitano in spazio attorno alla bolla principale.
  * Sostituiscono le vecchie "particelle squadrate" (point sprites).
  */
@@ -144,17 +113,19 @@ function MicroBolle({ count = 40 }: { count?: number }) {
       phase: number;
     }[] = [];
     for (let i = 0; i < count; i++) {
-      const r = 3 + Math.random() * 2.5;
+      const r = 2.7 + Math.random() * 2.6;
       const theta = Math.random() * Math.PI * 2;
-      const phi = (Math.random() - 0.5) * Math.PI * 0.8;
+      const phi = (Math.random() - 0.5) * Math.PI * 0.85;
+      // ~1 su 6 è una bollicina "grande" per varietà
+      const big = i % 6 === 0;
       arr.push({
         pos: [
           Math.cos(theta) * Math.cos(phi) * r,
           Math.sin(phi) * r,
           Math.sin(theta) * Math.cos(phi) * r,
         ],
-        size: 0.025 + Math.random() * 0.045,
-        pulseSpeed: 0.6 + Math.random() * 0.9,
+        size: big ? 0.09 + Math.random() * 0.05 : 0.025 + Math.random() * 0.04,
+        pulseSpeed: 0.5 + Math.random() * 0.9,
         phase: Math.random() * Math.PI * 2,
       });
     }
@@ -191,19 +162,23 @@ function MicroBollaDot({
     if (!ref.current) return;
     const t = s.clock.elapsedTime;
     const wave = (Math.sin(t * pulseSpeed + phase) + 1) / 2;
-    const mat = ref.current.material as THREE.MeshStandardMaterial;
-    mat.emissiveIntensity = 0.6 + wave * 1.6;
-    ref.current.scale.setScalar(0.85 + wave * 0.4);
+    const mat = ref.current.material as THREE.MeshPhysicalMaterial;
+    mat.emissiveIntensity = 0.4 + wave * 1.2;
+    ref.current.scale.setScalar(0.85 + wave * 0.45);
   });
   return (
     <mesh ref={ref} position={pos}>
-      <sphereGeometry args={[size, 12, 12]} />
-      <meshStandardMaterial
-        color="#d4af37"
+      <sphereGeometry args={[size, 24, 24]} />
+      <meshPhysicalMaterial
+        color="#e8c97a"
         emissive="#f5e6a8"
-        emissiveIntensity={1}
-        metalness={0.6}
-        roughness={0.3}
+        emissiveIntensity={0.8}
+        metalness={0.35}
+        roughness={0.12}
+        clearcoat={1}
+        clearcoatRoughness={0.1}
+        iridescence={0.6}
+        iridescenceIOR={1.3}
       />
     </mesh>
   );
@@ -212,34 +187,22 @@ function MicroBollaDot({
 export function LuxuryScene() {
   return (
     <Canvas
-      camera={{ position: [0, 0.3, 5.4], fov: 45 }}
+      camera={{ position: [0, 0, 5.4], fov: 45 }}
       dpr={[1, 1.8]}
       gl={{ antialias: true, alpha: true }}
       className="!absolute inset-0"
     >
-      <color attach="background" args={['#00000000']} />
-
-      {/* Lighting drammatico da showroom di lusso */}
-      <ambientLight intensity={0.35} />
-      <directionalLight position={[5, 6, 5]} intensity={1.8} color="#ffe9b0" castShadow />
-      <directionalLight position={[-5, 3, -3]} intensity={0.5} color="#fff7e0" />
-      <directionalLight position={[3, -2, 4]} intensity={0.5} color="#d4af37" />
-      <pointLight position={[0, 0, 3]} intensity={1.3} color="#c9a849" distance={6} />
-      {/* Spotlight dall'alto sulla bolla — effetto teatro */}
-      <spotLight
-        position={[0, 6, 2]}
-        angle={0.6}
-        penumbra={0.5}
-        intensity={2.2}
-        color="#fff2c4"
-        target-position={[0, 0, 0]}
-      />
+      {/* Illuminazione morbida — fa scorrere riflessi dolci sulla superficie
+          morfante (effetto "bolla di Zhiva" viva). Niente spotlight forti che
+          creano hotspot bianchi e appiattiscono il morphing. */}
+      <ambientLight intensity={0.4} />
+      <directionalLight position={[5, 4, 5]} intensity={1.4} color="#ffe9b0" />
+      <directionalLight position={[-4, 2, -3]} intensity={0.7} color="#fff7e0" />
+      <pointLight position={[0, 0, 3]} intensity={1.2} color="#c9a849" distance={6} />
 
       <Environment preset="studio" />
 
       <DistantSpheres />
-      <ReflectiveFloor />
-      <GroundShadow />
 
       <GoldSphere />
       <GoldRing />
