@@ -7,22 +7,24 @@ import {
 import {
   generateConsultantCode,
   CONSULTANT_TIERS,
+  dbTier,
   type ConsultantTier,
 } from '@/lib/demo-codes';
 import { sendConsultantCodeEmail } from '@/lib/email';
 
 const EXPIRES_DAYS = 14;
 
-const Body = z.object({
-  tier: z.enum(['smart', 'medium', 'max']),
-});
+const TierEnum = z.enum(['smart', 'medium', 'max', 'unlimited']);
 
-// Admin: genera un codice Super Consulente per un lead, col tier scelto.
-export async function POST(req: Request, { params }: { params: { id: string } }) {
+const Body = z.object({ tier: TierEnum });
+const UpgradeBody = z.object({ code: z.string().min(4).max(40), tier: TierEnum });
+
+async function requireAdmin(req: Request) {
   const ssr = createSupabaseServerClient();
-  const { data: { user } } = await ssr.auth.getUser();
-  if (!user) return NextResponse.json({ error: 'Auth required' }, { status: 401 });
-
+  const {
+    data: { user },
+  } = await ssr.auth.getUser();
+  if (!user) return { error: NextResponse.json({ error: 'Auth required' }, { status: 401 }) };
   const admin = createSupabaseServiceClient();
   const { data: profile } = await admin
     .from('profiles')
@@ -30,8 +32,16 @@ export async function POST(req: Request, { params }: { params: { id: string } })
     .eq('id', user.id)
     .single();
   if (profile?.role !== 'admin') {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    return { error: NextResponse.json({ error: 'Forbidden' }, { status: 403 }) };
   }
+  return { user, admin };
+}
+
+// Admin: genera un codice Super Consulente per un lead, col tier scelto.
+export async function POST(req: Request, { params }: { params: { id: string } }) {
+  const auth = await requireAdmin(req);
+  if (auth.error) return auth.error;
+  const { user, admin } = auth;
 
   const parsed = Body.safeParse(await req.json().catch(() => ({})));
   if (!parsed.success) {
@@ -56,16 +66,17 @@ export async function POST(req: Request, { params }: { params: { id: string } })
     const candidate = generateConsultantCode();
     const { error } = await admin.from('demo_codes').insert({
       code: candidate,
-      vertical: lead.service && ['medical', 'auto', 'legal', 'dental', 'taxi'].includes(lead.service)
-        ? lead.service
-        : 'legal',
+      vertical:
+        lead.service && ['medical', 'auto', 'legal', 'dental', 'taxi'].includes(lead.service)
+          ? lead.service
+          : 'legal',
       kind: 'consultant',
-      tier,
+      tier: dbTier(tier), // 'unlimited' viene salvato come 'max' + limite enorme
       questions_limit: spec.questions,
       questions_used: 0,
       lead_id: lead.id,
       email: lead.email,
-      created_by: user.id,
+      created_by: user!.id,
       expires_at: expiresAt,
     });
     if (!error) {
@@ -101,5 +112,52 @@ export async function POST(req: Request, { params }: { params: { id: string } })
     expiresInDays: EXPIRES_DAYS,
     emailSent: emailResult.sent,
     emailError: emailResult.error ?? emailResult.skipped ?? null,
+  });
+}
+
+// Admin: AGGIORNA il piano di un codice già esistente (es. Medium → Max → Illimitato).
+// Mantiene le domande già usate, alza il limite e rinfresca la scadenza.
+export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+  const auth = await requireAdmin(req);
+  if (auth.error) return auth.error;
+  const { admin } = auth;
+
+  const parsed = UpgradeBody.safeParse(await req.json().catch(() => ({})));
+  if (!parsed.success) {
+    return NextResponse.json({ error: 'Dati non validi' }, { status: 400 });
+  }
+  const newTier = parsed.data.tier as ConsultantTier;
+  const spec = CONSULTANT_TIERS[newTier];
+  const codeUp = parsed.data.code.trim().toUpperCase();
+
+  // il codice deve esistere, essere consulente e appartenere a questo lead
+  const { data: row, error } = await admin
+    .from('demo_codes')
+    .select('*')
+    .eq('code', codeUp)
+    .eq('kind', 'consultant')
+    .eq('lead_id', params.id)
+    .maybeSingle();
+  if (error) return NextResponse.json({ error: 'Errore lookup' }, { status: 500 });
+  if (!row) return NextResponse.json({ error: 'Codice non trovato' }, { status: 404 });
+
+  const expiresAt = new Date(Date.now() + EXPIRES_DAYS * 86400000).toISOString();
+  const { error: upErr } = await admin
+    .from('demo_codes')
+    .update({
+      tier: dbTier(newTier),
+      questions_limit: spec.questions,
+      expires_at: expiresAt,
+    })
+    .eq('code', codeUp);
+  if (upErr) return NextResponse.json({ error: upErr.message }, { status: 500 });
+
+  return NextResponse.json({
+    code: codeUp,
+    tier: newTier,
+    questions: spec.questions,
+    documents: spec.documents,
+    questionsUsed: row.questions_used ?? 0,
+    expiresInDays: EXPIRES_DAYS,
   });
 }

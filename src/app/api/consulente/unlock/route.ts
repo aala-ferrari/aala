@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createSupabaseServiceClient } from '@/lib/supabase/server';
-import { CONSULTANT_TIERS, type ConsultantTier } from '@/lib/demo-codes';
+import { CONSULTANT_TIERS, effectiveTier, isUnlimited } from '@/lib/demo-codes';
 
 const Body = z.object({
   code: z.string().min(4).max(40).transform((s) => s.trim().toUpperCase()),
@@ -38,13 +38,15 @@ export async function POST(req: Request) {
     );
   }
 
-  const tier = row.tier as ConsultantTier;
+  const tier = effectiveTier(row.tier, row.questions_limit);
   const spec = CONSULTANT_TIERS[tier];
+  const unlimited = isUnlimited(row.questions_limit);
 
   return NextResponse.json({
     ok: true,
     code: parsed.data.code,
     tier,
+    unlimited,
     questionsLimit: row.questions_limit,
     questionsUsed: row.questions_used,
     remaining: row.remaining,

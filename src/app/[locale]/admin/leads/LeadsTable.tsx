@@ -4,12 +4,23 @@ import { useState, useMemo, useEffect } from 'react';
 import { Check, Copy, KeyRound, Clock, Mail, Loader2, MailCheck, MailX, Link as LinkIcon, Brain, MessageCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-type ConsultTier = 'smart' | 'medium' | 'max';
-const CONSULT_TIERS: { tier: ConsultTier; label: string; q: number }[] = [
-  { tier: 'smart', label: 'Smart', q: 3 },
-  { tier: 'medium', label: 'Medium', q: 8 },
-  { tier: 'max', label: 'Max', q: 20 },
+type ConsultTier = 'smart' | 'medium' | 'max' | 'unlimited';
+const UNLIMITED_Q = 999999;
+const CONSULT_TIERS: { tier: ConsultTier; label: string; q: number; qLabel: string }[] = [
+  { tier: 'smart', label: 'Smart', q: 3, qLabel: '3 domande' },
+  { tier: 'medium', label: 'Medium', q: 8, qLabel: '8 domande' },
+  { tier: 'max', label: 'Max', q: 20, qLabel: '20 domande + doc' },
+  { tier: 'unlimited', label: 'Illimitato', q: UNLIMITED_Q, qLabel: '∞ domande + doc' },
 ];
+const TIER_RANK: Record<ConsultTier, number> = { smart: 0, medium: 1, max: 2, unlimited: 3 };
+// piano "logico": se il limite è enorme è illimitato, a prescindere dal tier salvato
+function effTier(tier: ConsultTier | null | undefined, qlimit?: number | null): ConsultTier {
+  if ((qlimit ?? 0) >= UNLIMITED_Q) return 'unlimited';
+  return (tier as ConsultTier) ?? 'smart';
+}
+function qLabelFor(n: number): string {
+  return n >= UNLIMITED_Q ? '∞ domande' : `${n} domande`;
+}
 
 interface ConsultResult {
   code: string;
@@ -99,6 +110,50 @@ export function LeadsTable({
           emailError: json.emailError,
         },
       }));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Errore');
+    } finally {
+      setConsultBusy(null);
+    }
+  }
+
+  // Aggiorna il piano di un codice già esistente (es. Medium → Max/Illimitato)
+  async function upgradeConsultant(leadId: string, code: string, tier: ConsultTier) {
+    setConsultBusy(leadId);
+    setError(null);
+    try {
+      const res = await fetch(`/api/admin/leads/${leadId}/consultant`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code, tier }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error ?? 'Errore');
+      // aggiorna la riga sia in sessione sia nei dati caricati dal DB
+      setConsultResults((prev) => ({
+        ...prev,
+        [leadId]: {
+          code: json.code,
+          tier: json.tier,
+          questions: json.questions,
+          documents: json.documents,
+          expiresInDays: json.expiresInDays,
+          emailSent: false,
+          questionsUsed: json.questionsUsed,
+          fromDb: true,
+        },
+      }));
+      setCodes((prev) =>
+        prev.map((c) =>
+          c.code === json.code
+            ? {
+                ...c,
+                tier: json.tier === 'unlimited' ? 'max' : json.tier,
+                questions_limit: json.questions,
+              }
+            : c
+        )
+      );
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Errore');
     } finally {
@@ -265,6 +320,7 @@ export function LeadsTable({
                     result={consultResults[lead.id]}
                     existing={dbConsultCode}
                     onGenerate={generateConsultant}
+                    onUpgrade={upgradeConsultant}
                     onCopy={copyCode}
                     copied={copied}
                   />
@@ -308,6 +364,7 @@ function ConsultantPanel({
   result,
   existing,
   onGenerate,
+  onUpgrade,
   onCopy,
   copied,
 }: {
@@ -318,10 +375,12 @@ function ConsultantPanel({
   result?: ConsultResult;
   existing?: DemoCode;
   onGenerate: (leadId: string, tier: ConsultTier) => void;
+  onUpgrade: (leadId: string, code: string, tier: ConsultTier) => void;
   onCopy: (text: string, key: string) => void;
   copied: string | null;
 }) {
   const [open, setOpen] = useState(false);
+  const [upgrading, setUpgrading] = useState(false);
 
   // Codice da mostrare: quello appena generato in sessione, oppure quello già
   // presente nel database (così resta visibile anche dopo un reload del pannello).
@@ -330,9 +389,11 @@ function ConsultantPanel({
     (existing && existing.tier
       ? {
           code: existing.code,
-          tier: existing.tier,
+          tier: effTier(existing.tier, existing.questions_limit),
           questions: existing.questions_limit ?? 0,
-          documents: existing.tier === 'max',
+          documents: ['max', 'unlimited'].includes(
+            effTier(existing.tier, existing.questions_limit)
+          ),
           expiresInDays: Math.max(
             0,
             Math.ceil((new Date(existing.expires_at).getTime() - Date.now()) / 86400000)
@@ -342,6 +403,12 @@ function ConsultantPanel({
           fromDb: true,
         }
       : undefined);
+  const shownTier: ConsultTier | undefined = shown
+    ? effTier(shown.tier, shown.questions)
+    : undefined;
+  const tierLabel = shownTier ? CONSULT_TIERS.find((t) => t.tier === shownTier)?.label : '';
+  // piani a cui si può fare upgrade (solo più alti di quello attuale)
+  const upgrades = shownTier ? CONSULT_TIERS.filter((t) => TIER_RANK[t.tier] > TIER_RANK[shownTier]) : [];
 
   // Apre WhatsApp col messaggio + codice già pronto. Se il lead ha un telefono,
   // va dritto a lui; altrimenti apre WhatsApp e scegli tu il contatto.
@@ -350,7 +417,7 @@ function ConsultantPanel({
     const msg =
       `Ciao ${leadName}! 🧠 Ecco il tuo accesso al Super Consulente AALA.\n\n` +
       `Codice: ${r.code}\n` +
-      `${r.questions} domande${r.documents ? ' + analisi documenti' : ''} · valido ${r.expiresInDays} giorni\n\n` +
+      `${qLabelFor(r.questions)}${r.documents ? ' + analisi documenti' : ''} · valido ${r.expiresInDays} giorni\n\n` +
       `Apri ${site} , clicca sulla Bolla in basso e poi su "Super Consulente", e inserisci il codice. A presto!`;
     const phone = (leadPhone ?? '').replace(/[^0-9]/g, '');
     const url = phone
@@ -364,7 +431,7 @@ function ConsultantPanel({
     return (
       <div className="mt-1 rounded-xl border border-gold/40 bg-gold/5 p-3 md:min-w-[300px]">
         <p className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-gold">
-          <Brain className="h-3 w-3" /> Super Consulente · {shown.tier}
+          <Brain className="h-3 w-3" /> Super Consulente · {tierLabel}
           {shown.fromDb && <span className="text-ink-mute">· salvato</span>}
         </p>
         <div className="mt-2 flex items-center gap-2">
@@ -384,9 +451,11 @@ function ConsultantPanel({
           </button>
         </div>
         <p className="mt-1.5 text-[10px] text-ink-mute">
-          {shown.questionsUsed != null
-            ? `${shown.questionsUsed}/${shown.questions} domande usate`
-            : `${shown.questions} domande`}
+          {shownTier === 'unlimited'
+            ? `${shown.questionsUsed ?? 0} usate · ∞`
+            : shown.questionsUsed != null
+              ? `${shown.questionsUsed}/${shown.questions} domande usate`
+              : qLabelFor(shown.questions)}
           {shown.documents ? ' · documenti' : ''} ·{' '}
           {expired ? 'scaduto' : `scade tra ${shown.expiresInDays} giorni`}
         </p>
@@ -411,6 +480,50 @@ function ConsultantPanel({
               <MailX className="h-3 w-3" /> Email non configurata — usa WhatsApp qui sopra
             </p>
           ))}
+
+        {/* Aggiorna il piano di questo stesso codice (solo verso piani superiori) */}
+        {upgrades.length > 0 && (
+          <div className="mt-3 border-t border-gold/20 pt-2.5">
+            {!upgrading ? (
+              <button
+                onClick={() => setUpgrading(true)}
+                className="text-[11px] font-medium text-gold transition hover:underline"
+              >
+                ⬆ Aggiorna piano (stesso codice)
+              </button>
+            ) : (
+              <div>
+                <p className="mb-1.5 text-[10px] uppercase tracking-widest text-ink-mute">
+                  Porta a un piano superiore
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {upgrades.map((tt) => (
+                    <button
+                      key={tt.tier}
+                      disabled={busy}
+                      onClick={() => {
+                        onUpgrade(leadId, shown.code, tt.tier);
+                        setUpgrading(false);
+                      }}
+                      className={cn(
+                        'rounded-lg border border-gold/40 bg-white px-2.5 py-1 text-[11px] font-medium text-ink transition hover:border-gold',
+                        busy && 'opacity-60'
+                      )}
+                    >
+                      {tt.label} · {tt.qLabel}
+                    </button>
+                  ))}
+                </div>
+                <button
+                  onClick={() => setUpgrading(false)}
+                  className="mt-1.5 text-[10px] text-ink-mute transition hover:text-ink"
+                >
+                  Annulla
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     );
   }
@@ -443,9 +556,7 @@ function ConsultantPanel({
             )}
           >
             <span className="font-semibold text-ink">{tt.label}</span>
-            <span className="text-ink-mute">
-              {tt.q} domande{tt.tier === 'max' ? ' + doc' : ''}
-            </span>
+            <span className="text-ink-mute">{tt.qLabel}</span>
           </button>
         ))}
       </div>

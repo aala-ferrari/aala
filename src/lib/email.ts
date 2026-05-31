@@ -89,7 +89,13 @@ const TIER_LABEL: Record<string, string> = {
   smart: 'Smart',
   medium: 'Medium',
   max: 'Max',
+  unlimited: 'Illimitato',
 };
+
+// testo "N domande" oppure "domande illimitate" se il piano è illimitato
+function questionsLabel(n: number): string {
+  return n >= 999999 ? 'domande illimitate' : `${n} domande`;
+}
 
 export async function sendConsultantCodeEmail(opts: {
   to: string | null | undefined;
@@ -127,7 +133,7 @@ export async function sendConsultantCodeEmail(opts: {
     `Ecco il tuo accesso al Super Consulente AALA (piano ${tierLabel}).`,
     `Codice di accesso: ${opts.code}`,
     '',
-    `Include ${opts.questions} domande${opts.documents ? ' + analisi documenti' : ''}.`,
+    `Include ${questionsLabel(opts.questions)}${opts.documents ? ' + analisi documenti' : ''}.`,
     `Apri il sito, clicca sulla Bolla e poi su "Super Consulente", e inserisci il codice.`,
     `Valido ${opts.expiresInDays} giorni.`,
     '',
@@ -181,7 +187,7 @@ function renderConsultantEmailHtml(o: {
         <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 28px 0;"><tr>
           <td align="center" style="background:linear-gradient(135deg,#f6f1e6,#efe7d3);border:1px solid #d8c08e;border-radius:14px;padding:24px;">
             <div style="font-family:'Courier New',Courier,monospace;font-size:32px;font-weight:700;letter-spacing:0.2em;color:#15192a;">${escapeHtml(o.code)}</div>
-            <div style="margin-top:8px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8f9e;">${o.questions} domande${o.documents ? ' + documenti' : ''} · valido ${o.expiresInDays} giorni</div>
+            <div style="margin-top:8px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8f9e;">${questionsLabel(o.questions)}${o.documents ? ' + documenti' : ''} · valido ${o.expiresInDays} giorni</div>
           </td>
         </tr></table>
         <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 24px 0;"><tr>

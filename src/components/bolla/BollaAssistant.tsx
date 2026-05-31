@@ -29,9 +29,10 @@ interface ApiReply {
 
 type ConsultSession = {
   code: string;
-  tier: 'smart' | 'medium' | 'max';
+  tier: 'smart' | 'medium' | 'max' | 'unlimited';
   remaining: number;
   documents: boolean;
+  unlimited: boolean;
 };
 
 const WHATSAPP_NUMBER = '355699555777';
@@ -137,8 +138,16 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
           setMood('speaking');
           setMessages((m) => [...m, { role: 'assistant', content: data.reply }]);
           setChips(data.chips ?? []);
-          setConsult((c) => (c ? { ...c, remaining: data.remaining ?? c.remaining } : c));
-          if ((data.remaining ?? 1) <= 0) setExhausted(true);
+          setConsult((c) =>
+            c
+              ? {
+                  ...c,
+                  remaining: data.remaining ?? c.remaining,
+                  unlimited: data.unlimited ?? c.unlimited,
+                }
+              : c
+          );
+          if (!data.unlimited && (data.remaining ?? 1) <= 0) setExhausted(true);
           setTimeout(() => setMood('idle'), 2600);
           return;
         }
@@ -225,7 +234,9 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
             </p>
             <p className="text-xs text-ink-soft">
               {mode === 'consultant' && consult
-                ? `${tierLabel} · ${tc('questionsLeft', { n: Math.max(0, consult.remaining) })}`
+                ? consult.unlimited
+                  ? `${tierLabel} · ${tc('questionsUnlimited')}`
+                  : `${tierLabel} · ${tc('questionsLeft', { n: Math.max(0, consult.remaining) })}`
                 : mood === 'thinking'
                   ? t('statusThinking')
                   : t('statusIdle')}
@@ -401,6 +412,7 @@ function ConsultantGate({
           tier: data.tier,
           remaining: data.remaining,
           documents: data.documents,
+          unlimited: Boolean(data.unlimited),
         });
       } else {
         setErr(data.error ?? tc('invalidCode'));

@@ -227,8 +227,10 @@
       "tierName": {
         "smart": "Smart",
         "medium": "Medium",
-        "max": "Max"
-      }
+        "max": "Max",
+        "unlimited": "Illimité"
+      },
+      "questionsUnlimited": "questions illimitées"
     }
   }
 }

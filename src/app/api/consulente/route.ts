@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { spawn } from 'node:child_process';
 import { z } from 'zod';
 import { createSupabaseServiceClient } from '@/lib/supabase/server';
+import { isUnlimited } from '@/lib/demo-codes';
 
 export const runtime = 'nodejs';
 export const maxDuration = 120;
@@ -170,6 +171,7 @@ export async function POST(req: Request) {
   }
 
   const remaining: number = row.remaining ?? 0;
+  const unlimited = isUnlimited(row.questions_limit);
   const system = CONSULTANT_SYSTEM_PROMPT + langInstruction(locale);
 
   let raw = await callAnthropicAPI(messages, system);
@@ -190,6 +192,7 @@ export async function POST(req: Request) {
         chips,
         whatsapp: Boolean(data.whatsapp),
         remaining,
+        unlimited,
       });
     }
   }
@@ -210,6 +213,7 @@ export async function POST(req: Request) {
       chips: [],
       whatsapp: false,
       remaining: remaining + 1,
+      unlimited,
     },
     { status: 200 }
   );

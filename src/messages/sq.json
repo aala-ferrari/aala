@@ -236,8 +236,10 @@
       "tierName": {
         "smart": "Smart",
         "medium": "Medium",
-        "max": "Max"
-      }
+        "max": "Max",
+        "unlimited": "I pakufizuar"
+      },
+      "questionsUnlimited": "pyetje të pakufizuara"
     }
   }
 }
