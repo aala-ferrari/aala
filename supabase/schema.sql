@@ -168,7 +168,13 @@ create table if not exists public.demo_codes (
   created_by uuid references public.profiles(id),     -- admin che ha approvato
   used_at timestamptz,                                -- null = mai usato
   expires_at timestamptz not null default (now() + interval '7 days'),
-  created_at timestamptz not null default now()
+  created_at timestamptz not null default now(),
+  -- Super Consulente (audit AI gated): vedi migration 20260531000000
+  kind text not null default 'product'
+    check (kind in ('product', 'consultant')),
+  tier text check (tier in ('smart', 'medium', 'max')),
+  questions_limit integer,                            -- domande totali (solo consultant)
+  questions_used integer not null default 0           -- contatore server-side
 );
 
 create index if not exists demo_codes_lead_idx on public.demo_codes(lead_id);

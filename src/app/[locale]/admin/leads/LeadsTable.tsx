@@ -1,8 +1,25 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { Check, Copy, KeyRound, Clock, Mail, Loader2, MailCheck, MailX, Link as LinkIcon } from 'lucide-react';
+import { Check, Copy, KeyRound, Clock, Mail, Loader2, MailCheck, MailX, Link as LinkIcon, Brain } from 'lucide-react';
 import { cn } from '@/lib/utils';
+
+type ConsultTier = 'smart' | 'medium' | 'max';
+const CONSULT_TIERS: { tier: ConsultTier; label: string; q: number }[] = [
+  { tier: 'smart', label: 'Smart', q: 3 },
+  { tier: 'medium', label: 'Medium', q: 8 },
+  { tier: 'max', label: 'Max', q: 20 },
+];
+
+interface ConsultResult {
+  code: string;
+  tier: ConsultTier;
+  questions: number;
+  documents: boolean;
+  expiresInDays: number;
+  emailSent: boolean;
+  emailError?: string | null;
+}
 
 interface Lead {
   id: string;
@@ -48,6 +65,39 @@ export function LeadsTable({
   const [emailStatus, setEmailStatus] = useState<
     Record<string, { sent: boolean; reason?: string | null } | undefined>
   >({});
+  // Super Consulente: codici generati per lead (client-side, durata sessione)
+  const [consultResults, setConsultResults] = useState<Record<string, ConsultResult>>({});
+  const [consultBusy, setConsultBusy] = useState<string | null>(null);
+
+  async function generateConsultant(leadId: string, tier: ConsultTier) {
+    setConsultBusy(leadId);
+    setError(null);
+    try {
+      const res = await fetch(`/api/admin/leads/${leadId}/consultant`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tier }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error ?? 'Errore');
+      setConsultResults((prev) => ({
+        ...prev,
+        [leadId]: {
+          code: json.code,
+          tier: json.tier,
+          questions: json.questions,
+          documents: json.documents,
+          expiresInDays: json.expiresInDays,
+          emailSent: json.emailSent,
+          emailError: json.emailError,
+        },
+      }));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Errore');
+    } finally {
+      setConsultBusy(null);
+    }
+  }
 
   const codesByLead = useMemo(() => {
     const map: Record<string, DemoCode[]> = {};
@@ -194,6 +244,16 @@ export function LeadsTable({
                       )}
                     </button>
                   )}
+
+                  {/* ── Super Consulente: genera codice con tier ── */}
+                  <ConsultantPanel
+                    leadId={lead.id}
+                    busy={consultBusy === lead.id}
+                    result={consultResults[lead.id]}
+                    onGenerate={generateConsultant}
+                    onCopy={copyCode}
+                    copied={copied}
+                  />
                 </div>
               </div>
 
@@ -223,6 +283,111 @@ export function LeadsTable({
         })}
       </div>
     </>
+  );
+}
+
+function ConsultantPanel({
+  leadId,
+  busy,
+  result,
+  onGenerate,
+  onCopy,
+  copied,
+}: {
+  leadId: string;
+  busy: boolean;
+  result?: ConsultResult;
+  onGenerate: (leadId: string, tier: ConsultTier) => void;
+  onCopy: (text: string, key: string) => void;
+  copied: string | null;
+}) {
+  const [open, setOpen] = useState(false);
+
+  if (result) {
+    return (
+      <div className="mt-1 rounded-xl border border-gold/40 bg-gold/5 p-3 md:min-w-[300px]">
+        <p className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-gold">
+          <Brain className="h-3 w-3" /> Super Consulente · {result.tier}
+        </p>
+        <div className="mt-2 flex items-center gap-2">
+          <code className="rounded-md bg-white px-3 py-1.5 font-mono text-base font-bold text-ink">
+            {result.code}
+          </code>
+          <button
+            onClick={() => onCopy(result.code, result.code)}
+            className="rounded-md border border-ink-line bg-white p-1.5 text-ink-soft transition hover:text-ink"
+            title="Copia codice"
+          >
+            {copied === result.code ? (
+              <Check className="h-3.5 w-3.5 text-[#2a7a5c]" />
+            ) : (
+              <Copy className="h-3.5 w-3.5" />
+            )}
+          </button>
+        </div>
+        <p className="mt-1.5 text-[10px] text-ink-mute">
+          {result.questions} domande{result.documents ? ' + documenti' : ''} · scade tra{' '}
+          {result.expiresInDays} giorni
+        </p>
+        {result.emailSent ? (
+          <p className="mt-2 inline-flex items-center gap-1.5 text-[10px] text-[#2a7a5c]">
+            <MailCheck className="h-3 w-3" /> Email inviata al cliente
+          </p>
+        ) : (
+          <p className="mt-2 inline-flex items-center gap-1.5 text-[10px] text-[#a85a1a]">
+            <MailX className="h-3 w-3" /> Email non inviata — manda il codice a mano
+          </p>
+        )}
+      </div>
+    );
+  }
+
+  if (!open) {
+    return (
+      <button
+        onClick={() => setOpen(true)}
+        className="inline-flex items-center justify-center gap-1.5 rounded-full border border-gold/40 bg-canvas-paper px-3 py-1.5 text-xs font-medium text-ink transition hover:border-gold hover:bg-gold/10"
+      >
+        <Brain className="h-3.5 w-3.5 text-gold" /> Codice Super Consulente
+      </button>
+    );
+  }
+
+  return (
+    <div className="mt-1 rounded-xl border border-gold/30 bg-gold/5 p-3 md:min-w-[260px]">
+      <p className="mb-2 inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-gold">
+        <Brain className="h-3 w-3" /> Scegli il piano
+      </p>
+      <div className="flex flex-col gap-1.5">
+        {CONSULT_TIERS.map((tt) => (
+          <button
+            key={tt.tier}
+            onClick={() => onGenerate(leadId, tt.tier)}
+            disabled={busy}
+            className={cn(
+              'flex items-center justify-between rounded-lg border border-ink-line bg-white px-3 py-2 text-left text-xs transition hover:border-gold',
+              busy && 'opacity-60'
+            )}
+          >
+            <span className="font-semibold text-ink">{tt.label}</span>
+            <span className="text-ink-mute">
+              {tt.q} domande{tt.tier === 'max' ? ' + doc' : ''}
+            </span>
+          </button>
+        ))}
+      </div>
+      {busy && (
+        <p className="mt-2 inline-flex items-center gap-1.5 text-[10px] text-ink-soft">
+          <Loader2 className="h-3 w-3 animate-spin" /> Genero e invio email…
+        </p>
+      )}
+      <button
+        onClick={() => setOpen(false)}
+        className="mt-2 text-[10px] text-ink-mute transition hover:text-ink"
+      >
+        Annulla
+      </button>
+    </div>
   );
 }
 

@@ -53,10 +53,22 @@
       "legendAala": "AALA · 10 qytete",
       "legendWorld": "Kryeqytetet botërore",
       "items": {
-        "trust": { "title": "Besueshmëri", "desc": "Nuk shesim premtime. Katër produkte tashmë operative, vite iterimesh me klientë realë. Ajo që tregojmë, funksionon — sot." },
-        "luxury": { "title": "Cilësi", "desc": "Elegancë është ajo që mbetet kur heq të tepërtën. Software të dizajnuara për të qenë intuitive që në shikimin e parë, të domosdoshme që në përdorimin e parë." },
-        "security": { "title": "Siguri", "desc": "Enkriptim at-rest dhe in-transit, GDPR, backup geo-redondante, SSO i unifikuar. Siguria e të dhënave tuaja nuk është një veçori: është themeli." },
-        "support": { "title": "Mbështetje", "desc": "Një emër i vetëm, një numër i vetëm. Pa bot, pa tiketa të humbura. Kur ju duhet ndihmë, flisni me dikë që mund të zgjidhë vërtet." }
+        "trust": {
+          "title": "Besueshmëri",
+          "desc": "Nuk shesim premtime. Katër produkte tashmë operative, vite iterimesh me klientë realë. Ajo që tregojmë, funksionon — sot."
+        },
+        "luxury": {
+          "title": "Cilësi",
+          "desc": "Elegancë është ajo që mbetet kur heq të tepërtën. Software të dizajnuara për të qenë intuitive që në shikimin e parë, të domosdoshme që në përdorimin e parë."
+        },
+        "security": {
+          "title": "Siguri",
+          "desc": "Enkriptim at-rest dhe in-transit, GDPR, backup geo-redondante, SSO i unifikuar. Siguria e të dhënave tuaja nuk është një veçori: është themeli."
+        },
+        "support": {
+          "title": "Mbështetje",
+          "desc": "Një emër i vetëm, një numër i vetëm. Pa bot, pa tiketa të humbura. Kur ju duhet ndihmë, flisni me dikë që mund të zgjidhë vërtet."
+        }
       }
     },
     "cta": {
@@ -183,6 +195,47 @@
       "dental": "🦷 Klinikë dentare",
       "taxi": "🚕 Taksi / NCC",
       "webpages": "🌐 Faqe interneti"
+    },
+    "consultant": {
+      "open": "Super Konsulenti",
+      "openSub": "Një analizë IA e personalizuar e biznesit tënd",
+      "badge": "Super Konsulenti",
+      "title": "Konsulenca jote, e personalizuar.",
+      "intro": "Më trego për biznesin tënd dhe të përgatis një analizë konkrete: ku humbet kohë e para, sa mund të kursesh dhe zgjidhjen e duhur për ty.",
+      "benefit1": "2-3 humbje reale në mënyrën si punon",
+      "benefit2": "Një vlerësim se sa mund të kursesh",
+      "benefit3": "Produkti i duhur AALA, dhe pse",
+      "haveCode": "Ke tashmë një kod aksesi?",
+      "codePlaceholder": "CONS-XXXXXX",
+      "unlock": "Shkyç",
+      "unlocking": "Po verifikoj…",
+      "or": "ose",
+      "requestAccess": "Kërko akses",
+      "backToChat": "Kthehu te biseda",
+      "back": "Mbrapa",
+      "requestTitle": "Kërko aksesin tënd",
+      "requestIntro": "Na lër dy rreshta për biznesin tënd: të dërgojmë një kod me email ose WhatsApp.",
+      "fieldName": "Emri yt",
+      "fieldEmail": "Email-i yt",
+      "fieldBusiness": "Me çfarë merret biznesi yt?",
+      "requestSend": "Dërgo kërkesën",
+      "requestSending": "Po dërgoj…",
+      "requestInvalid": "Kontrollo të dhënat dhe provo sërish.",
+      "requestDoneTitle": "Kërkesa u mor!",
+      "requestDone": "Të dërgojmë kodin e aksesit me email ose WhatsApp së shpejti.",
+      "requestWhatsapp": "Kërko në WhatsApp",
+      "welcome": "Jam Super Konsulenti yt 🧠 Më trego për biznesin tënd: sektori, madhësia, dhe ku ndien se humbet kohë ose para. Sa më shumë të më thuash, aq më e saktë analiza.",
+      "placeholder": "Përshkruaj biznesin tënd…",
+      "exhaustedPlaceholder": "Pyetjet u mbaruan — na shkruaj në WhatsApp",
+      "exhausted": "I ke përdorur të gjitha pyetjet e këtij aksesi. Për të vazhduar analizën me një konsulent tonën, na shkruaj në WhatsApp 👇",
+      "expired": "Ky akses ka skaduar. Kërko një të ri ose na shkruaj në WhatsApp 👇",
+      "invalidCode": "Kod i pavlefshëm. Kontrollo dhe provo sërish.",
+      "questionsLeft": "{n, plural, one {# pyetje e mbetur} other {# pyetje të mbetura}}",
+      "tierName": {
+        "smart": "Smart",
+        "medium": "Medium",
+        "max": "Max"
+      }
     }
   }
 }

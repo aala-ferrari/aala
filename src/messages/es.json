@@ -24,11 +24,26 @@
     "services": {
       "title": "Cinco verticales. Una promesa: fiabilidad.",
       "subtitle": "Elige el servicio que necesitas hoy. Añade los demás cuando quieras.",
-      "medical": { "name": "CRM · Webpages", "desc": "CRM a medida para cualquier sector — médicos, clínicas, empresas. Además sitios web 100% personalizados, sin plantillas." },
-      "auto": { "name": "Gestor Auto", "desc": "Software de alquiler de coches: flota, reservas, contratos, mantenimiento, móvil incluido." },
-      "taxi": { "name": "Taxi App", "desc": "App móvil y backend para gestionar flotas de taxi estilo Bolt: viajes instantáneos, conductores, pagos, mapa en vivo, valoraciones." },
-      "legal": { "name": "Super Avokati", "desc": "Suite SaaS para despachos: expedientes, vencimientos, calendario, búsqueda documental con IA. Acompaña al abogado en la resolución de causas civiles, penales y administrativas gracias a la inteligencia artificial integrada de Super Avokati. <em>Actualmente disponible solo para el derecho albanés — Italia próximamente.</em>" },
-      "dental": { "name": "Turismo Dental", "desc": "Agencia de turismo dental: traemos pacientes internacionales cualificados a tu clínica." },
+      "medical": {
+        "name": "CRM · Webpages",
+        "desc": "CRM a medida para cualquier sector — médicos, clínicas, empresas. Además sitios web 100% personalizados, sin plantillas."
+      },
+      "auto": {
+        "name": "Gestor Auto",
+        "desc": "Software de alquiler de coches: flota, reservas, contratos, mantenimiento, móvil incluido."
+      },
+      "taxi": {
+        "name": "Taxi App",
+        "desc": "App móvil y backend para gestionar flotas de taxi estilo Bolt: viajes instantáneos, conductores, pagos, mapa en vivo, valoraciones."
+      },
+      "legal": {
+        "name": "Super Avokati",
+        "desc": "Suite SaaS para despachos: expedientes, vencimientos, calendario, búsqueda documental con IA. Acompaña al abogado en la resolución de causas civiles, penales y administrativas gracias a la inteligencia artificial integrada de Super Avokati. <em>Actualmente disponible solo para el derecho albanés — Italia próximamente.</em>"
+      },
+      "dental": {
+        "name": "Turismo Dental",
+        "desc": "Agencia de turismo dental: traemos pacientes internacionales cualificados a tu clínica."
+      },
       "learnMore": "Saber más"
     },
     "values": {
@@ -38,13 +53,30 @@
       "legendAala": "AALA · 10 ciudades",
       "legendWorld": "Capitales mundiales",
       "items": {
-        "trust": { "title": "Fiabilidad", "desc": "No vendemos promesas. Cuatro productos ya operativos, años de iteraciones con clientes reales. Lo que mostramos, funciona — hoy." },
-        "luxury": { "title": "Calidad", "desc": "La elegancia es lo que queda cuando quitas lo superfluo. Software diseñado para ser intuitivo a primera vista, indispensable al primer uso." },
-        "security": { "title": "Seguridad", "desc": "Cifrado en reposo y en tránsito, RGPD, backups geo-redundantes, SSO unificado. La seguridad de vuestros datos no es una característica: es el fundamento." },
-        "support": { "title": "Soporte", "desc": "Un solo nombre, un solo número. Sin bots, sin tickets perdidos. Cuando necesitas ayuda, hablas con quien realmente puede resolver." }
+        "trust": {
+          "title": "Fiabilidad",
+          "desc": "No vendemos promesas. Cuatro productos ya operativos, años de iteraciones con clientes reales. Lo que mostramos, funciona — hoy."
+        },
+        "luxury": {
+          "title": "Calidad",
+          "desc": "La elegancia es lo que queda cuando quitas lo superfluo. Software diseñado para ser intuitivo a primera vista, indispensable al primer uso."
+        },
+        "security": {
+          "title": "Seguridad",
+          "desc": "Cifrado en reposo y en tránsito, RGPD, backups geo-redundantes, SSO unificado. La seguridad de vuestros datos no es una característica: es el fundamento."
+        },
+        "support": {
+          "title": "Soporte",
+          "desc": "Un solo nombre, un solo número. Sin bots, sin tickets perdidos. Cuando necesitas ayuda, hablas con quien realmente puede resolver."
+        }
       }
     },
-    "cta": { "badge": "En sintonía con tu empresa", "title": "¿Listo para empezar?", "subtitle": "Una llamada, un camino a medida.", "button": "Solicita una consulta" }
+    "cta": {
+      "badge": "En sintonía con tu empresa",
+      "title": "¿Listo para empezar?",
+      "subtitle": "Una llamada, un camino a medida.",
+      "button": "Solicita una consulta"
+    }
   },
   "pricing": {
     "title": "Precios transparentes",
@@ -142,7 +174,12 @@
     "subtitle": "La página que buscas no existe o ha sido movida.",
     "back": "Volver al inicio"
   },
-  "footer": { "rights": "Todos los derechos reservados.", "privacy": "Privacidad", "terms": "Términos", "cookies": "Cookies" },
+  "footer": {
+    "rights": "Todos los derechos reservados.",
+    "privacy": "Privacidad",
+    "terms": "Términos",
+    "cookies": "Cookies"
+  },
   "bolla": {
     "title": "La Burbuja de AALA",
     "statusIdle": "asistente · siempre activa",
@@ -158,6 +195,47 @@
       "dental": "🦷 Clínica dental",
       "taxi": "🚕 Taxi / VTC",
       "webpages": "🌐 Sitio web"
+    },
+    "consultant": {
+      "open": "Súper Consultor",
+      "openSub": "Un análisis IA a medida de tu empresa",
+      "badge": "Súper Consultor",
+      "title": "Tu consultoría, a medida.",
+      "intro": "Cuéntame sobre tu empresa y te preparo un análisis concreto: dónde pierdes tiempo y dinero, cuánto puedes ahorrar y la solución adecuada para ti.",
+      "benefit1": "2-3 desperdicios reales en tu forma de trabajar",
+      "benefit2": "Una estimación de cuánto puedes ahorrar",
+      "benefit3": "El producto AALA adecuado, y por qué",
+      "haveCode": "¿Ya tienes un código de acceso?",
+      "codePlaceholder": "CONS-XXXXXX",
+      "unlock": "Desbloquear",
+      "unlocking": "Verificando…",
+      "or": "o",
+      "requestAccess": "Solicitar acceso",
+      "backToChat": "Volver al chat",
+      "back": "Atrás",
+      "requestTitle": "Solicita tu acceso",
+      "requestIntro": "Déjanos dos líneas sobre tu empresa: te enviamos un código por email o WhatsApp.",
+      "fieldName": "Tu nombre",
+      "fieldEmail": "Tu email",
+      "fieldBusiness": "¿A qué se dedica tu empresa?",
+      "requestSend": "Enviar solicitud",
+      "requestSending": "Enviando…",
+      "requestInvalid": "Revisa los datos e inténtalo de nuevo.",
+      "requestDoneTitle": "¡Solicitud recibida!",
+      "requestDone": "Te enviaremos el código de acceso por email o WhatsApp en breve.",
+      "requestWhatsapp": "Solicitar por WhatsApp",
+      "welcome": "Soy tu Súper Consultor 🧠 Cuéntame sobre tu empresa: sector, tamaño y dónde sientes que pierdes tiempo o dinero. Cuanto más me cuentes, más preciso será el análisis.",
+      "placeholder": "Describe tu empresa…",
+      "exhaustedPlaceholder": "Preguntas agotadas — escríbenos por WhatsApp",
+      "exhausted": "Has usado todas las preguntas de este acceso. Para continuar el análisis con uno de nuestros consultores, escríbenos por WhatsApp 👇",
+      "expired": "Este acceso ha caducado. Solicita uno nuevo o escríbenos por WhatsApp 👇",
+      "invalidCode": "Código no válido. Revisa e inténtalo de nuevo.",
+      "questionsLeft": "{n, plural, one {# pregunta restante} other {# preguntas restantes}}",
+      "tierName": {
+        "smart": "Smart",
+        "medium": "Medium",
+        "max": "Max"
+      }
     }
   }
 }

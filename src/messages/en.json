@@ -24,11 +24,26 @@
     "services": {
       "title": "Five verticals. One promise: reliability.",
       "subtitle": "Pick the service you need today. Add the others whenever you want.",
-      "medical": { "name": "CRM · Webpages", "desc": "Tailor-made CRMs for any sector — medical, clinics, any business. Plus 100% custom websites, no ready-made templates." },
-      "auto": { "name": "Auto Manager", "desc": "Car rental software: fleet, bookings, contracts, maintenance, mobile included." },
-      "taxi": { "name": "Taxi App", "desc": "Mobile app and backend to run Bolt-style taxi fleets: instant rides, drivers, payments, live map, ratings." },
-      "legal": { "name": "Super Avokati", "desc": "SaaS suite for law firms: cases, deadlines, calendar, AI-assisted document search. Supports the lawyer in resolving civil, criminal and administrative cases through Super Avokati's integrated artificial intelligence. <em>Currently available for Albanian law only — Italy coming soon.</em>" },
-      "dental": { "name": "Dental Tourism", "desc": "Dental tourism agency: we bring qualified international patients to your clinic." },
+      "medical": {
+        "name": "CRM · Webpages",
+        "desc": "Tailor-made CRMs for any sector — medical, clinics, any business. Plus 100% custom websites, no ready-made templates."
+      },
+      "auto": {
+        "name": "Auto Manager",
+        "desc": "Car rental software: fleet, bookings, contracts, maintenance, mobile included."
+      },
+      "taxi": {
+        "name": "Taxi App",
+        "desc": "Mobile app and backend to run Bolt-style taxi fleets: instant rides, drivers, payments, live map, ratings."
+      },
+      "legal": {
+        "name": "Super Avokati",
+        "desc": "SaaS suite for law firms: cases, deadlines, calendar, AI-assisted document search. Supports the lawyer in resolving civil, criminal and administrative cases through Super Avokati's integrated artificial intelligence. <em>Currently available for Albanian law only — Italy coming soon.</em>"
+      },
+      "dental": {
+        "name": "Dental Tourism",
+        "desc": "Dental tourism agency: we bring qualified international patients to your clinic."
+      },
       "learnMore": "Learn more"
     },
     "values": {
@@ -38,13 +53,30 @@
       "legendAala": "AALA · 10 cities",
       "legendWorld": "World capitals",
       "items": {
-        "trust": { "title": "Reliability", "desc": "We don't sell promises. Four products already in production, years of iterations with real clients. What we show, works — today." },
-        "luxury": { "title": "Quality", "desc": "Elegance is what remains when you remove the superfluous. Software designed to be intuitive at first glance, essential at first use." },
-        "security": { "title": "Security", "desc": "At-rest and in-transit encryption, GDPR, geo-redundant backups, unified SSO. The security of your data is not a feature: it's the foundation." },
-        "support": { "title": "Support", "desc": "One name, one number. No bots, no lost tickets. When you need help, you talk to someone who can truly solve." }
+        "trust": {
+          "title": "Reliability",
+          "desc": "We don't sell promises. Four products already in production, years of iterations with real clients. What we show, works — today."
+        },
+        "luxury": {
+          "title": "Quality",
+          "desc": "Elegance is what remains when you remove the superfluous. Software designed to be intuitive at first glance, essential at first use."
+        },
+        "security": {
+          "title": "Security",
+          "desc": "At-rest and in-transit encryption, GDPR, geo-redundant backups, unified SSO. The security of your data is not a feature: it's the foundation."
+        },
+        "support": {
+          "title": "Support",
+          "desc": "One name, one number. No bots, no lost tickets. When you need help, you talk to someone who can truly solve."
+        }
       }
     },
-    "cta": { "badge": "In tune with your business", "title": "Ready to start?", "subtitle": "One call, a tailored path.", "button": "Request a consultation" }
+    "cta": {
+      "badge": "In tune with your business",
+      "title": "Ready to start?",
+      "subtitle": "One call, a tailored path.",
+      "button": "Request a consultation"
+    }
   },
   "pricing": {
     "title": "Transparent pricing",
@@ -142,7 +174,12 @@
     "subtitle": "The page you're looking for doesn't exist or has been moved.",
     "back": "Back to home"
   },
-  "footer": { "rights": "All rights reserved.", "privacy": "Privacy", "terms": "Terms", "cookies": "Cookies" },
+  "footer": {
+    "rights": "All rights reserved.",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "cookies": "Cookies"
+  },
   "bolla": {
     "title": "The AALA Bubble",
     "statusIdle": "assistant · always on",
@@ -158,6 +195,47 @@
       "dental": "🦷 Dental clinic",
       "taxi": "🚕 Taxi / ride-hailing",
       "webpages": "🌐 Website"
+    },
+    "consultant": {
+      "open": "Super Consultant",
+      "openSub": "A tailored AI analysis of your business",
+      "badge": "Super Consultant",
+      "title": "Your consultancy, tailored.",
+      "intro": "Tell me about your business and I'll prepare a concrete analysis: where you waste time and money, how much you could save, and the right solution for you.",
+      "benefit1": "2-3 real wasters in how you work",
+      "benefit2": "An estimate of how much you can save",
+      "benefit3": "The right AALA product, and why",
+      "haveCode": "Already have an access code?",
+      "codePlaceholder": "CONS-XXXXXX",
+      "unlock": "Unlock",
+      "unlocking": "Checking…",
+      "or": "or",
+      "requestAccess": "Request access",
+      "backToChat": "Back to chat",
+      "back": "Back",
+      "requestTitle": "Request your access",
+      "requestIntro": "Leave us a couple of lines about your business: we'll send you a code by email or WhatsApp.",
+      "fieldName": "Your name",
+      "fieldEmail": "Your email",
+      "fieldBusiness": "What does your business do?",
+      "requestSend": "Send request",
+      "requestSending": "Sending…",
+      "requestInvalid": "Check your details and try again.",
+      "requestDoneTitle": "Request received!",
+      "requestDone": "We'll send your access code by email or WhatsApp shortly.",
+      "requestWhatsapp": "Request on WhatsApp",
+      "welcome": "I'm your Super Consultant 🧠 Tell me about your business: sector, size, and where you feel you're losing time or money. The more you tell me, the sharper the analysis.",
+      "placeholder": "Describe your business…",
+      "exhaustedPlaceholder": "Questions used up — message us on WhatsApp",
+      "exhausted": "You've used all the questions on this access. To continue the analysis with one of our consultants, message us on WhatsApp 👇",
+      "expired": "This access has expired. Request a new one or message us on WhatsApp 👇",
+      "invalidCode": "Invalid code. Check and try again.",
+      "questionsLeft": "{n, plural, one {# question left} other {# questions left}}",
+      "tierName": {
+        "smart": "Smart",
+        "medium": "Medium",
+        "max": "Max"
+      }
     }
   }
 }

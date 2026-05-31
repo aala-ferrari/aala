@@ -53,10 +53,22 @@
       "legendAala": "AALA · 10 città",
       "legendWorld": "Capitali mondiali",
       "items": {
-        "trust": { "title": "Affidabilità", "desc": "Non vendiamo promesse. Quattro prodotti già operativi, anni di iterazioni con clienti veri. Quello che mostriamo, funziona — oggi." },
-        "luxury": { "title": "Qualità", "desc": "L'eleganza è ciò che resta quando togli il superfluo. Software disegnati per essere intuitivi al primo sguardo, indispensabili al primo utilizzo." },
-        "security": { "title": "Sicurezza", "desc": "Cifratura at-rest e in-transit, GDPR, backup geo-ridondanti, SSO unificato. La sicurezza dei vostri dati non è una caratteristica: è la fondazione." },
-        "support": { "title": "Supporto", "desc": "Un solo nome, un solo numero. Niente bot, niente ticket smarriti. Quando vi serve aiuto, parlate con chi può davvero risolvere." }
+        "trust": {
+          "title": "Affidabilità",
+          "desc": "Non vendiamo promesse. Quattro prodotti già operativi, anni di iterazioni con clienti veri. Quello che mostriamo, funziona — oggi."
+        },
+        "luxury": {
+          "title": "Qualità",
+          "desc": "L'eleganza è ciò che resta quando togli il superfluo. Software disegnati per essere intuitivi al primo sguardo, indispensabili al primo utilizzo."
+        },
+        "security": {
+          "title": "Sicurezza",
+          "desc": "Cifratura at-rest e in-transit, GDPR, backup geo-ridondanti, SSO unificato. La sicurezza dei vostri dati non è una caratteristica: è la fondazione."
+        },
+        "support": {
+          "title": "Supporto",
+          "desc": "Un solo nome, un solo numero. Niente bot, niente ticket smarriti. Quando vi serve aiuto, parlate con chi può davvero risolvere."
+        }
       }
     },
     "cta": {
@@ -183,6 +195,47 @@
       "dental": "🦷 Clinica dentale",
       "taxi": "🚕 Taxi / NCC",
       "webpages": "🌐 Sito web"
+    },
+    "consultant": {
+      "open": "Super Consulente",
+      "openSub": "Analisi AI su misura della tua impresa",
+      "badge": "Super Consulente",
+      "title": "La tua consulenza, su misura.",
+      "intro": "Descrivimi la tua impresa e ti preparo un'analisi concreta: dove perdi tempo e denaro, quanto puoi risparmiare, e la soluzione giusta per te.",
+      "benefit1": "2-3 sprechi reali nel tuo modo di lavorare",
+      "benefit2": "Una stima di quanto puoi risparmiare",
+      "benefit3": "Il prodotto AALA giusto, e perché",
+      "haveCode": "Hai già un codice di accesso?",
+      "codePlaceholder": "CONS-XXXXXX",
+      "unlock": "Sblocca",
+      "unlocking": "Verifico…",
+      "or": "oppure",
+      "requestAccess": "Richiedi l'accesso",
+      "backToChat": "Torna alla chat",
+      "back": "Indietro",
+      "requestTitle": "Richiedi il tuo accesso",
+      "requestIntro": "Lasciaci due righe sulla tua impresa: ti inviamo un codice via email o WhatsApp.",
+      "fieldName": "Il tuo nome",
+      "fieldEmail": "La tua email",
+      "fieldBusiness": "Di cosa si occupa la tua impresa?",
+      "requestSend": "Invia richiesta",
+      "requestSending": "Invio…",
+      "requestInvalid": "Controlla i dati e riprova.",
+      "requestDoneTitle": "Richiesta ricevuta!",
+      "requestDone": "Ti inviamo il codice di accesso via email o WhatsApp a breve.",
+      "requestWhatsapp": "Richiedi su WhatsApp",
+      "welcome": "Sono il tuo Super Consulente 🧠 Raccontami della tua impresa: settore, dimensione, e dove senti di perdere tempo o denaro. Più mi dici, più l'analisi sarà precisa.",
+      "placeholder": "Descrivi la tua impresa…",
+      "exhaustedPlaceholder": "Domande esaurite — scrivici su WhatsApp",
+      "exhausted": "Hai usato tutte le domande di questo accesso. Per continuare l'analisi con un nostro consulente, scrivici su WhatsApp 👇",
+      "expired": "Questo accesso è scaduto. Richiedine uno nuovo o scrivici su WhatsApp 👇",
+      "invalidCode": "Codice non valido. Controlla e riprova.",
+      "questionsLeft": "{n, plural, one {# domanda rimasta} other {# domande rimaste}}",
+      "tierName": {
+        "smart": "Smart",
+        "medium": "Medium",
+        "max": "Max"
+      }
     }
   }
 }

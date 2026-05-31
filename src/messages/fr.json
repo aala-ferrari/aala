@@ -24,11 +24,26 @@
     "services": {
       "title": "Cinq verticales. Une promesse : la fiabilité.",
       "subtitle": "Choisissez le service dont vous avez besoin aujourd'hui. Ajoutez les autres quand vous voudrez.",
-      "medical": { "name": "CRM · Webpages", "desc": "CRM sur mesure pour tout secteur — médical, cliniques, entreprises. Plus des sites web 100% personnalisés, sans modèles." },
-      "auto": { "name": "Gestion Auto", "desc": "Logiciel de location de voitures : flotte, réservations, contrats, maintenance, mobile inclus." },
-      "taxi": { "name": "Taxi App", "desc": "Application mobile et backend pour gérer des flottes de taxi style Bolt : courses instantanées, chauffeurs, paiements, carte en direct, évaluations." },
-      "legal": { "name": "Super Avokati", "desc": "Suite SaaS pour cabinets d'avocats : dossiers, échéances, calendrier, recherche documentaire IA. Accompagne l'avocat dans la résolution des affaires civiles, pénales et administratives grâce à l'intelligence artificielle intégrée de Super Avokati. <em>Actuellement disponible uniquement pour le droit albanais — Italie bientôt.</em>" },
-      "dental": { "name": "Tourisme Dentaire", "desc": "Agence de tourisme dentaire : nous amenons des patients internationaux qualifiés à votre clinique." },
+      "medical": {
+        "name": "CRM · Webpages",
+        "desc": "CRM sur mesure pour tout secteur — médical, cliniques, entreprises. Plus des sites web 100% personnalisés, sans modèles."
+      },
+      "auto": {
+        "name": "Gestion Auto",
+        "desc": "Logiciel de location de voitures : flotte, réservations, contrats, maintenance, mobile inclus."
+      },
+      "taxi": {
+        "name": "Taxi App",
+        "desc": "Application mobile et backend pour gérer des flottes de taxi style Bolt : courses instantanées, chauffeurs, paiements, carte en direct, évaluations."
+      },
+      "legal": {
+        "name": "Super Avokati",
+        "desc": "Suite SaaS pour cabinets d'avocats : dossiers, échéances, calendrier, recherche documentaire IA. Accompagne l'avocat dans la résolution des affaires civiles, pénales et administratives grâce à l'intelligence artificielle intégrée de Super Avokati. <em>Actuellement disponible uniquement pour le droit albanais — Italie bientôt.</em>"
+      },
+      "dental": {
+        "name": "Tourisme Dentaire",
+        "desc": "Agence de tourisme dentaire : nous amenons des patients internationaux qualifiés à votre clinique."
+      },
       "learnMore": "En savoir plus"
     },
     "values": {
@@ -38,13 +53,30 @@
       "legendAala": "AALA · 10 villes",
       "legendWorld": "Capitales mondiales",
       "items": {
-        "trust": { "title": "Fiabilité", "desc": "Nous ne vendons pas de promesses. Quatre produits déjà en production, des années d'itérations avec de vrais clients. Ce que nous montrons, fonctionne — aujourd'hui." },
-        "luxury": { "title": "Qualité", "desc": "L'élégance, c'est ce qui reste quand on enlève le superflu. Des logiciels conçus pour être intuitifs au premier regard, indispensables à la première utilisation." },
-        "security": { "title": "Sécurité", "desc": "Chiffrement au repos et en transit, RGPD, sauvegardes géo-redondantes, SSO unifié. La sécurité de vos données n'est pas une fonctionnalité : c'est le fondement." },
-        "support": { "title": "Support", "desc": "Un seul nom, un seul numéro. Pas de bots, pas de tickets perdus. Quand vous avez besoin d'aide, vous parlez avec quelqu'un qui peut vraiment résoudre." }
+        "trust": {
+          "title": "Fiabilité",
+          "desc": "Nous ne vendons pas de promesses. Quatre produits déjà en production, des années d'itérations avec de vrais clients. Ce que nous montrons, fonctionne — aujourd'hui."
+        },
+        "luxury": {
+          "title": "Qualité",
+          "desc": "L'élégance, c'est ce qui reste quand on enlève le superflu. Des logiciels conçus pour être intuitifs au premier regard, indispensables à la première utilisation."
+        },
+        "security": {
+          "title": "Sécurité",
+          "desc": "Chiffrement au repos et en transit, RGPD, sauvegardes géo-redondantes, SSO unifié. La sécurité de vos données n'est pas une fonctionnalité : c'est le fondement."
+        },
+        "support": {
+          "title": "Support",
+          "desc": "Un seul nom, un seul numéro. Pas de bots, pas de tickets perdus. Quand vous avez besoin d'aide, vous parlez avec quelqu'un qui peut vraiment résoudre."
+        }
       }
     },
-    "cta": { "badge": "En phase avec votre entreprise", "title": "Prêt à commencer ?", "subtitle": "Un appel, un parcours sur mesure.", "button": "Demander une consultation" }
+    "cta": {
+      "badge": "En phase avec votre entreprise",
+      "title": "Prêt à commencer ?",
+      "subtitle": "Un appel, un parcours sur mesure.",
+      "button": "Demander une consultation"
+    }
   },
   "pricing": {
     "title": "Tarifs transparents",
@@ -133,7 +165,12 @@
     "subtitle": "La page que vous cherchez n'existe pas ou a été déplacée.",
     "back": "Retour à l'accueil"
   },
-  "footer": { "rights": "Tous droits réservés.", "privacy": "Confidentialité", "terms": "Conditions", "cookies": "Cookies" },
+  "footer": {
+    "rights": "Tous droits réservés.",
+    "privacy": "Confidentialité",
+    "terms": "Conditions",
+    "cookies": "Cookies"
+  },
   "bolla": {
     "title": "La Bulle d'AALA",
     "statusIdle": "assistante · toujours active",
@@ -149,6 +186,47 @@
       "dental": "🦷 Clinique dentaire",
       "taxi": "🚕 Taxi / VTC",
       "webpages": "🌐 Site web"
+    },
+    "consultant": {
+      "open": "Super Consultant",
+      "openSub": "Une analyse IA sur mesure de votre entreprise",
+      "badge": "Super Consultant",
+      "title": "Votre conseil, sur mesure.",
+      "intro": "Parlez-moi de votre entreprise et je vous prépare une analyse concrète : où vous perdez du temps et de l'argent, combien vous pourriez économiser, et la bonne solution pour vous.",
+      "benefit1": "2-3 gaspillages réels dans votre façon de travailler",
+      "benefit2": "Une estimation de ce que vous pouvez économiser",
+      "benefit3": "Le bon produit AALA, et pourquoi",
+      "haveCode": "Vous avez déjà un code d'accès ?",
+      "codePlaceholder": "CONS-XXXXXX",
+      "unlock": "Déverrouiller",
+      "unlocking": "Vérification…",
+      "or": "ou",
+      "requestAccess": "Demander l'accès",
+      "backToChat": "Retour au chat",
+      "back": "Retour",
+      "requestTitle": "Demandez votre accès",
+      "requestIntro": "Laissez-nous deux lignes sur votre entreprise : nous vous envoyons un code par email ou WhatsApp.",
+      "fieldName": "Votre nom",
+      "fieldEmail": "Votre email",
+      "fieldBusiness": "Que fait votre entreprise ?",
+      "requestSend": "Envoyer la demande",
+      "requestSending": "Envoi…",
+      "requestInvalid": "Vérifiez vos informations et réessayez.",
+      "requestDoneTitle": "Demande reçue !",
+      "requestDone": "Nous vous envoyons le code d'accès par email ou WhatsApp sous peu.",
+      "requestWhatsapp": "Demander sur WhatsApp",
+      "welcome": "Je suis votre Super Consultant 🧠 Parlez-moi de votre entreprise : secteur, taille, et où vous sentez perdre du temps ou de l'argent. Plus vous m'en dites, plus l'analyse sera précise.",
+      "placeholder": "Décrivez votre entreprise…",
+      "exhaustedPlaceholder": "Questions épuisées — écrivez-nous sur WhatsApp",
+      "exhausted": "Vous avez utilisé toutes les questions de cet accès. Pour poursuivre l'analyse avec un de nos consultants, écrivez-nous sur WhatsApp 👇",
+      "expired": "Cet accès a expiré. Demandez-en un nouveau ou écrivez-nous sur WhatsApp 👇",
+      "invalidCode": "Code invalide. Vérifiez et réessayez.",
+      "questionsLeft": "{n, plural, one {# question restante} other {# questions restantes}}",
+      "tierName": {
+        "smart": "Smart",
+        "medium": "Medium",
+        "max": "Max"
+      }
     }
   }
 }

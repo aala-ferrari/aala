@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { useTranslations, useLocale } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, X, Sparkles } from 'lucide-react';
+import { Send, X, Sparkles, Brain, Lock, ArrowLeft } from 'lucide-react';
 import { BOLLA_COLORS, type BollaMood } from '@/lib/bolla-brain';
 import { cn } from '@/lib/utils';
 
@@ -27,6 +27,13 @@ interface ApiReply {
   whatsapp?: boolean;
 }
 
+type ConsultSession = {
+  code: string;
+  tier: 'smart' | 'medium' | 'max';
+  remaining: number;
+  documents: boolean;
+};
+
 const WHATSAPP_NUMBER = '355699555777';
 const SERVICE_LABELS: Record<string, string> = {
   medical: 'il CRM Medical',
@@ -37,15 +44,16 @@ const SERVICE_LABELS: Record<string, string> = {
   webpages: 'un sito web su misura',
 };
 
-function openWhatsApp(service: string | null) {
+function openWhatsApp(service: string | null, text?: string) {
   const what = service && SERVICE_LABELS[service] ? SERVICE_LABELS[service] : 'i vostri servizi';
-  const msg = `Ciao AALA! Ho parlato con la Bolla sul sito e vorrei più informazioni / una demo su ${what}.`;
+  const msg = text ?? `Ciao AALA! Ho parlato con la Bolla sul sito e vorrei più informazioni / una demo su ${what}.`;
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
   window.open(url, '_blank', 'noopener,noreferrer');
 }
 
 export function BollaAssistant({ onClose }: { onClose: () => void }) {
   const t = useTranslations('bolla');
+  const tc = useTranslations('bolla.consultant');
   const locale = useLocale();
 
   const welcomeChips = [
@@ -67,6 +75,12 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
   const [busy, setBusy] = useState(false);
   const [currentService, setCurrentService] = useState<string | null>(null);
 
+  // ── Super Consulente ──
+  const [mode, setMode] = useState<'bolla' | 'consultant'>('bolla');
+  const [gate, setGate] = useState<null | 'menu' | 'request'>(null);
+  const [consult, setConsult] = useState<ConsultSession | null>(null);
+  const [exhausted, setExhausted] = useState(false);
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -76,14 +90,14 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
 
   useEffect(() => {
     inputRef.current?.focus();
-  }, []);
+  }, [mode]);
 
   const send = useCallback(
     async (text: string) => {
       const clean = text.trim();
       if (!clean || busy) return;
 
-      // chip WhatsApp → apri la chat con messaggio precompilato, non inviare alla Bolla
+      // chip WhatsApp → apri la chat con messaggio precompilato
       if (clean.toLowerCase().includes('whatsapp')) {
         openWhatsApp(currentService);
         return;
@@ -97,6 +111,39 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
       setMood('thinking');
 
       try {
+        if (mode === 'consultant' && consult) {
+          // ── modalità Super Consulente ──
+          const res = await fetch('/api/consulente', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code: consult.code, messages: nextMsgs, locale }),
+          });
+          const data = await res.json();
+
+          if (!data.ok) {
+            // esaurito / scaduto → upsell WhatsApp
+            const reason = data.reason as string;
+            const msg = reason === 'expired' ? tc('expired') : tc('exhausted');
+            setMessages((m) => [...m, { role: 'assistant', content: msg }]);
+            setChips(['📱 Scrivici su WhatsApp']);
+            setConsult((c) => (c ? { ...c, remaining: 0 } : c));
+            setExhausted(true);
+            setMood('idle');
+            return;
+          }
+
+          if (data.service && BOLLA_COLORS[data.service]) setColor(BOLLA_COLORS[data.service]);
+          if (data.service) setCurrentService(data.service);
+          setMood('speaking');
+          setMessages((m) => [...m, { role: 'assistant', content: data.reply }]);
+          setChips(data.chips ?? []);
+          setConsult((c) => (c ? { ...c, remaining: data.remaining ?? c.remaining } : c));
+          if ((data.remaining ?? 1) <= 0) setExhausted(true);
+          setTimeout(() => setMood('idle'), 2600);
+          return;
+        }
+
+        // ── modalità Bolla normale ──
         const res = await fetch('/api/bolla', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -104,17 +151,12 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
         });
         const data: ApiReply = await res.json();
 
-        // colore bolla + servizio corrente
-        if (data.service && BOLLA_COLORS[data.service]) {
-          setColor(BOLLA_COLORS[data.service]);
-        }
+        if (data.service && BOLLA_COLORS[data.service]) setColor(BOLLA_COLORS[data.service]);
         if (data.service) setCurrentService(data.service);
 
         setMood('speaking');
         setMessages((m) => [...m, { role: 'assistant', content: data.reply }]);
         setChips(data.chips ?? []);
-
-        // torna idle dopo un attimo
         setTimeout(() => setMood('idle'), 2600);
       } catch {
         setMessages((m) => [...m, { role: 'assistant', content: t('error') }]);
@@ -123,8 +165,26 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
         setBusy(false);
       }
     },
-    [messages, busy, currentService, locale, t]
+    [messages, busy, currentService, locale, t, tc, mode, consult]
   );
+
+  // sblocca il consulente con un codice valido
+  const onUnlock = useCallback(
+    (session: ConsultSession) => {
+      setConsult(session);
+      setMode('consultant');
+      setGate(null);
+      setExhausted(false);
+      setCurrentService(null);
+      setColor(BOLLA_COLORS.legal);
+      setMessages([{ role: 'assistant', content: tc('welcome') }]);
+      setChips([]);
+    },
+    [tc]
+  );
+
+  const tierLabel = consult ? tc(`tierName.${consult.tier}`) : '';
+  const inputDisabled = busy || (mode === 'consultant' && exhausted);
 
   return (
     <motion.div
@@ -156,11 +216,19 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
           </div>
           <div className="flex-1">
             <p className="flex items-center gap-1.5 font-display text-lg leading-tight text-ink">
-              {t('title')}
-              <Sparkles className="h-3.5 w-3.5 text-gold" />
+              {mode === 'consultant' ? tc('badge') : t('title')}
+              {mode === 'consultant' ? (
+                <Brain className="h-3.5 w-3.5 text-gold" />
+              ) : (
+                <Sparkles className="h-3.5 w-3.5 text-gold" />
+              )}
             </p>
             <p className="text-xs text-ink-soft">
-              {mood === 'thinking' ? t('statusThinking') : t('statusIdle')}
+              {mode === 'consultant' && consult
+                ? `${tierLabel} · ${tc('questionsLeft', { n: Math.max(0, consult.remaining) })}`
+                : mood === 'thinking'
+                  ? t('statusThinking')
+                  : t('statusIdle')}
             </p>
           </div>
           <button
@@ -171,80 +239,382 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
             <X className="h-4 w-4" />
           </button>
         </div>
+
+        {/* CTA Super Consulente — solo in modalità Bolla */}
+        {mode === 'bolla' && !gate && (
+          <button
+            onClick={() => setGate('menu')}
+            className="group mt-3 flex w-full items-center gap-2.5 rounded-2xl border border-gold/40 bg-gradient-to-r from-gold/10 to-transparent px-3.5 py-2.5 text-left transition hover:border-gold hover:from-gold/15"
+          >
+            <span
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
+              style={{ background: 'linear-gradient(135deg,#ecdcb0,#c9a849,#8a6717)' }}
+            >
+              <Brain className="h-4 w-4 text-ink" />
+            </span>
+            <span className="flex-1">
+              <span className="block text-sm font-semibold text-ink">{tc('open')}</span>
+              <span className="block text-[11px] leading-tight text-ink-soft">{tc('openSub')}</span>
+            </span>
+            <Lock className="h-3.5 w-3.5 text-gold/70" />
+          </button>
+        )}
       </div>
 
       <div className="h-px shrink-0 bg-ink-line/60" />
 
-      {/* ── Messaggi (unica zona che scrolla) ── */}
-      <div ref={scrollRef} className="min-h-0 flex-1 space-y-3 overflow-y-auto px-5 py-4">
-        {messages.map((m, i) => (
-          <MessageBubble key={i} role={m.role} text={m.content} color={color} />
-        ))}
-        {busy && <TypingDots color={color} />}
-      </div>
+      {/* ── Corpo: gate del Consulente OPPURE chat ── */}
+      {gate ? (
+        <ConsultantGate
+          view={gate}
+          onView={setGate}
+          onUnlock={onUnlock}
+          locale={locale}
+        />
+      ) : (
+        <>
+          {/* Messaggi */}
+          <div ref={scrollRef} className="min-h-0 flex-1 space-y-3 overflow-y-auto px-5 py-4">
+            {messages.map((m, i) => (
+              <MessageBubble key={i} role={m.role} text={m.content} color={color} />
+            ))}
+            {busy && <TypingDots color={color} />}
+          </div>
 
-      {/* ── Chip suggerimenti ── */}
-      {chips.length > 0 && !busy && (
-        <div className="flex shrink-0 flex-wrap gap-2 px-5 pb-3">
-          {chips.map((c, i) => {
-            const isWa = c.toLowerCase().includes('whatsapp');
-            // il chip WhatsApp mostra sempre la versione tradotta nella lingua corrente
-            const label = isWa ? t('whatsappChip') : c;
-            return (
+          {/* Chip suggerimenti */}
+          {chips.length > 0 && !busy && (
+            <div className="flex shrink-0 flex-wrap gap-2 px-5 pb-3">
+              {chips.map((c, i) => {
+                const isWa = c.toLowerCase().includes('whatsapp');
+                const label = isWa ? t('whatsappChip') : c;
+                return (
+                  <button
+                    key={i}
+                    onClick={() => send(c)}
+                    className={cn(
+                      'rounded-full px-3 py-1.5 text-xs font-medium transition',
+                      isWa
+                        ? 'text-white shadow-sm hover:brightness-105'
+                        : 'border border-gold/40 bg-canvas-paper text-ink hover:border-gold hover:bg-gold/10'
+                    )}
+                    style={
+                      isWa
+                        ? { background: 'linear-gradient(135deg, #25b34a 0%, #1a8f3c 100%)' }
+                        : undefined
+                    }
+                  >
+                    {label}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Input */}
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              send(input);
+            }}
+            className="flex shrink-0 items-center gap-2 border-t border-ink-line/60 bg-canvas-paper/60 p-3"
+          >
+            <input
+              ref={inputRef}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder={
+                mode === 'consultant'
+                  ? exhausted
+                    ? tc('exhaustedPlaceholder')
+                    : tc('placeholder')
+                  : t('placeholder')
+              }
+              disabled={inputDisabled}
+              className="flex-1 rounded-full border border-ink-line bg-white px-4 py-2.5 text-sm text-ink outline-none transition focus:border-gold disabled:opacity-60"
+            />
+            <button
+              type="submit"
+              disabled={inputDisabled || !input.trim()}
+              aria-label="Invia"
+              className={cn(
+                'flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition',
+                inputDisabled || !input.trim() ? 'opacity-50' : 'hover:scale-105'
+              )}
+              style={{
+                background: 'linear-gradient(135deg, #ecdcb0 0%, #c9a849 55%, #a07a26 100%)',
+              }}
+            >
+              <Send className="h-4 w-4 text-ink" />
+            </button>
+          </form>
+        </>
+      )}
+    </motion.div>
+  );
+}
+
+// ──────────────────────────────────────────────────────────────
+// Gate del Super Consulente: codice o richiesta accesso
+// ──────────────────────────────────────────────────────────────
+function ConsultantGate({
+  view,
+  onView,
+  onUnlock,
+  locale,
+}: {
+  view: 'menu' | 'request';
+  onView: (v: null | 'menu' | 'request') => void;
+  onUnlock: (s: ConsultSession) => void;
+  locale: string;
+}) {
+  const tc = useTranslations('bolla.consultant');
+
+  // unlock con codice
+  const [code, setCode] = useState('');
+  const [err, setErr] = useState('');
+  const [busy, setBusy] = useState(false);
+
+  // richiesta accesso
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [msg, setMsg] = useState('');
+  const [reqBusy, setReqBusy] = useState(false);
+  const [reqDone, setReqDone] = useState(false);
+  const [reqErr, setReqErr] = useState('');
+
+  const submitCode = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const clean = code.trim().toUpperCase();
+    if (clean.length < 4 || busy) return;
+    setBusy(true);
+    setErr('');
+    try {
+      const res = await fetch('/api/consulente/unlock', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: clean }),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        onUnlock({
+          code: clean,
+          tier: data.tier,
+          remaining: data.remaining,
+          documents: data.documents,
+        });
+      } else {
+        setErr(data.error ?? tc('invalidCode'));
+      }
+    } catch {
+      setErr(tc('invalidCode'));
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const submitRequest = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (reqBusy) return;
+    if (name.trim().length < 2 || !email.includes('@') || msg.trim().length < 5) {
+      setReqErr(tc('requestInvalid'));
+      return;
+    }
+    setReqBusy(true);
+    setReqErr('');
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          message: msg.trim(),
+          locale,
+          source: 'consultant-request',
+        }),
+      });
+      if (res.ok) {
+        setReqDone(true);
+      } else {
+        const d = await res.json().catch(() => ({}));
+        setReqErr(d.error ?? tc('requestInvalid'));
+      }
+    } catch {
+      setReqErr(tc('requestInvalid'));
+    } finally {
+      setReqBusy(false);
+    }
+  };
+
+  const requestOnWhatsApp = () => {
+    openWhatsApp(
+      'legal',
+      'Ciao AALA! Vorrei richiedere un accesso al Super Consulente (audit AI) per la mia impresa.'
+    );
+  };
+
+  return (
+    <div className="min-h-0 flex-1 overflow-y-auto px-5 py-5">
+      {view === 'menu' && (
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="space-y-5"
+        >
+          <div>
+            <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-gold">
+              {tc('badge')}
+            </p>
+            <h3 className="font-display text-xl leading-snug text-ink">{tc('title')}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-ink-soft">{tc('intro')}</p>
+          </div>
+
+          {/* cosa ottieni */}
+          <ul className="space-y-1.5 text-sm text-ink">
+            {[tc('benefit1'), tc('benefit2'), tc('benefit3')].map((b, i) => (
+              <li key={i} className="flex items-start gap-2">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
+
+          {/* inserisci codice */}
+          <form onSubmit={submitCode} className="space-y-2">
+            <label className="block text-xs font-medium text-ink-soft">{tc('haveCode')}</label>
+            <div className="flex gap-2">
+              <input
+                value={code}
+                onChange={(e) => setCode(e.target.value.toUpperCase())}
+                placeholder={tc('codePlaceholder')}
+                className="flex-1 rounded-full border border-ink-line bg-white px-4 py-2.5 text-sm font-mono tracking-wider text-ink outline-none transition focus:border-gold"
+              />
               <button
-                key={i}
-                onClick={() => send(c)}
+                type="submit"
+                disabled={busy || code.trim().length < 4}
                 className={cn(
-                  'rounded-full px-3 py-1.5 text-xs font-medium transition',
-                  isWa
-                    ? 'text-white shadow-sm hover:brightness-105'
-                    : 'border border-gold/40 bg-canvas-paper text-ink hover:border-gold hover:bg-gold/10'
+                  'shrink-0 rounded-full px-5 py-2.5 text-sm font-semibold text-ink transition',
+                  busy || code.trim().length < 4 ? 'opacity-50' : 'hover:brightness-105'
                 )}
-                style={
-                  isWa
-                    ? { background: 'linear-gradient(135deg, #25b34a 0%, #1a8f3c 100%)' }
-                    : undefined
-                }
+                style={{ background: 'linear-gradient(135deg,#ecdcb0,#c9a849,#a07a26)' }}
               >
-                {label}
+                {busy ? tc('unlocking') : tc('unlock')}
               </button>
-            );
-          })}
-        </div>
+            </div>
+            {err && <p className="text-xs text-red-600">{err}</p>}
+          </form>
+
+          <div className="flex items-center gap-3 text-[11px] uppercase tracking-widest text-ink-mute">
+            <span className="h-px flex-1 bg-ink-line/60" />
+            {tc('or')}
+            <span className="h-px flex-1 bg-ink-line/60" />
+          </div>
+
+          {/* richiedi accesso */}
+          <button
+            onClick={() => onView('request')}
+            className="w-full rounded-full border border-gold/50 bg-canvas-paper px-4 py-2.5 text-sm font-semibold text-ink transition hover:border-gold hover:bg-gold/10"
+          >
+            {tc('requestAccess')}
+          </button>
+
+          <button
+            onClick={() => onView(null)}
+            className="flex w-full items-center justify-center gap-1.5 text-xs text-ink-mute transition hover:text-ink"
+          >
+            <ArrowLeft className="h-3 w-3" /> {tc('backToChat')}
+          </button>
+        </motion.div>
       )}
 
-      {/* ── Input ── */}
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          send(input);
-        }}
-        className="flex shrink-0 items-center gap-2 border-t border-ink-line/60 bg-canvas-paper/60 p-3"
-      >
-        <input
-          ref={inputRef}
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder={t('placeholder')}
-          disabled={busy}
-          className="flex-1 rounded-full border border-ink-line bg-white px-4 py-2.5 text-sm text-ink outline-none transition focus:border-gold disabled:opacity-60"
-        />
-        <button
-          type="submit"
-          disabled={busy || !input.trim()}
-          aria-label="Invia"
-          className={cn(
-            'flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition',
-            busy || !input.trim() ? 'opacity-50' : 'hover:scale-105'
-          )}
-          style={{
-            background: 'linear-gradient(135deg, #ecdcb0 0%, #c9a849 55%, #a07a26 100%)',
-          }}
+      {view === 'request' && (
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="space-y-4"
         >
-          <Send className="h-4 w-4 text-ink" />
-        </button>
-      </form>
-    </motion.div>
+          <button
+            onClick={() => onView('menu')}
+            className="flex items-center gap-1.5 text-xs text-ink-mute transition hover:text-ink"
+          >
+            <ArrowLeft className="h-3 w-3" /> {tc('back')}
+          </button>
+
+          {reqDone ? (
+            <div className="space-y-4 py-6 text-center">
+              <div
+                className="mx-auto flex h-14 w-14 items-center justify-center rounded-full"
+                style={{ background: 'linear-gradient(135deg,#ecdcb0,#c9a849,#8a6717)' }}
+              >
+                <Sparkles className="h-6 w-6 text-ink" />
+              </div>
+              <h3 className="font-display text-lg text-ink">{tc('requestDoneTitle')}</h3>
+              <p className="text-sm leading-relaxed text-ink-soft">{tc('requestDone')}</p>
+              <button
+                onClick={requestOnWhatsApp}
+                className="mx-auto block rounded-full px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-105"
+                style={{ background: 'linear-gradient(135deg,#25b34a,#1a8f3c)' }}
+              >
+                {tc('requestWhatsapp')}
+              </button>
+            </div>
+          ) : (
+            <>
+              <div>
+                <h3 className="font-display text-lg text-ink">{tc('requestTitle')}</h3>
+                <p className="mt-1 text-sm leading-relaxed text-ink-soft">{tc('requestIntro')}</p>
+              </div>
+              <form onSubmit={submitRequest} className="space-y-2.5">
+                <input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder={tc('fieldName')}
+                  className="w-full rounded-xl border border-ink-line bg-white px-4 py-2.5 text-sm text-ink outline-none transition focus:border-gold"
+                />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder={tc('fieldEmail')}
+                  className="w-full rounded-xl border border-ink-line bg-white px-4 py-2.5 text-sm text-ink outline-none transition focus:border-gold"
+                />
+                <textarea
+                  value={msg}
+                  onChange={(e) => setMsg(e.target.value)}
+                  placeholder={tc('fieldBusiness')}
+                  rows={3}
+                  className="w-full resize-none rounded-xl border border-ink-line bg-white px-4 py-2.5 text-sm text-ink outline-none transition focus:border-gold"
+                />
+                {reqErr && <p className="text-xs text-red-600">{reqErr}</p>}
+                <button
+                  type="submit"
+                  disabled={reqBusy}
+                  className={cn(
+                    'w-full rounded-full px-4 py-2.5 text-sm font-semibold text-ink transition',
+                    reqBusy ? 'opacity-50' : 'hover:brightness-105'
+                  )}
+                  style={{ background: 'linear-gradient(135deg,#ecdcb0,#c9a849,#a07a26)' }}
+                >
+                  {reqBusy ? tc('requestSending') : tc('requestSend')}
+                </button>
+              </form>
+              <div className="flex items-center gap-3 text-[11px] uppercase tracking-widest text-ink-mute">
+                <span className="h-px flex-1 bg-ink-line/60" />
+                {tc('or')}
+                <span className="h-px flex-1 bg-ink-line/60" />
+              </div>
+              <button
+                onClick={requestOnWhatsApp}
+                className="w-full rounded-full px-4 py-2.5 text-sm font-semibold text-white transition hover:brightness-105"
+                style={{ background: 'linear-gradient(135deg,#25b34a,#1a8f3c)' }}
+              >
+                {tc('requestWhatsapp')}
+              </button>
+            </>
+          )}
+        </motion.div>
+      )}
+    </div>
   );
 }
 

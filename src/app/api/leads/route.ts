@@ -10,6 +10,7 @@ const LeadSchema = z.object({
   service: z.enum(['medical', 'webpages', 'auto', 'taxi', 'legal', 'dental', 'other']).optional(),
   message: z.string().min(5).max(4000),
   locale: z.string().max(5).optional(),
+  source: z.enum(['contact-form', 'consultant-request']).optional(),
 });
 
 export async function POST(req: Request) {
@@ -25,9 +26,10 @@ export async function POST(req: Request) {
   }
 
   const supabase = createSupabaseServiceClient();
+  const { source, ...lead } = parsed;
   const { error } = await supabase.from('leads').insert({
-    ...parsed,
-    source: 'contact-form',
+    ...lead,
+    source: source ?? 'contact-form',
   });
 
   if (error) {
