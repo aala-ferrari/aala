@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { Check, Copy, KeyRound, Clock, Mail, Loader2, MailCheck, MailX, Link as LinkIcon, Brain } from 'lucide-react';
+import { Check, Copy, KeyRound, Clock, Mail, Loader2, MailCheck, MailX, Link as LinkIcon, Brain, MessageCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type ConsultTier = 'smart' | 'medium' | 'max';
@@ -19,6 +19,8 @@ interface ConsultResult {
   expiresInDays: number;
   emailSent: boolean;
   emailError?: string | null;
+  questionsUsed?: number;   // se noto (codice caricato dal DB)
+  fromDb?: boolean;         // true se caricato dal database, non generato ora
 }
 
 interface Lead {
@@ -41,6 +43,11 @@ interface DemoCode {
   used_at: string | null;
   expires_at: string;
   created_at: string;
+  // Super Consulente (presenti se kind='consultant')
+  kind?: string | null;
+  tier?: ConsultTier | null;
+  questions_limit?: number | null;
+  questions_used?: number | null;
 }
 
 const STATUS_COLOR: Record<string, string> = {
@@ -172,9 +179,13 @@ export function LeadsTable({
       <div className="space-y-3">
         {leads.map((lead) => {
           const leadCodes = codesByLead[lead.id] ?? [];
-          const activeCode = leadCodes.find(
+          // codici prodotto (vecchio flusso demo) vs codici Super Consulente
+          const productCodes = leadCodes.filter((c) => c.kind !== 'consultant');
+          const activeCode = productCodes.find(
             (c) => !c.used_at && new Date(c.expires_at) > new Date()
           );
+          // codice Consulente persistente dal DB (il più recente, codes già ordinati desc)
+          const dbConsultCode = leadCodes.find((c) => c.kind === 'consultant');
           return (
             <div key={lead.id} className="card-paper overflow-hidden">
               <div className="grid gap-4 p-5 md:grid-cols-[1fr_auto] md:items-start">
@@ -248,8 +259,11 @@ export function LeadsTable({
                   {/* ── Super Consulente: genera codice con tier ── */}
                   <ConsultantPanel
                     leadId={lead.id}
+                    leadName={lead.name}
+                    leadPhone={lead.phone}
                     busy={consultBusy === lead.id}
                     result={consultResults[lead.id]}
+                    existing={dbConsultCode}
                     onGenerate={generateConsultant}
                     onCopy={copyCode}
                     copied={copied}
@@ -257,14 +271,14 @@ export function LeadsTable({
                 </div>
               </div>
 
-              {/* codici passati */}
-              {leadCodes.length > (activeCode ? 1 : 0) && (
+              {/* codici demo prodotto passati (i consulente stanno nel loro pannello) */}
+              {productCodes.length > (activeCode ? 1 : 0) && (
                 <div className="border-t border-ink-line/60 bg-canvas-warm/30 px-5 py-3">
                   <p className="mb-1.5 text-[10px] uppercase tracking-widest text-ink-mute">
                     Codici precedenti
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {leadCodes
+                    {productCodes
                       .filter((c) => c.code !== activeCode?.code)
                       .map((c) => (
                         <span
@@ -288,37 +302,81 @@ export function LeadsTable({
 
 function ConsultantPanel({
   leadId,
+  leadName,
+  leadPhone,
   busy,
   result,
+  existing,
   onGenerate,
   onCopy,
   copied,
 }: {
   leadId: string;
+  leadName: string;
+  leadPhone?: string | null;
   busy: boolean;
   result?: ConsultResult;
+  existing?: DemoCode;
   onGenerate: (leadId: string, tier: ConsultTier) => void;
   onCopy: (text: string, key: string) => void;
   copied: string | null;
 }) {
   const [open, setOpen] = useState(false);
 
-  if (result) {
+  // Codice da mostrare: quello appena generato in sessione, oppure quello già
+  // presente nel database (così resta visibile anche dopo un reload del pannello).
+  const shown: ConsultResult | undefined =
+    result ??
+    (existing && existing.tier
+      ? {
+          code: existing.code,
+          tier: existing.tier,
+          questions: existing.questions_limit ?? 0,
+          documents: existing.tier === 'max',
+          expiresInDays: Math.max(
+            0,
+            Math.ceil((new Date(existing.expires_at).getTime() - Date.now()) / 86400000)
+          ),
+          emailSent: false,
+          questionsUsed: existing.questions_used ?? 0,
+          fromDb: true,
+        }
+      : undefined);
+
+  // Apre WhatsApp col messaggio + codice già pronto. Se il lead ha un telefono,
+  // va dritto a lui; altrimenti apre WhatsApp e scegli tu il contatto.
+  function sendWhatsApp(r: ConsultResult) {
+    const site = typeof window !== 'undefined' ? window.location.origin : '';
+    const msg =
+      `Ciao ${leadName}! 🧠 Ecco il tuo accesso al Super Consulente AALA.\n\n` +
+      `Codice: ${r.code}\n` +
+      `${r.questions} domande${r.documents ? ' + analisi documenti' : ''} · valido ${r.expiresInDays} giorni\n\n` +
+      `Apri ${site} , clicca sulla Bolla in basso e poi su "Super Consulente", e inserisci il codice. A presto!`;
+    const phone = (leadPhone ?? '').replace(/[^0-9]/g, '');
+    const url = phone
+      ? `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
+      : `https://wa.me/?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
+
+  if (shown) {
+    const expired = shown.expiresInDays <= 0;
     return (
       <div className="mt-1 rounded-xl border border-gold/40 bg-gold/5 p-3 md:min-w-[300px]">
         <p className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-gold">
-          <Brain className="h-3 w-3" /> Super Consulente · {result.tier}
+          <Brain className="h-3 w-3" /> Super Consulente · {shown.tier}
+          {shown.fromDb && <span className="text-ink-mute">· salvato</span>}
         </p>
         <div className="mt-2 flex items-center gap-2">
           <code className="rounded-md bg-white px-3 py-1.5 font-mono text-base font-bold text-ink">
-            {result.code}
+            {shown.code}
           </code>
           <button
-            onClick={() => onCopy(result.code, result.code)}
+            onClick={() => onCopy(shown.code, shown.code)}
             className="rounded-md border border-ink-line bg-white p-1.5 text-ink-soft transition hover:text-ink"
             title="Copia codice"
           >
-            {copied === result.code ? (
+            {copied === shown.code ? (
               <Check className="h-3.5 w-3.5 text-[#2a7a5c]" />
             ) : (
               <Copy className="h-3.5 w-3.5" />
@@ -326,18 +384,33 @@ function ConsultantPanel({
           </button>
         </div>
         <p className="mt-1.5 text-[10px] text-ink-mute">
-          {result.questions} domande{result.documents ? ' + documenti' : ''} · scade tra{' '}
-          {result.expiresInDays} giorni
+          {shown.questionsUsed != null
+            ? `${shown.questionsUsed}/${shown.questions} domande usate`
+            : `${shown.questions} domande`}
+          {shown.documents ? ' · documenti' : ''} ·{' '}
+          {expired ? 'scaduto' : `scade tra ${shown.expiresInDays} giorni`}
         </p>
-        {result.emailSent ? (
-          <p className="mt-2 inline-flex items-center gap-1.5 text-[10px] text-[#2a7a5c]">
-            <MailCheck className="h-3 w-3" /> Email inviata al cliente
-          </p>
-        ) : (
-          <p className="mt-2 inline-flex items-center gap-1.5 text-[10px] text-[#a85a1a]">
-            <MailX className="h-3 w-3" /> Email non inviata — manda il codice a mano
-          </p>
-        )}
+
+        {/* Manda il codice al cliente su WhatsApp (non serve l'email) */}
+        <button
+          onClick={() => sendWhatsApp(shown)}
+          className="mt-2.5 flex w-full items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold text-white transition hover:brightness-105"
+          style={{ background: 'linear-gradient(135deg,#25b34a,#1a8f3c)' }}
+        >
+          <MessageCircle className="h-3.5 w-3.5" />
+          {leadPhone ? 'Manda il codice su WhatsApp' : 'Apri WhatsApp col codice'}
+        </button>
+
+        {!shown.fromDb &&
+          (shown.emailSent ? (
+            <p className="mt-2 inline-flex items-center gap-1.5 text-[10px] text-[#2a7a5c]">
+              <MailCheck className="h-3 w-3" /> Email inviata al cliente
+            </p>
+          ) : (
+            <p className="mt-2 inline-flex items-center gap-1.5 text-[10px] text-ink-mute">
+              <MailX className="h-3 w-3" /> Email non configurata — usa WhatsApp qui sopra
+            </p>
+          ))}
       </div>
     );
   }

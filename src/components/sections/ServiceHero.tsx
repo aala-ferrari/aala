@@ -1,10 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Stethoscope, Car, Scale, Smile } from 'lucide-react';
+import { Stethoscope, Car, Scale, Smile, Smartphone } from 'lucide-react';
 import type { Vertical } from '@/lib/products';
 
-const ICONS = { medical: Stethoscope, auto: Car, legal: Scale, dental: Smile };
+const ICONS = { medical: Stethoscope, auto: Car, legal: Scale, dental: Smile, taxi: Smartphone };
 
 export function ServiceHero({ vertical }: { vertical: Vertical }) {
   const Icon = ICONS[vertical.key];

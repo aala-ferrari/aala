@@ -1,10 +1,10 @@
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { createSupabaseServerClient, createSupabaseServiceClient } from '@/lib/supabase/server';
-import { Stethoscope, Car, Scale, Smile, ArrowUpRight } from 'lucide-react';
+import { Stethoscope, Car, Scale, Smile, Smartphone, ArrowUpRight } from 'lucide-react';
 import { VERTICAL_LIST, type VerticalKey } from '@/lib/products';
 
-const ICONS = { medical: Stethoscope, auto: Car, legal: Scale, dental: Smile };
+const ICONS = { medical: Stethoscope, auto: Car, legal: Scale, dental: Smile, taxi: Smartphone };
 
 export default async function AccountPage({ params }: { params: { locale: string } }) {
   const supabase = createSupabaseServerClient();
