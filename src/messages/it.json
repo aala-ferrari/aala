@@ -11,7 +11,9 @@
     "contact": "Contatti",
     "login": "Accedi",
     "signup": "Registrati",
-    "account": "Area cliente"
+    "account": "Area cliente",
+    "admin": "Admin",
+    "logout": "Esci"
   },
   "home": {
     "hero": {

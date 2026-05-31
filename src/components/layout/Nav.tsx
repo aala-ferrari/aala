@@ -3,15 +3,22 @@
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
 import { useState, useEffect } from 'react';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, Brain } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { locales } from '@/i18n';
+import { createSupabaseBrowserClient } from '@/lib/supabase/client';
 
 const LANG_LABEL: Record<string, string> = {
   it: 'IT', en: 'EN', es: 'ES', fr: 'FR', de: 'DE', sq: 'SQ',
 };
 
-export function Nav() {
+export function Nav({
+  isLoggedIn = false,
+  isAdmin = false,
+}: {
+  isLoggedIn?: boolean;
+  isAdmin?: boolean;
+}) {
   const t = useTranslations('nav');
   const tBrand = useTranslations('brand');
   const locale = useLocale();
@@ -19,12 +26,24 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
 
+  // stato auth deciso dal server (cookie letti lato server, niente hang del client)
+  const auth: 'in' | 'out' = isLoggedIn ? 'in' : 'out';
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  const logout = async () => {
+    try {
+      await createSupabaseBrowserClient().auth.signOut();
+    } catch {
+      /* ignora: facciamo comunque il redirect */
+    }
+    window.location.href = `/${locale}`;
+  };
 
   const links = [
     { href: `/${locale}#services`, label: t('services') },
@@ -91,15 +110,42 @@ export function Nav() {
             )}
           </div>
 
-          <Link
-            href={`/${locale}/login`}
-            className="hidden text-sm text-ink-soft transition hover:text-ink md:inline"
-          >
-            {t('login')}
-          </Link>
-          <Link href={`/${locale}/signup`} className="btn-primary hidden md:inline-flex">
-            {t('signup')}
-          </Link>
+          {auth === 'in' ? (
+            <div className="hidden items-center gap-3 md:flex">
+              {isAdmin && (
+                <Link
+                  href={`/${locale}/admin/leads`}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-gold/50 bg-gold/10 px-3 py-1.5 text-sm font-medium text-ink transition hover:bg-gold/20"
+                >
+                  <Brain className="h-3.5 w-3.5 text-gold" /> {t('admin')}
+                </Link>
+              )}
+              <Link
+                href={`/${locale}/account`}
+                className="text-sm text-ink-soft transition hover:text-ink"
+              >
+                {t('account')}
+              </Link>
+              <button
+                onClick={logout}
+                className="text-sm text-ink-soft transition hover:text-ink"
+              >
+                {t('logout')}
+              </button>
+            </div>
+          ) : auth === 'out' ? (
+            <>
+              <Link
+                href={`/${locale}/login`}
+                className="hidden text-sm text-ink-soft transition hover:text-ink md:inline"
+              >
+                {t('login')}
+              </Link>
+              <Link href={`/${locale}/signup`} className="btn-primary hidden md:inline-flex">
+                {t('signup')}
+              </Link>
+            </>
+          ) : null}
 
           <button
             className="md:hidden text-ink"
@@ -124,14 +170,38 @@ export function Nav() {
                 {l.label}
               </Link>
             ))}
-            <div className="flex gap-2 pt-2">
-              <Link href={`/${locale}/login`} className="btn-ghost flex-1 justify-center">
-                {t('login')}
-              </Link>
-              <Link href={`/${locale}/signup`} className="btn-primary flex-1 justify-center">
-                {t('signup')}
-              </Link>
-            </div>
+            {auth === 'in' ? (
+              <div className="flex flex-col gap-2 pt-2">
+                {isAdmin && (
+                  <Link
+                    href={`/${locale}/admin/leads`}
+                    onClick={() => setOpen(false)}
+                    className="inline-flex items-center justify-center gap-1.5 rounded-full border border-gold/50 bg-gold/10 px-4 py-2 text-sm font-medium text-ink"
+                  >
+                    <Brain className="h-3.5 w-3.5 text-gold" /> {t('admin')}
+                  </Link>
+                )}
+                <Link
+                  href={`/${locale}/account`}
+                  onClick={() => setOpen(false)}
+                  className="btn-ghost justify-center"
+                >
+                  {t('account')}
+                </Link>
+                <button onClick={logout} className="btn-ghost justify-center">
+                  {t('logout')}
+                </button>
+              </div>
+            ) : (
+              <div className="flex gap-2 pt-2">
+                <Link href={`/${locale}/login`} className="btn-ghost flex-1 justify-center">
+                  {t('login')}
+                </Link>
+                <Link href={`/${locale}/signup`} className="btn-primary flex-1 justify-center">
+                  {t('signup')}
+                </Link>
+              </div>
+            )}
             <div className="flex gap-2 pt-3">
               {locales.map((l) => (
                 <Link

@@ -11,7 +11,9 @@
     "contact": "Kontakt",
     "login": "Anmelden",
     "signup": "Registrieren",
-    "account": "Mein Konto"
+    "account": "Mein Konto",
+    "admin": "Admin",
+    "logout": "Abmelden"
   },
   "home": {
     "hero": {

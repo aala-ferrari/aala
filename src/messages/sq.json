@@ -11,7 +11,9 @@
     "contact": "Kontakt",
     "login": "Hyr",
     "signup": "Regjistrohu",
-    "account": "Llogaria ime"
+    "account": "Llogaria ime",
+    "admin": "Admin",
+    "logout": "Dil"
   },
   "home": {
     "hero": {
