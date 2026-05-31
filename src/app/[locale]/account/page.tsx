@@ -6,6 +6,9 @@ import { VERTICAL_LIST, type VerticalKey } from '@/lib/products';
 
 const ICONS = { medical: Stethoscope, auto: Car, legal: Scale, dental: Smile, taxi: Smartphone };
 
+// mai cachata: ruolo/profilo sempre freschi a ogni richiesta
+export const dynamic = 'force-dynamic';
+
 export default async function AccountPage({ params }: { params: { locale: string } }) {
   const supabase = createSupabaseServerClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -39,6 +42,25 @@ export default async function AccountPage({ params }: { params: { locale: string
           <h1 className="mt-2 font-display text-4xl tracking-tight sm:text-5xl">
             Ciao, <span className="gold-text">{profile?.full_name?.split(' ')[0] ?? 'benvenuto'}</span>
           </h1>
+
+          {/* Scorciatoia al backoffice — visibile solo agli admin */}
+          {profile?.role === 'admin' && (
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href={`/${params.locale}/admin/leads`}
+                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-ink transition hover:brightness-105"
+                style={{ background: 'linear-gradient(135deg,#ecdcb0,#c9a849,#a07a26)' }}
+              >
+                🧠 Pannello Admin · Lead & Codici <ArrowUpRight className="h-4 w-4" />
+              </Link>
+              <Link
+                href={`/${params.locale}/admin`}
+                className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-canvas-paper px-5 py-2.5 text-sm font-medium text-ink transition hover:border-gold hover:bg-gold/10"
+              >
+                Backoffice
+              </Link>
+            </div>
+          )}
         </header>
 
         <h2 className="mb-4 text-sm font-medium uppercase tracking-widest text-ink-mute">
