@@ -162,7 +162,7 @@ create policy "Admins read leads"
 -- ============================================================
 create table if not exists public.demo_codes (
   code text primary key,                              -- es. 'LEG-A4F8B2'
-  vertical text not null check (vertical in ('medical', 'auto', 'legal', 'dental')),
+  vertical text not null check (vertical in ('medical', 'auto', 'legal', 'dental', 'taxi')),
   lead_id uuid references public.leads(id) on delete set null,
   email text,                                         -- copia per audit
   created_by uuid references public.profiles(id),     -- admin che ha approvato
