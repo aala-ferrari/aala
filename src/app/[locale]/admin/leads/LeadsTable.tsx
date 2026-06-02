@@ -283,6 +283,9 @@ export function LeadsTable({
 
                 {/* actions */}
                 <div className="flex flex-col items-stretch gap-2 md:items-end">
+                  <p className="text-[10px] uppercase tracking-widest text-ink-mute md:text-right">
+                    Genera accesso per il cliente
+                  </p>
                   {activeCode ? (
                     <CodeCard
                       code={activeCode}
@@ -291,24 +294,26 @@ export function LeadsTable({
                       emailInfo={emailStatus[activeCode.code]}
                     />
                   ) : (
-                    <button
-                      onClick={() => approve(lead.id)}
-                      disabled={approving === lead.id}
-                      className={cn(
-                        'btn-primary',
-                        approving === lead.id && 'opacity-60'
-                      )}
-                    >
-                      {approving === lead.id ? (
-                        <>
-                          <Loader2 className="h-4 w-4 animate-spin" /> Genero...
-                        </>
-                      ) : (
-                        <>
-                          <KeyRound className="h-4 w-4" /> Approva e genera codice
-                        </>
-                      )}
-                    </button>
+                    <div className="flex flex-col items-stretch gap-0.5 md:items-end">
+                      <button
+                        onClick={() => approve(lead.id)}
+                        disabled={approving === lead.id}
+                        className={cn('btn-primary', approving === lead.id && 'opacity-60')}
+                      >
+                        {approving === lead.id ? (
+                          <>
+                            <Loader2 className="h-4 w-4 animate-spin" /> Genero...
+                          </>
+                        ) : (
+                          <>
+                            <KeyRound className="h-4 w-4" /> Codice demo prodotto
+                          </>
+                        )}
+                      </button>
+                      <span className="text-[10px] text-ink-mute md:text-right">
+                        Prova il prodotto vero (es. app Taxi, Super Avokati…)
+                      </span>
+                    </div>
                   )}
 
                   {/* ── Super Consulente: genera codice con tier ── */}
@@ -530,12 +535,17 @@ function ConsultantPanel({
 
   if (!open) {
     return (
-      <button
-        onClick={() => setOpen(true)}
-        className="inline-flex items-center justify-center gap-1.5 rounded-full border border-gold/40 bg-canvas-paper px-3 py-1.5 text-xs font-medium text-ink transition hover:border-gold hover:bg-gold/10"
-      >
-        <Brain className="h-3.5 w-3.5 text-gold" /> Codice Super Consulente
-      </button>
+      <div className="flex flex-col items-stretch gap-0.5 md:items-end">
+        <button
+          onClick={() => setOpen(true)}
+          className="inline-flex items-center justify-center gap-1.5 rounded-full border border-gold/40 bg-canvas-paper px-3 py-1.5 text-xs font-medium text-ink transition hover:border-gold hover:bg-gold/10"
+        >
+          <Brain className="h-3.5 w-3.5 text-gold" /> Codice Super Consulente
+        </button>
+        <span className="text-[10px] text-ink-mute md:text-right">
+          Audit AI dentro la Bolla (con domande a piani)
+        </span>
+      </div>
     );
   }
 
