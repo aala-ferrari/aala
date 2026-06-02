@@ -19,7 +19,7 @@ const LIVE_PRODUCT_URL: Partial<Record<VerticalKey, string>> = {
   auto: process.env.URL_PRODUCT_AUTO || 'http://localhost:4011',
   legal: process.env.URL_PRODUCT_LEGAL || 'http://localhost:5050',
   dental: process.env.URL_PRODUCT_DENTAL || 'https://medicalalbania.com',
-  taxi: process.env.URL_PRODUCT_TAXI || 'http://localhost:3001',
+  taxi: process.env.URL_PRODUCT_TAXI || 'http://localhost:3001/sso',
 };
 
 export async function POST(req: Request) {
