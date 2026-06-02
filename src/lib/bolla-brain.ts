@@ -97,7 +97,7 @@ const SERVICE_PITCH: Record<string, string[]> = {
   ],
   taxi: [
     'La Taxi App è una piattaforma stile Bolt col TUO brand: app passeggero e driver, dispatching automatico, pagamenti, mappa live.',
-    'Parte da €490/mese, oppure tutta tua su App Store e Play Store da €7.500 una tantum.',
+    'Parte da €490/mese; tutta tua da €7.500 una tantum (web/PWA), o €15.000 completo con app native pubblicate su App Store e Play Store.',
   ],
   legal: [
     'Super Avokati è la suite per studi legali: pratiche, scadenze, calendario udienze e ricerca documentale con intelligenza artificiale.',

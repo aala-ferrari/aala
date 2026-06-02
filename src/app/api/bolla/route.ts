@@ -49,7 +49,7 @@ AALA è un'alleanza che vende e gestisce 6 servizi software/business premium:
 
 4. **Dental Tourism** (key: dental, colore verde) — agenzia: portiamo pazienti internazionali qualificati (Europa, UK, USA) alle cliniche dentali tramite campagne mirate. Modello a commissione: 20-25% sul preventivo paziente, paghi solo a risultato, nessun costo fisso. Premium: campagne Meta Ads (Facebook+Instagram) per far crescere la clinica.
 
-5. **Taxi App** (key: taxi, colore giallo) — piattaforma stile Bolt col brand del cliente: app passeggero+driver, dispatching automatico, pagamenti, mappa live. Starter €490/mese (≤20 driver), Fleet €1.490/mese (≤100 driver), Platform €7.500 una tantum (app brandizzata su App Store + Play Store, backend, dominio, hosting).
+5. **Taxi App** (key: taxi, colore giallo) — piattaforma stile Bolt col brand del cliente: app passeggero+driver, dispatching automatico, pagamenti, mappa live. Starter €490/mese (≤20 driver), Fleet €1.490/mese (≤100 driver), Platform €7.500 una tantum (app brandizzata web/PWA, backend, dominio, hosting), Completo €15.000 una tantum (app native iOS+Android pubblicate su App Store + Google Play, account sviluppatore e review gestiti da noi).
 
 6. **Siti web su misura** (key: webpages, colore indaco) — sviluppo siti web 100% personalizzati, niente template pronti. Su preventivo.
 
