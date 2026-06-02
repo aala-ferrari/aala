@@ -8,6 +8,7 @@ export interface Plan {
   billing: 'one-time' | 'monthly' | 'yearly' | 'contact';
   features: string[];
   popular?: boolean;
+  premium?: boolean;
   stripePriceId?: string;
 }
 
@@ -285,6 +286,7 @@ export const VERTICALS: Record<VerticalKey, Vertical> = {
         price: 15000,
         currency: 'EUR',
         billing: 'one-time',
+        premium: true,
         features: [
           'Tutto Platform +',
           'App native iOS + Android col tuo brand',

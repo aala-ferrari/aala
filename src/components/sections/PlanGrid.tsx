@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Check } from 'lucide-react';
+import { Check, Sparkles } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import type { Plan, Vertical } from '@/lib/products';
@@ -83,22 +83,31 @@ function PlanCard({
       transition={{ duration: 0.5, delay: index * 0.08 }}
       className={cn(
         'card-paper relative flex flex-col p-8',
-        plan.popular && 'ring-2'
+        (plan.popular || plan.premium) && 'ring-2'
       )}
       style={
-        plan.popular
-          ? ({ '--tw-ring-color': vertical.accent } as React.CSSProperties)
-          : undefined
+        plan.premium
+          ? ({ '--tw-ring-color': '#c9a849' } as React.CSSProperties)
+          : plan.popular
+            ? ({ '--tw-ring-color': vertical.accent } as React.CSSProperties)
+            : undefined
       }
     >
-      {plan.popular && (
+      {plan.premium ? (
+        <span
+          className="absolute -top-3 left-1/2 inline-flex -translate-x-1/2 items-center gap-1 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-ink shadow-sm"
+          style={{ background: 'linear-gradient(135deg,#ecdcb0,#c9a849,#a07a26)' }}
+        >
+          <Sparkles className="h-3 w-3" /> Premium
+        </span>
+      ) : plan.popular ? (
         <span
           className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-[10px] font-medium uppercase tracking-widest text-canvas"
           style={{ background: vertical.accent }}
         >
           {t('popular')}
         </span>
-      )}
+      ) : null}
 
       <h3 className="font-display text-2xl text-ink">{plan.name}</h3>
 
@@ -128,7 +137,7 @@ function PlanCard({
         href={ctaHref}
         className={cn(
           'mt-10 inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium transition',
-          plan.popular ? 'btn-primary' : 'btn-ghost'
+          plan.popular || plan.premium ? 'btn-primary' : 'btn-ghost'
         )}
       >
         {ctaLabel}
