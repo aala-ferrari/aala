@@ -6,6 +6,7 @@ const PRODUCT_URLS: Record<string, string | undefined> = {
   medical: process.env.URL_PRODUCT_CRM_MEDICAL,
   legal: process.env.URL_PRODUCT_LEGAL,
   dental: process.env.URL_PRODUCT_DENTAL,
+  taxi: process.env.URL_PRODUCT_TAXI || 'http://localhost:3001',
 };
 
 /**
