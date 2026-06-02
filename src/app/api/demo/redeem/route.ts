@@ -60,14 +60,31 @@ export async function POST(req: Request) {
 
   const vertical = row.vertical as VerticalKey;
   const liveUrl = LIVE_PRODUCT_URL[vertical];
+  const showcase = `/demo/${vertical}?code=${encodeURIComponent(row.code)}`;
 
-  // Se il prodotto è online → vai dritto al prodotto vero
-  // Se no → landing /demo/[vertical] con mockup
+  // Esperienza coerente per TUTTI i servizi: non aprire mai una pagina morta.
+  // Se il prodotto vero è raggiungibile → vai lì. Se è spento/non hostato →
+  // apri la showcase AALA del servizio (funziona sempre).
+  const reachable = liveUrl ? await isReachable(liveUrl) : false;
+
   return NextResponse.json({
     ok: true,
     vertical,
     productUrl: liveUrl ?? null,
-    redirectTo: liveUrl ?? `/demo/${vertical}?code=${encodeURIComponent(row.code)}`,
-    external: Boolean(liveUrl),
+    redirectTo: reachable ? liveUrl! : showcase,
+    external: reachable,
   });
+}
+
+// Ping veloce: il prodotto risponde? (timeout breve, qualunque risposta = vivo)
+async function isReachable(url: string): Promise<boolean> {
+  try {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 1800);
+    const res = await fetch(url, { method: 'GET', redirect: 'manual', signal: ctrl.signal });
+    clearTimeout(timer);
+    return res.status > 0;
+  } catch {
+    return false;
+  }
 }
