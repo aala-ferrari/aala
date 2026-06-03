@@ -25,7 +25,10 @@ export function ContactForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error(await res.text());
+      if (!res.ok) {
+        const j = await res.json().catch(() => ({}));
+        throw new Error(j.error || 'Si è verificato un errore. Riprova.');
+      }
       setState('sent');
     } catch (err) {
       setState('error');

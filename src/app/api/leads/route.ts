@@ -13,20 +13,29 @@ const LeadSchema = z.object({
   source: z.enum(['contact-form', 'consultant-request']).optional(),
 });
 
+// Traduce l'errore di validazione in una frase chiara per l'utente
+function friendlyError(field: unknown): string {
+  switch (field) {
+    case 'email':
+      return "Inserisci un'email valida.";
+    case 'name':
+      return 'Inserisci il tuo nome.';
+    case 'message':
+      return 'Scrivi due righe in più nel messaggio (almeno 5 caratteri).';
+    default:
+      return 'Controlla i campi e riprova.';
+  }
+}
+
 export async function POST(req: Request) {
-  let parsed;
-  try {
-    const json = await req.json();
-    parsed = LeadSchema.parse(json);
-  } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : 'Invalid payload' },
-      { status: 400 }
-    );
+  const parsed = LeadSchema.safeParse(await req.json().catch(() => ({})));
+  if (!parsed.success) {
+    const field = parsed.error.issues[0]?.path[0];
+    return NextResponse.json({ error: friendlyError(field) }, { status: 400 });
   }
 
   const supabase = createSupabaseServiceClient();
-  const { source, ...lead } = parsed;
+  const { source, ...lead } = parsed.data;
   const { error } = await supabase.from('leads').insert({
     ...lead,
     source: source ?? 'contact-form',
