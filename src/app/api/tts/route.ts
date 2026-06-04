@@ -85,7 +85,7 @@ async function hfTts(text: string, locale: string): Promise<TtsResult> {
   if (!model) return null;
   try {
     const r = await fetch(
-      `https://api-inference.huggingface.co/models/${model}`,
+      `https://router.huggingface.co/hf-inference/models/${model}`,
       {
         method: 'POST',
         headers: {
