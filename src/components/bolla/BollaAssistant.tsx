@@ -4,8 +4,9 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { useTranslations, useLocale } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, X, Sparkles, Brain, Lock, ArrowLeft } from 'lucide-react';
+import { Send, X, Sparkles, Brain, Lock, ArrowLeft, Mic, Volume2, VolumeX } from 'lucide-react';
 import { BOLLA_COLORS, type BollaMood } from '@/lib/bolla-brain';
+import { useVoice } from '@/lib/use-voice';
 import { cn } from '@/lib/utils';
 
 const BollaScene3D = dynamic(
@@ -82,6 +83,10 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
   const [consult, setConsult] = useState<ConsultSession | null>(null);
   const [exhausted, setExhausted] = useState(false);
 
+  // ── Voce: parla invece di scrivere, e ascolta le risposte (mani libere) ──
+  const voice = useVoice(locale);
+  const [voiceOut, setVoiceOut] = useState(false); // leggere a voce le risposte?
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -126,6 +131,7 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
             const reason = data.reason as string;
             const msg = reason === 'expired' ? tc('expired') : tc('exhausted');
             setMessages((m) => [...m, { role: 'assistant', content: msg }]);
+            if (voiceOut) voice.speak(msg);
             setChips(['📱 Scrivici su WhatsApp']);
             setConsult((c) => (c ? { ...c, remaining: 0 } : c));
             setExhausted(true);
@@ -137,6 +143,7 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
           if (data.service) setCurrentService(data.service);
           setMood('speaking');
           setMessages((m) => [...m, { role: 'assistant', content: data.reply }]);
+          if (voiceOut) voice.speak(data.reply);
           setChips(data.chips ?? []);
           setConsult((c) =>
             c
@@ -165,6 +172,7 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
 
         setMood('speaking');
         setMessages((m) => [...m, { role: 'assistant', content: data.reply }]);
+        if (voiceOut) voice.speak(data.reply);
         setChips(data.chips ?? []);
         setTimeout(() => setMood('idle'), 2600);
       } catch {
@@ -174,8 +182,36 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
         setBusy(false);
       }
     },
-    [messages, busy, currentService, locale, t, tc, mode, consult]
+    [messages, busy, currentService, locale, t, tc, mode, consult, voiceOut, voice]
   );
+
+  // 🎤 premi e parla: ascolta la voce, riempie e invia. Attiva anche la voce in uscita.
+  const handleMic = useCallback(() => {
+    if (voice.listening) {
+      voice.stopListening();
+      return;
+    }
+    voice.cancelSpeak();
+    setVoiceOut(true); // mani libere → leggi le risposte a voce
+    voice.startListening((text) => {
+      setInput(text);
+      send(text);
+    });
+  }, [voice, send]);
+
+  // la sfera "ascolta" (morffa) mentre il microfono è attivo
+  useEffect(() => {
+    if (voice.listening) setMood('thinking');
+    else if (!busy) setMood((m) => (m === 'thinking' ? 'idle' : m));
+  }, [voice.listening, busy]);
+
+  // se spengo la voce in uscita, fermo subito l'eventuale lettura in corso
+  const toggleVoiceOut = useCallback(() => {
+    setVoiceOut((v) => {
+      if (v) voice.cancelSpeak();
+      return !v;
+    });
+  }, [voice]);
 
   // sblocca il consulente con un codice valido
   const onUnlock = useCallback(
@@ -329,6 +365,23 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
             }}
             className="flex shrink-0 items-center gap-2 border-t border-ink-line/60 bg-canvas-paper/60 p-3"
           >
+            {/* altoparlante: leggi le risposte a voce (mani libere / alla guida) */}
+            {voice.ttsSupported && (
+              <button
+                type="button"
+                onClick={toggleVoiceOut}
+                aria-label={voiceOut ? 'Voce attiva' : 'Voce disattivata'}
+                title={voiceOut ? 'Risposte a voce: attive' : 'Risposte a voce: spente'}
+                className={cn(
+                  'flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition',
+                  voiceOut
+                    ? 'border-gold bg-gold/15 text-gold'
+                    : 'border-ink-line text-ink-mute hover:text-ink'
+                )}
+              >
+                {voiceOut ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
+              </button>
+            )}
             <input
               ref={inputRef}
               value={input}
@@ -343,6 +396,30 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
               disabled={inputDisabled}
               className="flex-1 rounded-full border border-ink-line bg-white px-4 py-2.5 text-sm text-ink outline-none transition focus:border-gold disabled:opacity-60"
             />
+            {/* microfono: premi e parla invece di scrivere */}
+            {voice.sttSupported && (
+              <button
+                type="button"
+                onClick={handleMic}
+                disabled={busy || (mode === 'consultant' && exhausted)}
+                aria-label={voice.listening ? 'Sto ascoltando…' : 'Parla'}
+                title={voice.listening ? 'Sto ascoltando… tocca per fermare' : 'Premi e parla'}
+                className={cn(
+                  'flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition',
+                  voice.listening
+                    ? 'animate-pulse text-white shadow-md'
+                    : 'border border-gold/40 text-gold hover:bg-gold/10',
+                  busy || (mode === 'consultant' && exhausted) ? 'opacity-50' : ''
+                )}
+                style={
+                  voice.listening
+                    ? { background: 'linear-gradient(135deg,#e0533a,#c0392b)' }
+                    : undefined
+                }
+              >
+                <Mic className="h-4 w-4" />
+              </button>
+            )}
             <button
               type="submit"
               disabled={inputDisabled || !input.trim()}
