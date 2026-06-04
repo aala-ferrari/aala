@@ -1,10 +1,13 @@
+'use client';
+
 import { Smartphone, MapPin, Star, Wallet, Navigation, User } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { BrowserFrame } from './BrowserFrame';
 
 const DRIVERS = [
-  { name: 'Driver #18 · BMW Serie 2', status: 'In corsa', rating: 4.9, color: '#0e7c8a' },
-  { name: 'Driver #07 · Mercedes', status: 'Disponibile', rating: 4.8, color: '#2a7a5c' },
-  { name: 'Driver #23 · Tesla Model 3', status: 'Pausa', rating: 5.0, color: '#a85a1a' },
+  { name: 'Driver #18 · BMW Serie 2', status: 'onRide', rating: 4.9, color: '#0e7c8a' },
+  { name: 'Driver #07 · Mercedes', status: 'available', rating: 4.8, color: '#2a7a5c' },
+  { name: 'Driver #23 · Tesla Model 3', status: 'onBreak', rating: 5.0, color: '#a85a1a' },
 ];
 
 const RIDES = [
@@ -14,6 +17,7 @@ const RIDES = [
 ];
 
 export function TaxiMockup() {
+  const t = useTranslations('mockup.taxi');
   return (
     <BrowserFrame url="taxi.aala.io/dispatch">
       <div className="grid h-[560px] grid-cols-[55%_45%]">
@@ -22,10 +26,10 @@ export function TaxiMockup() {
           {/* KPI strip */}
           <div className="mb-4 grid grid-cols-4 gap-2">
             {[
-              { label: 'Corse oggi', value: '247', icon: Navigation },
-              { label: 'Driver attivi', value: '38', icon: User },
-              { label: 'Incasso giornaliero', value: '€3.2k', icon: Wallet },
-              { label: 'Rating medio', value: '4.87', icon: Star },
+              { label: t('ridesToday'), value: '247', icon: Navigation },
+              { label: t('activeDrivers'), value: '38', icon: User },
+              { label: t('dailyRevenue'), value: '€3.2k', icon: Wallet },
+              { label: t('avgRating'), value: '4.87', icon: Star },
             ].map((s) => {
               const Icon = s.icon;
               return (
@@ -100,7 +104,7 @@ export function TaxiMockup() {
 
             <div className="absolute bottom-3 left-3 rounded-lg border border-ink-line/40 bg-white/90 px-3 py-2 backdrop-blur">
               <p className="text-[10px] uppercase tracking-widest text-ink-mute">Tirana — centro</p>
-              <p className="text-xs font-medium text-ink">7 driver in zona</p>
+              <p className="text-xs font-medium text-ink">{t('driversInArea', { n: 7 })}</p>
             </div>
           </div>
         </div>
@@ -110,7 +114,7 @@ export function TaxiMockup() {
           {/* live rides */}
           <div className="mb-4">
             <div className="mb-3 flex items-center justify-between">
-              <h3 className="font-display text-base text-ink">Corse in tempo reale</h3>
+              <h3 className="font-display text-base text-ink">{t('liveRides')}</h3>
               <span className="rounded-full bg-[#f5b800]/12 px-2 py-0.5 text-[10px] font-medium text-[#f5b800]">
                 3 live
               </span>
@@ -141,7 +145,7 @@ export function TaxiMockup() {
 
           {/* drivers status */}
           <div>
-            <h3 className="mb-3 font-display text-base text-ink">Driver online</h3>
+            <h3 className="mb-3 font-display text-base text-ink">{t('driversOnline')}</h3>
             <div className="space-y-2">
               {DRIVERS.map((d, i) => (
                 <div
@@ -164,7 +168,7 @@ export function TaxiMockup() {
                     className="rounded-full px-2 py-0.5 text-[9px] font-medium"
                     style={{ background: `${d.color}1a`, color: d.color }}
                   >
-                    {d.status}
+                    {t(d.status)}
                   </span>
                 </div>
               ))}

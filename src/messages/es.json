@@ -525,5 +525,71 @@
         }
       }
     }
+  },
+  "mockup": {
+    "medical": {
+      "agenda": "Agenda",
+      "patients": "Pacientes",
+      "records": "Fichas",
+      "reminders": "Recordatorios",
+      "today": "Hoy",
+      "visitsScheduled": "visitas en agenda",
+      "search": "Buscar paciente, visita, receta...",
+      "day": "Día",
+      "week": "Semana",
+      "month": "Mes",
+      "newVisit": "Nueva visita"
+    },
+    "auto": {
+      "fleet": "Flota",
+      "onTrip": "En viaje",
+      "bookingToday": "Reservas hoy",
+      "margin": "Margen",
+      "activeCars": "{n} coches activos",
+      "available": "Disponible",
+      "maintenance": "Mantenimiento",
+      "addCar": "Añadir coche"
+    },
+    "legal": {
+      "cases": "Casos",
+      "inProgress": "En curso",
+      "search": "Buscar caso...",
+      "aiAssistant": "Asistente IA",
+      "docSearch": "Búsqueda documental",
+      "administrative": "Administrativo",
+      "civil": "Civil",
+      "tax": "Tributario",
+      "labor": "Laboral",
+      "caseRef": "Caso",
+      "urgent": "Urgente",
+      "deadline": "Vencimiento",
+      "documents": "{n} documentos",
+      "hearingCalendar": "Calendario de vistas"
+    },
+    "dental": {
+      "leadsMonth": "Leads / mes",
+      "conversion": "Conversión",
+      "pipelineValue": "Valor del pipeline",
+      "callsToday": "Llamadas hoy",
+      "patientOrigin": "Origen de pacientes",
+      "last30days": "Últimos 30 días",
+      "newCol": "Nuevos",
+      "contacted": "Contactados",
+      "qualified": "Cualificados",
+      "won": "Ganados",
+      "treatment": "Implantes · 2 piezas"
+    },
+    "taxi": {
+      "ridesToday": "Viajes hoy",
+      "activeDrivers": "Conductores activos",
+      "dailyRevenue": "Ingresos diarios",
+      "avgRating": "Valoración media",
+      "driversInArea": "{n} conductores en zona",
+      "liveRides": "Viajes en vivo",
+      "driversOnline": "Conductores en línea",
+      "onRide": "En viaje",
+      "available": "Disponible",
+      "onBreak": "En pausa"
+    }
   }
 }

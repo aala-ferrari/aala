@@ -525,5 +525,71 @@
     "tryDemo": "Try demo",
     "seePricing": "See pricing",
     "haveCodeHint": "Already have a code? Click \"Try demo\" and paste it."
+  },
+  "mockup": {
+    "medical": {
+      "agenda": "Calendar",
+      "patients": "Patients",
+      "records": "Records",
+      "reminders": "Reminders",
+      "today": "Today",
+      "visitsScheduled": "visits scheduled",
+      "search": "Search patient, visit, prescription...",
+      "day": "Day",
+      "week": "Week",
+      "month": "Month",
+      "newVisit": "New visit"
+    },
+    "auto": {
+      "fleet": "Fleet",
+      "onTrip": "On trip",
+      "bookingToday": "Bookings today",
+      "margin": "Margin",
+      "activeCars": "{n} active cars",
+      "available": "Available",
+      "maintenance": "Maintenance",
+      "addCar": "Add car"
+    },
+    "legal": {
+      "cases": "Cases",
+      "inProgress": "In progress",
+      "search": "Search case...",
+      "aiAssistant": "AI Assistant",
+      "docSearch": "Document search",
+      "administrative": "Administrative",
+      "civil": "Civil",
+      "tax": "Tax",
+      "labor": "Labor",
+      "caseRef": "Case",
+      "urgent": "Urgent",
+      "deadline": "Deadline",
+      "documents": "{n} documents",
+      "hearingCalendar": "Hearing calendar"
+    },
+    "dental": {
+      "leadsMonth": "Leads / month",
+      "conversion": "Conversion",
+      "pipelineValue": "Pipeline value",
+      "callsToday": "Calls today",
+      "patientOrigin": "Patient origin",
+      "last30days": "Last 30 days",
+      "newCol": "New",
+      "contacted": "Contacted",
+      "qualified": "Qualified",
+      "won": "Won",
+      "treatment": "Implants · 2 units"
+    },
+    "taxi": {
+      "ridesToday": "Rides today",
+      "activeDrivers": "Active drivers",
+      "dailyRevenue": "Daily revenue",
+      "avgRating": "Avg rating",
+      "driversInArea": "{n} drivers in area",
+      "liveRides": "Live rides",
+      "driversOnline": "Drivers online",
+      "onRide": "On ride",
+      "available": "Available",
+      "onBreak": "On break"
+    }
   }
 }

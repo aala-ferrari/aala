@@ -248,5 +248,71 @@
     "tryDemo": "Prova demo",
     "seePricing": "Vedi i prezzi",
     "haveCodeHint": "Hai già il codice? Click su \"Prova demo\" e incollalo."
+  },
+  "mockup": {
+    "medical": {
+      "agenda": "Agenda",
+      "patients": "Pazienti",
+      "records": "Cartelle",
+      "reminders": "Promemoria",
+      "today": "Oggi",
+      "visitsScheduled": "visite in agenda",
+      "search": "Cerca paziente, visita, prescrizione...",
+      "day": "Giorno",
+      "week": "Settimana",
+      "month": "Mese",
+      "newVisit": "Nuova visita"
+    },
+    "auto": {
+      "fleet": "Flotta",
+      "onTrip": "In viaggio",
+      "bookingToday": "Booking oggi",
+      "margin": "Margine",
+      "activeCars": "{n} auto attive",
+      "available": "Disponibile",
+      "maintenance": "Manutenzione",
+      "addCar": "Aggiungi auto"
+    },
+    "legal": {
+      "cases": "Pratiche",
+      "inProgress": "In corso",
+      "search": "Cerca pratica...",
+      "aiAssistant": "AI Assistant",
+      "docSearch": "Ricerca documentale",
+      "administrative": "Amministrativo",
+      "civil": "Civile",
+      "tax": "Tributario",
+      "labor": "Lavoro",
+      "caseRef": "Pratica",
+      "urgent": "Urgente",
+      "deadline": "Scadenza",
+      "documents": "{n} documenti",
+      "hearingCalendar": "Calendario udienze"
+    },
+    "dental": {
+      "leadsMonth": "Lead mese",
+      "conversion": "Conversione",
+      "pipelineValue": "Valore pipeline",
+      "callsToday": "Chiamate oggi",
+      "patientOrigin": "Provenienza pazienti",
+      "last30days": "Ultimi 30 giorni",
+      "newCol": "Nuovi",
+      "contacted": "Contattati",
+      "qualified": "Qualificati",
+      "won": "Vinti",
+      "treatment": "Impianti · 2 elementi"
+    },
+    "taxi": {
+      "ridesToday": "Corse oggi",
+      "activeDrivers": "Driver attivi",
+      "dailyRevenue": "Incasso giornaliero",
+      "avgRating": "Rating medio",
+      "driversInArea": "{n} driver in zona",
+      "liveRides": "Corse in tempo reale",
+      "driversOnline": "Driver online",
+      "onRide": "In corsa",
+      "available": "Disponibile",
+      "onBreak": "Pausa"
+    }
   }
 }

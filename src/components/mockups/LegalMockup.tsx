@@ -1,14 +1,18 @@
+'use client';
+
 import { Scale, FileText, Clock, AlertCircle, Search, Sparkles } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { BrowserFrame } from './BrowserFrame';
 
 const CASES = [
-  { ref: '2024/142', title: 'Rossi vs. Comune di Milano', type: 'Amministrativo', deadline: '12 Giu', urgent: true },
-  { ref: '2024/138', title: 'Bianchi — Successione', type: 'Civile', deadline: '18 Giu', urgent: false },
-  { ref: '2024/127', title: 'SrL Verdi — Contenzioso fiscale', type: 'Tributario', deadline: '24 Giu', urgent: false },
-  { ref: '2024/119', title: 'Costa — Diritto del lavoro', type: 'Lavoro', deadline: '30 Giu', urgent: false },
+  { ref: '2024/142', title: 'Rossi vs. Comune di Milano', type: 'administrative', deadline: '12 Giu', urgent: true },
+  { ref: '2024/138', title: 'Bianchi — Successione', type: 'civil', deadline: '18 Giu', urgent: false },
+  { ref: '2024/127', title: 'SrL Verdi — Contenzioso fiscale', type: 'tax', deadline: '24 Giu', urgent: false },
+  { ref: '2024/119', title: 'Costa — Diritto del lavoro', type: 'labor', deadline: '30 Giu', urgent: false },
 ];
 
 export function LegalMockup() {
+  const t = useTranslations('mockup.legal');
   return (
     <BrowserFrame url="legal.aala.io/pratiche">
       <div className="grid h-[560px] grid-cols-[55%_45%]">
@@ -16,13 +20,13 @@ export function LegalMockup() {
         <div className="border-r border-ink-line/60 p-6">
           <div className="mb-4 flex items-center justify-between">
             <div>
-              <p className="text-[10px] uppercase tracking-widest text-ink-mute">Pratiche</p>
-              <h3 className="font-display text-lg text-ink">In corso · 47</h3>
+              <p className="text-[10px] uppercase tracking-widest text-ink-mute">{t('cases')}</p>
+              <h3 className="font-display text-lg text-ink">{t('inProgress')} · 47</h3>
             </div>
             <div className="flex items-center gap-2">
               <div className="flex items-center gap-1.5 rounded-full border border-ink-line/60 bg-white px-3 py-1.5 text-[10px] text-ink-soft">
                 <Search className="h-3 w-3" />
-                <span>Cerca pratica...</span>
+                <span>{t('search')}</span>
               </div>
             </div>
           </div>
@@ -36,25 +40,25 @@ export function LegalMockup() {
                 <div className="flex items-start justify-between">
                   <div>
                     <p className="text-[10px] uppercase tracking-widest text-[#8a6717]">
-                      Pratica {c.ref}
+                      {t('caseRef')} {c.ref}
                     </p>
                     <p className="mt-0.5 text-xs font-medium text-ink">{c.title}</p>
-                    <p className="mt-0.5 text-[10px] text-ink-soft">{c.type}</p>
+                    <p className="mt-0.5 text-[10px] text-ink-soft">{t(c.type)}</p>
                   </div>
                   {c.urgent && (
                     <span className="inline-flex items-center gap-1 rounded-full bg-[#a85a1a]/15 px-2 py-0.5 text-[9px] font-medium text-[#a85a1a]">
-                      <AlertCircle className="h-2.5 w-2.5" /> Urgente
+                      <AlertCircle className="h-2.5 w-2.5" /> {t('urgent')}
                     </span>
                   )}
                 </div>
                 <div className="mt-3 flex items-center gap-3 text-[10px] text-ink-soft">
                   <span className="flex items-center gap-1">
                     <Clock className="h-2.5 w-2.5" />
-                    Scadenza {c.deadline}
+                    {t('deadline')} {c.deadline}
                   </span>
                   <span className="flex items-center gap-1">
                     <FileText className="h-2.5 w-2.5" />
-                    24 documenti
+                    {t('documents', { n: 24 })}
                   </span>
                 </div>
               </div>
@@ -69,8 +73,8 @@ export function LegalMockup() {
               <Sparkles className="h-4 w-4" />
             </div>
             <div>
-              <p className="text-[10px] uppercase tracking-widest text-ink-mute">AI Assistant</p>
-              <p className="text-sm font-medium text-ink">Ricerca documentale</p>
+              <p className="text-[10px] uppercase tracking-widest text-ink-mute">{t('aiAssistant')}</p>
+              <p className="text-sm font-medium text-ink">{t('docSearch')}</p>
             </div>
           </div>
 
@@ -104,7 +108,7 @@ export function LegalMockup() {
           <div className="mt-6 rounded-xl border border-[#8a6717]/30 bg-[#8a6717]/5 p-4">
             <div className="flex items-center gap-2">
               <Scale className="h-4 w-4 text-[#8a6717]" />
-              <p className="text-xs font-medium text-ink">Calendario udienze</p>
+              <p className="text-xs font-medium text-ink">{t('hearingCalendar')}</p>
             </div>
             <div className="mt-3 space-y-2">
               {[

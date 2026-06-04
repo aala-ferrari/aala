@@ -1,4 +1,7 @@
+'use client';
+
 import { Calendar, User, Bell, Search, Plus, Heart } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { BrowserFrame } from './BrowserFrame';
 
 const HOURS = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00'];
@@ -9,6 +12,7 @@ const APPOINTMENTS = [
 ];
 
 export function MedicalMockup() {
+  const t = useTranslations('mockup.medical');
   return (
     <BrowserFrame url="medical.aala.io/agenda">
       <div className="flex h-[560px]">
@@ -21,10 +25,10 @@ export function MedicalMockup() {
             <span className="font-display text-sm text-ink">Medical</span>
           </div>
           {[
-            { icon: Calendar, label: 'Agenda', active: true },
-            { icon: User, label: 'Pazienti' },
-            { icon: Heart, label: 'Cartelle' },
-            { icon: Bell, label: 'Promemoria' },
+            { icon: Calendar, label: t('agenda'), active: true },
+            { icon: User, label: t('patients') },
+            { icon: Heart, label: t('records') },
+            { icon: Bell, label: t('reminders') },
           ].map((item) => {
             const Icon = item.icon;
             return (
@@ -41,9 +45,9 @@ export function MedicalMockup() {
           })}
 
           <div className="mt-8 rounded-xl border border-ink-line/60 bg-white p-3">
-            <p className="text-[10px] uppercase tracking-widest text-ink-mute">Oggi</p>
+            <p className="text-[10px] uppercase tracking-widest text-ink-mute">{t('today')}</p>
             <p className="mt-1 font-display text-2xl text-ink">12</p>
-            <p className="text-[10px] text-ink-soft">visite in agenda</p>
+            <p className="text-[10px] text-ink-soft">{t('visitsScheduled')}</p>
           </div>
         </aside>
 
@@ -53,10 +57,10 @@ export function MedicalMockup() {
           <div className="flex items-center justify-between border-b border-ink-line/60 px-6 py-3">
             <div className="flex items-center gap-2 text-xs text-ink-soft">
               <Search className="h-3.5 w-3.5" />
-              <span>Cerca paziente, visita, prescrizione...</span>
+              <span>{t('search')}</span>
             </div>
             <button className="flex items-center gap-1 rounded-full bg-[#0e7c8a] px-3 py-1.5 text-[10px] font-medium text-white">
-              <Plus className="h-3 w-3" /> Nuova visita
+              <Plus className="h-3 w-3" /> {t('newVisit')}
             </button>
           </div>
 
@@ -65,9 +69,9 @@ export function MedicalMockup() {
             <div className="mb-4 flex items-center justify-between">
               <h3 className="font-display text-lg text-ink">Martedì, 14 Maggio</h3>
               <div className="flex gap-1">
-                <button className="rounded-md border border-ink-line/60 px-2 py-1 text-[10px] text-ink-soft">Giorno</button>
-                <button className="rounded-md bg-ink/90 px-2 py-1 text-[10px] text-white">Settimana</button>
-                <button className="rounded-md border border-ink-line/60 px-2 py-1 text-[10px] text-ink-soft">Mese</button>
+                <button className="rounded-md border border-ink-line/60 px-2 py-1 text-[10px] text-ink-soft">{t('day')}</button>
+                <button className="rounded-md bg-ink/90 px-2 py-1 text-[10px] text-white">{t('week')}</button>
+                <button className="rounded-md border border-ink-line/60 px-2 py-1 text-[10px] text-ink-soft">{t('month')}</button>
               </div>
             </div>
 

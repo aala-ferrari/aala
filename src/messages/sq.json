@@ -525,5 +525,71 @@
     "tryDemo": "Provo demonë",
     "seePricing": "Shiko çmimet",
     "haveCodeHint": "Ke tashmë një kod? Kliko \"Provo demonë\" dhe ngjite atë."
+  },
+  "mockup": {
+    "medical": {
+      "agenda": "Axhenda",
+      "patients": "Pacientët",
+      "records": "Kartelat",
+      "reminders": "Kujtesat",
+      "today": "Sot",
+      "visitsScheduled": "vizita në axhendë",
+      "search": "Kërko pacient, vizitë, recetë...",
+      "day": "Ditë",
+      "week": "Javë",
+      "month": "Muaj",
+      "newVisit": "Vizitë e re"
+    },
+    "auto": {
+      "fleet": "Flota",
+      "onTrip": "Në udhëtim",
+      "bookingToday": "Rezervime sot",
+      "margin": "Marzhi",
+      "activeCars": "{n} makina aktive",
+      "available": "E lirë",
+      "maintenance": "Mirëmbajtje",
+      "addCar": "Shto makinë"
+    },
+    "legal": {
+      "cases": "Praktikat",
+      "inProgress": "Në vazhdim",
+      "search": "Kërko praktikë...",
+      "aiAssistant": "Asistenti AI",
+      "docSearch": "Kërkim dokumentesh",
+      "administrative": "Administrative",
+      "civil": "Civile",
+      "tax": "Tatimore",
+      "labor": "Pune",
+      "caseRef": "Praktika",
+      "urgent": "Urgjente",
+      "deadline": "Afat",
+      "documents": "{n} dokumente",
+      "hearingCalendar": "Kalendar seancash"
+    },
+    "dental": {
+      "leadsMonth": "Lead / muaj",
+      "conversion": "Konvertim",
+      "pipelineValue": "Vlera e pipeline",
+      "callsToday": "Telefonata sot",
+      "patientOrigin": "Origjina e pacientëve",
+      "last30days": "30 ditët e fundit",
+      "newCol": "Të rinj",
+      "contacted": "Të kontaktuar",
+      "qualified": "Të kualifikuar",
+      "won": "Të fituar",
+      "treatment": "Implante · 2 elementë"
+    },
+    "taxi": {
+      "ridesToday": "Udhëtime sot",
+      "activeDrivers": "Shoferë aktivë",
+      "dailyRevenue": "Të ardhura ditore",
+      "avgRating": "Vlerësimi mesatar",
+      "driversInArea": "{n} shoferë në zonë",
+      "liveRides": "Udhëtime live",
+      "driversOnline": "Shoferë online",
+      "onRide": "Në udhëtim",
+      "available": "I lirë",
+      "onBreak": "Pushim"
+    }
   }
 }

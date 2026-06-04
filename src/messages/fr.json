@@ -516,5 +516,71 @@
         }
       }
     }
+  },
+  "mockup": {
+    "medical": {
+      "agenda": "Agenda",
+      "patients": "Patients",
+      "records": "Dossiers",
+      "reminders": "Rappels",
+      "today": "Aujourd’hui",
+      "visitsScheduled": "visites prévues",
+      "search": "Rechercher patient, visite, ordonnance...",
+      "day": "Jour",
+      "week": "Semaine",
+      "month": "Mois",
+      "newVisit": "Nouvelle visite"
+    },
+    "auto": {
+      "fleet": "Flotte",
+      "onTrip": "En course",
+      "bookingToday": "Réservations du jour",
+      "margin": "Marge",
+      "activeCars": "{n} voitures actives",
+      "available": "Disponible",
+      "maintenance": "Entretien",
+      "addCar": "Ajouter voiture"
+    },
+    "legal": {
+      "cases": "Dossiers",
+      "inProgress": "En cours",
+      "search": "Rechercher un dossier...",
+      "aiAssistant": "Assistant IA",
+      "docSearch": "Recherche documentaire",
+      "administrative": "Administratif",
+      "civil": "Civil",
+      "tax": "Fiscal",
+      "labor": "Travail",
+      "caseRef": "Dossier",
+      "urgent": "Urgent",
+      "deadline": "Échéance",
+      "documents": "{n} documents",
+      "hearingCalendar": "Calendrier d’audiences"
+    },
+    "dental": {
+      "leadsMonth": "Leads / mois",
+      "conversion": "Conversion",
+      "pipelineValue": "Valeur du pipeline",
+      "callsToday": "Appels du jour",
+      "patientOrigin": "Origine des patients",
+      "last30days": "30 derniers jours",
+      "newCol": "Nouveaux",
+      "contacted": "Contactés",
+      "qualified": "Qualifiés",
+      "won": "Gagnés",
+      "treatment": "Implants · 2 éléments"
+    },
+    "taxi": {
+      "ridesToday": "Courses du jour",
+      "activeDrivers": "Chauffeurs actifs",
+      "dailyRevenue": "Recette du jour",
+      "avgRating": "Note moyenne",
+      "driversInArea": "{n} chauffeurs dans la zone",
+      "liveRides": "Courses en direct",
+      "driversOnline": "Chauffeurs en ligne",
+      "onRide": "En course",
+      "available": "Disponible",
+      "onBreak": "En pause"
+    }
   }
 }

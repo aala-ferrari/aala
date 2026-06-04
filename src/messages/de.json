@@ -525,5 +525,71 @@
         }
       }
     }
+  },
+  "mockup": {
+    "medical": {
+      "agenda": "Kalender",
+      "patients": "Patienten",
+      "records": "Akten",
+      "reminders": "Erinnerungen",
+      "today": "Heute",
+      "visitsScheduled": "geplante Termine",
+      "search": "Patient, Termin, Rezept suchen...",
+      "day": "Tag",
+      "week": "Woche",
+      "month": "Monat",
+      "newVisit": "Neuer Termin"
+    },
+    "auto": {
+      "fleet": "Flotte",
+      "onTrip": "Unterwegs",
+      "bookingToday": "Buchungen heute",
+      "margin": "Marge",
+      "activeCars": "{n} aktive Autos",
+      "available": "Verfügbar",
+      "maintenance": "Wartung",
+      "addCar": "Auto hinzufügen"
+    },
+    "legal": {
+      "cases": "Akten",
+      "inProgress": "In Bearbeitung",
+      "search": "Akte suchen...",
+      "aiAssistant": "KI-Assistent",
+      "docSearch": "Dokumentensuche",
+      "administrative": "Verwaltung",
+      "civil": "Zivil",
+      "tax": "Steuer",
+      "labor": "Arbeit",
+      "caseRef": "Akte",
+      "urgent": "Dringend",
+      "deadline": "Frist",
+      "documents": "{n} Dokumente",
+      "hearingCalendar": "Verhandlungskalender"
+    },
+    "dental": {
+      "leadsMonth": "Leads / Monat",
+      "conversion": "Conversion",
+      "pipelineValue": "Pipeline-Wert",
+      "callsToday": "Anrufe heute",
+      "patientOrigin": "Patientenherkunft",
+      "last30days": "Letzte 30 Tage",
+      "newCol": "Neu",
+      "contacted": "Kontaktiert",
+      "qualified": "Qualifiziert",
+      "won": "Gewonnen",
+      "treatment": "Implantate · 2 Stück"
+    },
+    "taxi": {
+      "ridesToday": "Fahrten heute",
+      "activeDrivers": "Aktive Fahrer",
+      "dailyRevenue": "Tagesumsatz",
+      "avgRating": "Ø Bewertung",
+      "driversInArea": "{n} Fahrer in der Zone",
+      "liveRides": "Live-Fahrten",
+      "driversOnline": "Fahrer online",
+      "onRide": "In Fahrt",
+      "available": "Verfügbar",
+      "onBreak": "Pause"
+    }
   }
 }

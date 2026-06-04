@@ -1,14 +1,21 @@
+'use client';
+
 import { Car, MapPin, Calendar, TrendingUp, Activity } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { BrowserFrame } from './BrowserFrame';
 
 const FLEET = [
-  { plate: 'AB123CD', model: 'BMW Serie 3', status: 'In viaggio', km: 42130, color: '#0e7c8a' },
-  { plate: 'XY789ZW', model: 'Audi A4', status: 'Disponibile', km: 18500, color: '#2a7a5c' },
-  { plate: 'CD456EF', model: 'Mercedes C-Class', status: 'Manutenzione', km: 89200, color: '#a85a1a' },
-  { plate: 'GH012IJ', model: 'VW Passat', status: 'Disponibile', km: 23700, color: '#2a7a5c' },
+  { plate: 'AB123CD', model: 'BMW Serie 3', status: 'onTrip', km: 42130, color: '#0e7c8a' },
+  { plate: 'XY789ZW', model: 'Audi A4', status: 'available', km: 18500, color: '#2a7a5c' },
+  { plate: 'CD456EF', model: 'Mercedes C-Class', status: 'maintenance', km: 89200, color: '#a85a1a' },
+  { plate: 'GH012IJ', model: 'VW Passat', status: 'available', km: 23700, color: '#2a7a5c' },
 ];
 
+// raggruppamento migliaia deterministico (no Intl → no mismatch hydration)
+const km = (n: number) => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
 export function AutoMockup() {
+  const t = useTranslations('mockup.auto');
   return (
     <BrowserFrame url="auto.aala.io/fleet">
       <div className="grid h-[560px] grid-cols-[60%_40%]">
@@ -17,10 +24,10 @@ export function AutoMockup() {
           {/* KPIs */}
           <div className="grid grid-cols-4 gap-3">
             {[
-              { label: 'Flotta', value: '64', icon: Car, color: '#a85a1a' },
-              { label: 'In viaggio', value: '38', icon: Activity, color: '#0e7c8a' },
-              { label: 'Booking oggi', value: '12', icon: Calendar, color: '#2a7a5c' },
-              { label: 'Margine', value: '+18%', icon: TrendingUp, color: '#8a6717' },
+              { label: t('fleet'), value: '64', icon: Car, color: '#a85a1a' },
+              { label: t('onTrip'), value: '38', icon: Activity, color: '#0e7c8a' },
+              { label: t('bookingToday'), value: '12', icon: Calendar, color: '#2a7a5c' },
+              { label: t('margin'), value: '+18%', icon: TrendingUp, color: '#8a6717' },
             ].map((s) => {
               const Icon = s.icon;
               return (
@@ -76,7 +83,7 @@ export function AutoMockup() {
 
             <div className="absolute bottom-3 left-3 rounded-lg border border-ink-line/40 bg-white/90 px-3 py-2 backdrop-blur">
               <p className="text-[10px] uppercase tracking-widest text-ink-mute">Centro Milano</p>
-              <p className="text-xs font-medium text-ink">6 auto attive</p>
+              <p className="text-xs font-medium text-ink">{t('activeCars', { n: 6 })}</p>
             </div>
           </div>
         </div>
@@ -84,9 +91,9 @@ export function AutoMockup() {
         {/* right: fleet list */}
         <div className="p-6">
           <div className="mb-4 flex items-center justify-between">
-            <h3 className="font-display text-lg text-ink">Flotta</h3>
+            <h3 className="font-display text-lg text-ink">{t('fleet')}</h3>
             <button className="rounded-full bg-[#a85a1a] px-3 py-1 text-[10px] font-medium text-white">
-              + Aggiungi auto
+              + {t('addCar')}
             </button>
           </div>
 
@@ -108,11 +115,11 @@ export function AutoMockup() {
                     className="inline-block rounded-full px-2 py-0.5 text-[9px]"
                     style={{ background: `${car.color}1a`, color: car.color }}
                   >
-                    {car.status}
+                    {t(car.status)}
                   </span>
                   <p className="mt-1 flex items-center justify-end gap-1 text-[10px] text-ink-mute">
                     <MapPin className="h-2.5 w-2.5" />
-                    {car.km.toLocaleString()} km
+                    {km(car.km)} km
                   </p>
                 </div>
               </div>
