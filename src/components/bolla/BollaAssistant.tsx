@@ -191,7 +191,7 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
       voice.stopListening();
       return;
     }
-    voice.cancelSpeak();
+    voice.unlock(); // sblocca il motore TTS durante questo gesto
     setVoiceOut(true); // mani libere → leggi le risposte a voce
     voice.startListening((text) => {
       setInput(text);
@@ -205,13 +205,18 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
     else if (!busy) setMood((m) => (m === 'thinking' ? 'idle' : m));
   }, [voice.listening, busy]);
 
-  // se spengo la voce in uscita, fermo subito l'eventuale lettura in corso
+  // accendi/spegni la voce in uscita. Accendendola, legge SUBITO l'ultima
+  // risposta (il click è un gesto utente → sblocca l'audio del browser).
   const toggleVoiceOut = useCallback(() => {
-    setVoiceOut((v) => {
-      if (v) voice.cancelSpeak();
-      return !v;
-    });
-  }, [voice]);
+    if (voiceOut) {
+      voice.cancelSpeak();
+      setVoiceOut(false);
+    } else {
+      setVoiceOut(true);
+      const last = [...messages].reverse().find((m) => m.role === 'assistant');
+      if (last) voice.speak(last.content);
+    }
+  }, [voice, voiceOut, messages]);
 
   // sblocca il consulente con un codice valido
   const onUnlock = useCallback(

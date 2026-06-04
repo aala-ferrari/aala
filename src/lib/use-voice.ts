@@ -67,20 +67,39 @@ export function useVoice(locale: string) {
     (text: string) => {
       if (!ttsSupported || !text) return;
       const synth = window.speechSynthesis;
-      synth.cancel();
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = lang;
-      // prova a scegliere una voce della lingua giusta (se disponibile)
-      const voices = synth.getVoices();
-      const v =
-        voices.find((vo) => vo.lang?.toLowerCase().startsWith(locale)) ||
-        voices.find((vo) => vo.lang === lang);
-      if (v) u.voice = v;
-      u.rate = 1.02;
-      u.onstart = () => setSpeaking(true);
-      u.onend = () => setSpeaking(false);
-      u.onerror = () => setSpeaking(false);
-      synth.speak(u);
+
+      const run = () => {
+        synth.cancel();
+        synth.resume(); // se in pausa per policy del browser
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = lang;
+        const voices = synth.getVoices();
+        const two = lang.slice(0, 2).toLowerCase();
+        const v =
+          voices.find((vo) => vo.lang?.toLowerCase().startsWith(locale)) ||
+          voices.find((vo) => vo.lang === lang) ||
+          voices.find((vo) => vo.lang?.toLowerCase().startsWith(two));
+        if (v) u.voice = v;
+        u.rate = 1.02;
+        u.onstart = () => setSpeaking(true);
+        u.onend = () => setSpeaking(false);
+        u.onerror = () => setSpeaking(false);
+        synth.speak(u);
+      };
+
+      // le voci si caricano in modo asincrono: se vuote, aspetta l'evento
+      if (synth.getVoices().length === 0) {
+        let done = false;
+        const once = () => {
+          if (done) return;
+          done = true;
+          run();
+        };
+        synth.addEventListener('voiceschanged', once, { once: true });
+        setTimeout(once, 350); // fallback se l'evento non scatta
+      } else {
+        run();
+      }
     },
     [lang, locale, ttsSupported]
   );
@@ -89,6 +108,22 @@ export function useVoice(locale: string) {
     if (ttsSupported) {
       window.speechSynthesis.cancel();
       setSpeaking(false);
+    }
+  }, [ttsSupported]);
+
+  // Sblocca il motore TTS durante un gesto utente (alcuni browser bloccano la
+  // sintesi se non è mai partita da un'interazione). Da chiamare al click del mic.
+  const unlock = useCallback(() => {
+    if (!ttsSupported) return;
+    const synth = window.speechSynthesis;
+    try {
+      synth.resume();
+      synth.getVoices(); // forza il caricamento delle voci
+      const u = new SpeechSynthesisUtterance(' ');
+      u.volume = 0;
+      synth.speak(u);
+    } catch {
+      /* ignore */
     }
   }, [ttsSupported]);
 
@@ -101,5 +136,6 @@ export function useVoice(locale: string) {
     stopListening,
     speak,
     cancelSpeak,
+    unlock,
   };
 }
