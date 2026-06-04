@@ -205,6 +205,18 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
     else if (!busy) setMood((m) => (m === 'thinking' ? 'idle' : m));
   }, [voice.listening, busy]);
 
+  // All'APERTURA del pannello: parti sempre in silenzio e zittisci ogni voce
+  // rimasta in coda (Safari tiene la coda TTS globale del browser e può farla
+  // ripartire da sola → sembrava "altoparlante acceso di default"). Alla
+  // CHIUSURA: ferma la lettura. Così l'audio non parte mai da solo.
+  useEffect(() => {
+    setVoiceOut(false);
+    voice.cancelSpeak();
+    return () => voice.cancelSpeak();
+    // solo al montaggio/smontaggio del pannello
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // accendi/spegni la voce in uscita. Accendendola, legge SUBITO l'ultima
   // risposta (il click è un gesto utente → sblocca l'audio del browser).
   const toggleVoiceOut = useCallback(() => {
