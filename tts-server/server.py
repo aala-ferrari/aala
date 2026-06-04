@@ -13,14 +13,38 @@ import wave
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 import numpy as np
+import pyworld as pw
 import torch
-import torchaudio.functional as AF
 from transformers import AutoTokenizer, VitsModel
 
 PORT = 5005
-# semitoni di pitch verso l'alto per femminilizzare la voce (MMS sq è maschile).
-# Regolabile: TTS_PITCH=0 (originale maschile), 4 (default), 6 (più femminile).
-PITCH = float(os.environ.get("TTS_PITCH", "4"))
+# Femminilizzazione con vocoder WORLD: alza tono (F0) E formanti → voce
+# femminile naturale, non metallica. La voce MMS albanese è maschile.
+# Regolabili: 1.0 = originale maschile. Più alti = più femminile.
+PITCH_RATIO = float(os.environ.get("TTS_PITCH_RATIO", "1.55"))  # tono (F0)
+FORMANT = float(os.environ.get("TTS_FORMANT", "1.16"))  # timbro (vocal tract)
+
+
+def feminize(audio: np.ndarray, sr: int) -> np.ndarray:
+    """Alza tono e formanti con WORLD per un timbro femminile naturale."""
+    if PITCH_RATIO == 1.0 and FORMANT == 1.0:
+        return audio
+    x = np.ascontiguousarray(audio, dtype=np.float64)
+    f0, t = pw.harvest(x, sr)
+    sp = pw.cheaptrick(x, f0, t, sr)  # inviluppo spettrale (formanti)
+    ap = pw.d4c(x, f0, t, sr)  # aperiodicità
+    # tono più alto
+    f0_new = f0 * PITCH_RATIO
+    # formanti più alte: deformo l'inviluppo lungo l'asse frequenza
+    dim = sp.shape[1]
+    idx = np.arange(dim)
+    src = np.clip(idx / FORMANT, 0, dim - 1)
+    lo = np.floor(src).astype(int)
+    hi = np.minimum(lo + 1, dim - 1)
+    frac = src - lo
+    sp_new = sp[:, lo] * (1 - frac) + sp[:, hi] * frac
+    y = pw.synthesize(f0_new, np.ascontiguousarray(sp_new), ap, sr)
+    return y.astype(np.float32)
 
 # modelli MMS-TTS di Meta per lingua (si scaricano da soli al primo uso)
 MODELS = {
@@ -53,10 +77,12 @@ def synth_wav(text: str, locale: str) -> bytes | None:
     with torch.no_grad():
         wav = model(**inputs).waveform  # (1, N) float32 in [-1,1]
     sr = int(model.config.sampling_rate)
-    if PITCH:
-        # alza il tono (mantiene la durata) → voce più femminile
-        wav = AF.pitch_shift(wav, sr, n_steps=PITCH)
     audio = wav.squeeze().cpu().numpy().astype(np.float32)
+    audio = feminize(audio, sr)  # tono + formanti → voce femminile naturale
+    # normalizza per evitare clipping dopo l'elaborazione
+    peak = float(np.max(np.abs(audio))) if audio.size else 0.0
+    if peak > 1.0:
+        audio = audio / peak
 
     pcm = np.clip(audio, -1.0, 1.0)
     pcm = (pcm * 32767.0).astype("<i2")
