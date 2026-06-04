@@ -22,8 +22,10 @@ PORT = 5005
 # Femminilizzazione con vocoder WORLD: alza tono (F0) E formanti → voce
 # femminile naturale, non metallica. La voce MMS albanese è maschile.
 # Regolabili: 1.0 = originale maschile. Più alti = più femminile.
-PITCH_RATIO = float(os.environ.get("TTS_PITCH_RATIO", "1.55"))  # tono (F0)
-FORMANT = float(os.environ.get("TTS_FORMANT", "1.16"))  # timbro (vocal tract)
+# Default 1.0/1.0 = voce MASCHILE originale pulita (quella che ti piaceva).
+# Per femminilizzare: TTS_PITCH_RATIO=1.55 TTS_FORMANT=1.16 (o valori a piacere).
+PITCH_RATIO = float(os.environ.get("TTS_PITCH_RATIO", "1.0"))  # tono (F0)
+FORMANT = float(os.environ.get("TTS_FORMANT", "1.0"))  # timbro (vocal tract)
 
 
 def feminize(audio: np.ndarray, sr: int) -> np.ndarray:
