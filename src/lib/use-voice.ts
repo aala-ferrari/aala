@@ -103,8 +103,13 @@ export function useVoice(locale: string) {
           .map((c) => c.trim())
           .filter(Boolean);
         let i = 0;
+        let guard: ReturnType<typeof setTimeout> | null = null;
         setSpeaking(true);
         const next = () => {
+          if (guard) {
+            clearTimeout(guard);
+            guard = null;
+          }
           if (i >= chunks.length) {
             setSpeaking(false);
             return;
@@ -119,9 +124,18 @@ export function useVoice(locale: string) {
           const isQuestion = /\?\s*$/.test(chunk);
           u.pitch = (isQuestion ? 1.12 : 1.04) + (idx % 2 === 0 ? 0.02 : -0.02);
           u.rate = 1.0;
-          u.onend = () => next(); // la frase dopo parte qui
-          u.onerror = () => next();
+          let advanced = false;
+          const advance = () => {
+            if (advanced) return; // onend o watchdog: passa una volta sola
+            advanced = true;
+            next();
+          };
+          u.onend = advance; // la frase dopo parte qui
+          u.onerror = advance;
           synth.speak(u);
+          // rete di sicurezza: se onend non scatta (alcune voci non lo emettono),
+          // avanza comunque dopo una stima generosa della durata della frase.
+          guard = setTimeout(advance, 1500 + chunk.length * 90);
         };
         next();
       };
