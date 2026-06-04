@@ -82,7 +82,7 @@ export function Nav({
         </nav>
 
         <div className="flex items-center gap-3">
-          <div className="relative hidden md:block">
+          <div className="relative block">
             <button
               onClick={() => setLangOpen((v) => !v)}
               className="flex items-center gap-1.5 rounded-full border border-ink-line bg-canvas-paper/60 px-3 py-1.5 text-xs text-ink-soft transition hover:text-ink"
