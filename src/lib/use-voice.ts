@@ -82,9 +82,6 @@ export function useVoice(locale: string) {
       const synth = window.speechSynthesis;
 
       const run = () => {
-        // Chrome ha un bug: cancel() subito prima del primo speak fa "cadere"
-        // l'audio. Annullo SOLO se sta già parlando/è in coda.
-        if (synth.speaking || synth.pending) synth.cancel();
         synth.resume(); // se in pausa per policy del browser
         const voices = synth.getVoices();
         const two = lang.slice(0, 2).toLowerCase();
@@ -97,42 +94,56 @@ export function useVoice(locale: string) {
             vo.lang?.toLowerCase().startsWith(two)
         );
         const nicer = /premium|enhanced|natural|neural|siri/i;
-        const v =
-          ofLang.find((vo) => nicer.test(vo.name)) || ofLang[0];
+        const v = ofLang.find((vo) => nicer.test(vo.name)) || ofLang[0];
 
-        // Chrome tronca la sintesi lunga (~15s): leggo frase per frase.
-        // Variando un filo pitch/velocità per frase la lettura risulta meno piatta.
-        const chunks = text.match(/[^.!?…\n]+[.!?…]*\s*/g) || [text];
-        chunks
+        // Chrome tronca la sintesi lunga (~15s): leggo frase per frase, e
+        // concateno (la frase dopo parte SOLO quando finisce la precedente).
+        // Questo è più robusto del mettere tutte le frasi in coda insieme.
+        const chunks = (text.match(/[^.!?…\n]+[.!?…]*\s*/g) || [text])
           .map((c) => c.trim())
-          .filter(Boolean)
-          .forEach((chunk, i, arr) => {
-            const u = new SpeechSynthesisUtterance(chunk);
-            u.lang = lang;
-            if (v) u.voice = v;
-            // domanda → tono leggermente più alto; micro-variazioni = meno monotono
-            const isQuestion = /\?\s*$/.test(chunk);
-            u.pitch = (isQuestion ? 1.12 : 1.04) + (i % 2 === 0 ? 0.02 : -0.02);
-            u.rate = 1.0;
-            if (i === 0) u.onstart = () => setSpeaking(true);
-            if (i === arr.length - 1) u.onend = () => setSpeaking(false);
-            u.onerror = () => setSpeaking(false);
-            synth.speak(u);
-          });
+          .filter(Boolean);
+        let i = 0;
+        setSpeaking(true);
+        const next = () => {
+          if (i >= chunks.length) {
+            setSpeaking(false);
+            return;
+          }
+          const chunk = chunks[i];
+          const idx = i;
+          i += 1;
+          const u = new SpeechSynthesisUtterance(chunk);
+          u.lang = lang;
+          if (v) u.voice = v;
+          // domanda → tono più alto; micro-variazioni = meno monotono
+          const isQuestion = /\?\s*$/.test(chunk);
+          u.pitch = (isQuestion ? 1.12 : 1.04) + (idx % 2 === 0 ? 0.02 : -0.02);
+          u.rate = 1.0;
+          u.onend = () => next(); // la frase dopo parte qui
+          u.onerror = () => next();
+          synth.speak(u);
+        };
+        next();
       };
 
-      // le voci si caricano in modo asincrono: se vuote, aspetta l'evento
-      if (synth.getVoices().length === 0) {
-        let done = false;
-        const once = () => {
-          if (done) return;
-          done = true;
-          run();
-        };
-        synth.addEventListener('voiceschanged', once, { once: true });
-        setTimeout(once, 350); // fallback se l'evento non scatta
-      } else {
+      // Sempre: pulisci la coda, POI parti dopo un attimo.
+      // Chrome ha un bug: speak() subito dopo cancel() viene "ingoiato" e non
+      // parte — era la causa del "serve premere due volte". Il piccolo ritardo
+      // (la pagina ha già il gesto utente dal click) lo risolve.
+      synth.cancel();
+      let done = false;
+      const go = () => {
+        if (done) return;
+        done = true;
         run();
+      };
+      if (synth.getVoices().length === 0) {
+        synth.addEventListener('voiceschanged', () => setTimeout(go, 60), {
+          once: true,
+        });
+        setTimeout(go, 350); // fallback se l'evento non scatta
+      } else {
+        setTimeout(go, 130); // attimo dopo il cancel
       }
     },
     [lang, locale, ttsSupported]
