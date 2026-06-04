@@ -82,6 +82,7 @@ export function useVoice(locale: string) {
       const synth = window.speechSynthesis;
 
       const run = () => {
+        synth.cancel(); // pulisci la coda (versione che almeno al 2° click andava)
         synth.resume(); // se in pausa per policy del browser
         const voices = synth.getVoices();
         const two = lang.slice(0, 2).toLowerCase();
@@ -140,11 +141,9 @@ export function useVoice(locale: string) {
         next();
       };
 
-      // Sempre: pulisci la coda, POI parti dopo un attimo.
-      // Chrome ha un bug: speak() subito dopo cancel() viene "ingoiato" e non
-      // parte — era la causa del "serve premere due volte". Il piccolo ritardo
-      // (la pagina ha già il gesto utente dal click) lo risolve.
-      synth.cancel();
+      // Parti SUBITO, dentro il gesto del click (niente ritardi: rimandare lo
+      // speak fuori dal click impediva l'avvio). Se le voci non sono ancora
+      // caricate aspetto solo quell'evento.
       let done = false;
       const go = () => {
         if (done) return;
@@ -152,12 +151,10 @@ export function useVoice(locale: string) {
         run();
       };
       if (synth.getVoices().length === 0) {
-        synth.addEventListener('voiceschanged', () => setTimeout(go, 60), {
-          once: true,
-        });
+        synth.addEventListener('voiceschanged', go, { once: true });
         setTimeout(go, 350); // fallback se l'evento non scatta
       } else {
-        setTimeout(go, 130); // attimo dopo il cancel
+        run();
       }
     },
     [lang, locale, ttsSupported]
