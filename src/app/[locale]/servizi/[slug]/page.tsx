@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 import { VERTICAL_LIST } from '@/lib/products';
 import { ProductShowcase } from '@/components/sections/ProductShowcase';
 import { ServiceFeatures } from '@/components/sections/ServiceFeatures';
@@ -17,9 +18,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const vertical = VERTICAL_LIST.find((v) => v.slug === params.slug);
   if (!vertical) return {};
+  // titolo/descrizione SEO tradotti dal catalogo, con fallback all'italiano
+  const t = await getTranslations({ locale: params.locale, namespace: 'catalog' });
+  const k = vertical.key;
   return {
-    title: vertical.hero.eyebrow,
-    description: vertical.hero.subtitle,
+    title: t.has(`${k}.heroEyebrow`) ? t(`${k}.heroEyebrow`) : vertical.hero.eyebrow,
+    description: t.has(`${k}.heroSubtitle`) ? t(`${k}.heroSubtitle`) : vertical.hero.subtitle,
   };
 }
 
