@@ -9,6 +9,7 @@ Porta:  5005  (POST /tts  body {"text": "...", "locale": "sq"} → audio WAV)
 import io
 import json
 import os
+import re
 import wave
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
@@ -53,6 +54,61 @@ MODELS = {
 
 _loaded = {}  # cache: locale -> (model, tokenizer)
 
+# ── Numeri in parole albanesi (il modello MMS non legge bene le cifre) ──
+_U = ["zero", "një", "dy", "tre", "katër", "pesë", "gjashtë", "shtatë", "tetë", "nëntë"]
+_TEENS = ["dhjetë", "njëmbëdhjetë", "dymbëdhjetë", "trembëdhjetë", "katërmbëdhjetë",
+          "pesëmbëdhjetë", "gjashtëmbëdhjetë", "shtatëmbëdhjetë", "tetëmbëdhjetë",
+          "nëntëmbëdhjetë"]
+_TENS = {2: "njëzet", 3: "tridhjetë", 4: "dyzet", 5: "pesëdhjetë", 6: "gjashtëdhjetë",
+         7: "shtatëdhjetë", 8: "tetëdhjetë", 9: "nëntëdhjetë"}
+
+
+def _two(n):  # 0..99
+    if n < 10:
+        return _U[n]
+    if n < 20:
+        return _TEENS[n - 10]
+    t, u = divmod(n, 10)
+    return _TENS[t] + (" e " + _U[u] if u else "")
+
+
+def _three(n):  # 0..999
+    if n < 100:
+        return _two(n)
+    h, rem = divmod(n, 100)
+    head = "njëqind" if h == 1 else _U[h] + "qind"
+    return head + (" e " + _two(rem) if rem else "")
+
+
+def alb_number(n):  # 0..999_999_999
+    if n < 1000:
+        return _three(n)
+    if n < 1_000_000:
+        th, rem = divmod(n, 1000)
+        head = "një mijë" if th == 1 else _three(th) + " mijë"
+        return head + (" e " + _three(rem) if rem else "")
+    mil, rem = divmod(n, 1_000_000)
+    head = "një milion" if mil == 1 else alb_number(mil) + " milion"
+    return head + (" e " + alb_number(rem) if rem else "")
+
+
+def normalize_text(text):
+    """Sistema cifre/prezzi per la lettura albanese."""
+    # togli il punto delle migliaia (1.600 → 1600) per sicurezza
+    text = re.sub(r"(\d)\.(?=\d{3}(\D|$))", r"\1", text)
+    # € → euro (l'importo si dice prima, poi 'euro')
+    text = re.sub(r"€\s*(\d+)", r"\1 euro", text)
+    text = re.sub(r"(\d+)\s*€", r"\1 euro", text)
+    # numeri interi → parole albanesi
+    text = re.sub(r"\d+", lambda m: alb_number(int(m.group())), text)
+    return text
+
+
+def split_sentences(text):
+    """Spezza in frasi tenendo la punteggiatura finale (per intonazione + pause)."""
+    parts = re.findall(r"[^.!?…\n]+[.!?…]*", text)
+    return [p.strip() for p in parts if p.strip()]
+
 
 def get_model(locale: str):
     if locale not in MODELS:
@@ -68,17 +124,34 @@ def get_model(locale: str):
     return _loaded[locale]
 
 
+def _say(model, tok, sentence):
+    inputs = tok(sentence, return_tensors="pt")
+    with torch.no_grad():
+        wav = model(**inputs).waveform  # (1, N) float32 in [-1,1]
+    return wav.squeeze().cpu().numpy().astype(np.float32)
+
+
 def synth_wav(text: str, locale: str) -> bytes | None:
     pair = get_model(locale)
     if pair is None:
         return None
     model, tok = pair
-    inputs = tok(text, return_tensors="pt")
-    with torch.no_grad():
-        wav = model(**inputs).waveform  # (1, N) float32 in [-1,1]
     sr = int(model.config.sampling_rate)
-    audio = wav.squeeze().cpu().numpy().astype(np.float32)
-    audio = feminize(audio, sr)  # tono + formanti → voce femminile naturale
+
+    text = normalize_text(text)  # cifre/prezzi → parole albanesi
+    sentences = split_sentences(text) or [text]
+
+    # pausa tra le frasi (un po' più lunga dopo ? e !)
+    gap = np.zeros(int(sr * 0.30), dtype=np.float32)
+    gap_strong = np.zeros(int(sr * 0.42), dtype=np.float32)
+    pieces = []
+    for i, s in enumerate(sentences):
+        pieces.append(_say(model, tok, s))
+        if i < len(sentences) - 1:
+            pieces.append(gap_strong if s.endswith(("?", "!")) else gap)
+    audio = np.concatenate(pieces) if pieces else np.zeros(1, dtype=np.float32)
+
+    audio = feminize(audio, sr)  # tono + formanti (no-op se 1.0/1.0)
     # normalizza per evitare clipping dopo l'elaborazione
     peak = float(np.max(np.abs(audio))) if audio.size else 0.0
     if peak > 1.0:
