@@ -190,6 +190,9 @@
     "placeholder": "Shkruaji Flluskës…",
     "whatsappChip": "📱 Na shkruaj në WhatsApp",
     "error": "Ups, humba lidhjen për një çast. Provo sërish pas pak 🙂",
+    "listen": "Dëgjo",
+    "voiceOn": "Leximi me zë aktiv — prek për ta fikur",
+    "voiceOff": "Dëgjo përgjigjet",
     "chips": {
       "medical": "🩺 Studio mjekësore",
       "legal": "⚖️ Studio ligjore",

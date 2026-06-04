@@ -190,6 +190,9 @@
     "placeholder": "Escribe a la Burbuja…",
     "whatsappChip": "📱 Escríbenos por WhatsApp",
     "error": "Vaya, perdí la conexión un momento. Inténtalo de nuevo enseguida 🙂",
+    "listen": "Escuchar",
+    "voiceOn": "Lectura por voz activa — toca para apagar",
+    "voiceOff": "Escucha las respuestas",
     "chips": {
       "medical": "🩺 Consulta médica",
       "legal": "⚖️ Despacho legal",

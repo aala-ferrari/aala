@@ -190,6 +190,9 @@
     "placeholder": "Write to the Bubble…",
     "whatsappChip": "📱 Message us on WhatsApp",
     "error": "Oops, I lost the connection for a moment. Try again shortly 🙂",
+    "listen": "Listen",
+    "voiceOn": "Voice reading on — tap to turn off",
+    "voiceOff": "Listen to the answers",
     "chips": {
       "medical": "🩺 Medical practice",
       "legal": "⚖️ Law firm",

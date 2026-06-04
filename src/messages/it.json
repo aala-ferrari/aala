@@ -190,6 +190,9 @@
     "placeholder": "Scrivi alla Bolla…",
     "whatsappChip": "📱 Scrivici su WhatsApp",
     "error": "Ops, ho perso il collegamento un istante. Riprova tra poco 🙂",
+    "listen": "Ascolta",
+    "voiceOn": "Lettura a voce attiva — tocca per spegnere",
+    "voiceOff": "Ascolta le risposte a voce",
     "chips": {
       "medical": "🩺 Studio medico",
       "legal": "⚖️ Studio legale",

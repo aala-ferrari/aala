@@ -181,6 +181,9 @@
     "placeholder": "Écrivez à la Bulle…",
     "whatsappChip": "📱 Écrivez-nous sur WhatsApp",
     "error": "Oups, j'ai perdu la connexion un instant. Réessayez dans un moment 🙂",
+    "listen": "Écouter",
+    "voiceOn": "Lecture vocale activée — touchez pour couper",
+    "voiceOff": "Écoutez les réponses",
     "chips": {
       "medical": "🩺 Cabinet médical",
       "legal": "⚖️ Cabinet d'avocats",

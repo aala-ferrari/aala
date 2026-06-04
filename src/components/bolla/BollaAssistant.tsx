@@ -370,21 +370,23 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
             }}
             className="flex shrink-0 items-center gap-2 border-t border-ink-line/60 bg-canvas-paper/60 p-3"
           >
-            {/* altoparlante: leggi le risposte a voce (mani libere / alla guida) */}
+            {/* altoparlante: leggi le risposte a voce (mani libere / alla guida).
+                Spento di default → l'audio parte SOLO se l'utente lo accende. */}
             {voice.ttsSupported && (
               <button
                 type="button"
                 onClick={toggleVoiceOut}
-                aria-label={voiceOut ? 'Voce attiva' : 'Voce disattivata'}
-                title={voiceOut ? 'Risposte a voce: attive' : 'Risposte a voce: spente'}
+                aria-label={voiceOut ? t('voiceOn') : t('voiceOff')}
+                title={voiceOut ? t('voiceOn') : t('voiceOff')}
                 className={cn(
-                  'flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition',
+                  'flex h-10 shrink-0 items-center gap-1.5 rounded-full border pl-2.5 pr-3 transition',
                   voiceOut
                     ? 'border-gold bg-gold/15 text-gold'
                     : 'border-ink-line text-ink-mute hover:text-ink'
                 )}
               >
                 {voiceOut ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
+                <span className="text-[11px] font-medium leading-none">{t('listen')}</span>
               </button>
             )}
             <input

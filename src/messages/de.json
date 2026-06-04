@@ -190,6 +190,9 @@
     "placeholder": "Schreib der Blase…",
     "whatsappChip": "📱 Schreib uns auf WhatsApp",
     "error": "Ups, ich habe kurz die Verbindung verloren. Versuch es gleich nochmal 🙂",
+    "listen": "Anhören",
+    "voiceOn": "Sprachausgabe an — zum Ausschalten tippen",
+    "voiceOff": "Antworten anhören",
     "chips": {
       "medical": "🩺 Arztpraxis",
       "legal": "⚖️ Kanzlei",

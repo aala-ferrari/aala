@@ -86,7 +86,8 @@ export function useVoice(locale: string) {
           ofLang.find((vo) => nicer.test(vo.name)) || ofLang[0];
 
         // Chrome tronca la sintesi lunga (~15s): leggo frase per frase.
-        // Variando un filo pitch/velocità per frase la lettura risulta meno piatta.
+        // Per ogni frase do un'intonazione diversa in base alla punteggiatura
+        // finale (? ! … .) così la lettura suona viva, non piatta.
         const chunks = text.match(/[^.!?…\n]+[.!?…]*\s*/g) || [text];
         chunks
           .map((c) => c.trim())
@@ -95,10 +96,26 @@ export function useVoice(locale: string) {
             const u = new SpeechSynthesisUtterance(chunk);
             u.lang = lang;
             if (v) u.voice = v;
-            // domanda → tono leggermente più alto; micro-variazioni = meno monotono
-            const isQuestion = /\?\s*$/.test(chunk);
-            u.pitch = (isQuestion ? 1.12 : 1.04) + (i % 2 === 0 ? 0.02 : -0.02);
-            u.rate = 1.0;
+
+            // prosodia in base a come finisce la frase
+            const endsWith = chunk.replace(/[)"'»”\s]+$/, '').slice(-3);
+            let pitch = 1.03; // affermazione neutra (punto)
+            let rate = 1.0;
+            if (/\?$/.test(endsWith)) {
+              pitch = 1.16; // domanda → tono che sale
+              rate = 0.99;
+            } else if (/!$/.test(endsWith)) {
+              pitch = 1.2; // esclamazione → enfasi, un filo più veloce
+              rate = 1.06;
+            } else if (/(…|\.\.\.)$/.test(endsWith)) {
+              pitch = 0.98; // sospensione → più lento e basso
+              rate = 0.9;
+            }
+            // micro-variazione per frase = niente cadenza meccanica
+            pitch += i % 2 === 0 ? 0.02 : -0.02;
+            u.pitch = pitch;
+            u.rate = rate;
+
             if (i === 0) u.onstart = () => setSpeaking(true);
             if (i === arr.length - 1) u.onend = () => setSpeaking(false);
             u.onerror = () => setSpeaking(false);
