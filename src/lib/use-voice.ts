@@ -12,6 +12,12 @@ const VOICE_LANG: Record<string, string> = {
   sq: 'sq-AL', // albanese: supporto browser limitato → fallback gestito sotto
 };
 
+// Lingue da leggere con la voce CLOUD (Azure) invece che nativa: l'albanese
+// non ha voce su Apple/Google → nativamente uscirebbe con accento italiano.
+// Per queste lingue il client chiede l'audio a /api/tts; se non c'è la chiave
+// Azure, il route risponde 204 e si ripiega sulla voce nativa.
+const CLOUD_LANGS = ['sq'];
+
 /**
  * Voce per la Bolla: l'utente parla (speech-to-text) e la Bolla risponde a voce
  * (text-to-speech), nella lingua del sito. Usa le Web Speech API native del
@@ -22,6 +28,7 @@ export function useVoice(locale: string) {
   const [listening, setListening] = useState(false);
   const [speaking, setSpeaking] = useState(false);
   const recogRef = useRef<unknown>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null); // playback voce cloud
 
   const sttSupported =
     typeof window !== 'undefined' &&
@@ -63,7 +70,9 @@ export function useVoice(locale: string) {
     setListening(false);
   }, []);
 
-  const speak = useCallback(
+  // lettura con voce NATIVA del browser (gratis) — usata per tutte le lingue
+  // tranne quelle in CLOUD_LANGS, e come fallback se il cloud non risponde.
+  const speakNative = useCallback(
     (text: string) => {
       if (!ttsSupported || !text) return;
       const synth = window.speechSynthesis;
@@ -150,11 +159,78 @@ export function useVoice(locale: string) {
     [lang, locale, ttsSupported]
   );
 
+  // lettura "intelligente": per l'albanese (e altre lingue senza voce nativa)
+  // chiede la voce vera al cloud; per tutto il resto usa la nativa gratuita.
+  const speak = useCallback(
+    (text: string) => {
+      if (!text) return;
+
+      // ferma qualsiasi voce in corso (nativa o cloud)
+      if (ttsSupported) window.speechSynthesis.cancel();
+      if (audioRef.current) {
+        try {
+          audioRef.current.pause();
+        } catch {
+          /* ignore */
+        }
+        audioRef.current = null;
+      }
+
+      if (CLOUD_LANGS.includes(locale)) {
+        // togli il punto delle migliaia anche per il cloud (1.600 → 1600)
+        const normalized = text.replace(
+          /\d{1,3}(?:\.\d{3})+(?!\d)/g,
+          (m) => m.replace(/\./g, '')
+        );
+        setSpeaking(true);
+        fetch('/api/tts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: normalized, locale }),
+        })
+          .then((r) => {
+            const ct = r.headers.get('content-type') || '';
+            return r.ok && ct.includes('audio') ? r.blob() : null;
+          })
+          .then((blob) => {
+            if (!blob) {
+              speakNative(text); // niente cloud (no chiave/errore) → nativo
+              return;
+            }
+            const url = URL.createObjectURL(blob);
+            const a = new Audio(url);
+            audioRef.current = a;
+            a.onended = () => {
+              if (audioRef.current === a) audioRef.current = null;
+              URL.revokeObjectURL(url);
+              setSpeaking(false);
+            };
+            a.onerror = () => {
+              URL.revokeObjectURL(url);
+              speakNative(text);
+            };
+            a.play().catch(() => speakNative(text));
+          })
+          .catch(() => speakNative(text));
+        return;
+      }
+
+      speakNative(text);
+    },
+    [locale, ttsSupported, speakNative]
+  );
+
   const cancelSpeak = useCallback(() => {
-    if (ttsSupported) {
-      window.speechSynthesis.cancel();
-      setSpeaking(false);
+    if (ttsSupported) window.speechSynthesis.cancel();
+    if (audioRef.current) {
+      try {
+        audioRef.current.pause();
+      } catch {
+        /* ignore */
+      }
+      audioRef.current = null;
     }
+    setSpeaking(false);
   }, [ttsSupported]);
 
   // Sblocca il motore TTS durante un gesto utente (alcuni browser bloccano la
