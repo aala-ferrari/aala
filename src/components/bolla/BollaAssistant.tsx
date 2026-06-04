@@ -217,6 +217,9 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // chip da mostrare in chat: escludo il chip WhatsApp (resta solo il pulsante 3D)
+  const visibleChips = chips.filter((c) => !c.toLowerCase().includes('whatsapp'));
+
   // accendi/spegni la voce in uscita. Accendendola, legge SUBITO l'ultima
   // risposta (il click è un gesto utente → sblocca l'audio del browser).
   const toggleVoiceOut = useCallback(() => {
@@ -345,32 +348,19 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
             {busy && <TypingDots color={color} />}
           </div>
 
-          {/* Chip suggerimenti */}
-          {chips.length > 0 && !busy && (
+          {/* Chip suggerimenti — il chip WhatsApp è escluso dalla chat:
+              per scrivere su WhatsApp c'è il pulsante 3D fluttuante. */}
+          {visibleChips.length > 0 && !busy && (
             <div className="flex shrink-0 flex-wrap gap-2 px-5 pb-3">
-              {chips.map((c, i) => {
-                const isWa = c.toLowerCase().includes('whatsapp');
-                const label = isWa ? t('whatsappChip') : c;
-                return (
-                  <button
-                    key={i}
-                    onClick={() => send(c)}
-                    className={cn(
-                      'rounded-full px-3 py-1.5 text-xs font-medium transition',
-                      isWa
-                        ? 'text-white shadow-sm hover:brightness-105'
-                        : 'border border-gold/40 bg-canvas-paper text-ink hover:border-gold hover:bg-gold/10'
-                    )}
-                    style={
-                      isWa
-                        ? { background: 'linear-gradient(135deg, #25b34a 0%, #1a8f3c 100%)' }
-                        : undefined
-                    }
-                  >
-                    {label}
-                  </button>
-                );
-              })}
+              {visibleChips.map((c, i) => (
+                <button
+                  key={i}
+                  onClick={() => send(c)}
+                  className="rounded-full border border-gold/40 bg-canvas-paper px-3 py-1.5 text-xs font-medium text-ink transition hover:border-gold hover:bg-gold/10"
+                >
+                  {c}
+                </button>
+              ))}
             </div>
           )}
 
