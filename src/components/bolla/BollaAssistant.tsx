@@ -191,7 +191,7 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
       voice.stopListening();
       return;
     }
-    voice.cancelSpeak(); // se sta leggendo, fermati: ora ascolto te
+    voice.unlock(); // sblocca il motore TTS durante questo gesto
     setVoiceOut(true); // mani libere → leggi le risposte a voce
     voice.startListening((text) => {
       setInput(text);

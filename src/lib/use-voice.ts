@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 // locale del sito → codice lingua per voce (riconoscimento + sintesi)
 const VOICE_LANG: Record<string, string> = {
@@ -27,19 +27,6 @@ export function useVoice(locale: string) {
     typeof window !== 'undefined' &&
     ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window);
   const ttsSupported = typeof window !== 'undefined' && 'speechSynthesis' in window;
-
-  // Pre-carica le voci appena il componente è montato: così al PRIMO click
-  // sull'altoparlante la lettura parte subito (le voci si caricano in modo
-  // asincrono; senza warm-up il primo speak veniva rimandato e perdeva il
-  // gesto utente → serviva un secondo click).
-  useEffect(() => {
-    if (!ttsSupported) return;
-    const synth = window.speechSynthesis;
-    const warm = () => synth.getVoices();
-    warm();
-    synth.addEventListener?.('voiceschanged', warm);
-    return () => synth.removeEventListener?.('voiceschanged', warm);
-  }, [ttsSupported]);
 
   const startListening = useCallback(
     (onResult: (text: string) => void) => {
@@ -82,7 +69,7 @@ export function useVoice(locale: string) {
       const synth = window.speechSynthesis;
 
       const run = () => {
-        synth.cancel(); // pulisci la coda (versione che almeno al 2° click andava)
+        synth.cancel();
         synth.resume(); // se in pausa per policy del browser
         const voices = synth.getVoices();
         const two = lang.slice(0, 2).toLowerCase();
@@ -95,64 +82,40 @@ export function useVoice(locale: string) {
             vo.lang?.toLowerCase().startsWith(two)
         );
         const nicer = /premium|enhanced|natural|neural|siri/i;
-        const v = ofLang.find((vo) => nicer.test(vo.name)) || ofLang[0];
+        const v =
+          ofLang.find((vo) => nicer.test(vo.name)) || ofLang[0];
 
-        // Chrome tronca la sintesi lunga (~15s): leggo frase per frase, e
-        // concateno (la frase dopo parte SOLO quando finisce la precedente).
-        // Questo è più robusto del mettere tutte le frasi in coda insieme.
-        const chunks = (text.match(/[^.!?…\n]+[.!?…]*\s*/g) || [text])
+        // Chrome tronca la sintesi lunga (~15s): leggo frase per frase.
+        // Variando un filo pitch/velocità per frase la lettura risulta meno piatta.
+        const chunks = text.match(/[^.!?…\n]+[.!?…]*\s*/g) || [text];
+        chunks
           .map((c) => c.trim())
-          .filter(Boolean);
-        let i = 0;
-        let guard: ReturnType<typeof setTimeout> | null = null;
-        setSpeaking(true);
-        const next = () => {
-          if (guard) {
-            clearTimeout(guard);
-            guard = null;
-          }
-          if (i >= chunks.length) {
-            setSpeaking(false);
-            return;
-          }
-          const chunk = chunks[i];
-          const idx = i;
-          i += 1;
-          const u = new SpeechSynthesisUtterance(chunk);
-          u.lang = lang;
-          if (v) u.voice = v;
-          // domanda → tono più alto; micro-variazioni = meno monotono
-          const isQuestion = /\?\s*$/.test(chunk);
-          u.pitch = (isQuestion ? 1.12 : 1.04) + (idx % 2 === 0 ? 0.02 : -0.02);
-          u.rate = 1.0;
-          let advanced = false;
-          const advance = () => {
-            if (advanced) return; // onend o watchdog: passa una volta sola
-            advanced = true;
-            next();
-          };
-          u.onend = advance; // la frase dopo parte qui
-          u.onerror = advance;
-          synth.speak(u);
-          // rete di sicurezza: se onend non scatta (alcune voci non lo emettono),
-          // avanza comunque dopo una stima generosa della durata della frase.
-          guard = setTimeout(advance, 1500 + chunk.length * 90);
-        };
-        next();
+          .filter(Boolean)
+          .forEach((chunk, i, arr) => {
+            const u = new SpeechSynthesisUtterance(chunk);
+            u.lang = lang;
+            if (v) u.voice = v;
+            // domanda → tono leggermente più alto; micro-variazioni = meno monotono
+            const isQuestion = /\?\s*$/.test(chunk);
+            u.pitch = (isQuestion ? 1.12 : 1.04) + (i % 2 === 0 ? 0.02 : -0.02);
+            u.rate = 1.0;
+            if (i === 0) u.onstart = () => setSpeaking(true);
+            if (i === arr.length - 1) u.onend = () => setSpeaking(false);
+            u.onerror = () => setSpeaking(false);
+            synth.speak(u);
+          });
       };
 
-      // Parti SUBITO, dentro il gesto del click (niente ritardi: rimandare lo
-      // speak fuori dal click impediva l'avvio). Se le voci non sono ancora
-      // caricate aspetto solo quell'evento.
-      let done = false;
-      const go = () => {
-        if (done) return;
-        done = true;
-        run();
-      };
+      // le voci si caricano in modo asincrono: se vuote, aspetta l'evento
       if (synth.getVoices().length === 0) {
-        synth.addEventListener('voiceschanged', go, { once: true });
-        setTimeout(go, 350); // fallback se l'evento non scatta
+        let done = false;
+        const once = () => {
+          if (done) return;
+          done = true;
+          run();
+        };
+        synth.addEventListener('voiceschanged', once, { once: true });
+        setTimeout(once, 350); // fallback se l'evento non scatta
       } else {
         run();
       }
@@ -167,6 +130,22 @@ export function useVoice(locale: string) {
     }
   }, [ttsSupported]);
 
+  // Sblocca il motore TTS durante un gesto utente (alcuni browser bloccano la
+  // sintesi se non è mai partita da un'interazione). Da chiamare al click del mic.
+  const unlock = useCallback(() => {
+    if (!ttsSupported) return;
+    const synth = window.speechSynthesis;
+    try {
+      synth.resume();
+      synth.getVoices(); // forza il caricamento delle voci
+      const u = new SpeechSynthesisUtterance(' ');
+      u.volume = 0;
+      synth.speak(u);
+    } catch {
+      /* ignore */
+    }
+  }, [ttsSupported]);
+
   return {
     sttSupported,
     ttsSupported,
@@ -176,5 +155,6 @@ export function useVoice(locale: string) {
     stopListening,
     speak,
     cancelSpeak,
+    unlock,
   };
 }
