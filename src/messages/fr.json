@@ -232,5 +232,12 @@
       },
       "questionsUnlimited": "questions illimitées"
     }
+  },
+  "showcase": {
+    "openLiveDemo": "Ouvrir la démo en direct",
+    "requestDemoAccess": "Demander l'accès démo",
+    "tryDemo": "Essayer la démo",
+    "seePricing": "Voir les prix",
+    "haveCodeHint": "Vous avez déjà un code ? Cliquez sur « Essayer la démo » et collez-le."
   }
 }

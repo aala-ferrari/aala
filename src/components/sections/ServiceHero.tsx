@@ -3,11 +3,13 @@
 import { motion } from 'framer-motion';
 import { Stethoscope, Car, Scale, Smile, Smartphone } from 'lucide-react';
 import type { Vertical } from '@/lib/products';
+import { useCatalog } from '@/lib/use-catalog';
 
 const ICONS = { medical: Stethoscope, auto: Car, legal: Scale, dental: Smile, taxi: Smartphone };
 
 export function ServiceHero({ vertical }: { vertical: Vertical }) {
   const Icon = ICONS[vertical.key];
+  const hero = useCatalog().hero(vertical);
 
   return (
     <section className="relative isolate overflow-hidden pt-32 pb-24">
@@ -43,13 +45,13 @@ export function ServiceHero({ vertical }: { vertical: Vertical }) {
             className="mt-6 text-xs font-medium uppercase tracking-[0.25em]"
             style={{ color: vertical.accent }}
           >
-            {vertical.hero.eyebrow}
+            {hero.eyebrow}
           </p>
           <h1 className="mt-4 font-display text-5xl leading-[1.05] tracking-tight text-balance text-ink sm:text-6xl">
-            {vertical.hero.title}
+            {hero.title}
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg text-ink-soft">
-            {vertical.hero.subtitle}
+            {hero.subtitle}
           </p>
         </motion.div>
       </div>

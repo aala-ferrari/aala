@@ -1,7 +1,11 @@
+'use client';
+
 import { PlanGrid } from './PlanGrid';
 import type { Vertical } from '@/lib/products';
+import { useCatalog } from '@/lib/use-catalog';
 
 export function PricingSection({ vertical }: { vertical: Vertical }) {
+  const hero = useCatalog().hero(vertical);
   return (
     <section className="py-12">
       <div className="container-aala">
@@ -14,12 +18,10 @@ export function PricingSection({ vertical }: { vertical: Vertical }) {
             className="text-xs font-medium uppercase tracking-[0.2em]"
             style={{ color: vertical.accent }}
           >
-            {vertical.hero.eyebrow}
+            {hero.eyebrow}
           </p>
         </div>
-        <h2 className="font-display text-3xl tracking-tight sm:text-4xl">
-          {vertical.hero.title}
-        </h2>
+        <h2 className="font-display text-3xl tracking-tight sm:text-4xl">{hero.title}</h2>
       </div>
       <PlanGrid vertical={vertical} />
     </section>

@@ -241,5 +241,289 @@
       },
       "questionsUnlimited": "pyetje të pakufizuara"
     }
+  },
+  "catalog": {
+    "medical": {
+      "heroEyebrow": "CRM Medical",
+      "heroTitle": "Software-i që studio jote mjekësore meriton.",
+      "heroSubtitle": "Axhendë inteligjente, regjistër pacientësh, faturim elektronik, komunikime automatike. Menduar me mjekët, për mjekët.",
+      "features": [
+        {
+          "title": "Axhendë shumë-mjekë",
+          "desc": "Kalendar me salla, përsëritje, kujtesa automatike me SMS dhe WhatsApp."
+        },
+        {
+          "title": "Pacientë & kartela",
+          "desc": "Regjistër i plotë, bashkëngjitje, historik vizitash, pëlqime GDPR të firmosura dixhitalisht."
+        },
+        {
+          "title": "Faturim",
+          "desc": "Faturim elektronik, afate, eksport për kontabilistin."
+        },
+        {
+          "title": "Siguri",
+          "desc": "Enkriptim at-rest, backup ditor, log aksesi, përputhshmëri GDPR."
+        }
+      ],
+      "plans": {
+        "crm-medical-starter": {
+          "name": "Starter (1 mjek)",
+          "features": [
+            "Instalim i personalizuar",
+            "Axhendë + pacientë + faturim",
+            "Trajnim 4 orë",
+            "12 muaj asistencë"
+          ]
+        },
+        "crm-medical-clinic": {
+          "name": "Klinikë e plotë",
+          "features": [
+            "Gjithçka Starter +",
+            "Admin + backoffice lead",
+            "Menaxhim i avancuar takimesh",
+            "Role: menaxher, përdorues, konsulentë",
+            "Shumë-përdorues pa limit"
+          ]
+        },
+        "crm-medical-enterprise": {
+          "name": "Enterprise",
+          "features": [
+            "Personalizime të thella",
+            "Integrime me sisteme shëndetësore",
+            "SLA i dedikuar",
+            "Hosting on-premise opsional"
+          ]
+        }
+      }
+    },
+    "auto": {
+      "heroEyebrow": "Menaxhim Makinash",
+      "heroTitle": "Qiraja jote e makinave, më në fund nën kontroll.",
+      "heroSubtitle": "Flotë, rezervime, kontrata, mirëmbajtje, faturim, aplikacion mobile për klientët. Gjithçka në një vend të vetëm.",
+      "features": [
+        {
+          "title": "Flota në kohë reale",
+          "desc": "GPS, kilometrazh, afate, disponueshmëri, mirëmbajtje e programuar."
+        },
+        {
+          "title": "Rezervime online",
+          "desc": "Booking në faqen tënde, pagesa, kontratë dixhitale e firmosur nga celulari."
+        },
+        {
+          "title": "App mobile klienti",
+          "desc": "Përdoruesi hap makinën, raporton dëme, paguan suplemente direkt nga app."
+        },
+        {
+          "title": "Raportim",
+          "desc": "Marzhe për mjet, zënia e flotës, top performer, eksport kontabël."
+        }
+      ],
+      "plans": {
+        "auto-fleet-small": {
+          "name": "Fleet S (deri 20 makina)",
+          "features": [
+            "Web + mobile",
+            "Booking online",
+            "Kontrata dixhitale",
+            "Mbështetje me email"
+          ]
+        },
+        "auto-fleet-medium": {
+          "name": "Fleet M (deri 80 makina)",
+          "features": [
+            "Gjithçka S +",
+            "Shumë-degë",
+            "GPS i integruar",
+            "Mbështetje prioritare"
+          ]
+        },
+        "auto-fleet-large": {
+          "name": "Fleet L — Tërësisht jotja",
+          "features": [
+            "CRM makinash i personalizuar",
+            "Faqe interneti e dedikuar",
+            "Domain + VPS hosting të përfshira",
+            "Branding i personalizuar",
+            "Pa abonim mujor"
+          ]
+        }
+      }
+    },
+    "legal": {
+      "heroEyebrow": "Super Avokati",
+      "heroTitle": "Suita SaaS që e bën studion tënde ligjore të punojë më pak.",
+      "heroSubtitle": "Praktika, afate, kalendar seancash, kërkim dokumentesh me AI, faturim. Gjithçka e integruar, gjithçka e sigurt. Aktualisht i disponueshëm për të drejtën shqiptare — versioni italian së shpejti.",
+      "features": [
+        {
+          "title": "Praktika & afate",
+          "desc": "Menaxhim dosjesh, afate automatike, alarme për seanca dhe afate."
+        },
+        {
+          "title": "AI dokumentale",
+          "desc": "Kërkim semantik në dokumentet e studios. Gjej atë që të duhet në sekonda."
+        },
+        {
+          "title": "Faturim ligjor",
+          "desc": "Tarifa, parapagime, tarifa forenze, llogari klienti, faturë elektronike."
+        },
+        {
+          "title": "Siguri forenze",
+          "desc": "Enkriptim, backup, kontroll aksesi, ruajtje në normë."
+        }
+      ],
+      "plans": {
+        "legal-solo": {
+          "name": "Solo (1 përdorues)",
+          "features": [
+            "1 përdorues",
+            "Praktika pa limit",
+            "Kalendar seancash",
+            "5 GB dokumente"
+          ]
+        },
+        "legal-studio": {
+          "name": "Studio (deri 5 përdorues)",
+          "features": [
+            "Deri 5 përdorues",
+            "AI dokumentale",
+            "100 GB dokumente",
+            "Mbështetje prioritare"
+          ]
+        },
+        "legal-firm": {
+          "name": "Firm",
+          "features": [
+            "Përdorues pa limit",
+            "Integrime custom",
+            "Storage pa limit",
+            "SLA i dedikuar"
+          ]
+        }
+      }
+    },
+    "dental": {
+      "heroEyebrow": "Dental Tourism",
+      "heroTitle": "Pacientë ndërkombëtarë të kualifikuar. Direkt në klinikën tënde.",
+      "heroSubtitle": "Gjenerojmë kërkesa të kualifikuara nga Evropa, SHBA dhe MB me fushata të synuara. Ti merr vetëm pacientë gati për të rezervuar.",
+      "features": [
+        {
+          "title": "Lead të kualifikuar",
+          "desc": "Pre-screening mjekësor, buxhet i verifikuar, qëllim udhëtimi i konfirmuar."
+        },
+        {
+          "title": "Fushata shumëgjuhëshe",
+          "desc": "Ads dhe SEO në 5 gjuhë. Pacientët që flasin gjuhën tënde vijnë tashmë."
+        },
+        {
+          "title": "Ekskluzivitet zone",
+          "desc": "Vetëm një klinikë partnere për qytet / specializim. Pa konkurrencë të brendshme."
+        },
+        {
+          "title": "Raportim transparent",
+          "desc": "Dashboard me lead, kontakte, konvertime. Ti sheh gjithçka, gjithmonë."
+        }
+      ],
+      "plans": {
+        "dental-discovery": {
+          "name": "Discovery",
+          "features": [
+            "Analizë tregu",
+            "Audit klinike",
+            "Strategji 90 ditë",
+            "Pa angazhim"
+          ]
+        },
+        "dental-partner": {
+          "name": "Partner",
+          "features": [
+            "20-25% mbi çdo preventiv pacienti",
+            "Pagesë vetëm me rezultat",
+            "Pa kosto fikse mujore",
+            "Lead ndërkombëtarë të para-kualifikuar"
+          ]
+        },
+        "dental-premium": {
+          "name": "Premium",
+          "features": [
+            "Gjithçka Partner +",
+            "Ndihmojmë klinikën të rritet",
+            "Fushata ads në Meta (Facebook + Instagram)",
+            "Akuizicion klientësh i dedikuar",
+            "Strategji rritjeje e personalizuar"
+          ]
+        }
+      }
+    },
+    "taxi": {
+      "heroEyebrow": "Taxi App",
+      "heroTitle": "Flota jote e taksive, në stil Bolt. E brenduar, e kontrolluar, fitimprurëse.",
+      "heroSubtitle": "Aplikacion mobile për shoferë e klientë, dispeçim automatik, pagesa të integruara, hartë live, vlerësime. Gjithçka me brandin tënd, në domenin tënd.",
+      "features": [
+        {
+          "title": "App pasagjeri",
+          "desc": "Rezervim i menjëhershëm, vlerësim kostoje, gjurmim i makinës në kohë reale, pagesë in-app."
+        },
+        {
+          "title": "App shoferi",
+          "desc": "Pranim udhëtimesh, navigim i integruar, fitime në kohë reale, mbështetje e menjëhershme."
+        },
+        {
+          "title": "Qendra e dispeçimit",
+          "desc": "Caktim automatik sipas afërsisë dhe vlerësimit, override manual, zona të nxehta."
+        },
+        {
+          "title": "Pagesa & fiskalitet",
+          "desc": "Kartë, Apple Pay, Google Pay, faturim elektronik, ndarje komisionesh për shoferët."
+        }
+      ],
+      "plans": {
+        "taxi-starter": {
+          "name": "Starter (deri 20 shoferë)",
+          "features": [
+            "App shofer + klient",
+            "Dispeçim automatik",
+            "Pagesa me kartë",
+            "Mbështetje me email"
+          ]
+        },
+        "taxi-fleet": {
+          "name": "Fleet (deri 100 shoferë)",
+          "features": [
+            "Gjithçka Starter +",
+            "Shumë-qytete",
+            "Çmime dinamike",
+            "Raportim i avancuar",
+            "Mbështetje prioritare"
+          ]
+        },
+        "taxi-platform": {
+          "name": "Platform — Tërësisht jotja",
+          "features": [
+            "App e brenduar (web/PWA) me logon tënde",
+            "Backend + dispeçim i personalizuar",
+            "Domain + VPS hosting të përfshira",
+            "Setup i plotë + trajnim",
+            "Pa tarifë mujore mbi platformën"
+          ]
+        },
+        "taxi-complete": {
+          "name": "Komplet — App native + Store",
+          "features": [
+            "Gjithçka Platform +",
+            "App native iOS + Android me brandin tënd",
+            "Publikim në App Store + Google Play",
+            "Llogari zhvilluesi dhe review të menaxhuara nga ne",
+            "Përditësime store të përfshira (viti i 1-rë)"
+          ]
+        }
+      }
+    }
+  },
+  "showcase": {
+    "openLiveDemo": "Hap demonë live",
+    "requestDemoAccess": "Kërko akses demo",
+    "tryDemo": "Provo demonë",
+    "seePricing": "Shiko çmimet",
+    "haveCodeHint": "Ke tashmë një kod? Kliko \"Provo demonë\" dhe ngjite atë."
   }
 }

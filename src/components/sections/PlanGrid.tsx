@@ -5,6 +5,7 @@ import { Check, Sparkles } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import type { Plan, Vertical } from '@/lib/products';
+import { useCatalog } from '@/lib/use-catalog';
 import { cn } from '@/lib/utils';
 
 export function PlanGrid({ vertical }: { vertical: Vertical }) {
@@ -44,6 +45,9 @@ function PlanCard({
   locale: string;
 }) {
   const t = useTranslations('pricing');
+  const catalog = useCatalog();
+  const planName = catalog.planName(vertical, plan);
+  const planFeatures = catalog.planFeatures(vertical, plan);
 
   const ctaLabel =
     plan.billing === 'contact'
@@ -57,14 +61,12 @@ function PlanCard({
       ? `/${locale}/contatti?plan=${plan.id}`
       : `/${locale}/checkout/${plan.id}`;
 
+  // Formattazione deterministica (stessa su server e client): raggruppamento
+  // a migliaia con il punto, niente Intl/ICU che causava mismatch di hydration.
   const formattedPrice =
     plan.billing === 'contact'
       ? null
-      : new Intl.NumberFormat(locale === 'en' ? 'en-US' : locale, {
-          style: 'currency',
-          currency: 'EUR',
-          maximumFractionDigits: 0,
-        }).format(plan.price);
+      : `${plan.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')} €`;
 
   const period =
     plan.billing === 'monthly'
@@ -109,7 +111,7 @@ function PlanCard({
         </span>
       ) : null}
 
-      <h3 className="font-display text-2xl text-ink">{plan.name}</h3>
+      <h3 className="font-display text-2xl text-ink">{planName}</h3>
 
       <div className="mt-6 flex items-baseline gap-1">
         {formattedPrice ? (
@@ -125,7 +127,7 @@ function PlanCard({
       </div>
 
       <ul className="mt-8 space-y-3">
-        {plan.features.map((f) => (
+        {planFeatures.map((f) => (
           <li key={f} className="flex items-start gap-3 text-sm text-ink-soft">
             <Check className="mt-0.5 h-4 w-4 shrink-0" style={{ color: vertical.accent }} />
             <span>{f}</span>

@@ -2,13 +2,15 @@
 
 import { motion } from 'framer-motion';
 import type { Vertical } from '@/lib/products';
+import { useCatalog } from '@/lib/use-catalog';
 
 export function ServiceFeatures({ vertical }: { vertical: Vertical }) {
+  const features = useCatalog().features(vertical);
   return (
     <section className="py-24">
       <div className="container-aala">
         <div className="grid gap-6 md:grid-cols-2">
-          {vertical.features.map((f, i) => (
+          {features.map((f, i) => (
             <motion.div
               key={f.title}
               initial={{ opacity: 0, y: 24 }}

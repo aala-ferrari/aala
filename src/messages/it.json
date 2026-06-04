@@ -241,5 +241,12 @@
       },
       "questionsUnlimited": "domande illimitate"
     }
+  },
+  "showcase": {
+    "openLiveDemo": "Apri demo dal vivo",
+    "requestDemoAccess": "Richiedi accesso demo",
+    "tryDemo": "Prova demo",
+    "seePricing": "Vedi i prezzi",
+    "haveCodeHint": "Hai già il codice? Click su \"Prova demo\" e incollalo."
   }
 }

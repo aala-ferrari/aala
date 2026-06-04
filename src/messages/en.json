@@ -241,5 +241,289 @@
       },
       "questionsUnlimited": "unlimited questions"
     }
+  },
+  "catalog": {
+    "medical": {
+      "heroEyebrow": "CRM Medical",
+      "heroTitle": "The management software your medical practice deserves.",
+      "heroSubtitle": "Smart calendar, patient records, e-invoicing, automated communications. Built with doctors, for doctors.",
+      "features": [
+        {
+          "title": "Multi-doctor calendar",
+          "desc": "Rooms, recurrences, automatic reminders via SMS and WhatsApp."
+        },
+        {
+          "title": "Patients & records",
+          "desc": "Full records, attachments, visit history, digitally signed GDPR consents."
+        },
+        {
+          "title": "Invoicing",
+          "desc": "E-invoicing, payment schedule, accountant export."
+        },
+        {
+          "title": "Security",
+          "desc": "At-rest encryption, daily backups, access logs, GDPR compliance."
+        }
+      ],
+      "plans": {
+        "crm-medical-starter": {
+          "name": "Starter (1 doctor)",
+          "features": [
+            "Custom installation",
+            "Calendar + patients + invoicing",
+            "4h training",
+            "12 months support"
+          ]
+        },
+        "crm-medical-clinic": {
+          "name": "Full Clinic",
+          "features": [
+            "Everything in Starter +",
+            "Admin + lead backoffice",
+            "Advanced appointment management",
+            "Roles: manager, users, consultants",
+            "Unlimited multi-user"
+          ]
+        },
+        "crm-medical-enterprise": {
+          "name": "Enterprise",
+          "features": [
+            "Deep customizations",
+            "Integrations with health systems",
+            "Dedicated SLA",
+            "Optional on-premise hosting"
+          ]
+        }
+      }
+    },
+    "auto": {
+      "heroEyebrow": "Car Rental Manager",
+      "heroTitle": "Your rent-a-car, finally under control.",
+      "heroSubtitle": "Fleet, bookings, contracts, maintenance, invoicing, customer mobile app. All in one place.",
+      "features": [
+        {
+          "title": "Real-time fleet",
+          "desc": "GPS, mileage, deadlines, availability, scheduled maintenance."
+        },
+        {
+          "title": "Online bookings",
+          "desc": "Booking on your site, payments, digital contract signed from the phone."
+        },
+        {
+          "title": "Customer mobile app",
+          "desc": "Users unlock the car, report damage, pay extras straight from the app."
+        },
+        {
+          "title": "Reporting",
+          "desc": "Margins per vehicle, fleet occupancy, top performers, accounting export."
+        }
+      ],
+      "plans": {
+        "auto-fleet-small": {
+          "name": "Fleet S (up to 20 cars)",
+          "features": [
+            "Web + mobile",
+            "Online booking",
+            "Digital contracts",
+            "Email support"
+          ]
+        },
+        "auto-fleet-medium": {
+          "name": "Fleet M (up to 80 cars)",
+          "features": [
+            "Everything in S +",
+            "Multi-location",
+            "Built-in GPS",
+            "Priority support"
+          ]
+        },
+        "auto-fleet-large": {
+          "name": "Fleet L — Fully yours",
+          "features": [
+            "Custom car CRM",
+            "Dedicated website",
+            "Domain + VPS hosting included",
+            "Custom branding",
+            "No monthly subscription"
+          ]
+        }
+      }
+    },
+    "legal": {
+      "heroEyebrow": "Super Avokati",
+      "heroTitle": "The SaaS suite that makes your law firm work less.",
+      "heroSubtitle": "Cases, deadlines, hearing calendar, AI document search, invoicing. Fully integrated, fully secure. Currently available for Albanian law — Italian version coming soon.",
+      "features": [
+        {
+          "title": "Cases & deadlines",
+          "desc": "File management, automatic deadlines, alerts on hearings and terms."
+        },
+        {
+          "title": "Document AI",
+          "desc": "Semantic search across your firm’s documents. Find what you need in seconds."
+        },
+        {
+          "title": "Legal billing",
+          "desc": "Fees, advances, statutory rates, client account, e-invoicing."
+        },
+        {
+          "title": "Forensic security",
+          "desc": "Encryption, backups, access control, compliant retention."
+        }
+      ],
+      "plans": {
+        "legal-solo": {
+          "name": "Solo (1 user)",
+          "features": [
+            "1 user",
+            "Unlimited cases",
+            "Hearing calendar",
+            "5 GB documents"
+          ]
+        },
+        "legal-studio": {
+          "name": "Studio (up to 5 users)",
+          "features": [
+            "Up to 5 users",
+            "Document AI",
+            "100 GB documents",
+            "Priority support"
+          ]
+        },
+        "legal-firm": {
+          "name": "Firm",
+          "features": [
+            "Unlimited users",
+            "Custom integrations",
+            "Unlimited storage",
+            "Dedicated SLA"
+          ]
+        }
+      }
+    },
+    "dental": {
+      "heroEyebrow": "Dental Tourism",
+      "heroTitle": "Qualified international patients. Straight to your clinic.",
+      "heroSubtitle": "We generate qualified inquiries from Europe, the USA and the UK through targeted campaigns. You only get patients ready to book.",
+      "features": [
+        {
+          "title": "Qualified leads",
+          "desc": "Medical pre-screening, verified budget, confirmed travel intent."
+        },
+        {
+          "title": "Multilingual campaigns",
+          "desc": "Ads and SEO in 5 languages. Patients who speak your language arrive ready."
+        },
+        {
+          "title": "Area exclusivity",
+          "desc": "One partner clinic per city / specialty. No internal competition."
+        },
+        {
+          "title": "Transparent reporting",
+          "desc": "Dashboard with leads, contacts, conversions. You see everything, always."
+        }
+      ],
+      "plans": {
+        "dental-discovery": {
+          "name": "Discovery",
+          "features": [
+            "Market analysis",
+            "Clinic audit",
+            "90-day strategy",
+            "No commitment"
+          ]
+        },
+        "dental-partner": {
+          "name": "Partner",
+          "features": [
+            "20-25% on each patient quote",
+            "Pay only on results",
+            "No fixed monthly cost",
+            "Pre-qualified international leads"
+          ]
+        },
+        "dental-premium": {
+          "name": "Premium",
+          "features": [
+            "Everything in Partner +",
+            "We help the clinic grow",
+            "Meta ads campaigns (Facebook + Instagram)",
+            "Dedicated client acquisition",
+            "Tailored growth strategy"
+          ]
+        }
+      }
+    },
+    "taxi": {
+      "heroEyebrow": "Taxi App",
+      "heroTitle": "Your taxi fleet, Bolt-style. Branded, controlled, profitable.",
+      "heroSubtitle": "Mobile apps for drivers and riders, automatic dispatching, integrated payments, live map, ratings. All under your brand, on your domain.",
+      "features": [
+        {
+          "title": "Rider app",
+          "desc": "Instant booking, fare estimate, live car tracking, in-app payment."
+        },
+        {
+          "title": "Driver app",
+          "desc": "Ride acceptance, built-in navigation, live earnings, instant support."
+        },
+        {
+          "title": "Dispatch center",
+          "desc": "Automatic assignment by proximity and rating, manual override, hot zones."
+        },
+        {
+          "title": "Payments & tax",
+          "desc": "Card, Apple Pay, Google Pay, e-invoicing, driver commission split."
+        }
+      ],
+      "plans": {
+        "taxi-starter": {
+          "name": "Starter (up to 20 drivers)",
+          "features": [
+            "Driver + rider app",
+            "Automatic dispatch",
+            "Card payments",
+            "Email support"
+          ]
+        },
+        "taxi-fleet": {
+          "name": "Fleet (up to 100 drivers)",
+          "features": [
+            "Everything in Starter +",
+            "Multi-city",
+            "Dynamic pricing",
+            "Advanced reporting",
+            "Priority support"
+          ]
+        },
+        "taxi-platform": {
+          "name": "Platform — Fully yours",
+          "features": [
+            "Branded app (web/PWA) with your logo",
+            "Custom backend + dispatching",
+            "Domain + VPS hosting included",
+            "Full setup + training",
+            "No monthly platform fee"
+          ]
+        },
+        "taxi-complete": {
+          "name": "Complete — Native apps + Store",
+          "features": [
+            "Everything in Platform +",
+            "Native iOS + Android apps with your brand",
+            "Publishing on App Store + Google Play",
+            "Developer account and review handled by us",
+            "Store updates included (1st year)"
+          ]
+        }
+      }
+    }
+  },
+  "showcase": {
+    "openLiveDemo": "Open live demo",
+    "requestDemoAccess": "Request demo access",
+    "tryDemo": "Try demo",
+    "seePricing": "See pricing",
+    "haveCodeHint": "Already have a code? Click \"Try demo\" and paste it."
   }
 }

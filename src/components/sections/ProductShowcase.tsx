@@ -3,9 +3,10 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, ExternalLink, KeyRound, Stethoscope, Car, Scale, Smile, Smartphone } from 'lucide-react';
 import Link from 'next/link';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
 import type { Vertical, VerticalKey } from '@/lib/products';
+import { useCatalog } from '@/lib/use-catalog';
 import { MedicalMockup } from '@/components/mockups/MedicalMockup';
 import { AutoMockup } from '@/components/mockups/AutoMockup';
 import { LegalMockup } from '@/components/mockups/LegalMockup';
@@ -37,6 +38,8 @@ export function ProductShowcase({ vertical }: { vertical: Vertical }) {
   const Icon = ICONS[vertical.key];
   const liveDemo = LIVE_DEMO_URL[vertical.key];
   const locale = useLocale();
+  const t = useTranslations('showcase');
+  const hero = useCatalog().hero(vertical);
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
@@ -75,13 +78,13 @@ export function ProductShowcase({ vertical }: { vertical: Vertical }) {
             className="mt-6 text-xs font-medium uppercase tracking-[0.25em]"
             style={{ color: vertical.accent }}
           >
-            {vertical.hero.eyebrow}
+            {hero.eyebrow}
           </p>
           <h1 className="mt-4 font-display text-5xl leading-[1.05] tracking-tight text-balance text-ink sm:text-6xl">
-            {vertical.hero.title}
+            {hero.title}
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg text-ink-soft">
-            {vertical.hero.subtitle}
+            {hero.subtitle}
           </p>
 
           {/* triple CTA: richiedi → prova → prezzi */}
@@ -93,29 +96,27 @@ export function ProductShowcase({ vertical }: { vertical: Vertical }) {
                 rel="noopener noreferrer"
                 className="btn-primary"
               >
-                Apri demo dal vivo
+                {t('openLiveDemo')}
                 <ExternalLink className="h-4 w-4" />
               </a>
             ) : (
               <button onClick={() => setModalOpen(true)} className="btn-primary">
-                Richiedi accesso demo
+                {t('requestDemoAccess')}
                 <ArrowRight className="h-4 w-4" />
               </button>
             )}
 
             <Link href={`/${locale}/demo`} className="btn-dark">
               <KeyRound className="h-4 w-4" />
-              Prova demo
+              {t('tryDemo')}
             </Link>
 
             <a href="#prezzi" className="btn-ghost">
-              Vedi i prezzi
+              {t('seePricing')}
             </a>
           </div>
 
-          <p className="mt-4 text-xs text-ink-mute">
-            Hai già il codice? Click su "Prova demo" e incollalo.
-          </p>
+          <p className="mt-4 text-xs text-ink-mute">{t('haveCodeHint')}</p>
         </motion.div>
 
         {/* big mockup */}

@@ -241,5 +241,12 @@
       },
       "questionsUnlimited": "unbegrenzte Fragen"
     }
+  },
+  "showcase": {
+    "openLiveDemo": "Live-Demo öffnen",
+    "requestDemoAccess": "Demo-Zugang anfragen",
+    "tryDemo": "Demo testen",
+    "seePricing": "Preise ansehen",
+    "haveCodeHint": "Schon einen Code? Klick auf „Demo testen\" und füg ihn ein."
   }
 }
