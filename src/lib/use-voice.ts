@@ -73,12 +73,20 @@ export function useVoice(locale: string) {
         synth.resume(); // se in pausa per policy del browser
         const voices = synth.getVoices();
         const two = lang.slice(0, 2).toLowerCase();
+        // tra le voci della lingua, preferisci quelle "premium/enhanced/natural"
+        // (suonano meno robotiche delle "compact" di sistema)
+        const ofLang = voices.filter(
+          (vo) =>
+            vo.lang?.toLowerCase().startsWith(locale) ||
+            vo.lang === lang ||
+            vo.lang?.toLowerCase().startsWith(two)
+        );
+        const nicer = /premium|enhanced|natural|neural|siri/i;
         const v =
-          voices.find((vo) => vo.lang?.toLowerCase().startsWith(locale)) ||
-          voices.find((vo) => vo.lang === lang) ||
-          voices.find((vo) => vo.lang?.toLowerCase().startsWith(two));
+          ofLang.find((vo) => nicer.test(vo.name)) || ofLang[0];
 
         // Chrome tronca la sintesi lunga (~15s): leggo frase per frase.
+        // Variando un filo pitch/velocità per frase la lettura risulta meno piatta.
         const chunks = text.match(/[^.!?…\n]+[.!?…]*\s*/g) || [text];
         chunks
           .map((c) => c.trim())
@@ -87,7 +95,10 @@ export function useVoice(locale: string) {
             const u = new SpeechSynthesisUtterance(chunk);
             u.lang = lang;
             if (v) u.voice = v;
-            u.rate = 1.02;
+            // domanda → tono leggermente più alto; micro-variazioni = meno monotono
+            const isQuestion = /\?\s*$/.test(chunk);
+            u.pitch = (isQuestion ? 1.12 : 1.04) + (i % 2 === 0 ? 0.02 : -0.02);
+            u.rate = 1.0;
             if (i === 0) u.onstart = () => setSpeaking(true);
             if (i === arr.length - 1) u.onend = () => setSpeaking(false);
             u.onerror = () => setSpeaking(false);
