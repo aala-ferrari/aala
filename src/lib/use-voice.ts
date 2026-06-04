@@ -82,7 +82,9 @@ export function useVoice(locale: string) {
       const synth = window.speechSynthesis;
 
       const run = () => {
-        synth.cancel();
+        // Chrome ha un bug: cancel() subito prima del primo speak fa "cadere"
+        // l'audio. Annullo SOLO se sta già parlando/è in coda.
+        if (synth.speaking || synth.pending) synth.cancel();
         synth.resume(); // se in pausa per policy del browser
         const voices = synth.getVoices();
         const two = lang.slice(0, 2).toLowerCase();
@@ -143,22 +145,6 @@ export function useVoice(locale: string) {
     }
   }, [ttsSupported]);
 
-  // Sblocca il motore TTS durante un gesto utente (alcuni browser bloccano la
-  // sintesi se non è mai partita da un'interazione). Da chiamare al click del mic.
-  const unlock = useCallback(() => {
-    if (!ttsSupported) return;
-    const synth = window.speechSynthesis;
-    try {
-      synth.resume();
-      synth.getVoices(); // forza il caricamento delle voci
-      const u = new SpeechSynthesisUtterance(' ');
-      u.volume = 0;
-      synth.speak(u);
-    } catch {
-      /* ignore */
-    }
-  }, [ttsSupported]);
-
   return {
     sttSupported,
     ttsSupported,
@@ -168,6 +154,5 @@ export function useVoice(locale: string) {
     stopListening,
     speak,
     cancelSpeak,
-    unlock,
   };
 }
