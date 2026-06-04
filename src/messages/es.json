@@ -248,5 +248,282 @@
     "tryDemo": "Probar demo",
     "seePricing": "Ver precios",
     "haveCodeHint": "¿Ya tienes un código? Haz clic en \"Probar demo\" y pégalo."
+  },
+  "catalog": {
+    "medical": {
+      "heroEyebrow": "CRM Medical",
+      "heroTitle": "El software de gestión que tu consulta médica merece.",
+      "heroSubtitle": "Agenda inteligente, ficha de pacientes, facturación electrónica, comunicaciones automáticas. Pensado con médicos, para médicos.",
+      "features": [
+        {
+          "title": "Agenda multi-médico",
+          "desc": "Calendario con salas, recurrencias, recordatorios automáticos por SMS y WhatsApp."
+        },
+        {
+          "title": "Pacientes y fichas",
+          "desc": "Ficha completa, adjuntos, historial de visitas, consentimientos RGPD firmados digitalmente."
+        },
+        {
+          "title": "Facturación",
+          "desc": "Facturación electrónica, vencimientos, exportación al contable."
+        },
+        {
+          "title": "Seguridad",
+          "desc": "Cifrado at-rest, copias diarias, registros de acceso, cumplimiento RGPD."
+        }
+      ],
+      "plans": {
+        "crm-medical-starter": {
+          "name": "Starter (1 médico)",
+          "features": [
+            "Instalación a medida",
+            "Agenda + pacientes + facturación",
+            "Formación 4h",
+            "12 meses de soporte"
+          ]
+        },
+        "crm-medical-clinic": {
+          "name": "Clínica completa",
+          "features": [
+            "Todo Starter +",
+            "Admin + backoffice de leads",
+            "Gestión avanzada de citas",
+            "Roles: gerente, usuarios, consultores",
+            "Multiusuario ilimitado"
+          ]
+        },
+        "crm-medical-enterprise": {
+          "name": "Enterprise",
+          "features": [
+            "Personalizaciones profundas",
+            "Integraciones con sistemas sanitarios",
+            "SLA dedicado",
+            "Hosting on-premise opcional"
+          ]
+        }
+      }
+    },
+    "auto": {
+      "heroEyebrow": "Gestión de Alquiler de Coches",
+      "heroTitle": "Tu rent-a-car, por fin bajo control.",
+      "heroSubtitle": "Flota, reservas, contratos, mantenimiento, facturación, app móvil para clientes. Todo en un solo lugar.",
+      "features": [
+        {
+          "title": "Flota en tiempo real",
+          "desc": "GPS, kilometraje, vencimientos, disponibilidad, mantenimiento programado."
+        },
+        {
+          "title": "Reservas online",
+          "desc": "Booking en tu web, pagos, contrato digital firmado desde el móvil."
+        },
+        {
+          "title": "App móvil para clientes",
+          "desc": "El usuario abre el coche, reporta daños, paga extras directamente desde la app."
+        },
+        {
+          "title": "Informes",
+          "desc": "Márgenes por vehículo, ocupación de flota, top performers, exportación contable."
+        }
+      ],
+      "plans": {
+        "auto-fleet-small": {
+          "name": "Fleet S (hasta 20 coches)",
+          "features": [
+            "Web + móvil",
+            "Reserva online",
+            "Contratos digitales",
+            "Soporte por email"
+          ]
+        },
+        "auto-fleet-medium": {
+          "name": "Fleet M (hasta 80 coches)",
+          "features": [
+            "Todo S +",
+            "Multi-sede",
+            "GPS integrado",
+            "Soporte prioritario"
+          ]
+        },
+        "auto-fleet-large": {
+          "name": "Fleet L — Todo tuyo",
+          "features": [
+            "CRM de coches personalizado",
+            "Web dedicada",
+            "Dominio + VPS hosting incluidos",
+            "Branding a medida",
+            "Sin suscripción mensual"
+          ]
+        }
+      }
+    },
+    "legal": {
+      "heroEyebrow": "Super Avokati",
+      "heroTitle": "La suite SaaS que hace trabajar menos a tu despacho.",
+      "heroSubtitle": "Casos, plazos, calendario de vistas, búsqueda documental con IA, facturación. Todo integrado, todo seguro. Actualmente disponible para el derecho albanés — versión italiana muy pronto.",
+      "features": [
+        {
+          "title": "Casos y plazos",
+          "desc": "Gestión de expedientes, vencimientos automáticos, alertas de vistas y términos."
+        },
+        {
+          "title": "IA documental",
+          "desc": "Búsqueda semántica en los documentos del despacho. Encuentra lo que necesitas en segundos."
+        },
+        {
+          "title": "Facturación legal",
+          "desc": "Minutas, provisiones, tarifas, cuenta de cliente, factura electrónica."
+        },
+        {
+          "title": "Seguridad forense",
+          "desc": "Cifrado, copias, control de acceso, conservación conforme a norma."
+        }
+      ],
+      "plans": {
+        "legal-solo": {
+          "name": "Solo (1 usuario)",
+          "features": [
+            "1 usuario",
+            "Casos ilimitados",
+            "Calendario de vistas",
+            "5 GB de documentos"
+          ]
+        },
+        "legal-studio": {
+          "name": "Studio (hasta 5 usuarios)",
+          "features": [
+            "Hasta 5 usuarios",
+            "IA documental",
+            "100 GB de documentos",
+            "Soporte prioritario"
+          ]
+        },
+        "legal-firm": {
+          "name": "Firm",
+          "features": [
+            "Usuarios ilimitados",
+            "Integraciones a medida",
+            "Almacenamiento ilimitado",
+            "SLA dedicado"
+          ]
+        }
+      }
+    },
+    "dental": {
+      "heroEyebrow": "Dental Tourism",
+      "heroTitle": "Pacientes internacionales cualificados. Directos a tu clínica.",
+      "heroSubtitle": "Generamos solicitudes cualificadas desde Europa, EE. UU. y Reino Unido con campañas dirigidas. Tú recibes solo pacientes listos para reservar.",
+      "features": [
+        {
+          "title": "Leads cualificados",
+          "desc": "Pre-screening médico, presupuesto verificado, intención de viaje confirmada."
+        },
+        {
+          "title": "Campañas multilingües",
+          "desc": "Ads y SEO en 5 idiomas. Pacientes que hablan tu idioma llegan ya."
+        },
+        {
+          "title": "Exclusividad de zona",
+          "desc": "Una sola clínica partner por ciudad / especialidad. Sin competencia interna."
+        },
+        {
+          "title": "Informes transparentes",
+          "desc": "Dashboard con leads, contactos, conversiones. Lo ves todo, siempre."
+        }
+      ],
+      "plans": {
+        "dental-discovery": {
+          "name": "Discovery",
+          "features": [
+            "Análisis de mercado",
+            "Auditoría de clínica",
+            "Estrategia 90 días",
+            "Sin compromiso"
+          ]
+        },
+        "dental-partner": {
+          "name": "Partner",
+          "features": [
+            "20-25% sobre cada presupuesto",
+            "Pago solo por resultados",
+            "Sin coste fijo mensual",
+            "Leads internacionales precualificados"
+          ]
+        },
+        "dental-premium": {
+          "name": "Premium",
+          "features": [
+            "Todo Partner +",
+            "Ayudamos a crecer la clínica",
+            "Campañas de ads en Meta (Facebook + Instagram)",
+            "Captación de clientes dedicada",
+            "Estrategia de crecimiento a medida"
+          ]
+        }
+      }
+    },
+    "taxi": {
+      "heroEyebrow": "Taxi App",
+      "heroTitle": "Tu flota de taxis, estilo Bolt. Con tu marca, controlada, rentable.",
+      "heroSubtitle": "Apps móviles para conductores y clientes, despacho automático, pagos integrados, mapa en vivo, valoraciones. Todo con tu marca, en tu dominio.",
+      "features": [
+        {
+          "title": "App de pasajero",
+          "desc": "Reserva instantánea, estimación de precio, seguimiento en vivo, pago in-app."
+        },
+        {
+          "title": "App de conductor",
+          "desc": "Aceptación de viajes, navegación integrada, ganancias en directo, soporte inmediato."
+        },
+        {
+          "title": "Central de despacho",
+          "desc": "Asignación automática por proximidad y valoración, override manual, zonas calientes."
+        },
+        {
+          "title": "Pagos y fiscalidad",
+          "desc": "Tarjeta, Apple Pay, Google Pay, factura electrónica, reparto de comisiones del conductor."
+        }
+      ],
+      "plans": {
+        "taxi-starter": {
+          "name": "Starter (hasta 20 conductores)",
+          "features": [
+            "App conductor + cliente",
+            "Despacho automático",
+            "Pagos con tarjeta",
+            "Soporte por email"
+          ]
+        },
+        "taxi-fleet": {
+          "name": "Fleet (hasta 100 conductores)",
+          "features": [
+            "Todo Starter +",
+            "Multi-ciudad",
+            "Precios dinámicos",
+            "Informes avanzados",
+            "Soporte prioritario"
+          ]
+        },
+        "taxi-platform": {
+          "name": "Platform — Todo tuyo",
+          "features": [
+            "App con tu marca (web/PWA) y tu logo",
+            "Backend + despacho personalizado",
+            "Dominio + VPS hosting incluidos",
+            "Configuración completa + formación",
+            "Sin cuota mensual de plataforma"
+          ]
+        },
+        "taxi-complete": {
+          "name": "Completo — Apps nativas + Store",
+          "features": [
+            "Todo Platform +",
+            "Apps nativas iOS + Android con tu marca",
+            "Publicación en App Store + Google Play",
+            "Cuenta de desarrollador y revisión gestionadas por nosotros",
+            "Actualizaciones de store incluidas (1er año)"
+          ]
+        }
+      }
+    }
   }
 }

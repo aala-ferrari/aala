@@ -248,5 +248,282 @@
     "tryDemo": "Demo testen",
     "seePricing": "Preise ansehen",
     "haveCodeHint": "Schon einen Code? Klick auf „Demo testen\" und füg ihn ein."
+  },
+  "catalog": {
+    "medical": {
+      "heroEyebrow": "CRM Medical",
+      "heroTitle": "Die Verwaltungssoftware, die Ihre Praxis verdient.",
+      "heroSubtitle": "Intelligenter Kalender, Patientenakten, E-Rechnung, automatische Kommunikation. Mit Ärzten entwickelt, für Ärzte.",
+      "features": [
+        {
+          "title": "Mehr-Ärzte-Kalender",
+          "desc": "Kalender mit Räumen, Wiederholungen, automatische Erinnerungen per SMS und WhatsApp."
+        },
+        {
+          "title": "Patienten & Akten",
+          "desc": "Vollständige Akte, Anhänge, Besuchshistorie, digital signierte DSGVO-Einwilligungen."
+        },
+        {
+          "title": "Abrechnung",
+          "desc": "E-Rechnung, Fristen, Export für den Steuerberater."
+        },
+        {
+          "title": "Sicherheit",
+          "desc": "At-rest-Verschlüsselung, tägliche Backups, Zugriffsprotokolle, DSGVO-konform."
+        }
+      ],
+      "plans": {
+        "crm-medical-starter": {
+          "name": "Starter (1 Arzt)",
+          "features": [
+            "Maßgeschneiderte Installation",
+            "Kalender + Patienten + Abrechnung",
+            "4 Std. Schulung",
+            "12 Monate Support"
+          ]
+        },
+        "crm-medical-clinic": {
+          "name": "Komplette Klinik",
+          "features": [
+            "Alles aus Starter +",
+            "Admin + Lead-Backoffice",
+            "Erweiterte Terminverwaltung",
+            "Rollen: Manager, Nutzer, Berater",
+            "Unbegrenzte Mehrbenutzer"
+          ]
+        },
+        "crm-medical-enterprise": {
+          "name": "Enterprise",
+          "features": [
+            "Tiefe Anpassungen",
+            "Integration mit Gesundheitssystemen",
+            "Dediziertes SLA",
+            "Optionales On-Premise-Hosting"
+          ]
+        }
+      }
+    },
+    "auto": {
+      "heroEyebrow": "Autovermietungs-Verwaltung",
+      "heroTitle": "Ihre Autovermietung, endlich unter Kontrolle.",
+      "heroSubtitle": "Flotte, Buchungen, Verträge, Wartung, Abrechnung, Kunden-App. Alles an einem Ort.",
+      "features": [
+        {
+          "title": "Flotte in Echtzeit",
+          "desc": "GPS, Kilometerstand, Fristen, Verfügbarkeit, geplante Wartung."
+        },
+        {
+          "title": "Online-Buchungen",
+          "desc": "Buchung auf Ihrer Website, Zahlungen, digitaler Vertrag per Handy signiert."
+        },
+        {
+          "title": "Kunden-App",
+          "desc": "Nutzer öffnen das Auto, melden Schäden, zahlen Zusätze direkt in der App."
+        },
+        {
+          "title": "Reporting",
+          "desc": "Margen pro Fahrzeug, Flottenauslastung, Top-Performer, Buchhaltungsexport."
+        }
+      ],
+      "plans": {
+        "auto-fleet-small": {
+          "name": "Fleet S (bis 20 Autos)",
+          "features": [
+            "Web + Mobile",
+            "Online-Buchung",
+            "Digitale Verträge",
+            "E-Mail-Support"
+          ]
+        },
+        "auto-fleet-medium": {
+          "name": "Fleet M (bis 80 Autos)",
+          "features": [
+            "Alles aus S +",
+            "Mehrere Standorte",
+            "Integriertes GPS",
+            "Prioritäts-Support"
+          ]
+        },
+        "auto-fleet-large": {
+          "name": "Fleet L — Ganz Ihres",
+          "features": [
+            "Individuelles Auto-CRM",
+            "Eigene Website",
+            "Domain + VPS-Hosting inklusive",
+            "Maßgeschneidertes Branding",
+            "Kein Monatsabo"
+          ]
+        }
+      }
+    },
+    "legal": {
+      "heroEyebrow": "Super Avokati",
+      "heroTitle": "Die SaaS-Suite, die Ihre Kanzlei entlastet.",
+      "heroSubtitle": "Akten, Fristen, Verhandlungskalender, KI-Dokumentensuche, Abrechnung. Alles integriert, alles sicher. Derzeit für albanisches Recht verfügbar — italienische Version bald.",
+      "features": [
+        {
+          "title": "Akten & Fristen",
+          "desc": "Aktenverwaltung, automatische Fristen, Alarme zu Terminen und Fristen."
+        },
+        {
+          "title": "Dokumenten-KI",
+          "desc": "Semantische Suche in den Dokumenten der Kanzlei. Finden Sie das Gesuchte in Sekunden."
+        },
+        {
+          "title": "Anwaltsabrechnung",
+          "desc": "Honorare, Vorschüsse, Gebühren, Mandantenkonto, E-Rechnung."
+        },
+        {
+          "title": "Forensische Sicherheit",
+          "desc": "Verschlüsselung, Backups, Zugriffskontrolle, normgerechte Aufbewahrung."
+        }
+      ],
+      "plans": {
+        "legal-solo": {
+          "name": "Solo (1 Nutzer)",
+          "features": [
+            "1 Nutzer",
+            "Unbegrenzte Akten",
+            "Verhandlungskalender",
+            "5 GB Dokumente"
+          ]
+        },
+        "legal-studio": {
+          "name": "Studio (bis 5 Nutzer)",
+          "features": [
+            "Bis 5 Nutzer",
+            "Dokumenten-KI",
+            "100 GB Dokumente",
+            "Prioritäts-Support"
+          ]
+        },
+        "legal-firm": {
+          "name": "Firm",
+          "features": [
+            "Unbegrenzte Nutzer",
+            "Individuelle Integrationen",
+            "Unbegrenzter Speicher",
+            "Dediziertes SLA"
+          ]
+        }
+      }
+    },
+    "dental": {
+      "heroEyebrow": "Dental Tourism",
+      "heroTitle": "Qualifizierte internationale Patienten. Direkt in Ihre Klinik.",
+      "heroSubtitle": "Wir generieren qualifizierte Anfragen aus Europa, den USA und Großbritannien über gezielte Kampagnen. Sie erhalten nur buchungsbereite Patienten.",
+      "features": [
+        {
+          "title": "Qualifizierte Leads",
+          "desc": "Medizinisches Vor-Screening, geprüftes Budget, bestätigte Reiseabsicht."
+        },
+        {
+          "title": "Mehrsprachige Kampagnen",
+          "desc": "Ads und SEO in 5 Sprachen. Patienten, die Ihre Sprache sprechen, kommen bereits."
+        },
+        {
+          "title": "Gebietsexklusivität",
+          "desc": "Nur eine Partnerklinik pro Stadt / Fachgebiet. Keine interne Konkurrenz."
+        },
+        {
+          "title": "Transparentes Reporting",
+          "desc": "Dashboard mit Leads, Kontakten, Conversions. Sie sehen alles, jederzeit."
+        }
+      ],
+      "plans": {
+        "dental-discovery": {
+          "name": "Discovery",
+          "features": [
+            "Marktanalyse",
+            "Klinik-Audit",
+            "90-Tage-Strategie",
+            "Keine Verpflichtung"
+          ]
+        },
+        "dental-partner": {
+          "name": "Partner",
+          "features": [
+            "20-25% pro Patienten-Angebot",
+            "Zahlung nur bei Ergebnis",
+            "Keine festen Monatskosten",
+            "Vorqualifizierte internationale Leads"
+          ]
+        },
+        "dental-premium": {
+          "name": "Premium",
+          "features": [
+            "Alles aus Partner +",
+            "Wir helfen der Klinik zu wachsen",
+            "Ads-Kampagnen auf Meta (Facebook + Instagram)",
+            "Dedizierte Kundengewinnung",
+            "Maßgeschneiderte Wachstumsstrategie"
+          ]
+        }
+      }
+    },
+    "taxi": {
+      "heroEyebrow": "Taxi App",
+      "heroTitle": "Ihre Taxiflotte, im Bolt-Stil. Mit Ihrer Marke, kontrolliert, rentabel.",
+      "heroSubtitle": "Mobile Apps für Fahrer und Kunden, automatische Disposition, integrierte Zahlungen, Live-Karte, Bewertungen. Alles mit Ihrer Marke, auf Ihrer Domain.",
+      "features": [
+        {
+          "title": "Fahrgast-App",
+          "desc": "Sofortbuchung, Preisschätzung, Live-Tracking, In-App-Zahlung."
+        },
+        {
+          "title": "Fahrer-App",
+          "desc": "Fahrtannahme, integrierte Navigation, Live-Einnahmen, sofortiger Support."
+        },
+        {
+          "title": "Dispositionszentrale",
+          "desc": "Automatische Zuteilung nach Nähe und Bewertung, manuelles Override, heiße Zonen."
+        },
+        {
+          "title": "Zahlungen & Steuer",
+          "desc": "Karte, Apple Pay, Google Pay, E-Rechnung, Aufteilung der Fahrerprovision."
+        }
+      ],
+      "plans": {
+        "taxi-starter": {
+          "name": "Starter (bis 20 Fahrer)",
+          "features": [
+            "Fahrer- + Kunden-App",
+            "Automatische Disposition",
+            "Kartenzahlungen",
+            "E-Mail-Support"
+          ]
+        },
+        "taxi-fleet": {
+          "name": "Fleet (bis 100 Fahrer)",
+          "features": [
+            "Alles aus Starter +",
+            "Mehrere Städte",
+            "Dynamische Preise",
+            "Erweitertes Reporting",
+            "Prioritäts-Support"
+          ]
+        },
+        "taxi-platform": {
+          "name": "Platform — Ganz Ihres",
+          "features": [
+            "Gebrandete App (web/PWA) mit Ihrem Logo",
+            "Backend + individuelle Disposition",
+            "Domain + VPS-Hosting inklusive",
+            "Komplettes Setup + Schulung",
+            "Keine monatliche Plattformgebühr"
+          ]
+        },
+        "taxi-complete": {
+          "name": "Komplett — Native Apps + Store",
+          "features": [
+            "Alles aus Platform +",
+            "Native iOS- + Android-Apps mit Ihrer Marke",
+            "Veröffentlichung im App Store + Google Play",
+            "Entwicklerkonto und Review von uns verwaltet",
+            "Store-Updates inklusive (1. Jahr)"
+          ]
+        }
+      }
+    }
   }
 }
