@@ -71,20 +71,28 @@ export function useVoice(locale: string) {
       const run = () => {
         synth.cancel();
         synth.resume(); // se in pausa per policy del browser
-        const u = new SpeechSynthesisUtterance(text);
-        u.lang = lang;
         const voices = synth.getVoices();
         const two = lang.slice(0, 2).toLowerCase();
         const v =
           voices.find((vo) => vo.lang?.toLowerCase().startsWith(locale)) ||
           voices.find((vo) => vo.lang === lang) ||
           voices.find((vo) => vo.lang?.toLowerCase().startsWith(two));
-        if (v) u.voice = v;
-        u.rate = 1.02;
-        u.onstart = () => setSpeaking(true);
-        u.onend = () => setSpeaking(false);
-        u.onerror = () => setSpeaking(false);
-        synth.speak(u);
+
+        // Chrome tronca la sintesi lunga (~15s): leggo frase per frase.
+        const chunks = text.match(/[^.!?…\n]+[.!?…]*\s*/g) || [text];
+        chunks
+          .map((c) => c.trim())
+          .filter(Boolean)
+          .forEach((chunk, i, arr) => {
+            const u = new SpeechSynthesisUtterance(chunk);
+            u.lang = lang;
+            if (v) u.voice = v;
+            u.rate = 1.02;
+            if (i === 0) u.onstart = () => setSpeaking(true);
+            if (i === arr.length - 1) u.onend = () => setSpeaking(false);
+            u.onerror = () => setSpeaking(false);
+            synth.speak(u);
+          });
       };
 
       // le voci si caricano in modo asincrono: se vuote, aspetta l'evento
