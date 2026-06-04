@@ -85,10 +85,20 @@ export function useVoice(locale: string) {
         const v =
           ofLang.find((vo) => nicer.test(vo.name)) || ofLang[0];
 
+        // Numeri/prezzi: togli il punto delle migliaia PRIMA di spezzare le
+        // frasi, se no "1.600" verrebbe letto "uno… seicento" (il punto sembra
+        // fine frase) e contato come due frasi. Tolgo il punto SOLO nel pattern
+        // cifra+punto+3cifre (migliaia) → "1.600"→"1600" = "milleseicento".
+        // Non tocca decimali "19,90", versioni "4.8", domini "aala.io".
+        const speakText = text.replace(
+          /\d{1,3}(?:\.\d{3})+(?!\d)/g,
+          (m) => m.replace(/\./g, '')
+        );
+
         // Chrome tronca la sintesi lunga (~15s): leggo frase per frase.
         // Per ogni frase do un'intonazione diversa in base alla punteggiatura
         // finale (? ! … .) così la lettura suona viva, non piatta.
-        const chunks = text.match(/[^.!?…\n]+[.!?…]*\s*/g) || [text];
+        const chunks = speakText.match(/[^.!?…\n]+[.!?…]*\s*/g) || [speakText];
         chunks
           .map((c) => c.trim())
           .filter(Boolean)
