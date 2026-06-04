@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 // locale del sito → codice lingua per voce (riconoscimento + sintesi)
 const VOICE_LANG: Record<string, string> = {
@@ -27,6 +27,19 @@ export function useVoice(locale: string) {
     typeof window !== 'undefined' &&
     ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window);
   const ttsSupported = typeof window !== 'undefined' && 'speechSynthesis' in window;
+
+  // Pre-carica le voci appena il componente è montato: così al PRIMO click
+  // sull'altoparlante la lettura parte subito (le voci si caricano in modo
+  // asincrono; senza warm-up il primo speak veniva rimandato e perdeva il
+  // gesto utente → serviva un secondo click).
+  useEffect(() => {
+    if (!ttsSupported) return;
+    const synth = window.speechSynthesis;
+    const warm = () => synth.getVoices();
+    warm();
+    synth.addEventListener?.('voiceschanged', warm);
+    return () => synth.removeEventListener?.('voiceschanged', warm);
+  }, [ttsSupported]);
 
   const startListening = useCallback(
     (onResult: (text: string) => void) => {
