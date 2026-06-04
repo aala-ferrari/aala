@@ -44,6 +44,26 @@ function escapeXml(s: string) {
     .replace(/'/g, '&apos;');
 }
 
+// ── 0. Voce LOCALE (Meta MMS-TTS sul Mac) — gratis, offline, illimitata ──
+// Gira il server: cd tts-server && ./.venv/bin/python server.py
+// In produzione (online) il localhost non esiste → fallisce subito → Google.
+async function localTts(text: string, locale: string): Promise<TtsResult> {
+  const base = process.env.LOCAL_TTS_URL || 'http://127.0.0.1:5005';
+  try {
+    const r = await fetch(`${base}/tts`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text, locale }),
+      signal: AbortSignal.timeout(20000),
+    });
+    const ct = r.headers.get('content-type') || '';
+    if (!r.ok || !ct.startsWith('audio')) return null;
+    return { audio: new Uint8Array(await r.arrayBuffer()), contentType: ct };
+  } catch {
+    return null;
+  }
+}
+
 // ── 1. Azure (qualità migliore, ma serve la carta per il free tier) ──
 async function azureTts(text: string, locale: string): Promise<TtsResult> {
   const key = process.env.AZURE_SPEECH_KEY;
@@ -165,8 +185,9 @@ export async function POST(req: NextRequest) {
   const locale = (body.locale || 'sq').slice(0, 2);
   if (!text) return new Response(null, { status: 204 });
 
-  // 1° Azure (se chiave) → 2° HuggingFace (gratis, no carta) → 3° Google
+  // 0° voce LOCALE Meta (se il server gira) → 1° Azure → 2° HF → 3° Google
   const result =
+    (await localTts(text, locale)) ||
     (await azureTts(text, locale)) ||
     (await hfTts(text, locale)) ||
     (await googleTts(text, locale));
