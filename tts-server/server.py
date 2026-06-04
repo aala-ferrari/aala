@@ -8,14 +8,19 @@ Porta:  5005  (POST /tts  body {"text": "...", "locale": "sq"} → audio WAV)
 """
 import io
 import json
+import os
 import wave
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 import numpy as np
 import torch
+import torchaudio.functional as AF
 from transformers import AutoTokenizer, VitsModel
 
 PORT = 5005
+# semitoni di pitch verso l'alto per femminilizzare la voce (MMS sq è maschile).
+# Regolabile: TTS_PITCH=0 (originale maschile), 4 (default), 6 (più femminile).
+PITCH = float(os.environ.get("TTS_PITCH", "4"))
 
 # modelli MMS-TTS di Meta per lingua (si scaricano da soli al primo uso)
 MODELS = {
@@ -47,8 +52,11 @@ def synth_wav(text: str, locale: str) -> bytes | None:
     inputs = tok(text, return_tensors="pt")
     with torch.no_grad():
         wav = model(**inputs).waveform  # (1, N) float32 in [-1,1]
-    audio = wav.squeeze().cpu().numpy().astype(np.float32)
     sr = int(model.config.sampling_rate)
+    if PITCH:
+        # alza il tono (mantiene la durata) → voce più femminile
+        wav = AF.pitch_shift(wav, sr, n_steps=PITCH)
+    audio = wav.squeeze().cpu().numpy().astype(np.float32)
 
     pcm = np.clip(audio, -1.0, 1.0)
     pcm = (pcm * 32767.0).astype("<i2")
