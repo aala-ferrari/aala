@@ -11,12 +11,18 @@
     scroll-behavior: smooth;
   }
 
-  body {
-    @apply bg-canvas text-ink font-sans antialiased;
+  /* Fondo crema sull'HTML (dietro a tutto + fallback se la galassia è spenta).
+     Il body resta TRASPARENTE così il livello galassia (figlio del body, dietro
+     al contenuto) è visibile sopra il crema. */
+  html {
     background:
       radial-gradient(1200px 700px at 80% -10%, rgba(176,138,62,0.10), transparent 60%),
       radial-gradient(900px 600px at -10% 30%, rgba(14,25,42,0.04), transparent 60%),
       #f6f1e6;
+  }
+  body {
+    @apply text-ink font-sans antialiased;
+    background: transparent;
     min-height: 100vh;
   }
 
