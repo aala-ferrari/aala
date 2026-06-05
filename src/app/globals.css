@@ -237,3 +237,71 @@
       0 0 38px 9px rgba(245,230,168,0.9), 0 12px 30px -6px rgba(176,138,62,0.9);
   }
 }
+
+/* ============================================================
+   Sfondo "Oro liquido / seta" — luce dorata che scorre lenta.
+   Leggerissimo: solo trasform/opacity su compositor (no WebGL).
+   ============================================================ */
+.luxe-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+}
+.luxe-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  will-change: transform, opacity;
+  mix-blend-mode: multiply;
+}
+.luxe-blob-1 {
+  width: 62vmax; height: 62vmax; left: -12%; top: -18%;
+  background: radial-gradient(circle, rgba(201,168,73,0.40), rgba(201,168,73,0) 66%);
+  animation: luxeDrift1 28s ease-in-out infinite;
+}
+.luxe-blob-2 {
+  width: 56vmax; height: 56vmax; right: -14%; top: 6%;
+  background: radial-gradient(circle, rgba(234,215,176,0.45), rgba(234,215,176,0) 66%);
+  animation: luxeDrift2 34s ease-in-out infinite;
+}
+.luxe-blob-3 {
+  width: 60vmax; height: 60vmax; left: 18%; bottom: -22%;
+  background: radial-gradient(circle, rgba(160,122,38,0.30), rgba(160,122,38,0) 66%);
+  animation: luxeDrift3 40s ease-in-out infinite;
+}
+/* velo di seta che ruota pianissimo = riflesso "metallo liquido" */
+.luxe-sheen {
+  position: absolute;
+  inset: -40%;
+  background: conic-gradient(from 0deg,
+    transparent 0deg,
+    rgba(234,215,176,0.10) 40deg,
+    transparent 110deg,
+    rgba(201,168,73,0.08) 200deg,
+    transparent 270deg,
+    rgba(245,236,214,0.10) 330deg,
+    transparent 360deg);
+  filter: blur(40px);
+  will-change: transform;
+  animation: luxeSheen 70s linear infinite;
+}
+@keyframes luxeDrift1 {
+  0%, 100% { transform: translate(-6%, -4%) scale(1); }
+  50% { transform: translate(7%, 9%) scale(1.16); }
+}
+@keyframes luxeDrift2 {
+  0%, 100% { transform: translate(8%, 3%) scale(1.12); }
+  50% { transform: translate(-7%, -9%) scale(1); }
+}
+@keyframes luxeDrift3 {
+  0%, 100% { transform: translate(2%, 8%) scale(1.05); }
+  50% { transform: translate(-9%, -5%) scale(1.2); }
+}
+@keyframes luxeSheen {
+  to { transform: rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .luxe-blob, .luxe-sheen { animation: none; }
+}
