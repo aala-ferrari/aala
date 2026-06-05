@@ -82,17 +82,32 @@ export function useVoice(locale: string) {
         synth.resume(); // se in pausa per policy del browser
         const voices = synth.getVoices();
         const two = lang.slice(0, 2).toLowerCase();
-        // tra le voci della lingua, preferisci quelle "premium/enhanced/natural"
-        // (suonano meno robotiche delle "compact" di sistema)
-        const ofLang = voices.filter(
-          (vo) =>
-            vo.lang?.toLowerCase().startsWith(locale) ||
-            vo.lang === lang ||
-            vo.lang?.toLowerCase().startsWith(two)
-        );
-        const nicer = /premium|enhanced|natural|neural|siri/i;
+        // voci "giocattolo"/scherzose di macOS da EVITARE: suonano rotte (es.
+        // "Albert" sembra uno che soffoca). Il name può essere tradotto, quindi
+        // controllo anche il voiceURI (che resta in inglese).
+        const novelty =
+          /albert|bad.?news|good.?news|bahh|bells|boing|bubbles|cellos|deranged|hysterical|jester|organ|pipe|superstar|trinoids|whisper|wobble|zarvox|grandma|grandpa|reed|rocko|sandy|shelley|\bflo\b|eddy|bruce|junior|kathy|princess|ralph|\bfred\b|agnes|vicki|victoria/i;
+        const isNovelty = (vo: SpeechSynthesisVoice) =>
+          novelty.test(vo.voiceURI || '') || novelty.test(vo.name || '');
+
+        const ofLang = voices
+          .filter(
+            (vo) =>
+              vo.lang?.toLowerCase().startsWith(locale) ||
+              vo.lang === lang ||
+              vo.lang?.toLowerCase().startsWith(two)
+          )
+          .filter((vo) => !isNovelty(vo));
+
+        // preferisci voci di qualità o le buone voci Apple note per lingua
+        const nicer =
+          /premium|enhanced|neural|siri|samantha|alex|allison|ava|susan|zoe|nathan|aaron|karen|moira|tessa|daniel|serena|stephanie|alice|am[eé]lie|thomas|audrey|anna|helena|petra|m[oó]nica|paulina|jorge|juan|luca|federica|elsa/i;
         const v =
-          ofLang.find((vo) => nicer.test(vo.name)) || ofLang[0];
+          ofLang.find((vo) => nicer.test(vo.name)) ||
+          ofLang.find((vo) => vo.default) ||
+          ofLang[0] ||
+          // estrema sicurezza: una qualunque della lingua, anche giocattolo
+          voices.find((vo) => vo.lang?.toLowerCase().startsWith(two));
 
         // Numeri/prezzi: togli il punto delle migliaia PRIMA di spezzare le
         // frasi, se no "1.600" verrebbe letto "uno… seicento" (il punto sembra
