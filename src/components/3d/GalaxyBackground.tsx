@@ -26,11 +26,11 @@ export function GalaxyBackground() {
     // palette ARMONICA col crema+oro di AALA: famiglia calda oro/ambra/bronzo/rame.
     // Tutti toni più scuri del crema → si vedono bene e si fondono col brand.
     const CORE = new THREE.Color('#8a6717'); // oro profondo brillante (centro)
-    const PAL = ['#a07a26', '#c9a849', '#b8863a', '#8a6717', '#a9803f', '#c08a4a'].map(
-      (h) => new THREE.Color(h)
+    const PAL = ['#a07a26', '#c9a849', '#d8b75c', '#b8863a', '#a9803f', '#c08a4a'].map(
+      (h) => new THREE.Color(h) // include un oro brillante (#d8b75c) per più scintillii
     );
-    // stelle di sfondo: oro, bronzo, ambra
-    const STAR = ['#c9a849', '#a9803f', '#b8863a'].map((h) => new THREE.Color(h));
+    // stelle di sfondo: oro brillante, oro, ambra
+    const STAR = ['#d8b75c', '#c9a849', '#b8863a'].map((h) => new THREE.Color(h));
 
     const N = reduced ? 0 : isMobile ? 1700 : 3800;
     const STARS = reduced ? 0 : isMobile ? 400 : 750;
@@ -58,11 +58,14 @@ export function GalaxyBackground() {
     const VERT =
       'attribute float aSize; attribute vec3 aColor; varying vec3 vColor;' +
       'void main(){ vColor=aColor; vec4 mv=modelViewMatrix*vec4(position,1.0);' +
-      'gl_PointSize=clamp(aSize*(320.0/-mv.z),0.0,40.0); gl_Position=projectionMatrix*mv; }';
+      'gl_PointSize=clamp(aSize*(320.0/-mv.z),0.0,54.0); gl_Position=projectionMatrix*mv; }';
     const FRAG =
       'varying vec3 vColor; uniform float uAlpha;' +
       'void main(){ float d=length(gl_PointCoord-vec2(0.5)); if(d>0.5) discard;' +
-      'float a=smoothstep(0.5,0.0,d); gl_FragColor=vec4(vColor, a*a*uAlpha); }';
+      'float a=smoothstep(0.5,0.0,d);' +
+      'float core=pow(a,7.0);' + // centro caldo brillante = scintillio di stella vera
+      'vec3 col=vColor + core*0.55;' + // il cuore vira verso oro brillante/bianco
+      'gl_FragColor=vec4(col, (a*a + core*0.9)*uAlpha); }';
 
     function makeCloud(
       n: number,
@@ -118,10 +121,10 @@ export function GalaxyBackground() {
           col[i * 3] = c.r;
           col[i * 3 + 1] = c.g;
           col[i * 3 + 2] = c.b;
-          siz[i] = f < 0.16 ? 3.5 + Math.random() * 3.5 : 1.7 + Math.random() * 3.0;
+          siz[i] = f < 0.16 ? 4.5 + Math.random() * 4.5 : 2.2 + Math.random() * 3.6;
         }
       },
-      0.72
+      0.9
     );
     scene.add(gx.pts);
 
@@ -146,10 +149,10 @@ export function GalaxyBackground() {
           col[i * 3] = c.r;
           col[i * 3 + 1] = c.g;
           col[i * 3 + 2] = c.b;
-          siz[i] = 2.6 + Math.random() * 3.2;
+          siz[i] = 3.6 + Math.random() * 4.4; // stelle di sfondo più grandi
         }
       },
-      0.5
+      0.7
     );
     scene.add(sf.pts);
 
@@ -255,7 +258,7 @@ export function GalaxyBackground() {
       <canvas
         ref={canvasRef}
         className="h-full w-full"
-        style={{ opacity: 0.85 }}
+        style={{ opacity: 0.95 }}
       />
     </div>
   );
