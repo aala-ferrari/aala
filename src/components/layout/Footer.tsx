@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 
 export function Footer() {
@@ -12,8 +13,14 @@ export function Footer() {
     <footer className="relative mt-12 border-t border-ink-line bg-canvas-warm/40 sm:mt-16">
       <div className="container-aala grid grid-cols-2 gap-10 py-10 md:grid-cols-4 sm:py-12">
         <div className="col-span-2">
-          <p className="font-display text-2xl text-ink">{tBrand('name')}</p>
-          <p className="mt-2 max-w-xs text-sm text-ink-soft">{tBrand('tagline')}</p>
+          <Image
+            src="/logo-aala-full.png"
+            alt="AALA — Albania Auto Legal Alliance"
+            width={844}
+            height={595}
+            className="h-20 w-auto"
+          />
+          <p className="mt-3 max-w-xs text-sm text-ink-soft">{tBrand('tagline')}</p>
         </div>
 
         <div>
