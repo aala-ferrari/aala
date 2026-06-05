@@ -23,14 +23,14 @@ export function GalaxyBackground() {
     ).matches;
     const isMobile = window.innerWidth < 768;
 
-    // palette pensata per FONDO CHIARO (colori medio-scuri, si vedono sul crema)
-    const CORE = new THREE.Color('#9c7322'); // oro profondo (centro)
-    // particelle: oro profondo, oro, bronzo, oro scuro, navy soft, rosé
-    const PAL = ['#a07a26', '#c9a849', '#b0883e', '#876326', '#2f3f5c', '#b07a6a'].map(
+    // palette ARMONICA col crema+oro di AALA: famiglia calda oro/ambra/bronzo/rame.
+    // Tutti toni più scuri del crema → si vedono bene e si fondono col brand.
+    const CORE = new THREE.Color('#8a6717'); // oro profondo brillante (centro)
+    const PAL = ['#a07a26', '#c9a849', '#b8863a', '#8a6717', '#a9803f', '#c08a4a'].map(
       (h) => new THREE.Color(h)
     );
-    // stelle di sfondo: toni medi visibili sul chiaro
-    const STAR = ['#c9a849', '#8f96a8', '#b0883e'].map((h) => new THREE.Color(h));
+    // stelle di sfondo: oro, bronzo, ambra
+    const STAR = ['#c9a849', '#a9803f', '#b8863a'].map((h) => new THREE.Color(h));
 
     const N = reduced ? 0 : isMobile ? 1700 : 3800;
     const STARS = reduced ? 0 : isMobile ? 400 : 750;
@@ -121,7 +121,7 @@ export function GalaxyBackground() {
           siz[i] = f < 0.16 ? 3.5 + Math.random() * 3.5 : 1.7 + Math.random() * 3.0;
         }
       },
-      0.6
+      0.72
     );
     scene.add(gx.pts);
 
