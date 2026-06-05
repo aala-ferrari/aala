@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import { useState, useEffect } from 'react';
 import { Menu, X, Globe, Brain } from 'lucide-react';
@@ -226,18 +227,13 @@ export function Nav({
 
 function LogoMark() {
   return (
-    <svg width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden>
-      <defs>
-        <linearGradient id="lg" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#ecdcb0" />
-          <stop offset="0.5" stopColor="#c9a849" />
-          <stop offset="1" stopColor="#8a6717" />
-        </linearGradient>
-      </defs>
-      <path
-        d="M16 3 L29 27 H22 L20 22 H12 L10 27 H3 Z M14 17 H18 L16 12 Z"
-        fill="url(#lg)"
-      />
-    </svg>
+    <Image
+      src="/logo-aala-mark.png"
+      alt="AALA — Albania Auto Legal Alliance"
+      width={457}
+      height={357}
+      priority
+      className="h-9 w-auto transition group-hover:scale-105"
+    />
   );
 }
