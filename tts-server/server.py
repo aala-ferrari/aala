@@ -26,6 +26,9 @@ PORT = 5005
 # Per femminilizzare: TTS_PITCH_RATIO=1.55 TTS_FORMANT=1.16 (o valori a piacere).
 PITCH_RATIO = float(os.environ.get("TTS_PITCH_RATIO", "1.0"))  # tono (F0)
 FORMANT = float(os.environ.get("TTS_FORMANT", "1.0"))  # timbro (vocal tract)
+# velocità del parlato (manopola nativa VITS: scandisce meglio senza perdere
+# intonazione). 1.0 = originale, 1.12 = un filo più svelto. Regolabile.
+SPEAK_RATE = float(os.environ.get("TTS_SPEAK_RATE", "1.12"))
 
 
 def feminize(audio: np.ndarray, sr: int) -> np.ndarray:
@@ -120,6 +123,7 @@ def get_model(locale: str):
         print(f"[tts] carico {name} … (la prima volta scarica ~150MB)")
         model = VitsModel.from_pretrained(name)
         tok = AutoTokenizer.from_pretrained(name)
+        model.speaking_rate = SPEAK_RATE  # parla un filo più svelto
         model.eval()
         _loaded[locale] = (model, tok)
         print(f"[tts] {name} pronto ✓")
