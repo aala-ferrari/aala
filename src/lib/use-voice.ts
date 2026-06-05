@@ -99,11 +99,15 @@ export function useVoice(locale: string) {
           )
           .filter((vo) => !isNovelty(vo));
 
-        // preferisci voci di qualità o le buone voci Apple note per lingua
-        const nicer =
-          /premium|enhanced|neural|siri|samantha|alex|allison|ava|susan|zoe|nathan|aaron|karen|moira|tessa|daniel|serena|stephanie|alice|am[eé]lie|thomas|audrey|anna|helena|petra|m[oó]nica|paulina|jorge|juan|luca|federica|elsa/i;
+        // buone voci FEMMINILI note per lingua (Apple/Google)
+        const female =
+          /samantha|ava|allison|susan|zoe|serena|stephanie|karen|moira|tessa|alice|am[eé]lie|audrey|aur[eé]lie|m[oó]nica|paulina|marisol|anna|petra|helena|katja|elsa|federica|carla|alva|nora|female|donna|femm/i;
+        const premium = /premium|enhanced|neural|siri/i;
+        // ordine di preferenza: femminile+premium → femminile → premium → buona
         const v =
-          ofLang.find((vo) => nicer.test(vo.name)) ||
+          ofLang.find((vo) => female.test(vo.name) && premium.test(vo.name)) ||
+          ofLang.find((vo) => female.test(vo.name)) ||
+          ofLang.find((vo) => premium.test(vo.name)) ||
           ofLang.find((vo) => vo.default) ||
           ofLang[0] ||
           // estrema sicurezza: una qualunque della lingua, anche giocattolo
