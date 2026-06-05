@@ -252,42 +252,45 @@
 }
 .lux-bubble {
   position: absolute;
-  bottom: -22vh;
+  bottom: -10vh;
   border-radius: 50%;
+  /* SFERA 3D di champagne: luce speculare alto-sx + corpo champagne + ombra basso-dx */
   background:
-    radial-gradient(circle at 30% 26%, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 42%),
-    radial-gradient(circle at 72% 78%, rgba(234, 215, 176, 0.45), rgba(234, 215, 176, 0) 55%),
-    radial-gradient(circle at 50% 50%, rgba(201, 168, 73, 0.06), rgba(201, 168, 73, 0) 70%);
+    radial-gradient(circle at 34% 30%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.15) 20%, rgba(255, 255, 255, 0) 42%),
+    radial-gradient(circle at 68% 72%, rgba(214, 183, 92, 0.35), rgba(214, 183, 92, 0) 62%),
+    radial-gradient(circle at 50% 50%, rgba(255, 250, 235, 0.12), rgba(201, 168, 73, 0.05) 72%, rgba(201, 168, 73, 0) 78%);
+  /* luce in alto + ombra in basso = volume sferico; sottile anello oro = bordo */
   box-shadow:
-    inset 0 0 22px rgba(255, 255, 255, 0.4),
-    inset 0 0 0 1.5px rgba(201, 168, 73, 0.5),
-    inset 0 -8px 18px rgba(176, 138, 62, 0.18),
-    0 12px 36px -10px rgba(176, 138, 62, 0.35);
+    inset 1.5px 2px 3px rgba(255, 255, 255, 0.6),
+    inset -1.5px -2px 4px rgba(150, 112, 40, 0.3),
+    inset 0 0 0 1px rgba(201, 168, 73, 0.45),
+    0 3px 10px -3px rgba(176, 138, 62, 0.3);
   will-change: transform, opacity;
   opacity: 0;
   animation-name: luxRise;
-  animation-timing-function: ease-in-out;
+  animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
-/* riflesso iridescente in alto (come una vera bolla) */
+/* puntino speculare brillante (riflesso di luce sulla sferetta) */
 .lux-bubble::after {
   content: '';
   position: absolute;
-  left: 22%;
-  top: 18%;
-  width: 22%;
-  height: 16%;
+  left: 24%;
+  top: 20%;
+  width: 26%;
+  height: 26%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0) 70%);
-  filter: blur(1px);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 72%);
 }
+/* salita da champagne: sale dritta e veloce con micro-ondeggio, accelera un filo */
 @keyframes luxRise {
-  0% { transform: translateY(0) translateX(0) scale(0.92); opacity: 0; }
-  12% { opacity: 0.92; }
-  50% { transform: translateY(-58vh) translateX(var(--sway, 24px)) scale(1.04); }
-  88% { opacity: 0.92; }
-  100% { transform: translateY(-122vh) translateX(0) scale(0.98); opacity: 0; }
+  0% { transform: translateY(0) translateX(0) scale(0.7); opacity: 0; }
+  8% { opacity: 0.9; transform: translateY(-6vh) translateX(calc(var(--sway, 12px) * 0.4)) scale(1); }
+  40% { transform: translateY(-42vh) translateX(calc(var(--sway, 12px) * -0.6)) scale(1.02); }
+  70% { transform: translateY(-74vh) translateX(var(--sway, 12px)) scale(1.03); }
+  92% { opacity: 0.9; }
+  100% { transform: translateY(-112vh) translateX(0) scale(1.04); opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .lux-bubble { animation: none; opacity: 0.5; }
+  .lux-bubble { animation: none; opacity: 0.4; }
 }

@@ -1,41 +1,43 @@
 /**
- * Sfondo IDENTITARIO di AALA — "le Bolle di Zhiva" che fluttuano.
- * Bolle di vetro con bordo oro iridescente che salgono piano dietro la pagina.
- * È il marchio di AALA (la Bolla) come atmosfera. Pura CSS: zero WebGL,
- * leggerissimo (solo transform/opacity sul compositor). Rispetta reduced-motion.
+ * Sfondo IDENTITARIO di AALA — "le Bolle di Zhiva" come SPUMA DI CHAMPAGNE.
+ * Tante bollicine piccole, sferette di vetro 3D col bordo oro, che salgono
+ * dritte e veloci come le bollicine in un calice. Pura CSS: zero WebGL,
+ * leggerissimo. Rispetta reduced-motion.
  */
 
-// dimensione · sinistra% · durata(s) · ritardo(s) · oscillazione orizzontale(px)
-const BUBBLES: Array<[number, number, number, number, number]> = [
-  [170, 6, 30, -4, 40],
-  [70, 16, 22, -12, -30],
-  [120, 27, 27, -2, 36],
-  [44, 38, 18, -9, -22],
-  [150, 50, 32, -16, 30],
-  [60, 60, 20, -6, 26],
-  [100, 70, 25, -14, -34],
-  [38, 80, 16, -3, 18],
-  [134, 88, 29, -20, -28],
-  [54, 94, 21, -8, 24],
-  [82, 45, 24, -18, -20],
-  [48, 12, 19, -15, 28],
-];
+// generazione deterministica (Math.sin, uguale su server e client → niente
+// hydration mismatch; NON usare Math.random qui).
+const rnd = (seed: number) => {
+  const x = Math.sin(seed * 99.137) * 43758.545;
+  return x - Math.floor(x);
+};
+
+const COUNT = 38;
+const BUBBLES = Array.from({ length: COUNT }, (_, i) => {
+  // dimensioni piccole (champagne): per lo più 5–22px, qualcuna fino ~34px
+  const size = 4 + Math.round(Math.pow(rnd(i + 2), 1.7) * 30);
+  const left = Math.round(rnd(i + 7) * 99);
+  const dur = 9 + Math.round(rnd(i + 3) * 11); // 9–20s (salita svelta)
+  const delay = -Math.round(rnd(i + 5) * 22); // sfasate
+  const sway = Math.round((rnd(i + 11) - 0.5) * 36); // micro-ondeggio ±18px
+  return { size, left, dur, delay, sway };
+});
 
 export function LuxeBackground() {
   return (
     <div aria-hidden className="luxe-bg">
-      {BUBBLES.map(([size, left, dur, delay, sway], i) => (
+      {BUBBLES.map((b, i) => (
         <span
           key={i}
           className="lux-bubble"
           style={{
-            width: size,
-            height: size,
-            left: `${left}%`,
-            animationDuration: `${dur}s`,
-            animationDelay: `${delay}s`,
+            width: b.size,
+            height: b.size,
+            left: `${b.left}%`,
+            animationDuration: `${b.dur}s`,
+            animationDelay: `${b.delay}s`,
             // @ts-expect-error -- CSS custom property
-            '--sway': `${sway}px`,
+            '--sway': `${b.sway}px`,
           }}
         />
       ))}
