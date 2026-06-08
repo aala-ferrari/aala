@@ -29,6 +29,7 @@ export function useVoice(locale: string) {
   const [speaking, setSpeaking] = useState(false);
   const recogRef = useRef<unknown>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null); // playback voce cloud
+  const genRef = useRef(0); // "token" lettura: invalida le letture precedenti
 
   const sttSupported =
     typeof window !== 'undefined' &&
@@ -76,6 +77,7 @@ export function useVoice(locale: string) {
     (text: string) => {
       if (!ttsSupported || !text) return;
       const synth = window.speechSynthesis;
+      const gen = ++genRef.current; // nuova lettura: invalida le precedenti
 
       const run = () => {
         synth.cancel();
@@ -113,52 +115,71 @@ export function useVoice(locale: string) {
           // estrema sicurezza: una qualunque della lingua, anche giocattolo
           voices.find((vo) => vo.lang?.toLowerCase().startsWith(two));
 
-        // Numeri/prezzi: togli il punto delle migliaia PRIMA di spezzare le
-        // frasi, se no "1.600" verrebbe letto "uno… seicento" (il punto sembra
-        // fine frase) e contato come due frasi. Tolgo il punto SOLO nel pattern
-        // cifra+punto+3cifre (migliaia) → "1.600"→"1600" = "milleseicento".
-        // Non tocca decimali "19,90", versioni "4.8", domini "aala.io".
-        const speakText = text.replace(
-          /\d{1,3}(?:\.\d{3})+(?!\d)/g,
-          (m) => m.replace(/\./g, '')
-        );
+        // Numeri/prezzi: (1) togli il punto delle migliaia (1.600→1600 =
+        // "milleseicento"); (2) € → "euro" (l'importo si dice prima). Così la
+        // voce nativa pronuncia bene le cifre. Non tocca decimali "19,90",
+        // versioni "4.8", domini "aala.io".
+        const speakText = text
+          .replace(/\d{1,3}(?:\.\d{3})+(?!\d)/g, (m) => m.replace(/\./g, ''))
+          .replace(/€\s*(\d(?:[\d.,]*\d)?)/g, '$1 euro')
+          .replace(/(\d(?:[\d.,]*\d)?)\s*€/g, '$1 euro');
 
-        // Chrome tronca la sintesi lunga (~15s): leggo frase per frase.
-        // Per ogni frase do un'intonazione diversa in base alla punteggiatura
-        // finale (? ! … .) così la lettura suona viva, non piatta.
-        const chunks = speakText.match(/[^.!?…\n]+[.!?…]*\s*/g) || [speakText];
-        chunks
+        const chunks = (speakText.match(/[^.!?…\n]+[.!?…]*\s*/g) || [speakText])
           .map((c) => c.trim())
-          .filter(Boolean)
-          .forEach((chunk, i, arr) => {
-            const u = new SpeechSynthesisUtterance(chunk);
-            u.lang = lang;
-            if (v) u.voice = v;
+          .filter(Boolean);
 
-            // prosodia in base a come finisce la frase
-            const endsWith = chunk.replace(/[)"'»”\s]+$/, '').slice(-3);
-            let pitch = 1.03; // affermazione neutra (punto)
-            let rate = 1.0;
-            if (/\?$/.test(endsWith)) {
-              pitch = 1.16; // domanda → tono che sale
-              rate = 0.99;
-            } else if (/!$/.test(endsWith)) {
-              pitch = 1.2; // esclamazione → enfasi, un filo più veloce
-              rate = 1.06;
-            } else if (/(…|\.\.\.)$/.test(endsWith)) {
-              pitch = 0.98; // sospensione → più lento e basso
-              rate = 0.9;
-            }
-            // micro-variazione per frase = niente cadenza meccanica
-            pitch += i % 2 === 0 ? 0.02 : -0.02;
-            u.pitch = pitch;
-            u.rate = rate;
+        // Leggo una frase ALLA VOLTA con una PAUSA in mezzo (più lunga dopo ?
+        // e !), così la voce respira e l'intonazione finale viene rispettata.
+        // Watchdog: se onend non scatta (alcune voci), avanzo comunque.
+        let idx = 0;
+        setSpeaking(true);
+        const speakNext = () => {
+          if (genRef.current !== gen) return; // lettura annullata da una nuova
+          if (idx >= chunks.length) {
+            setSpeaking(false);
+            return;
+          }
+          const chunk = chunks[idx];
+          const i = idx;
+          idx += 1;
+          const u = new SpeechSynthesisUtterance(chunk);
+          u.lang = lang;
+          if (v) u.voice = v;
 
-            if (i === 0) u.onstart = () => setSpeaking(true);
-            if (i === arr.length - 1) u.onend = () => setSpeaking(false);
-            u.onerror = () => setSpeaking(false);
-            synth.speak(u);
-          });
+          // prosodia + durata della pausa in base alla punteggiatura finale
+          const tail = chunk.replace(/[)"'»”\s]+$/, '').slice(-3);
+          let pitch = 1.0; // affermazione: la voce chiude da sé sul punto
+          let rate = 0.97; // un filo più lenta = più scandita ed elegante
+          let pause = 300; // pausa dopo il punto
+          if (/\?$/.test(tail)) {
+            pitch = 1.12; // domanda → tono che sale
+            pause = 450;
+          } else if (/!$/.test(tail)) {
+            pitch = 1.1; // esclamazione → enfasi
+            pause = 450;
+          } else if (/(…|\.\.\.)$/.test(tail)) {
+            pitch = 0.98; // sospensione → più lento e basso
+            rate = 0.9;
+            pause = 520;
+          }
+          pitch += i % 2 === 0 ? 0.015 : -0.015; // micro-variazione naturale
+          u.pitch = pitch;
+          u.rate = rate;
+
+          let advanced = false;
+          const advance = () => {
+            if (advanced || genRef.current !== gen) return;
+            advanced = true;
+            clearTimeout(wd);
+            setTimeout(speakNext, pause); // ← la pausa tra le frasi
+          };
+          u.onend = advance;
+          u.onerror = advance;
+          synth.speak(u);
+          // rete di sicurezza: stima durata e avanza se onend non scatta
+          const wd = setTimeout(advance, 1400 + chunk.length * 75);
+        };
+        speakNext();
       };
 
       // le voci si caricano in modo asincrono: se vuote, aspetta l'evento
@@ -240,6 +261,7 @@ export function useVoice(locale: string) {
   );
 
   const cancelSpeak = useCallback(() => {
+    genRef.current += 1; // invalida la lettura in corso (e le pause in sospeso)
     if (ttsSupported) window.speechSynthesis.cancel();
     if (audioRef.current) {
       try {
