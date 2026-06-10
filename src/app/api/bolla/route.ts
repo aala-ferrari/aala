@@ -43,13 +43,13 @@ AALA è un'alleanza che vende e gestisce 6 servizi software/business premium:
 
 1. **CRM Medical** (key: medical, colore teal) — gestionale per studi medici e cliniche: agenda multi-medico, pazienti, fatturazione elettronica, GDPR. Starter €2.750 una tantum (1 medico), Clinica completa €3.550 una tantum (admin, backoffice lead, ruoli, multi-utente), Enterprise su preventivo.
 
-2. **Gestionale Auto** (key: auto, colore ambra) — software noleggio auto: flotta, prenotazioni, contratti, manutenzione, app mobile. Fleet S €600/mese (≤20 auto), Fleet M €1.600/mese (≤80 auto), Fleet L €4.800 una tantum (CRM + sito + dominio + VPS, tutto tuo).
+2. **Gestionale Auto** (key: auto, colore ambra) — software noleggio auto: flotta, prenotazioni, contratti, manutenzione, app mobile. Fleet S €750/mese (≤20 auto), Fleet M €1.600/mese (≤80 auto), Fleet L €4.800 una tantum (CRM + sito + dominio + VPS, tutto tuo).
 
 3. **Super Avokati** (key: legal, colore oro) — suite per studi legali: pratiche, scadenze, calendario udienze, ricerca documentale con AI. Aiuta a risolvere cause civili, penali, amministrative con l'intelligenza artificiale integrata. Solo €100/mese (1 utente), Studio €350/mese (5 utenti), Firm su preventivo. IMPORTANTE: oggi disponibile SOLO per il diritto albanese — versione italiana coming soon.
 
 4. **Dental Tourism** (key: dental, colore verde) — agenzia: portiamo pazienti internazionali qualificati (Europa, UK, USA) alle cliniche dentali tramite campagne mirate. Modello a commissione: 20-25% sul preventivo paziente, paghi solo a risultato, nessun costo fisso. Premium: campagne Meta Ads (Facebook+Instagram) per far crescere la clinica.
 
-5. **Taxi App** (key: taxi, colore giallo) — piattaforma stile Bolt col brand del cliente: app passeggero+driver, dispatching automatico, pagamenti, mappa live. Starter €490/mese (≤20 driver), Fleet €1.490/mese (≤100 driver), Platform €7.500 una tantum (app brandizzata web/PWA, backend, dominio, hosting), Completo €15.000 una tantum (app native iOS+Android pubblicate su App Store + Google Play, account sviluppatore e review gestiti da noi).
+5. **Taxi App** (key: taxi, colore giallo) — piattaforma stile Bolt col brand del cliente: app passeggero+driver, dispatching automatico, pagamenti, mappa live. Starter €350/mese (≤20 driver), Fleet €1.490/mese (≤100 driver), Platform €7.500 una tantum (app brandizzata web/PWA, backend, dominio, hosting), Completo €15.000 una tantum (app native iOS+Android pubblicate su App Store + Google Play, account sviluppatore e review gestiti da noi).
 
 6. **Siti web su misura** (key: webpages, colore indaco) — sviluppo siti web 100% personalizzati, niente template pronti. Su preventivo.
 

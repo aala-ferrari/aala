@@ -97,7 +97,7 @@ export const VERTICALS: Record<VerticalKey, Vertical> = {
       {
         id: 'auto-fleet-small',
         name: 'Fleet S (fino 20 auto)',
-        price: 600,
+        price: 750,
         currency: 'EUR',
         billing: 'monthly',
         features: ['Web + mobile', 'Booking online', 'Contratti digitali', 'Supporto email'],
@@ -252,7 +252,7 @@ export const VERTICALS: Record<VerticalKey, Vertical> = {
       {
         id: 'taxi-starter',
         name: 'Starter (fino 20 driver)',
-        price: 490,
+        price: 350,
         currency: 'EUR',
         billing: 'monthly',
         features: ['App driver + cliente', 'Dispatch automatico', 'Pagamenti carta', 'Supporto email'],

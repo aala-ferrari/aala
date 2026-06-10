@@ -92,12 +92,12 @@ const SERVICE_PITCH: Record<string, string[]> = {
     'Paghi solo a risultato: 20-25% sul preventivo del paziente. Nessun costo fisso.',
   ],
   auto: [
-    'Il Gestionale Auto controlla flotta, prenotazioni, contratti e manutenzione, con app mobile inclusa. Da €600/mese.',
+    'Il Gestionale Auto controlla flotta, prenotazioni, contratti e manutenzione, con app mobile inclusa. Da €750/mese.',
     'Se vuoi tutto tuo — software + sito + dominio + hosting — c\'è il pacchetto Fleet L a €4.800 una tantum.',
   ],
   taxi: [
     'La Taxi App è una piattaforma stile Bolt col TUO brand: app passeggero e driver, dispatching automatico, pagamenti, mappa live.',
-    'Parte da €490/mese; tutta tua da €7.500 una tantum (web/PWA), o €15.000 completo con app native pubblicate su App Store e Play Store.',
+    'Parte da €350/mese; tutta tua da €7.500 una tantum (web/PWA), o €15.000 completo con app native pubblicate su App Store e Play Store.',
   ],
   legal: [
     'Super Avokati è la suite per studi legali: pratiche, scadenze, calendario udienze e ricerca documentale con intelligenza artificiale.',
