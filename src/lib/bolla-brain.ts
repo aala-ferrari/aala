@@ -57,7 +57,7 @@ export const INITIAL_STATE: BollaState = {
 };
 
 // ---- vocabolario degli intent ----
-const KW: Record<string, string[]> = {
+const KW: Record<VerticalKey | 'webpages', string[]> = {
   medical: ['medic', 'clinic', 'studio medic', 'paziic', 'pazient', 'agenda', 'crm', 'cartell', 'ambulator', 'dottor', 'sanitar'],
   dental: ['dental', 'dentist', 'denti', 'turismo dent', 'odonto', 'clinica dent', 'impiant'],
   auto: ['noleggi', 'rent', 'auto', 'macchin', 'flotta', 'veicol', 'autonoleggi', 'car'],
@@ -118,8 +118,8 @@ function matchAny(text: string, words: string[]) {
 }
 
 function detectService(text: string): (keyof typeof KW) | null {
-  for (const key of Object.keys(KW)) {
-    if (matchAny(text, KW[key])) return key as keyof typeof KW;
+  for (const key of Object.keys(KW) as (keyof typeof KW)[]) {
+    if (matchAny(text, KW[key])) return key;
   }
   return null;
 }
