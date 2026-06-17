@@ -381,14 +381,18 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
                 aria-label={voiceOut ? t('voiceOn') : t('voiceOff')}
                 title={voiceOut ? t('voiceOn') : t('voiceOff')}
                 className={cn(
-                  'flex h-10 shrink-0 items-center gap-1.5 rounded-full border pl-2.5 pr-3 transition',
+                  // mobile: pulsante tondo solo-icona (40px) per non rubare spazio;
+                  // da sm in su: pillola con la scritta "Ascolta".
+                  'flex h-10 w-10 shrink-0 items-center justify-center gap-1.5 rounded-full border transition sm:w-auto sm:justify-start sm:pl-2.5 sm:pr-3',
                   voiceOut
                     ? 'border-gold bg-gold/15 text-gold'
                     : 'border-ink-line text-ink-mute hover:text-ink'
                 )}
               >
                 {voiceOut ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
-                <span className="text-[11px] font-medium leading-none">{t('listen')}</span>
+                <span className="hidden text-[11px] font-medium leading-none sm:inline">
+                  {t('listen')}
+                </span>
               </button>
             )}
             <input

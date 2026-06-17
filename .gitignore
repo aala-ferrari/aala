@@ -16,3 +16,6 @@ supabase/.branches
 tts-server/.venv/
 tts-server/*.log
 tts-server/__pycache__/
+
+# Local Netlify folder
+.netlify
