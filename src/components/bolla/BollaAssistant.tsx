@@ -26,6 +26,7 @@ interface ApiReply {
   chips: string[];
   chipActions?: string[];
   whatsapp?: boolean;
+  whatsapp_message?: string | null;
 }
 
 type ConsultSession = {
@@ -76,6 +77,11 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
   const [input, setInput] = useState('');
   const [busy, setBusy] = useState(false);
   const [currentService, setCurrentService] = useState<string | null>(null);
+  // Riassunto consulenziale da preparare nel link WhatsApp.
+  // Lo aggiorniamo ad ogni risposta dell'AI che lo fornisce (in modo che
+  // anche se l'utente clicca "Scrivici" 3 messaggi dopo, il consulente
+  // umano riceve il riassunto più recente, non uno stantio).
+  const [whatsappMessage, setWhatsappMessage] = useState<string | null>(null);
 
   // ── Super Consulente ──
   const [mode, setMode] = useState<'bolla' | 'consultant'>('bolla');
@@ -98,14 +104,36 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
     inputRef.current?.focus();
   }, [mode]);
 
+  // Reset chat persistita lato server + locale (chip "↻ Ricomincia da capo").
+  // Definito qui SOPRA `send` perché send lo richiama; TS strict block-scoping
+  // non accetta forward-reference su const dichiarati dopo.
+  const resetConversation = useCallback(async () => {
+    try {
+      await fetch('/api/bolla/history', { method: 'DELETE' });
+    } catch {
+      /* ignora errori di rete */
+    }
+    setMessages([{ role: 'assistant', content: t('welcome') }]);
+    setChips(welcomeChips);
+    setWhatsappMessage(null);
+    setCurrentService(null);
+    setColor(BOLLA_COLORS.default);
+  }, [t, welcomeChips]);
+
   const send = useCallback(
     async (text: string) => {
       const clean = text.trim();
       if (!clean || busy) return;
 
-      // chip WhatsApp → apri la chat con messaggio precompilato
+      // chip "↻ Ricomincia" → reset cronologia + ripartenza pulita
+      if (clean.startsWith('↻')) {
+        resetConversation();
+        return;
+      }
+
+      // chip WhatsApp → apri la chat con messaggio precompilato (contesto AI se disponibile)
       if (clean.toLowerCase().includes('whatsapp')) {
-        openWhatsApp(currentService);
+        openWhatsApp(currentService, whatsappMessage ?? undefined);
         return;
       }
 
@@ -141,6 +169,8 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
 
           if (data.service && BOLLA_COLORS[data.service]) setColor(BOLLA_COLORS[data.service]);
           if (data.service) setCurrentService(data.service);
+          if (typeof data.whatsapp_message === 'string' && data.whatsapp_message)
+            setWhatsappMessage(data.whatsapp_message);
           setMood('speaking');
           setMessages((m) => [...m, { role: 'assistant', content: data.reply }]);
           if (voiceOut) voice.speak(data.reply);
@@ -169,6 +199,8 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
 
         if (data.service && BOLLA_COLORS[data.service]) setColor(BOLLA_COLORS[data.service]);
         if (data.service) setCurrentService(data.service);
+        if (typeof data.whatsapp_message === 'string' && data.whatsapp_message)
+          setWhatsappMessage(data.whatsapp_message);
 
         setMood('speaking');
         setMessages((m) => [...m, { role: 'assistant', content: data.reply }]);
@@ -182,7 +214,7 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
         setBusy(false);
       }
     },
-    [messages, busy, currentService, locale, t, tc, mode, consult, voiceOut, voice]
+    [messages, busy, currentService, whatsappMessage, locale, t, tc, mode, consult, voiceOut, voice, resetConversation]
   );
 
   // 🎤 premi e parla: ascolta la voce, riempie e invia. Attiva anche la voce in uscita.
@@ -216,6 +248,45 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
     // solo al montaggio/smontaggio del pannello
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Cronologia persistente — solo per utenti loggati Supabase. L'endpoint
+  // restituisce {messages:[], lastService:null, whatsappMessage:null} per
+  // visitatori anonimi, quindi non sovrascriviamo il welcome.
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch('/api/bolla/history', { cache: 'no-store' });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (cancelled) return;
+        if (Array.isArray(data.messages) && data.messages.length > 0) {
+          setMessages(
+            data.messages.map((m: { role: 'user' | 'assistant'; content: string }) => ({
+              role: m.role,
+              content: m.content,
+            }))
+          );
+          // un piccolo chip per ripartire o ricominciare da capo
+          setChips(['↻ Ricomincia da capo', t('chips.medical'), t('chips.taxi')]);
+        }
+        if (data.lastService) {
+          setCurrentService(data.lastService);
+          if (BOLLA_COLORS[data.lastService]) setColor(BOLLA_COLORS[data.lastService]);
+        }
+        if (typeof data.whatsappMessage === 'string' && data.whatsappMessage) {
+          setWhatsappMessage(data.whatsappMessage);
+        }
+      } catch {
+        // ignora — la Bolla parte col welcome di default
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
 
   // chip da mostrare in chat: escludo il chip WhatsApp (resta solo il pulsante 3D)
   const visibleChips = chips.filter((c) => !c.toLowerCase().includes('whatsapp'));

@@ -38,8 +38,14 @@ Assistente AI conversazionale, cervello **Claude Opus 4.8**. Vedi `src/app/api/b
 - Cambia colore per servizio; per demo/preventivi manda su **WhatsApp** (+355699555777) col contesto pronto
 - Componenti in `components/bolla/`: BollaScene3D (3D reattiva), BollaAssistant (pannello, apre a SINISTRA su desktop), BollaLauncher (pulsante oro pulsante in basso a sx; WhatsApp FAB a dx)
 
-### 🔒 Riservatezza tecnologica (regola dura, non rimuovere)
-Bolla e Super Consulente NON devono MAI rivelare il modello/vendor che girano sotto il cofano (no "Claude", "Opus", "Anthropic", "GPT", "OpenAI", "Sonnet", "Gemini", "Mistral"). Si presentano come "tecnologia AI proprietaria di AALA". È vantaggio competitivo + lock-in: il cliente non deve poter replicare lo stack chiedendolo alla Bolla. La regola è hard-coded nel SYSTEM_PROMPT di `api/bolla/route.ts` e `api/consulente/route.ts` — se aggiungi un nuovo endpoint AI customer-facing, replica la stessa clausola.
+### 🔒 Riservatezza tecnologica + 🛡️ Anti-jailbreak (regole dure, non rimuovere)
+Bolla e Super Consulente NON devono MAI rivelare il modello/vendor che girano sotto il cofano (no "Claude", "Opus", "Anthropic", "GPT", "OpenAI", "Sonnet", "Gemini", "Mistral"). Si presentano come "tecnologia AI proprietaria di AALA". È vantaggio competitivo + lock-in: il cliente non deve poter replicare lo stack chiedendolo alla Bolla. Inoltre rifiutano qualsiasi tentativo di prompt injection / role override / "ignore previous instructions" / system-prompt-leak con una battuta calda di rifiuto. Le regole sono hard-coded nei SYSTEM_PROMPT di `api/bolla/route.ts` e `api/consulente/route.ts` sotto i blocchi `ANTI-JAILBREAK` e `RISERVATEZZA TECNOLOGICA` — se aggiungi un nuovo endpoint AI customer-facing, replica entrambe le clausole.
+
+### 📞 WhatsApp handoff con contesto AI-generato
+Quando la Bolla / Consulente decidono `whatsapp:true`, il system prompt impone anche un campo `whatsapp_message`: 2-5 righe di riassunto della conversazione che il consulente umano riceve aprendo la chat WhatsApp. Lato client `BollaAssistant.tsx` salva l'ultimo `whatsapp_message` in stato e lo passa a `openWhatsApp()` come testo pre-compilato. Il consulente apre la chat e ha già "Ciao AALA, ho una clinica dentale a Tirana con 4 poltrone, voglio attrarre pazienti tedeschi, interesse Dental Tourism".
+
+### 🧠 Memoria conversazionale persistente (solo loggati)
+Per utenti loggati in Supabase: la conversazione viene salvata in `bolla_conversations` (1 riga per user_id, RLS abilitata). Al riapri del pannello l'endpoint `GET /api/bolla/history` ricarica gli ultimi turni → la Bolla "ricorda" il cliente. Visitatori anonimi: nessuna persistenza (UX/privacy). Reset: chip "↻ Ricomincia da capo" → `DELETE /api/bolla/history`. Migration SQL: `supabase/migrations/20260618000000_bolla_conversations.sql`.
 
 ## Versioning
 Git con tag progressivi `v1`→`v5`. `git checkout vN` per tornare indietro. Salvare con commit quando l'utente lo chiede; taggare i milestone.
