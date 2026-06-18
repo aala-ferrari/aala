@@ -6,8 +6,13 @@ const PRODUCT_URLS: Record<string, string | undefined> = {
   medical: process.env.URL_PRODUCT_CRM_MEDICAL,
   legal: process.env.URL_PRODUCT_LEGAL,
   dental: process.env.URL_PRODUCT_DENTAL,
-  taxi: process.env.URL_PRODUCT_TAXI || 'http://localhost:3001/sso',
+  taxi: process.env.URL_PRODUCT_TAXI,
 };
+
+// In prod Next sta dietro a nginx → req.url restituisce localhost:3000
+// (l'host interno). Per costruire URL pubblici corretti usiamo
+// NEXT_PUBLIC_SITE_URL, sempre presente nel .env in produzione.
+const PUBLIC_ORIGIN = process.env.NEXT_PUBLIC_SITE_URL ?? '';
 
 /**
  * GET /api/sso/[product]
@@ -33,7 +38,8 @@ export async function GET(
   const supabase = createSupabaseServerClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) {
-    return NextResponse.redirect(new URL('/it/login', req.url));
+    const base = PUBLIC_ORIGIN || new URL(req.url).origin;
+    return NextResponse.redirect(new URL('/it/login', base));
   }
 
   const secret = process.env.AALA_SSO_SECRET;

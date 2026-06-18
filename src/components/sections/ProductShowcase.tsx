@@ -25,12 +25,14 @@ const MOCKUP_BY_VERTICAL: Record<VerticalKey, () => JSX.Element> = {
 const ICONS = { medical: Stethoscope, auto: Car, legal: Scale, dental: Smile, taxi: Smartphone };
 
 // URL del prodotto vero per il bottone "Apri demo dal vivo".
-// Locale: tutti girano sul Mac sui rispettivi porti.
+// Default = URL pubblici di produzione (subdomain aala.global / dominio reale).
+// In locale, durante dev sul Mac, si può override via NEXT_PUBLIC_URL_PRODUCT_*
+// per puntare ai server locali (es. http://localhost:5050 per Super Avokati).
 const LIVE_DEMO_URL: Partial<Record<VerticalKey, string>> = {
-  medical: 'http://localhost:4002',
-  auto: 'http://localhost:4011',
-  legal: 'http://localhost:5050',
-  dental: 'https://medicalalbania.com',
+  medical: process.env.NEXT_PUBLIC_URL_PRODUCT_CRM_MEDICAL || 'https://crm.aala.global',
+  auto: process.env.NEXT_PUBLIC_URL_PRODUCT_AUTO || 'https://auto.aala.global',
+  legal: process.env.NEXT_PUBLIC_URL_PRODUCT_LEGAL || 'https://superavokati.ai',
+  dental: process.env.NEXT_PUBLIC_URL_PRODUCT_DENTAL || 'https://medicalalbania.com',
 };
 
 export function ProductShowcase({ vertical }: { vertical: Vertical }) {

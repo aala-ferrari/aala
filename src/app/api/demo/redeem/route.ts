@@ -11,15 +11,15 @@ const Body = z.object({
     .transform((s) => s.trim().toUpperCase()),
 });
 
-// Mappa vertical → URL del prodotto vero (se hostato).
-// Locale: i prodotti girano sul Mac dell'admin sui rispettivi porti.
-// Produzione: sostituire con sottodomini hostati.
+// Mappa vertical → URL del prodotto vero. Default ai subdomain di produzione;
+// in dev sul Mac si sovrascrive via URL_PRODUCT_* nel .env.local locale per
+// puntare ai server che girano sui porti 4002/4011/5050/3001.
 const LIVE_PRODUCT_URL: Partial<Record<VerticalKey, string>> = {
-  medical: process.env.URL_PRODUCT_CRM_MEDICAL || 'http://localhost:4002',
-  auto: process.env.URL_PRODUCT_AUTO || 'http://localhost:4011',
-  legal: process.env.URL_PRODUCT_LEGAL || 'http://localhost:5050',
+  medical: process.env.URL_PRODUCT_CRM_MEDICAL || 'https://crm.aala.global',
+  auto: process.env.URL_PRODUCT_AUTO || 'https://auto.aala.global',
+  legal: process.env.URL_PRODUCT_LEGAL || 'https://superavokati.ai',
   dental: process.env.URL_PRODUCT_DENTAL || 'https://medicalalbania.com',
-  taxi: process.env.URL_PRODUCT_TAXI || 'http://localhost:3001/sso',
+  taxi: process.env.URL_PRODUCT_TAXI || 'https://taxi.aala.global/sso',
 };
 
 export async function POST(req: Request) {

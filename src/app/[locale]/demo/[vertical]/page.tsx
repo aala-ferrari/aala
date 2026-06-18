@@ -17,13 +17,14 @@ const MOCKUPS = {
   taxi: TaxiMockup,
 };
 
-// URL del prodotto vero (locale: tutti girano sul Mac).
+// URL del prodotto vero. Default = produzione; override via NEXT_PUBLIC_URL_PRODUCT_*
+// quando si lavora in locale (e.g. dev sul Mac che gira tutto sui porti 4002/4011/5050).
 const LIVE_PRODUCT_URL: Partial<Record<VerticalKey, string>> = {
-  medical: 'http://localhost:4002',
-  auto: 'http://localhost:4011',
-  legal: 'http://localhost:5050',
-  dental: 'https://medicalalbania.com',
-  // taxi in sviluppo
+  medical: process.env.NEXT_PUBLIC_URL_PRODUCT_CRM_MEDICAL || 'https://crm.aala.global',
+  auto: process.env.NEXT_PUBLIC_URL_PRODUCT_AUTO || 'https://auto.aala.global',
+  legal: process.env.NEXT_PUBLIC_URL_PRODUCT_LEGAL || 'https://superavokati.ai',
+  dental: process.env.NEXT_PUBLIC_URL_PRODUCT_DENTAL || 'https://medicalalbania.com',
+  taxi: process.env.NEXT_PUBLIC_URL_PRODUCT_TAXI || 'https://taxi.aala.global',
 };
 
 export default function DemoLandingPage({
