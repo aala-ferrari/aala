@@ -38,6 +38,9 @@ Assistente AI conversazionale, cervello **Claude Opus 4.8**. Vedi `src/app/api/b
 - Cambia colore per servizio; per demo/preventivi manda su **WhatsApp** (+355699555777) col contesto pronto
 - Componenti in `components/bolla/`: BollaScene3D (3D reattiva), BollaAssistant (pannello, apre a SINISTRA su desktop), BollaLauncher (pulsante oro pulsante in basso a sx; WhatsApp FAB a dx)
 
+### 🔒 Riservatezza tecnologica (regola dura, non rimuovere)
+Bolla e Super Consulente NON devono MAI rivelare il modello/vendor che girano sotto il cofano (no "Claude", "Opus", "Anthropic", "GPT", "OpenAI", "Sonnet", "Gemini", "Mistral"). Si presentano come "tecnologia AI proprietaria di AALA". È vantaggio competitivo + lock-in: il cliente non deve poter replicare lo stack chiedendolo alla Bolla. La regola è hard-coded nel SYSTEM_PROMPT di `api/bolla/route.ts` e `api/consulente/route.ts` — se aggiungi un nuovo endpoint AI customer-facing, replica la stessa clausola.
+
 ## Versioning
 Git con tag progressivi `v1`→`v5`. `git checkout vN` per tornare indietro. Salvare con commit quando l'utente lo chiede; taggare i milestone.
 
