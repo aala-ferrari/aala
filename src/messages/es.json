@@ -753,5 +753,19 @@
     "likedSubtitle": "Elige un plan o habla con nosotros para una solución a medida.",
     "seePackages": "Ver paquetes",
     "talkToUs": "Habla con nosotros"
+  },
+  "demoModal": {
+    "error": "Se ha producido un error. Inténtalo de nuevo.",
+    "close": "Cerrar",
+    "sentTitle": "Solicitud recibida.",
+    "sentBody": "Te contactaremos en 24 horas con un enlace de demo personalizado.",
+    "title": "Solicita acceso a la demo",
+    "subtitle": "Rellena el formulario, te contactamos en 24 horas con las credenciales y una breve incorporación.",
+    "name": "Nombre",
+    "email": "Email",
+    "company": "Empresa / despacho",
+    "notes": "Notas (opcional)",
+    "sending": "Enviando...",
+    "submit": "Enviar solicitud"
   }
 }

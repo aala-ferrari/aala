@@ -46,13 +46,11 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  // Notifica in tempo reale all'admin (info@aala.global) — best-effort:
-  // se Resend non è configurato viene saltata, senza bloccare il cliente.
-  try {
-    await sendLeadNotificationEmail({ ...lead, source: source ?? 'contact-form' });
-  } catch {
+  // Notifica in tempo reale all'admin (info@aala.global) — fire-and-forget:
+  // non aspettiamo l'email per rispondere al cliente (niente attesa sulla latenza).
+  void sendLeadNotificationEmail({ ...lead, source: source ?? 'contact-form' }).catch(() => {
     /* la notifica non è critica per il cliente */
-  }
+  });
 
   return NextResponse.json({ ok: true });
 }

@@ -753,5 +753,19 @@
     "likedSubtitle": "Choisissez une formule ou parlez-nous pour une solution sur mesure.",
     "seePackages": "Voir les forfaits",
     "talkToUs": "Parlez-nous"
+  },
+  "demoModal": {
+    "error": "Une erreur s'est produite. Réessayez.",
+    "close": "Fermer",
+    "sentTitle": "Demande reçue.",
+    "sentBody": "Nous vous contacterons sous 24 heures avec un lien démo personnalisé.",
+    "title": "Demander l'accès à la démo",
+    "subtitle": "Remplissez le formulaire, nous vous contactons sous 24 heures avec les identifiants et un court onboarding.",
+    "name": "Nom",
+    "email": "E-mail",
+    "company": "Entreprise / cabinet",
+    "notes": "Notes (facultatif)",
+    "sending": "Envoi...",
+    "submit": "Envoyer la demande"
   }
 }

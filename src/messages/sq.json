@@ -753,5 +753,19 @@
     "likedSubtitle": "Zgjidh një plan ose fol me ne për një zgjidhje të personalizuar.",
     "seePackages": "Shih paketat",
     "talkToUs": "Fol me ne"
+  },
+  "demoModal": {
+    "error": "Ndodhi një gabim. Provo përsëri.",
+    "close": "Mbyll",
+    "sentTitle": "Kërkesa u mor.",
+    "sentBody": "Do të të kontaktojmë brenda 24 orëve me një lidhje demo të personalizuar.",
+    "title": "Kërko qasje në demo",
+    "subtitle": "Plotëso formularin, të kontaktojmë brenda 24 orëve me kredencialet dhe një onboarding të shkurtër.",
+    "name": "Emri",
+    "email": "Email",
+    "company": "Kompania / studio",
+    "notes": "Shënime (opsionale)",
+    "sending": "Po dërgohet...",
+    "submit": "Dërgo kërkesën"
   }
 }

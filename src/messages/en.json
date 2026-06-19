@@ -753,5 +753,19 @@
     "likedSubtitle": "Choose a plan or talk to us for a tailored solution.",
     "seePackages": "See packages",
     "talkToUs": "Talk to us"
+  },
+  "demoModal": {
+    "error": "Something went wrong. Please try again.",
+    "close": "Close",
+    "sentTitle": "Request received.",
+    "sentBody": "We'll contact you within 24 hours with a personalized demo link.",
+    "title": "Request demo access",
+    "subtitle": "Fill in the form, we'll contact you within 24 hours with credentials and a short onboarding.",
+    "name": "Name",
+    "email": "Email",
+    "company": "Company / practice",
+    "notes": "Notes (optional)",
+    "sending": "Sending...",
+    "submit": "Send request"
   }
 }

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Check } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import type { Vertical } from '@/lib/products';
 import { useCatalog } from '@/lib/use-catalog';
 
@@ -15,6 +16,7 @@ export function DemoRequestModal({
   onClose: () => void;
   vertical: Vertical;
 }) {
+  const t = useTranslations('demoModal');
   const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [error, setError] = useState<string | null>(null);
   const label = useCatalog().hero(vertical).eyebrow;
@@ -48,7 +50,7 @@ export function DemoRequestModal({
       });
       if (!res.ok) {
         const j = await res.json().catch(() => ({}));
-        throw new Error(j.error || 'Si è verificato un errore. Riprova.');
+        throw new Error(j.error || t('error'));
       }
       setState('sent');
     } catch (err) {
@@ -80,7 +82,7 @@ export function DemoRequestModal({
             <button
               onClick={onClose}
               className="absolute right-4 top-4 rounded-full p-1.5 text-ink-mute transition hover:bg-canvas-warm hover:text-ink"
-              aria-label="Chiudi"
+              aria-label={t('close')}
             >
               <X className="h-4 w-4" />
             </button>
@@ -91,10 +93,8 @@ export function DemoRequestModal({
                   <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gold/15 text-gold">
                     <Check className="h-7 w-7" />
                   </div>
-                  <h3 className="font-display text-2xl text-ink">Richiesta ricevuta.</h3>
-                  <p className="text-ink-soft">
-                    Ti contatteremo entro 24 ore con un link demo personalizzato.
-                  </p>
+                  <h3 className="font-display text-2xl text-ink">{t('sentTitle')}</h3>
+                  <p className="text-ink-soft">{t('sentBody')}</p>
                 </div>
               ) : (
                 <>
@@ -105,27 +105,22 @@ export function DemoRequestModal({
                     >
                       {label}
                     </p>
-                    <h3 className="mt-2 font-display text-2xl text-ink">
-                      Richiedi accesso demo
-                    </h3>
-                    <p className="mt-2 text-sm text-ink-soft">
-                      Compila il form, ti contattiamo entro 24 ore con credenziali e
-                      un piccolo onboarding.
-                    </p>
+                    <h3 className="mt-2 font-display text-2xl text-ink">{t('title')}</h3>
+                    <p className="mt-2 text-sm text-ink-soft">{t('subtitle')}</p>
                   </div>
 
                   <form onSubmit={onSubmit} className="space-y-4">
-                    <Field name="name" label="Nome" required />
-                    <Field name="email" type="email" label="Email" required />
-                    <Field name="company" label="Azienda / studio" />
-                    <Field name="message" label="Note (opzionale)" multiline />
+                    <Field name="name" label={t('name')} required />
+                    <Field name="email" type="email" label={t('email')} required />
+                    <Field name="company" label={t('company')} />
+                    <Field name="message" label={t('notes')} multiline />
 
                     <button
                       type="submit"
                       disabled={state === 'sending'}
                       className="btn-primary w-full justify-center"
                     >
-                      {state === 'sending' ? 'Invio...' : 'Invia richiesta'}
+                      {state === 'sending' ? t('sending') : t('submit')}
                     </button>
 
                     {error && <p className="text-sm text-red-600">{error}</p>}

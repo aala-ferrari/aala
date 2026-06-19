@@ -753,5 +753,19 @@
     "likedSubtitle": "Wählen Sie einen Plan oder sprechen Sie mit uns für eine maßgeschneiderte Lösung.",
     "seePackages": "Pakete ansehen",
     "talkToUs": "Sprechen Sie mit uns"
+  },
+  "demoModal": {
+    "error": "Ein Fehler ist aufgetreten. Bitte erneut versuchen.",
+    "close": "Schließen",
+    "sentTitle": "Anfrage erhalten.",
+    "sentBody": "Wir kontaktieren Sie innerhalb von 24 Stunden mit einem persönlichen Demo-Link.",
+    "title": "Demo-Zugang anfragen",
+    "subtitle": "Füllen Sie das Formular aus, wir melden uns innerhalb von 24 Stunden mit Zugangsdaten und einem kurzen Onboarding.",
+    "name": "Name",
+    "email": "E-Mail",
+    "company": "Unternehmen / Praxis",
+    "notes": "Notizen (optional)",
+    "sending": "Senden...",
+    "submit": "Anfrage senden"
   }
 }

@@ -64,5 +64,14 @@ Tutto online su **UN VPS: `root@31.220.90.246`** (Ubuntu, nginx, SSH dal Mac del
 
 **Admin (1 email dedicata per servizio, password gestite dall'utente):** `info@aala.global` (AALA), `nabuel@aala.global` (Nabuel), `taxi@aala.global` (Taxi), `superavokati@aala.global` (Super Avokati, campo **username**), `auto@aala.global` (Auto). Script per (re)impostare le password in chiaro+verifica: `ssh -t root@31.220.90.246 'bash /opt/set-admin-password.sh'`. Le password NON vanno salvate (le conosce solo l'utente). Dettaglio completo in memoria [[checkpoint-production-live]].
 
+## 🛒 Vendita online self-service (giugno 2026)
+Registrazione clienti ATTIVA (Supabase self-hosted: `DISABLE_SIGNUP=false`, `ENABLE_EMAIL_AUTOCONFIRM=true`). Flusso: prezzi → `/checkout/[planId]` → **CheckoutConfigurator** (durata → prezzo scontato → metodo pagamento). Durate solo per piani `monthly`: 1/3/6/12 mesi, sconti 6m −10% / 12m −15% (`src/lib/billing.ts`, validate server-side a {1,3,6,12}). Pagamento a **blocco prepagato** (mode 'payment'). DUE metodi: **carta (Stripe)** `/api/checkout` (chiave Stripe placeholder → da sostituire con chiave vera per attivare) + **ordine assistito** `/api/order/manual` (status `pending`, l'admin conferma in `/admin/orders` → `paid` → prodotto attivo). FK `orders.product_id` rimossa (catalogo = `products.ts`). Predisposto per gateway bancari albanesi (redirect+API key).
+
+## 📩 Notifiche lead (Resend)
+Ogni richiesta dal sito (`POST /api/leads`) manda email a `info@aala.global` (`sendLeadNotificationEmail`, reply-to = cliente). L'utente preferisce gestire la vendita a mano via WhatsApp, NON inviare codici demo automatici. `RESEND_API_KEY` impostata sul VPS, `RESEND_FROM_EMAIL=onboarding@resend.dev` (test → invia solo a info@aala.global). Regola demo: codice valido **12h dal primo avvio** (`redeem/route.ts`).
+
+## 🌍 i18n flusso d'acquisto
+Namespace `auth`/`checkout`/`account`/`demoLanding` tradotti in tutte le 6 lingue. Il `catalog.*` (nomi/descrizioni prodotti) è tradotto in en/es/fr/de/sq (it = fallback da `products.ts` via `use-catalog.ts`/`getTranslations('catalog')`). **Pagine admin restano in italiano** (uso interno). Le email demo/consulente sono ancora IT hardcoded (non tradotte — l'utente non lo richiede).
+
 ## Stile di lavoro col cliente
 Si rivolge come "fratello/maestro" — proporre con visione, non solo eseguire. Tono caldo e diretto. Cura maniacale dei dettagli visivi. Verificare i cambi nel browser quando possibile.
