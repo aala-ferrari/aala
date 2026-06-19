@@ -20,6 +20,7 @@ const LIVE_PRODUCT_URL: Partial<Record<VerticalKey, string>> = {
   legal: process.env.URL_PRODUCT_LEGAL || 'https://superavokati.ai',
   dental: process.env.URL_PRODUCT_DENTAL || 'https://medicalalbania.com',
   taxi: process.env.URL_PRODUCT_TAXI || 'https://taxi.aala.global/sso',
+  nabuel: process.env.URL_PRODUCT_NABUEL || 'https://nabuel.com',
 };
 
 export async function POST(req: Request) {

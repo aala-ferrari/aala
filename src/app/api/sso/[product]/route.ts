@@ -7,6 +7,7 @@ const PRODUCT_URLS: Record<string, string | undefined> = {
   legal: process.env.URL_PRODUCT_LEGAL,
   dental: process.env.URL_PRODUCT_DENTAL,
   taxi: process.env.URL_PRODUCT_TAXI,
+  nabuel: process.env.URL_PRODUCT_NABUEL,
 };
 
 // In prod Next sta dietro a nginx → req.url restituisce localhost:3000

@@ -67,7 +67,7 @@ export async function POST(req: Request, { params }: { params: { id: string } })
     const { error } = await admin.from('demo_codes').insert({
       code: candidate,
       vertical:
-        lead.service && ['medical', 'auto', 'legal', 'dental', 'taxi'].includes(lead.service)
+        lead.service && ['medical', 'auto', 'legal', 'dental', 'taxi', 'nabuel'].includes(lead.service)
           ? lead.service
           : 'legal',
       kind: 'consultant',

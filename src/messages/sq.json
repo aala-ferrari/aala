@@ -17,14 +17,14 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "Një partner i vetëm. Pesë shërbime premium.",
+      "eyebrow": "Një partner i vetëm. Gjashtë shërbime premium.",
       "title": "Teknologji që <gold>mbron</gold>, <gold>shet</gold> dhe <gold>rrit</gold> biznesin tënd.",
       "subtitle": "CRM të personalizuara, sisteme për qira makinash, software ligjor me abonim dhe turizëm dentar me klientë të kualifikuar. Gjithçka nën një aleancë të vetme.",
       "ctaPrimary": "Zbulo shërbimet",
       "ctaSecondary": "Fol me ne"
     },
     "services": {
-      "title": "Pesë vertikale. Një premtim i vetëm: besueshmëria.",
+      "title": "Gjashtë vertikale. Një premtim i vetëm: besueshmëria.",
       "subtitle": "Zgjidh shërbimin që të duhet sot. Shto të tjerët kur të duash.",
       "medical": {
         "name": "CRM · Webpages",
@@ -46,7 +46,11 @@
         "name": "Dental Tourism",
         "desc": "Agjenci turizmi dentar: sjellim pacientë ndërkombëtarë të kualifikuar në klinikën tënde."
       },
-      "learnMore": "Mëso më shumë"
+      "learnMore": "Mëso më shumë",
+      "nabuel": {
+        "name": "Nabuel",
+        "desc": "Asistent zëri AI shumësektorial: përgjigjet në telefonata, cakton takime (recepsion 24/7) dhe bën telefonata dalëse për të rikontaktuar lead-et dhe shitur kontrata — hotele, dentistë, transplant flokësh, energji/gaz."
+      }
     },
     "values": {
       "eyebrow": "Vlerat tona",
@@ -130,7 +134,8 @@
         "taxi": "Taxi App (stil Bolt)",
         "legal": "Super Avokati (studio ligjore)",
         "dental": "Dental Tourism (klinikë)",
-        "other": "Tjetër / Nuk e di"
+        "other": "Tjetër / Nuk e di",
+        "nabuel": "Nabuel · Asistent zëri AI"
       }
     }
   },
@@ -199,7 +204,8 @@
       "auto": "🚗 Qira makinash",
       "dental": "🦷 Klinikë dentare",
       "taxi": "🚕 Taksi / NCC",
-      "webpages": "🌐 Faqe interneti"
+      "webpages": "🌐 Faqe interneti",
+      "nabuel": "🤖 Asistenti AI Nabuel"
     },
     "consultant": {
       "open": "Super Konsulenti",
@@ -520,6 +526,65 @@
           ]
         }
       }
+    },
+    "nabuel": {
+      "heroEyebrow": "Nabuel · Asistent Zëri AI",
+      "heroTitle": "Asistentë zëri AI që përgjigjen, rezervojnë dhe shesin — 24/7, në çdo gjuhë.",
+      "heroSubtitle": "Recepsionistja juaj virtuale dhe forca e shitjeve me telefon. Nabuel përgjigjet në çdo telefonatë, cakton dhe zhvendos takime, rikontakton lead-et dhe mbyll shitje. Zë natyral, kualifikim inteligjent, i integruar me kalendarin dhe CRM-në tuaj.",
+      "features": [
+        {
+          "title": "Recepsion 24/7",
+          "desc": "Përgjigjet në çdo telefonatë hyrëse, cakton dhe zhvendos takime, jep informacione — asnjë telefonatë e humbur, edhe natën ose në festa."
+        },
+        {
+          "title": "Telefonata dalëse",
+          "desc": "Fushata automatike: konfirmo takime, rikontakto lead-et e ftohta, shit kontrata energjie/gazi dhe telefonie."
+        },
+        {
+          "title": "Kualifikim inteligjent",
+          "desc": "Kupton nevojën, filtron kureshtarët dhe i kalon operatorit njerëzor vetëm mundësitë e nxehta, me kontekstin gati."
+        },
+        {
+          "title": "Tru + analizë",
+          "desc": "Bazë njohurish e personalizuar për sektorin tënd, përmbledhje dhe rezultat i çdo telefonate, integrim me kalendar dhe CRM."
+        }
+      ],
+      "plans": {
+        "nabuel-starter": {
+          "name": "Starter (1 agjent, recepsion)",
+          "features": [
+            "1 agjent zëri AI",
+            "Telefonata hyrëse (recepsion)",
+            "1 sektor + 1 gjuhë",
+            "Integrim kalendari",
+            "Përmbledhje telefonatash",
+            "Mbështetje me email"
+          ]
+        },
+        "nabuel-business": {
+          "name": "Business (hyrëse + dalëse)",
+          "features": [
+            "Gjithçka nga Starter +",
+            "Telefonata hyrëse dhe dalëse",
+            "Shumësektorial + shumëgjuhësh",
+            "Kualifikim inteligjent i lead-eve",
+            "Fushata dalëse",
+            "CRM + analizë e avancuar",
+            "Mbështetje prioritare"
+          ]
+        },
+        "nabuel-reseller": {
+          "name": "Reseller — White-label, krejt e jotja",
+          "features": [
+            "Platformë white-label me markën tënde",
+            "Multi-tenant: rishit te klientët e tu",
+            "Agjentë të pakufizuar dhe numra të dedikuar",
+            "Domain + hosting të përfshira",
+            "Konfigurim i plotë + trajnim",
+            "Pa tarifa mbi rishitjet e tua"
+          ]
+        }
+      }
     }
   },
   "showcase": {
@@ -593,6 +658,27 @@
       "onRide": "Në udhëtim",
       "available": "I lirë",
       "onBreak": "Pushim"
+    },
+    "nabuel": {
+      "callsToday": "Thirrje sot",
+      "booked": "Të rezervuara",
+      "agentsActive": "Agjentë aktivë",
+      "avgDuration": "Kohëzgjatja mesatare",
+      "liveCall": "Thirrje live",
+      "aiSpeaking": "AI po flet",
+      "transcript": "Sigurisht, ju rezervoj për të enjten në orën 15:00. Ju dërgoj konfirmimin.",
+      "recentCalls": "Thirrjet e fundit",
+      "today": "sot",
+      "qualified": "I kualifikuar",
+      "rescheduled": "I riprogramuar",
+      "agents": "Agjentë zanorë",
+      "inCall": "Në thirrje",
+      "available": "I disponueshëm",
+      "funnelTitle": "Hinkë thirrjesh",
+      "answered": "Të përgjigjura",
+      "qualifiedLabel": "Të kualifikuar",
+      "bookedLabel": "Të rezervuara",
+      "insight": "Kulmi i thirrjeve 17-19: konsidero një agjent të dytë."
     }
   }
 }

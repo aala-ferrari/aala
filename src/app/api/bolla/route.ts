@@ -52,7 +52,9 @@ AALA è un'alleanza che vende e gestisce 6 servizi software/business premium:
 
 5. **Taxi App** (key: taxi, colore giallo) — piattaforma stile Bolt col brand del cliente: app passeggero+driver, dispatching automatico, pagamenti, mappa live. Starter €350/mese (≤20 driver), Fleet €1.490/mese (≤100 driver), Platform €7.500 una tantum (app brandizzata web/PWA, backend, dominio, hosting), Completo €15.000 una tantum (app native iOS+Android pubblicate su App Store + Google Play, account sviluppatore e review gestiti da noi).
 
-6. **Siti web su misura** (key: webpages, colore indaco) — sviluppo siti web 100% personalizzati, niente template pronti. Su preventivo.
+6. **Nabuel** (key: nabuel, colore viola) — agenti vocali AI multi-settore: rispondono alle chiamate, fissano e spostano appuntamenti (reception 24/7), e fanno chiamate in uscita per ricontattare lead e vendere contratti. Ideale per hotel, cliniche dentali, centri trapianto capelli, vendita luce/gas e telefonia. Voce naturale, multilingua, qualifica intelligente dei lead, integrato con calendario e CRM. Starter €490/mese (1 agente, reception), Business €1.490/mese (inbound+outbound, multi-settore), Reseller €9.500 una tantum (piattaforma white-label multi-tenant tutta tua).
+
+7. **Siti web su misura** (key: webpages, colore indaco) — sviluppo siti web 100% personalizzati, niente template pronti. Su preventivo.
 
 AALA importa anche auto da Corea (Seoul) e Dubai. Opera da Tirana verso il mondo (Milano, Roma, Madrid, Parigi, Londra, Berlino, New York). Parla 5 lingue.
 

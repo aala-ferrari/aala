@@ -1,20 +1,22 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { Stethoscope, Car, Scale, Smile, Smartphone, ExternalLink, ArrowLeft } from 'lucide-react';
+import { Stethoscope, Car, Scale, Smile, Smartphone, PhoneCall, ExternalLink, ArrowLeft } from 'lucide-react';
 import { VERTICALS, type VerticalKey } from '@/lib/products';
 import { MedicalMockup } from '@/components/mockups/MedicalMockup';
 import { AutoMockup } from '@/components/mockups/AutoMockup';
 import { LegalMockup } from '@/components/mockups/LegalMockup';
 import { DentalMockup } from '@/components/mockups/DentalMockup';
 import { TaxiMockup } from '@/components/mockups/TaxiMockup';
+import { NabuelMockup } from '@/components/mockups/NabuelMockup';
 
-const ICONS = { medical: Stethoscope, auto: Car, legal: Scale, dental: Smile, taxi: Smartphone };
+const ICONS = { medical: Stethoscope, auto: Car, legal: Scale, dental: Smile, taxi: Smartphone, nabuel: PhoneCall };
 const MOCKUPS = {
   medical: MedicalMockup,
   auto: AutoMockup,
   legal: LegalMockup,
   dental: DentalMockup,
   taxi: TaxiMockup,
+  nabuel: NabuelMockup,
 };
 
 // URL del prodotto vero. Default = produzione; override via NEXT_PUBLIC_URL_PRODUCT_*
@@ -25,6 +27,7 @@ const LIVE_PRODUCT_URL: Partial<Record<VerticalKey, string>> = {
   legal: process.env.NEXT_PUBLIC_URL_PRODUCT_LEGAL || 'https://superavokati.ai',
   dental: process.env.NEXT_PUBLIC_URL_PRODUCT_DENTAL || 'https://medicalalbania.com',
   taxi: process.env.NEXT_PUBLIC_URL_PRODUCT_TAXI || 'https://taxi.aala.global',
+  nabuel: process.env.NEXT_PUBLIC_URL_PRODUCT_NABUEL || 'https://nabuel.com',
 };
 
 export default function DemoLandingPage({

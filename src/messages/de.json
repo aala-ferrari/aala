@@ -17,14 +17,14 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "Ein Partner. Fünf Premium-Dienste.",
+      "eyebrow": "Ein Partner. Sechs Premium-Dienste.",
       "title": "Technologie, die Ihr Unternehmen <gold>schützt</gold>, <gold>verkauft</gold> und <gold>wachsen lässt</gold>.",
       "subtitle": "Maßgeschneiderte CRMs, Autovermietungs-Management, Rechtsanwalts-SaaS und Dentaltourismus mit qualifizierten Kunden. Alles unter einer Allianz.",
       "ctaPrimary": "Leistungen entdecken",
       "ctaSecondary": "Sprechen Sie uns an"
     },
     "services": {
-      "title": "Fünf Bereiche. Ein Versprechen: Zuverlässigkeit.",
+      "title": "Sechs Bereiche. Ein Versprechen: Zuverlässigkeit.",
       "subtitle": "Wählen Sie den Dienst, den Sie heute brauchen. Fügen Sie die anderen später hinzu.",
       "medical": {
         "name": "CRM · Webpages",
@@ -46,7 +46,11 @@
         "name": "Dentaltourismus",
         "desc": "Dentaltourismus-Agentur: Wir bringen qualifizierte internationale Patienten in Ihre Klinik."
       },
-      "learnMore": "Mehr erfahren"
+      "learnMore": "Mehr erfahren",
+      "nabuel": {
+        "name": "Nabuel",
+        "desc": "Multisektoraler KI-Sprachagent: nimmt Anrufe entgegen, bucht Termine (24/7-Empfang) und tätigt Ausgangsanrufe, um Leads nachzufassen und Verträge zu verkaufen — Hotels, Zahnmedizin, Haartransplantation, Strom/Gas."
+      }
     },
     "values": {
       "eyebrow": "Unsere Werte",
@@ -130,7 +134,8 @@
         "taxi": "Taxi App (Bolt-Stil)",
         "legal": "Super Avokati (Kanzlei)",
         "dental": "Dental Tourism (Klinik)",
-        "other": "Anderes / Weiß nicht"
+        "other": "Anderes / Weiß nicht",
+        "nabuel": "Nabuel · KI-Sprachagent"
       }
     }
   },
@@ -199,7 +204,8 @@
       "auto": "🚗 Autovermietung",
       "dental": "🦷 Zahnklinik",
       "taxi": "🚕 Taxi / Fahrdienst",
-      "webpages": "🌐 Website"
+      "webpages": "🌐 Website",
+      "nabuel": "🤖 Nabuel KI-Agent"
     },
     "consultant": {
       "open": "Super-Berater",
@@ -527,6 +533,65 @@
           ]
         }
       }
+    },
+    "nabuel": {
+      "heroEyebrow": "Nabuel · KI-Sprachagent",
+      "heroTitle": "KI-Sprachagenten, die annehmen, buchen und verkaufen — rund um die Uhr, in jeder Sprache.",
+      "heroSubtitle": "Ihre virtuelle Empfangskraft und Telefon-Vertriebsmannschaft. Nabuel nimmt jeden Anruf entgegen, bucht und verschiebt Termine, fasst Leads nach und schließt Verkäufe ab. Natürliche Stimme, intelligente Qualifizierung, integriert mit Kalender und CRM.",
+      "features": [
+        {
+          "title": "24/7-Empfang",
+          "desc": "Nimmt jeden eingehenden Anruf entgegen, bucht und verschiebt Termine, gibt Auskünfte — keine verpassten Anrufe, auch nachts oder an Feiertagen."
+        },
+        {
+          "title": "Ausgehende Anrufe",
+          "desc": "Automatische Kampagnen: Termine bestätigen, kalte Leads reaktivieren, Strom-/Gas- und Telekom-Verträge verkaufen."
+        },
+        {
+          "title": "Intelligente Qualifizierung",
+          "desc": "Versteht den Bedarf, filtert Neugierige und übergibt nur heiße Chancen an einen Menschen — mit fertigem Kontext."
+        },
+        {
+          "title": "Gehirn + Analyse",
+          "desc": "Auf Ihre Branche zugeschnittene Wissensdatenbank, Zusammenfassung und Ergebnis jedes Anrufs, Kalender- und CRM-Integration."
+        }
+      ],
+      "plans": {
+        "nabuel-starter": {
+          "name": "Starter (1 Agent, Empfang)",
+          "features": [
+            "1 KI-Sprachagent",
+            "Eingehende Anrufe (Empfang)",
+            "1 Branche + 1 Sprache",
+            "Kalender-Integration",
+            "Anruf-Zusammenfassungen",
+            "E-Mail-Support"
+          ]
+        },
+        "nabuel-business": {
+          "name": "Business (eingehend + ausgehend)",
+          "features": [
+            "Alles aus Starter +",
+            "Eingehende und ausgehende Anrufe",
+            "Mehrere Branchen + mehrsprachig",
+            "Intelligente Lead-Qualifizierung",
+            "Ausgehende Kampagnen",
+            "CRM + erweiterte Analyse",
+            "Priorisierter Support"
+          ]
+        },
+        "nabuel-reseller": {
+          "name": "Reseller — White-Label, ganz Ihres",
+          "features": [
+            "White-Label-Plattform mit Ihrer Marke",
+            "Mandantenfähig: an Ihre Kunden weiterverkaufen",
+            "Unbegrenzte Agenten und eigene Nummern",
+            "Domain + Hosting inklusive",
+            "Komplettes Setup + Schulung",
+            "Keine Lizenzgebühren auf Ihre Weiterverkäufe"
+          ]
+        }
+      }
     }
   },
   "mockup": {
@@ -593,6 +658,27 @@
       "onRide": "In Fahrt",
       "available": "Verfügbar",
       "onBreak": "Pause"
+    },
+    "nabuel": {
+      "callsToday": "Anrufe heute",
+      "booked": "Gebucht",
+      "agentsActive": "Aktive Agenten",
+      "avgDuration": "Ø Dauer",
+      "liveCall": "Live-Anruf",
+      "aiSpeaking": "KI spricht",
+      "transcript": "Gerne, ich buche Sie für Donnerstag um 15 Uhr. Ich sende die Bestätigung.",
+      "recentCalls": "Letzte Anrufe",
+      "today": "heute",
+      "qualified": "Qualifiziert",
+      "rescheduled": "Verschoben",
+      "agents": "Sprachagenten",
+      "inCall": "Im Gespräch",
+      "available": "Verfügbar",
+      "funnelTitle": "Anruf-Funnel",
+      "answered": "Beantwortet",
+      "qualifiedLabel": "Qualifiziert",
+      "bookedLabel": "Gebucht",
+      "insight": "Anruf-Spitze 17-19 Uhr: zweiten Agenten erwägen."
     }
   }
 }

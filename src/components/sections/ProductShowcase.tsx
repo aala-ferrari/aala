@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, ExternalLink, KeyRound, Stethoscope, Car, Scale, Smile, Smartphone } from 'lucide-react';
+import { ArrowRight, ExternalLink, KeyRound, Stethoscope, Car, Scale, Smile, Smartphone, PhoneCall } from 'lucide-react';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
@@ -12,6 +12,7 @@ import { AutoMockup } from '@/components/mockups/AutoMockup';
 import { LegalMockup } from '@/components/mockups/LegalMockup';
 import { DentalMockup } from '@/components/mockups/DentalMockup';
 import { TaxiMockup } from '@/components/mockups/TaxiMockup';
+import { NabuelMockup } from '@/components/mockups/NabuelMockup';
 import { DemoRequestModal } from './DemoRequestModal';
 
 const MOCKUP_BY_VERTICAL: Record<VerticalKey, () => JSX.Element> = {
@@ -20,9 +21,10 @@ const MOCKUP_BY_VERTICAL: Record<VerticalKey, () => JSX.Element> = {
   legal: LegalMockup,
   dental: DentalMockup,
   taxi: TaxiMockup,
+  nabuel: NabuelMockup,
 };
 
-const ICONS = { medical: Stethoscope, auto: Car, legal: Scale, dental: Smile, taxi: Smartphone };
+const ICONS = { medical: Stethoscope, auto: Car, legal: Scale, dental: Smile, taxi: Smartphone, nabuel: PhoneCall };
 
 // URL del prodotto vero per il bottone "Apri demo dal vivo".
 // Default = URL pubblici di produzione (subdomain aala.global / dominio reale).
@@ -33,6 +35,7 @@ const LIVE_DEMO_URL: Partial<Record<VerticalKey, string>> = {
   auto: process.env.NEXT_PUBLIC_URL_PRODUCT_AUTO || 'https://auto.aala.global',
   legal: process.env.NEXT_PUBLIC_URL_PRODUCT_LEGAL || 'https://superavokati.ai',
   dental: process.env.NEXT_PUBLIC_URL_PRODUCT_DENTAL || 'https://medicalalbania.com',
+  nabuel: process.env.NEXT_PUBLIC_URL_PRODUCT_NABUEL || 'https://nabuel.com',
 };
 
 export function ProductShowcase({ vertical }: { vertical: Vertical }) {

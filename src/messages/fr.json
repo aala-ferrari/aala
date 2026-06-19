@@ -17,14 +17,14 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "Un partenaire. Cinq services premium.",
+      "eyebrow": "Un partenaire. Six services premium.",
       "title": "Une technologie qui <gold>protège</gold>, <gold>vend</gold> et <gold>fait grandir</gold> votre entreprise.",
       "subtitle": "CRM sur mesure, gestion de location de voitures, logiciel juridique en abonnement et tourisme dentaire avec clients qualifiés. Tout sous une seule alliance.",
       "ctaPrimary": "Découvrir les services",
       "ctaSecondary": "Parlez-nous"
     },
     "services": {
-      "title": "Cinq verticales. Une promesse : la fiabilité.",
+      "title": "Six verticales. Une promesse : la fiabilité.",
       "subtitle": "Choisissez le service dont vous avez besoin aujourd'hui. Ajoutez les autres quand vous voudrez.",
       "medical": {
         "name": "CRM · Webpages",
@@ -46,7 +46,11 @@
         "name": "Tourisme Dentaire",
         "desc": "Agence de tourisme dentaire : nous amenons des patients internationaux qualifiés à votre clinique."
       },
-      "learnMore": "En savoir plus"
+      "learnMore": "En savoir plus",
+      "nabuel": {
+        "name": "Nabuel",
+        "desc": "Agent vocal IA multi-secteur : répond aux appels, prend les rendez-vous (réception 24/7) et passe des appels sortants pour relancer les leads et vendre des contrats — hôtels, dentaire, greffe de cheveux, énergie/gaz."
+      }
     },
     "values": {
       "eyebrow": "Nos valeurs",
@@ -122,7 +126,17 @@
       "send": "Envoyer le message",
       "sending": "Envoi...",
       "received": "Message reçu.",
-      "willReply": "Nous vous répondrons sous 24 heures."
+      "willReply": "Nous vous répondrons sous 24 heures.",
+      "services": {
+        "medical": "CRM sur mesure (tout secteur)",
+        "webpages": "Site web personnalisé",
+        "auto": "Gestion Auto",
+        "taxi": "Taxi App (style Bolt)",
+        "legal": "Super Avokati (cabinet d'avocats)",
+        "dental": "Dental Tourism (clinique)",
+        "nabuel": "Nabuel · Agent vocal IA",
+        "other": "Autre / Je ne sais pas"
+      }
     }
   },
   "pricingPage": {
@@ -190,7 +204,8 @@
       "auto": "🚗 Location de voitures",
       "dental": "🦷 Clinique dentaire",
       "taxi": "🚕 Taxi / VTC",
-      "webpages": "🌐 Site web"
+      "webpages": "🌐 Site web",
+      "nabuel": "🤖 Assistant IA Nabuel"
     },
     "consultant": {
       "open": "Super Consultant",
@@ -518,6 +533,65 @@
           ]
         }
       }
+    },
+    "nabuel": {
+      "heroEyebrow": "Nabuel · Agent Vocal IA",
+      "heroTitle": "Des agents vocaux IA qui répondent, réservent et vendent — 24h/24, dans toutes les langues.",
+      "heroSubtitle": "Votre réceptionniste virtuelle et votre force de vente téléphonique. Nabuel répond à chaque appel, prend et déplace les rendez-vous, relance les leads et conclut les ventes. Voix naturelle, qualification intelligente, intégré à votre agenda et CRM.",
+      "features": [
+        {
+          "title": "Réception 24/7",
+          "desc": "Répond à chaque appel entrant, prend et déplace les rendez-vous, donne les informations — aucun appel manqué, même la nuit ou les jours fériés."
+        },
+        {
+          "title": "Appels sortants",
+          "desc": "Campagnes automatiques : confirmer les rendez-vous, relancer les leads froids, vendre des contrats énergie/gaz et télécom."
+        },
+        {
+          "title": "Qualification intelligente",
+          "desc": "Comprend le besoin, filtre les curieux et ne transmet à un humain que les opportunités chaudes, avec le contexte prêt."
+        },
+        {
+          "title": "Cerveau + analyse",
+          "desc": "Base de connaissances adaptée à votre secteur, résumé et résultat de chaque appel, intégration agenda et CRM."
+        }
+      ],
+      "plans": {
+        "nabuel-starter": {
+          "name": "Starter (1 agent, réception)",
+          "features": [
+            "1 agent vocal IA",
+            "Appels entrants (réception)",
+            "1 secteur + 1 langue",
+            "Intégration agenda",
+            "Résumé des appels",
+            "Support e-mail"
+          ]
+        },
+        "nabuel-business": {
+          "name": "Business (entrants + sortants)",
+          "features": [
+            "Tout Starter +",
+            "Appels entrants et sortants",
+            "Multi-secteur + multilingue",
+            "Qualification intelligente des leads",
+            "Campagnes sortantes",
+            "CRM + analyse avancée",
+            "Support prioritaire"
+          ]
+        },
+        "nabuel-reseller": {
+          "name": "Reseller — Marque blanche, tout à vous",
+          "features": [
+            "Plateforme marque blanche à votre marque",
+            "Multi-tenant : revendez à vos clients",
+            "Agents illimités et numéros dédiés",
+            "Domaine + hébergement inclus",
+            "Installation complète + formation",
+            "Aucune royautés sur vos reventes"
+          ]
+        }
+      }
     }
   },
   "mockup": {
@@ -584,6 +658,27 @@
       "onRide": "En course",
       "available": "Disponible",
       "onBreak": "En pause"
+    },
+    "nabuel": {
+      "callsToday": "Appels aujourd'hui",
+      "booked": "Réservés",
+      "agentsActive": "Agents actifs",
+      "avgDuration": "Durée moyenne",
+      "liveCall": "Appel en direct",
+      "aiSpeaking": "L'IA parle",
+      "transcript": "Bien sûr, je vous réserve jeudi à 15h. Je vous envoie la confirmation.",
+      "recentCalls": "Appels récents",
+      "today": "aujourd'hui",
+      "qualified": "Qualifié",
+      "rescheduled": "Reprogrammé",
+      "agents": "Agents vocaux",
+      "inCall": "En appel",
+      "available": "Disponible",
+      "funnelTitle": "Entonnoir d'appels",
+      "answered": "Répondus",
+      "qualifiedLabel": "Qualifiés",
+      "bookedLabel": "Réservés",
+      "insight": "Pic d'appels 17h-19h : envisagez un second agent."
     }
   }
 }

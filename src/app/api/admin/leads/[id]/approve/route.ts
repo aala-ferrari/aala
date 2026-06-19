@@ -7,7 +7,7 @@ import { generateDemoCode } from '@/lib/demo-codes';
 import { sendDemoCodeEmail } from '@/lib/email';
 import type { VerticalKey } from '@/lib/products';
 
-const VALID_VERTICALS: VerticalKey[] = ['medical', 'auto', 'legal', 'dental', 'taxi'];
+const VALID_VERTICALS: VerticalKey[] = ['medical', 'auto', 'legal', 'dental', 'taxi', 'nabuel'];
 const EXPIRES_DAYS = 7;
 
 export async function POST(

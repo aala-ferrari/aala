@@ -17,14 +17,14 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "Un solo partner. Cinque servizi premium.",
+      "eyebrow": "Un solo partner. Sei servizi premium.",
       "title": "Tecnologia che <gold>protegge</gold>, <gold>vende</gold> e <gold>fa crescere</gold> la tua impresa.",
       "subtitle": "CRM su misura, gestionali per noleggi auto, software legale in abbonamento e turismo dentale con clienti qualificati. Tutto sotto una sola alleanza.",
       "ctaPrimary": "Scopri i servizi",
       "ctaSecondary": "Parla con noi"
     },
     "services": {
-      "title": "Cinque verticali. Una sola promessa: affidabilità.",
+      "title": "Sei verticali. Una sola promessa: affidabilità.",
       "subtitle": "Scegli il servizio che ti serve oggi. Aggiungi gli altri quando vorrai.",
       "medical": {
         "name": "CRM · Webpages",
@@ -46,7 +46,11 @@
         "name": "Dental Tourism",
         "desc": "Agenzia turismo dentale: portiamo pazienti qualificati internazionali alla tua clinica."
       },
-      "learnMore": "Scopri di più"
+      "learnMore": "Scopri di più",
+      "nabuel": {
+        "name": "Nabuel",
+        "desc": "Agente vocale AI multi-settore: risponde alle chiamate, fissa appuntamenti (reception 24/7) e fa chiamate in uscita per ricontattare lead e vendere contratti — hotel, dentisti, trapianto capelli, luce/gas."
+      }
     },
     "values": {
       "eyebrow": "I nostri valori",
@@ -130,7 +134,8 @@
         "taxi": "Taxi App (stile Bolt)",
         "legal": "Super Avokati (studio legale)",
         "dental": "Dental Tourism (clinica)",
-        "other": "Altro / Non so"
+        "other": "Altro / Non so",
+        "nabuel": "Nabuel · Agente AI per chiamate"
       }
     }
   },
@@ -199,7 +204,8 @@
       "auto": "🚗 Noleggio auto",
       "dental": "🦷 Clinica dentale",
       "taxi": "🚕 Taxi / NCC",
-      "webpages": "🌐 Sito web"
+      "webpages": "🌐 Sito web",
+      "nabuel": "🤖 Agente AI Nabuel"
     },
     "consultant": {
       "open": "Super Consulente",
@@ -316,6 +322,27 @@
       "onRide": "In corsa",
       "available": "Disponibile",
       "onBreak": "Pausa"
+    },
+    "nabuel": {
+      "callsToday": "Chiamate oggi",
+      "booked": "Prenotati",
+      "agentsActive": "Agenti attivi",
+      "avgDuration": "Durata media",
+      "liveCall": "Chiamata in corso",
+      "aiSpeaking": "AI sta parlando",
+      "transcript": "Certo, le fisso un appuntamento per giovedì alle 15. Le invio la conferma.",
+      "recentCalls": "Chiamate recenti",
+      "today": "oggi",
+      "qualified": "Qualificato",
+      "rescheduled": "Riprogrammato",
+      "agents": "Agenti vocali",
+      "inCall": "In chiamata",
+      "available": "Disponibile",
+      "funnelTitle": "Funnel chiamate",
+      "answered": "Risposte",
+      "qualifiedLabel": "Qualificati",
+      "bookedLabel": "Prenotati",
+      "insight": "Picco di chiamate 17-19: valuta un secondo agente."
     }
   }
 }

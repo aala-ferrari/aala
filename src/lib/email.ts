@@ -7,6 +7,7 @@ const VERTICAL_LABEL: Record<VerticalKey, string> = {
   legal: 'Super Avokati',
   dental: 'Dental Tourism',
   taxi: 'Taxi App',
+  nabuel: 'Nabuel · Agente Vocale AI',
 };
 
 function getResend(): Resend | null {

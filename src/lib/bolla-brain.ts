@@ -18,6 +18,7 @@ export const BOLLA_COLORS: Record<string, string> = {
   legal: '#8a6717',
   dental: '#2a7a5c',
   taxi: '#f5b800',
+  nabuel: '#8b5cf6', // viola con riflessi rosa
   webpages: '#5b4ec9',
 };
 
@@ -63,6 +64,7 @@ const KW: Record<VerticalKey | 'webpages', string[]> = {
   auto: ['noleggi', 'rent', 'auto', 'macchin', 'flotta', 'veicol', 'autonoleggi', 'car'],
   taxi: ['taxi', 'ncc', 'driver', 'autist', 'corsa', 'bolt', 'uber', 'passegger'],
   legal: ['legal', 'avvocat', 'studio leg', 'pratich', 'udienz', 'causa', 'cause', 'tribunal', 'avokati'],
+  nabuel: ['nabuel', 'agente vocal', 'agente ai', 'voice agent', 'chiamat', 'reception', 'centralin', 'call center', 'prenotazion telefon', 'risponditor', 'voce ai', 'outbound', 'inbound', 'luce gas', 'telefonia'],
   webpages: ['sito', 'siti', 'web', 'pagina', 'landing', 'e-commerce', 'ecommerce', 'website'],
 };
 
@@ -79,6 +81,7 @@ const SERVICE_LABEL: Record<string, string> = {
   auto: 'Gestionale Auto',
   taxi: 'Taxi App',
   legal: 'Super Avokati',
+  nabuel: 'Nabuel · Agente Vocale AI',
   webpages: 'siti web su misura',
 };
 
@@ -102,6 +105,10 @@ const SERVICE_PITCH: Record<string, string[]> = {
   legal: [
     'Super Avokati è la suite per studi legali: pratiche, scadenze, calendario udienze e ricerca documentale con intelligenza artificiale.',
     'Affianca l\'avvocato nella risoluzione di cause civili, penali e amministrative. Da €100/mese. Oggi disponibile per il diritto albanese — Italia in arrivo.',
+  ],
+  nabuel: [
+    'Nabuel è il tuo agente vocale AI: risponde alle chiamate, fissa appuntamenti e fa anche chiamate in uscita per ricontattare lead e vendere contratti — 24 ore su 24, in ogni lingua.',
+    'Perfetto per hotel, cliniche dentali, centri trapianto capelli e vendita luce/gas. Da €490/mese; versione white-label per rivenditori da €9.500 una tantum.',
   ],
   webpages: [
     'Realizziamo siti web 100% su misura — niente template pronti. Disegnati per la tua impresa, dal codice al design.',
@@ -207,6 +214,7 @@ export function think(rawMessage: string, state: BollaState): BollaReply {
         { label: '🚗 Noleggio auto', action: 'service:auto' },
         { label: '🦷 Clinica dentale', action: 'service:dental' },
         { label: '🚕 Taxi / NCC', action: 'service:taxi' },
+        { label: '🤖 Agente AI Nabuel', action: 'service:nabuel' },
         { label: '🌐 Sito web', action: 'service:webpages' },
       ],
       state: { ...state, service: null },
@@ -258,6 +266,7 @@ export function think(rawMessage: string, state: BollaState): BollaReply {
         { label: 'Gestionale Auto', action: 'service:auto' },
         { label: 'Super Avokati', action: 'service:legal' },
         { label: 'Taxi App', action: 'service:taxi' },
+        { label: 'Nabuel · Agente Vocale AI', action: 'service:nabuel' },
       ],
       state,
     };
@@ -284,6 +293,7 @@ export function think(rawMessage: string, state: BollaState): BollaReply {
         { label: 'Gestionale Auto', action: 'service:auto' },
         { label: 'Super Avokati', action: 'service:legal' },
         { label: 'Taxi App', action: 'service:taxi' },
+        { label: 'Nabuel · Agente Vocale AI', action: 'service:nabuel' },
         { label: 'Dental Tourism', action: 'service:dental' },
       ],
       state,
@@ -323,6 +333,7 @@ export function think(rawMessage: string, state: BollaState): BollaReply {
       { label: '🚗 Auto', action: 'service:auto' },
       { label: '🦷 Dentale', action: 'service:dental' },
       { label: '🚕 Taxi', action: 'service:taxi' },
+      { label: '🤖 Nabuel', action: 'service:nabuel' },
       { label: '🌐 Sito web', action: 'service:webpages' },
       { label: '☎️ Parla con noi', action: 'lead' },
     ],
@@ -344,6 +355,7 @@ export function act(action: string, state: BollaState): BollaReply {
         { label: '🚗 Auto', action: 'service:auto' },
         { label: '🦷 Dentale', action: 'service:dental' },
         { label: '🚕 Taxi', action: 'service:taxi' },
+      { label: '🤖 Nabuel', action: 'service:nabuel' },
         { label: '🌐 Sito web', action: 'service:webpages' },
       ],
       state: INITIAL_STATE,

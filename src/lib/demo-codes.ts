@@ -6,6 +6,7 @@ const PREFIX: Record<VerticalKey, string> = {
   legal: 'LEG',
   dental: 'DEN',
   taxi: 'TAX',
+  nabuel: 'NAB',
 };
 
 // Alfabeto senza caratteri ambigui (no 0, O, 1, I, L)

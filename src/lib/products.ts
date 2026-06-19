@@ -1,4 +1,4 @@
-export type VerticalKey = 'medical' | 'auto' | 'legal' | 'dental' | 'taxi';
+export type VerticalKey = 'medical' | 'auto' | 'legal' | 'dental' | 'taxi' | 'nabuel';
 
 export interface Plan {
   id: string;
@@ -293,6 +293,61 @@ export const VERTICALS: Record<VerticalKey, Vertical> = {
           'Pubblicazione su App Store + Google Play',
           'Account sviluppatore e review gestiti da noi',
           'Aggiornamenti store inclusi (1° anno)',
+        ],
+      },
+    ],
+  },
+
+  nabuel: {
+    key: 'nabuel',
+    slug: 'nabuel',
+    accent: '#8b5cf6',
+    accentRgb: '139, 92, 246',
+    hero: {
+      iconKey: 'nabuel',
+      eyebrow: 'Nabuel · Agente Vocale AI',
+      title: 'Agenti vocali AI che rispondono, prenotano e vendono — 24 ore su 24, in ogni lingua.',
+      subtitle:
+        'La reception virtuale e la forza vendita telefonica della tua attività. Nabuel risponde a ogni chiamata, fissa e sposta appuntamenti, ricontatta i lead e chiude contratti. Voce naturale, qualifica intelligente, integrato col tuo calendario e CRM.',
+    },
+    features: [
+      { title: 'Reception 24/7', desc: 'Risponde a ogni chiamata in entrata, fissa e sposta appuntamenti, dà informazioni — nessuna chiamata persa, nemmeno di notte o nei festivi.' },
+      { title: 'Chiamate in uscita', desc: 'Campagne outbound automatiche: conferma appuntamenti, ricontatta i lead freddi, vende contratti luce/gas e telefonia.' },
+      { title: 'Qualifica intelligente', desc: 'Capisce il bisogno del cliente, filtra i curiosi e passa all\'operatore umano solo le opportunità calde, con il contesto già pronto.' },
+      { title: 'Cervello + analisi', desc: 'Knowledge base su misura del tuo settore, riassunto ed esito di ogni chiamata, integrazione con calendario e CRM.' },
+    ],
+    plans: [
+      {
+        id: 'nabuel-starter',
+        name: 'Starter (1 agente, reception)',
+        price: 490,
+        currency: 'EUR',
+        billing: 'monthly',
+        features: ['1 agente vocale AI', 'Chiamate in entrata (reception)', '1 settore + 1 lingua', 'Integrazione calendario', 'Riassunto chiamate', 'Supporto email'],
+      },
+      {
+        id: 'nabuel-business',
+        name: 'Business (inbound + outbound)',
+        price: 1490,
+        currency: 'EUR',
+        billing: 'monthly',
+        features: ['Tutto Starter +', 'Chiamate in entrata e in uscita', 'Multi-settore + multilingua', 'Qualifica intelligente dei lead', 'Campagne outbound', 'CRM + analisi avanzata', 'Supporto prioritario'],
+        popular: true,
+      },
+      {
+        id: 'nabuel-reseller',
+        name: 'Reseller — White-label, tutto tuo',
+        price: 9500,
+        currency: 'EUR',
+        billing: 'one-time',
+        premium: true,
+        features: [
+          'Piattaforma white-label col tuo brand',
+          'Multi-tenant: rivendi ai tuoi clienti',
+          'Agenti illimitati e numeri dedicati',
+          'Dominio + hosting inclusi',
+          'Setup completo + training',
+          'Nessuna royalty sulle tue rivendite',
         ],
       },
     ],

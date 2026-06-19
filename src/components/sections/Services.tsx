@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import { useState } from 'react';
-import { Stethoscope, Car, Scale, Smile, Smartphone, ArrowUpRight, Check } from 'lucide-react';
+import { Stethoscope, Car, Scale, Smile, Smartphone, PhoneCall, ArrowUpRight, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { MiniBolla } from '@/components/3d/MiniBolla';
 
-type Vertical = 'medical' | 'auto' | 'legal' | 'dental' | 'taxi';
+type Vertical = 'medical' | 'auto' | 'legal' | 'dental' | 'taxi' | 'nabuel';
 
 const VERTICALS: {
   key: Vertical;
@@ -64,6 +64,18 @@ const VERTICALS: {
       'App passeggero + driver brandizzate',
       'Dispatching automatico stile Bolt',
       'Pagamenti integrati + mappa live',
+    ],
+  },
+  {
+    key: 'nabuel',
+    href: '/servizi/nabuel',
+    icon: PhoneCall,
+    color: '#8b5cf6',
+    rgb: '139, 92, 246',
+    highlights: [
+      'Reception AI 24/7, nessuna chiamata persa',
+      'Chiamate in uscita: lead e vendite',
+      'Voce naturale, multilingua, qualifica smart',
     ],
   },
 ];

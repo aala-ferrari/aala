@@ -17,14 +17,14 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "One partner. Five premium services.",
+      "eyebrow": "One partner. Six premium services.",
       "title": "Technology that <gold>protects</gold>, <gold>sells</gold> and <gold>grows</gold> your business.",
       "subtitle": "Tailor-made CRMs, car rental management, subscription legal software, and dental tourism with qualified clients. All under one alliance.",
       "ctaPrimary": "Explore services",
       "ctaSecondary": "Talk to us"
     },
     "services": {
-      "title": "Five verticals. One promise: reliability.",
+      "title": "Six verticals. One promise: reliability.",
       "subtitle": "Pick the service you need today. Add the others whenever you want.",
       "medical": {
         "name": "CRM · Webpages",
@@ -46,7 +46,11 @@
         "name": "Dental Tourism",
         "desc": "Dental tourism agency: we bring qualified international patients to your clinic."
       },
-      "learnMore": "Learn more"
+      "learnMore": "Learn more",
+      "nabuel": {
+        "name": "Nabuel",
+        "desc": "Multi-sector AI voice agent: answers calls, books appointments (24/7 reception) and makes outbound calls to follow up leads and sell contracts — hotels, dental, hair transplant, energy/gas."
+      }
     },
     "values": {
       "eyebrow": "Our values",
@@ -130,7 +134,8 @@
         "taxi": "Taxi App (Bolt-style)",
         "legal": "Super Avokati (law firm)",
         "dental": "Dental Tourism (clinic)",
-        "other": "Other / Not sure"
+        "other": "Other / Not sure",
+        "nabuel": "Nabuel · AI voice agent"
       }
     }
   },
@@ -199,7 +204,8 @@
       "auto": "🚗 Car rental",
       "dental": "🦷 Dental clinic",
       "taxi": "🚕 Taxi / ride-hailing",
-      "webpages": "🌐 Website"
+      "webpages": "🌐 Website",
+      "nabuel": "🤖 Nabuel AI Agent"
     },
     "consultant": {
       "open": "Super Consultant",
@@ -520,6 +526,65 @@
           ]
         }
       }
+    },
+    "nabuel": {
+      "heroEyebrow": "Nabuel · AI Voice Agent",
+      "heroTitle": "AI voice agents that answer, book and sell — 24/7, in any language.",
+      "heroSubtitle": "Your virtual receptionist and phone sales force. Nabuel answers every call, books and reschedules appointments, follows up leads and closes deals. Natural voice, smart qualification, integrated with your calendar and CRM.",
+      "features": [
+        {
+          "title": "24/7 reception",
+          "desc": "Answers every inbound call, books and moves appointments, gives info — no missed calls, even at night or on holidays."
+        },
+        {
+          "title": "Outbound calls",
+          "desc": "Automated campaigns: confirm appointments, re-engage cold leads, sell energy/gas and telecom contracts."
+        },
+        {
+          "title": "Smart qualification",
+          "desc": "Understands the need, filters the curious and passes only hot opportunities to a human, with the context ready."
+        },
+        {
+          "title": "Brain + analytics",
+          "desc": "Knowledge base tailored to your sector, summary and outcome of every call, calendar and CRM integration."
+        }
+      ],
+      "plans": {
+        "nabuel-starter": {
+          "name": "Starter (1 agent, reception)",
+          "features": [
+            "1 AI voice agent",
+            "Inbound calls (reception)",
+            "1 sector + 1 language",
+            "Calendar integration",
+            "Call summaries",
+            "Email support"
+          ]
+        },
+        "nabuel-business": {
+          "name": "Business (inbound + outbound)",
+          "features": [
+            "Everything in Starter +",
+            "Inbound and outbound calls",
+            "Multi-sector + multilingual",
+            "Smart lead qualification",
+            "Outbound campaigns",
+            "CRM + advanced analytics",
+            "Priority support"
+          ]
+        },
+        "nabuel-reseller": {
+          "name": "Reseller — White-label, fully yours",
+          "features": [
+            "White-label platform with your brand",
+            "Multi-tenant: resell to your clients",
+            "Unlimited agents and dedicated numbers",
+            "Domain + hosting included",
+            "Full setup + training",
+            "No royalties on your resales"
+          ]
+        }
+      }
     }
   },
   "showcase": {
@@ -593,6 +658,27 @@
       "onRide": "On ride",
       "available": "Available",
       "onBreak": "On break"
+    },
+    "nabuel": {
+      "callsToday": "Calls today",
+      "booked": "Booked",
+      "agentsActive": "Active agents",
+      "avgDuration": "Avg duration",
+      "liveCall": "Live call",
+      "aiSpeaking": "AI speaking",
+      "transcript": "Sure, I'll book you for Thursday at 3 PM. I'll send the confirmation.",
+      "recentCalls": "Recent calls",
+      "today": "today",
+      "qualified": "Qualified",
+      "rescheduled": "Rescheduled",
+      "agents": "Voice agents",
+      "inCall": "In call",
+      "available": "Available",
+      "funnelTitle": "Call funnel",
+      "answered": "Answered",
+      "qualifiedLabel": "Qualified",
+      "bookedLabel": "Booked",
+      "insight": "Call peak 5-7 PM: consider a second agent."
     }
   }
 }

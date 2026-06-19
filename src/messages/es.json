@@ -17,14 +17,14 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "Un solo partner. Cinco servicios premium.",
+      "eyebrow": "Un solo partner. Seis servicios premium.",
       "title": "Tecnología que <gold>protege</gold>, <gold>vende</gold> y <gold>hace crecer</gold> tu empresa.",
       "subtitle": "CRM a medida, gestión de alquiler de coches, software legal por suscripción y turismo dental con clientes cualificados. Todo bajo una sola alianza.",
       "ctaPrimary": "Descubre los servicios",
       "ctaSecondary": "Habla con nosotros"
     },
     "services": {
-      "title": "Cinco verticales. Una promesa: fiabilidad.",
+      "title": "Seis verticales. Una promesa: fiabilidad.",
       "subtitle": "Elige el servicio que necesitas hoy. Añade los demás cuando quieras.",
       "medical": {
         "name": "CRM · Webpages",
@@ -46,7 +46,11 @@
         "name": "Turismo Dental",
         "desc": "Agencia de turismo dental: traemos pacientes internacionales cualificados a tu clínica."
       },
-      "learnMore": "Saber más"
+      "learnMore": "Saber más",
+      "nabuel": {
+        "name": "Nabuel",
+        "desc": "Agente de voz IA multisector: contesta llamadas, agenda citas (recepción 24/7) y hace llamadas salientes para recontactar leads y vender contratos — hoteles, dental, injerto capilar, luz/gas."
+      }
     },
     "values": {
       "eyebrow": "Nuestros valores",
@@ -130,7 +134,8 @@
         "taxi": "Taxi App (estilo Bolt)",
         "legal": "Super Avokati (despacho)",
         "dental": "Dental Tourism (clínica)",
-        "other": "Otro / No sé"
+        "other": "Otro / No sé",
+        "nabuel": "Nabuel · Agente de voz IA"
       }
     }
   },
@@ -199,7 +204,8 @@
       "auto": "🚗 Alquiler de coches",
       "dental": "🦷 Clínica dental",
       "taxi": "🚕 Taxi / VTC",
-      "webpages": "🌐 Sitio web"
+      "webpages": "🌐 Sitio web",
+      "nabuel": "🤖 Agente IA Nabuel"
     },
     "consultant": {
       "open": "Súper Consultor",
@@ -527,6 +533,65 @@
           ]
         }
       }
+    },
+    "nabuel": {
+      "heroEyebrow": "Nabuel · Agente de Voz IA",
+      "heroTitle": "Agentes de voz IA que contestan, reservan y venden — 24/7, en cualquier idioma.",
+      "heroSubtitle": "Tu recepcionista virtual y fuerza de ventas telefónica. Nabuel contesta cada llamada, agenda y reprograma citas, recontacta leads y cierra ventas. Voz natural, cualificación inteligente, integrado con tu calendario y CRM.",
+      "features": [
+        {
+          "title": "Recepción 24/7",
+          "desc": "Contesta cada llamada entrante, agenda y mueve citas, da información — sin llamadas perdidas, ni de noche ni en festivos."
+        },
+        {
+          "title": "Llamadas salientes",
+          "desc": "Campañas automáticas: confirma citas, recontacta leads fríos, vende contratos de luz/gas y telefonía."
+        },
+        {
+          "title": "Cualificación inteligente",
+          "desc": "Entiende la necesidad, filtra a los curiosos y pasa solo las oportunidades calientes a un humano, con el contexto listo."
+        },
+        {
+          "title": "Cerebro + analítica",
+          "desc": "Base de conocimiento a medida de tu sector, resumen y resultado de cada llamada, integración con calendario y CRM."
+        }
+      ],
+      "plans": {
+        "nabuel-starter": {
+          "name": "Starter (1 agente, recepción)",
+          "features": [
+            "1 agente de voz IA",
+            "Llamadas entrantes (recepción)",
+            "1 sector + 1 idioma",
+            "Integración calendario",
+            "Resumen de llamadas",
+            "Soporte por email"
+          ]
+        },
+        "nabuel-business": {
+          "name": "Business (entrantes + salientes)",
+          "features": [
+            "Todo Starter +",
+            "Llamadas entrantes y salientes",
+            "Multisector + multilingüe",
+            "Cualificación inteligente de leads",
+            "Campañas salientes",
+            "CRM + analítica avanzada",
+            "Soporte prioritario"
+          ]
+        },
+        "nabuel-reseller": {
+          "name": "Reseller — Marca blanca, todo tuyo",
+          "features": [
+            "Plataforma marca blanca con tu marca",
+            "Multi-tenant: revende a tus clientes",
+            "Agentes ilimitados y números dedicados",
+            "Dominio + hosting incluidos",
+            "Configuración completa + formación",
+            "Sin royalties en tus reventas"
+          ]
+        }
+      }
     }
   },
   "mockup": {
@@ -593,6 +658,27 @@
       "onRide": "En viaje",
       "available": "Disponible",
       "onBreak": "En pausa"
+    },
+    "nabuel": {
+      "callsToday": "Llamadas hoy",
+      "booked": "Reservados",
+      "agentsActive": "Agentes activos",
+      "avgDuration": "Duración media",
+      "liveCall": "Llamada en vivo",
+      "aiSpeaking": "IA hablando",
+      "transcript": "Claro, le reservo para el jueves a las 15:00. Le envío la confirmación.",
+      "recentCalls": "Llamadas recientes",
+      "today": "hoy",
+      "qualified": "Cualificado",
+      "rescheduled": "Reprogramado",
+      "agents": "Agentes de voz",
+      "inCall": "En llamada",
+      "available": "Disponible",
+      "funnelTitle": "Embudo de llamadas",
+      "answered": "Contestadas",
+      "qualifiedLabel": "Cualificados",
+      "bookedLabel": "Reservados",
+      "insight": "Pico de llamadas 17-19: considera un segundo agente."
     }
   }
 }

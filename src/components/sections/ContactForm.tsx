@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Send, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const SERVICE_VALUES = ['medical', 'webpages', 'auto', 'taxi', 'legal', 'dental', 'other'] as const;
+const SERVICE_VALUES = ['medical', 'webpages', 'auto', 'taxi', 'legal', 'dental', 'nabuel', 'other'] as const;
 
 export function ContactForm() {
   const t = useTranslations('contact.form');
