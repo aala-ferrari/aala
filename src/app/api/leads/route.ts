@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createSupabaseServiceClient } from '@/lib/supabase/server';
+import { sendLeadNotificationEmail } from '@/lib/email';
 
 const LeadSchema = z.object({
   name: z.string().min(2).max(120),
@@ -43,6 +44,14 @@ export async function POST(req: Request) {
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  // Notifica in tempo reale all'admin (info@aala.global) — best-effort:
+  // se Resend non è configurato viene saltata, senza bloccare il cliente.
+  try {
+    await sendLeadNotificationEmail({ ...lead, source: source ?? 'contact-form' });
+  } catch {
+    /* la notifica non è critica per il cliente */
   }
 
   return NextResponse.json({ ok: true });

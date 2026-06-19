@@ -16,6 +16,91 @@ function getResend(): Resend | null {
   return new Resend(key);
 }
 
+/**
+ * Notifica all'admin (info@aala.global) quando arriva una nuova richiesta dal
+ * sito — così la vedi in tempo reale e contatti il cliente su WhatsApp.
+ * Best-effort: se Resend non è configurato, viene semplicemente saltata.
+ * `replyTo` = email del cliente → puoi rispondere direttamente dalla tua casella.
+ */
+export async function sendLeadNotificationEmail(lead: {
+  name: string;
+  email: string;
+  phone?: string | null;
+  company?: string | null;
+  service?: string | null;
+  message: string;
+  locale?: string | null;
+  source?: string | null;
+}): Promise<{ sent: boolean; skipped?: string; error?: string }> {
+  const to = process.env.ADMIN_NOTIFY_EMAIL || 'info@aala.global';
+  const from = process.env.RESEND_FROM_EMAIL;
+  if (!from) return { sent: false, skipped: 'no-from' };
+  const resend = getResend();
+  if (!resend) return { sent: false, skipped: 'no-api-key' };
+
+  const serviceLabel = lead.service
+    ? (VERTICAL_LABEL[lead.service as VerticalKey] ?? lead.service)
+    : '—';
+  const isConsultant = lead.source === 'consultant-request';
+  const kind = isConsultant ? 'Richiesta Consulente' : 'Richiesta demo';
+  const subject = `🔔 ${kind} · ${lead.name} · ${serviceLabel}`;
+
+  const rows = (
+    [
+      ['Nome', lead.name],
+      ['Email', lead.email],
+      lead.phone ? ['Telefono', lead.phone] : null,
+      lead.company ? ['Azienda', lead.company] : null,
+      ['Servizio', serviceLabel],
+      lead.locale ? ['Lingua', lead.locale] : null,
+    ].filter(Boolean) as [string, string][]
+  );
+
+  const text = [
+    `Nuova ${kind.toLowerCase()} dal sito aala.global:`,
+    '',
+    ...rows.map(([k, v]) => `${k}: ${v}`),
+    '',
+    'Messaggio:',
+    lead.message,
+    '',
+    'Pannello: https://aala.global/it/admin/leads',
+  ].join('\n');
+
+  const html = `<div style="font-family:system-ui,Arial,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#1a1a2e">
+    <h2 style="margin:0 0 4px;font-size:18px">🔔 Nuova ${escapeHtml(kind.toLowerCase())}</h2>
+    <p style="margin:0 0 16px;color:#6b7280;font-size:13px">dal sito aala.global</p>
+    <table style="width:100%;border-collapse:collapse;font-size:14px">
+      ${rows
+        .map(
+          ([k, v]) =>
+            `<tr><td style="padding:6px 0;color:#6b7280;width:110px">${escapeHtml(k)}</td><td style="padding:6px 0;font-weight:600">${escapeHtml(v)}</td></tr>`
+        )
+        .join('')}
+    </table>
+    <div style="margin-top:16px;padding:14px;background:#f6f1e6;border-radius:10px">
+      <p style="margin:0 0 6px;color:#6b7280;font-size:12px;text-transform:uppercase;letter-spacing:.08em">Messaggio</p>
+      <p style="margin:0;white-space:pre-wrap">${escapeHtml(lead.message)}</p>
+    </div>
+    <a href="https://aala.global/it/admin/leads" style="display:inline-block;margin-top:18px;padding:10px 18px;background:linear-gradient(135deg,#ecdcb0,#c9a849,#a07a26);color:#1a1a2e;text-decoration:none;border-radius:999px;font-weight:600;font-size:14px">Apri il pannello →</a>
+  </div>`;
+
+  try {
+    const { error } = await resend.emails.send({
+      from,
+      to,
+      replyTo: lead.email,
+      subject,
+      text,
+      html,
+    });
+    if (error) return { sent: false, error: error.message };
+    return { sent: true };
+  } catch (e) {
+    return { sent: false, error: e instanceof Error ? e.message : 'send failed' };
+  }
+}
+
 export interface DemoEmailResult {
   sent: boolean;
   skipped?: 'no-api-key' | 'no-from' | 'no-recipient';
