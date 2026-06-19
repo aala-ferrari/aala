@@ -53,5 +53,16 @@ Git con tag progressivi `v1`→`v5`. `git checkout vN` per tornare indietro. Sal
 ## Prodotti collegati (locali, vanno riavviati dopo reboot)
 CRM Medical :4002 · Auto :4001+:4011 · Super Avokati :5050 · dental = medicalalbania.com. URL in `.env.local` (`URL_PRODUCT_*`) + `LIVE_PRODUCT_URL` in redeem/showcase.
 
+## 🌐 PRODUZIONE — VPS, domini, database (giugno 2026)
+Tutto online su **UN VPS: `root@31.220.90.246`** (Ubuntu, nginx, SSH dal Mac dell'utente senza password). App gestite con **pm2** (`aala`, `auto`, `auto-backend`, `crm-medical`, `taxi-backend`, `taxi-admin`, `nabuel-gateway`, `tts-server`). Progetti in `/var/www/apps/`. SSL Let's Encrypt via `certbot --nginx` (auto-rinnovo).
+
+**Deploy AALA (NON automatico):** `cd /var/www/apps/aala && git fetch origin && git reset --hard origin/main && npm install && npm run build && pm2 restart aala --update-env`. `.env.local` sul VPS è gitignored — `NEXT_PUBLIC_*` sono inlined a build → dopo cambio env serve rebuild.
+
+**Database:** **AALA + Nabuel** usano **Supabase self-hosted** sul VPS (Docker, `/opt/supabase-nabuel`, kong su 127.0.0.1:8000, secrets in `/opt/supabase-nabuel/.secrets.json`) — NON più Supabase cloud. nginx aala.global/nabuel.com proxano `^/(auth|rest|realtime)/v1/`→kong. auto ha un postgres docker dedicato (`auto_postgres`); taxi ha `taxi_postgres`; super-avvocato gira in container con SQLite.
+
+**Domini live:** aala.global · nabuel.com (6° servizio, prodotto vero deployato) · superavokati.ai · auto/crm/taxi.aala.global.
+
+**Admin (1 email dedicata per servizio, password gestite dall'utente):** `info@aala.global` (AALA), `nabuel@aala.global` (Nabuel), `taxi@aala.global` (Taxi), `superavokati@aala.global` (Super Avokati, campo **username**), `auto@aala.global` (Auto). Script per (re)impostare le password in chiaro+verifica: `ssh -t root@31.220.90.246 'bash /opt/set-admin-password.sh'`. Le password NON vanno salvate (le conosce solo l'utente). Dettaglio completo in memoria [[checkpoint-production-live]].
+
 ## Stile di lavoro col cliente
 Si rivolge come "fratello/maestro" — proporre con visione, non solo eseguire. Tono caldo e diretto. Cura maniacale dei dettagli visivi. Verificare i cambi nel browser quando possibile.
