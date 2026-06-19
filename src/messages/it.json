@@ -417,7 +417,10 @@
     "likedTitle": "Ti è piaciuto? Vedi i prezzi.",
     "likedSubtitle": "Scegli un piano oppure parla con noi per una soluzione su misura.",
     "seePackages": "Vedi pacchetti",
-    "talkToUs": "Parla con noi"
+    "talkToUs": "Parla con noi",
+    "needCode": "Per provare la demo dal vivo serve un codice di accesso.",
+    "requestAccess": "Richiedi accesso demo",
+    "haveCode": "Ho un codice"
   },
   "demoModal": {
     "error": "Si è verificato un errore. Riprova.",

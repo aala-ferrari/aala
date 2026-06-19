@@ -753,7 +753,10 @@
     "likedTitle": "Të pëlqeu? Shih çmimet.",
     "likedSubtitle": "Zgjidh një plan ose fol me ne për një zgjidhje të personalizuar.",
     "seePackages": "Shih paketat",
-    "talkToUs": "Fol me ne"
+    "talkToUs": "Fol me ne",
+    "needCode": "Për të provuar demon e drejtpërdrejtë nevojitet një kod qasjeje.",
+    "requestAccess": "Kërko qasje në demo",
+    "haveCode": "Kam një kod"
   },
   "demoModal": {
     "error": "Ndodhi një gabim. Provo përsëri.",

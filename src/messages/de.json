@@ -753,7 +753,10 @@
     "likedTitle": "Gefällt es Ihnen? Preise ansehen.",
     "likedSubtitle": "Wählen Sie einen Plan oder sprechen Sie mit uns für eine maßgeschneiderte Lösung.",
     "seePackages": "Pakete ansehen",
-    "talkToUs": "Sprechen Sie mit uns"
+    "talkToUs": "Sprechen Sie mit uns",
+    "needCode": "Für die Live-Demo ist ein Zugangscode erforderlich.",
+    "requestAccess": "Demo-Zugang anfragen",
+    "haveCode": "Ich habe einen Code"
   },
   "demoModal": {
     "error": "Ein Fehler ist aufgetreten. Bitte erneut versuchen.",

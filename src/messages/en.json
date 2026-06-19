@@ -753,7 +753,10 @@
     "likedTitle": "Liked it? See the pricing.",
     "likedSubtitle": "Choose a plan or talk to us for a tailored solution.",
     "seePackages": "See packages",
-    "talkToUs": "Talk to us"
+    "talkToUs": "Talk to us",
+    "needCode": "A demo access code is required to try the live demo.",
+    "requestAccess": "Request demo access",
+    "haveCode": "I have a code"
   },
   "demoModal": {
     "error": "Something went wrong. Please try again.",

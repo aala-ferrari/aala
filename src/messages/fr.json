@@ -753,7 +753,10 @@
     "likedTitle": "Ça vous plaît ? Voir les tarifs.",
     "likedSubtitle": "Choisissez une formule ou parlez-nous pour une solution sur mesure.",
     "seePackages": "Voir les forfaits",
-    "talkToUs": "Parlez-nous"
+    "talkToUs": "Parlez-nous",
+    "needCode": "Un code d'accès est nécessaire pour essayer la démo en direct.",
+    "requestAccess": "Demander l'accès à la démo",
+    "haveCode": "J'ai un code"
   },
   "demoModal": {
     "error": "Une erreur s'est produite. Réessayez.",

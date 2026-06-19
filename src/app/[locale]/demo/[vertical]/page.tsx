@@ -1,8 +1,9 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
-import { Stethoscope, Car, Scale, Smile, Smartphone, PhoneCall, ExternalLink, ArrowLeft } from 'lucide-react';
+import { Stethoscope, Car, Scale, Smile, Smartphone, PhoneCall, ExternalLink, ArrowLeft, Lock } from 'lucide-react';
 import { VERTICALS, type VerticalKey } from '@/lib/products';
+import { createSupabaseServiceClient } from '@/lib/supabase/server';
 import { MedicalMockup } from '@/components/mockups/MedicalMockup';
 import { AutoMockup } from '@/components/mockups/AutoMockup';
 import { LegalMockup } from '@/components/mockups/LegalMockup';
@@ -33,8 +34,10 @@ const LIVE_PRODUCT_URL: Partial<Record<VerticalKey, string>> = {
 
 export default async function DemoLandingPage({
   params,
+  searchParams,
 }: {
   params: { vertical: string; locale: string };
+  searchParams: { code?: string };
 }) {
   const key = params.vertical as VerticalKey;
   const vertical = VERTICALS[key];
@@ -50,6 +53,29 @@ export default async function DemoLandingPage({
   const Icon = ICONS[key];
   const Mockup = MOCKUPS[key];
   const liveUrl = LIVE_PRODUCT_URL[key];
+
+  // ── Accesso alla demo dal vivo SOLO con codice valido ──
+  // Il prodotto reale si apre solo se il cliente arriva con un codice (riscattato
+  // su /demo) di questo servizio e ancora nella finestra di validità. Senza codice
+  // mostriamo l'anteprima + "Richiedi accesso demo" (il modello di business: il
+  // codice lo mandiamo noi via WhatsApp dopo la richiesta).
+  let hasValidCode = false;
+  const code = typeof searchParams.code === 'string' ? searchParams.code.trim().toUpperCase() : '';
+  if (code) {
+    const admin = createSupabaseServiceClient();
+    const { data: row } = await admin
+      .from('demo_codes')
+      .select('vertical, used_at, expires_at, kind')
+      .eq('code', code)
+      .maybeSingle();
+    if (row && row.vertical === key && row.kind !== 'consultant') {
+      const now = Date.now();
+      hasValidCode = row.used_at
+        ? new Date(row.used_at).getTime() + 12 * 60 * 60 * 1000 > now // 12h dall'avvio
+        : new Date(row.expires_at).getTime() > now; // non ancora attivato ma valido
+    }
+  }
+  const showLive = Boolean(liveUrl && hasValidCode);
 
   return (
     <>
@@ -94,10 +120,10 @@ export default async function DemoLandingPage({
               {liveUrl ? t('liveYes') : t('liveNo')}
             </p>
 
-            {liveUrl && (
+            {showLive ? (
               <div className="mt-10">
                 <a
-                  href={liveUrl}
+                  href={liveUrl!}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-primary"
@@ -105,6 +131,20 @@ export default async function DemoLandingPage({
                   {t('openLive')}
                   <ExternalLink className="h-4 w-4" />
                 </a>
+              </div>
+            ) : (
+              <div className="mt-10">
+                <div className="mx-auto flex max-w-md items-center justify-center gap-2 rounded-xl bg-canvas-soft px-4 py-3 text-sm text-ink-soft">
+                  <Lock className="h-4 w-4 shrink-0" /> {t('needCode')}
+                </div>
+                <div className="mt-5 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                  <Link href={`/${params.locale}/servizi/${vertical.slug}`} className="btn-primary">
+                    {t('requestAccess')}
+                  </Link>
+                  <Link href={`/${params.locale}/demo`} className="btn-ghost">
+                    {t('haveCode')}
+                  </Link>
+                </div>
               </div>
             )}
           </div>
