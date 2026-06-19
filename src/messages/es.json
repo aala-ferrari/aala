@@ -697,7 +697,8 @@
     "newHere": "¿Nuevo aquí?",
     "createAccount": "Crea una cuenta",
     "haveAccount": "¿Ya tienes una cuenta?",
-    "signIn": "Acceder"
+    "signIn": "Acceder",
+    "networkError": "Error de conexión. Comprueba tu red e inténtalo de nuevo."
   },
   "checkout": {
     "eyebrow": "Compra",

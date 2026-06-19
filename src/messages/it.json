@@ -361,7 +361,8 @@
     "newHere": "Nuovo qui?",
     "createAccount": "Crea un account",
     "haveAccount": "Hai già un account?",
-    "signIn": "Accedi"
+    "signIn": "Accedi",
+    "networkError": "Connessione non riuscita. Controlla la rete e riprova."
   },
   "checkout": {
     "eyebrow": "Acquisto",

@@ -25,30 +25,35 @@ export function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
     const password = String(form.get('password'));
     const fullName = form.get('full_name') ? String(form.get('full_name')) : undefined;
 
-    const supabase = createSupabaseBrowserClient();
+    try {
+      const supabase = createSupabaseBrowserClient();
 
-    const { error } =
-      mode === 'login'
-        ? await supabase.auth.signInWithPassword({ email, password })
-        : await supabase.auth.signUp({
-            email,
-            password,
-            options: { data: { full_name: fullName } },
-          });
+      const { error } =
+        mode === 'login'
+          ? await supabase.auth.signInWithPassword({ email, password })
+          : await supabase.auth.signUp({
+              email,
+              password,
+              options: { data: { full_name: fullName } },
+            });
 
-    setLoading(false);
+      if (error) {
+        setError(error.message);
+        return;
+      }
 
-    if (error) {
-      setError(error.message);
-      return;
+      // torna dove l'utente stava andando (es. /checkout/...), altrimenti area cliente.
+      // `next` deve essere un path interno (inizia con "/", non "//") per evitare open-redirect.
+      const next = searchParams.get('next');
+      const safeNext = next && next.startsWith('/') && !next.startsWith('//') ? next : null;
+      router.push(safeNext ? `/${locale}${safeNext}` : `/${locale}/account`);
+      router.refresh();
+    } catch {
+      // errore di rete / lock / timeout: niente "Attendi..." perenne, mostra il messaggio
+      setError(t('networkError'));
+    } finally {
+      setLoading(false);
     }
-
-    // torna dove l'utente stava andando (es. /checkout/...), altrimenti area cliente.
-    // `next` deve essere un path interno (inizia con "/", non "//") per evitare open-redirect.
-    const next = searchParams.get('next');
-    const safeNext = next && next.startsWith('/') && !next.startsWith('//') ? next : null;
-    router.push(safeNext ? `/${locale}${safeNext}` : `/${locale}/account`);
-    router.refresh();
   }
 
   return (

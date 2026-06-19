@@ -11,7 +11,16 @@ export function createSupabaseBrowserClient() {
   if (_client) return _client;
   _client = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      auth: {
+        // Lock no-op: il navigator.locks di Supabase può far restare appese
+        // (o abortire con "failed to fetch") le operazioni signUp/signIn quando
+        // un'altra tab/operazione tiene il lock. Eseguiamo subito la funzione.
+        // Sicuro: usiamo già un singleton, niente contesa tra più client.
+        lock: async (_name, _acquireTimeout, fn) => fn(),
+      },
+    }
   );
   return _client;
 }

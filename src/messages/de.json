@@ -697,7 +697,8 @@
     "newHere": "Neu hier?",
     "createAccount": "Konto erstellen",
     "haveAccount": "Schon ein Konto?",
-    "signIn": "Anmelden"
+    "signIn": "Anmelden",
+    "networkError": "Verbindung fehlgeschlagen. Prüfen Sie Ihr Netzwerk und versuchen Sie es erneut."
   },
   "checkout": {
     "eyebrow": "Kauf",

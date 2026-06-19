@@ -697,7 +697,8 @@
     "newHere": "I ri këtu?",
     "createAccount": "Krijo një llogari",
     "haveAccount": "Ke tashmë një llogari?",
-    "signIn": "Hyr"
+    "signIn": "Hyr",
+    "networkError": "Lidhja dështoi. Kontrollo rrjetin dhe provo përsëri."
   },
   "checkout": {
     "eyebrow": "Blerje",

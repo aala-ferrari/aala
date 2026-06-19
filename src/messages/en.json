@@ -697,7 +697,8 @@
     "newHere": "New here?",
     "createAccount": "Create an account",
     "haveAccount": "Already have an account?",
-    "signIn": "Sign in"
+    "signIn": "Sign in",
+    "networkError": "Connection failed. Check your network and try again."
   },
   "checkout": {
     "eyebrow": "Purchase",
