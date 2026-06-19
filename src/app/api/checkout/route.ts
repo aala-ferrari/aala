@@ -8,8 +8,9 @@ import { priceForDuration } from '@/lib/billing';
 const Body = z.object({
   planId: z.string(),
   locale: z.string().default('it'),
-  // durata in mesi per i piani in abbonamento (1/3/6/12). Ignorata per one-time.
-  months: z.number().int().optional(),
+  // durata in mesi per i piani in abbonamento. SOLO valori vendibili (1/3/6/12):
+  // qualsiasi altro valore viene rifiutato → impedisce di pagare 1 mese per averne 24.
+  months: z.union([z.literal(1), z.literal(3), z.literal(6), z.literal(12)]).optional(),
 });
 
 export async function POST(req: Request) {

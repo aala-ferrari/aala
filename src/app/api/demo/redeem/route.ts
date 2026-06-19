@@ -50,6 +50,14 @@ export async function POST(req: Request) {
   if (!row) {
     return NextResponse.json({ error: 'Codice non valido' }, { status: 404 });
   }
+  // i codici del Super Consulente (kind='consultant') non sono demo-prodotto:
+  // non vanno "bruciati" qui (li gestisce /api/consulente).
+  if (row.kind === 'consultant') {
+    return NextResponse.json(
+      { error: 'Questo è un codice Super Consulente, usalo nella Bolla.' },
+      { status: 400 }
+    );
+  }
   const now = new Date();
 
   // ── Regola "12 ore dall'avvio" (uguale per tutti i servizi) ──

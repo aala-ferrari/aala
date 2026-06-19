@@ -25,6 +25,14 @@ export const DURATIONS: DurationOption[] = [
 
 export const DEFAULT_DURATION_MONTHS = 1;
 
+/** Durate ammesse (mesi). Qualsiasi altro valore va rifiutato lato server. */
+export const VALID_MONTHS = DURATIONS.map((d) => d.months);
+
+/** True se `m` è una durata vendibile (1/3/6/12). */
+export function isValidMonths(m: unknown): m is number {
+  return typeof m === 'number' && Number.isInteger(m) && VALID_MONTHS.includes(m);
+}
+
 export interface PriceBreakdown {
   months: number;
   discount: number; // frazione applicata

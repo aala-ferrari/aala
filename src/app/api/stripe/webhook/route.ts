@@ -3,6 +3,7 @@ import type Stripe from 'stripe';
 import { stripe } from '@/lib/stripe';
 import { createSupabaseServiceClient } from '@/lib/supabase/server';
 import { VERTICAL_LIST } from '@/lib/products';
+import { isValidMonths } from '@/lib/billing';
 
 export const runtime = 'nodejs';
 
@@ -36,20 +37,28 @@ export async function POST(req: Request) {
 
         if (userId && planId && plan) {
           if (session.mode === 'payment') {
-            const months = parseInt(session.metadata?.months ?? '1', 10) || 1;
+            // difesa in profondità: la durata è già validata in /api/checkout, ma se
+            // arrivasse un valore anomalo nei metadata lo riportiamo a 1.
+            const rawMonths = parseInt(session.metadata?.months ?? '1', 10);
+            const months = isValidMonths(rawMonths) ? rawMonths : 1;
             // importo realmente pagato (include sconto durata e promo), non il listino
             const amountEur =
               session.amount_total != null
                 ? Math.round(session.amount_total / 100)
                 : plan.price;
+            // payment_intent può essere stringa o oggetto espanso
+            const paymentIntent =
+              typeof session.payment_intent === 'string'
+                ? session.payment_intent
+                : (session.payment_intent?.id ?? null);
             const paidAt = new Date();
             const periodEnd = new Date(paidAt);
             periodEnd.setMonth(periodEnd.getMonth() + months);
-            await supabase.from('orders').insert({
+            const { error: insErr } = await supabase.from('orders').insert({
               user_id: userId,
               product_id: planId,
               stripe_session_id: session.id,
-              stripe_payment_intent: session.payment_intent as string | null,
+              stripe_payment_intent: paymentIntent,
               amount_eur: amountEur,
               status: 'paid',
               paid_at: paidAt.toISOString(),
@@ -60,6 +69,12 @@ export async function POST(req: Request) {
                 method: 'stripe',
               },
             });
+            // Idempotenza: Stripe consegna lo stesso evento più volte. Se l'ordine
+            // per questa sessione esiste già (unique stripe_session_id), va bene:
+            // ignoriamo il duplicato e rispondiamo 200 per non far ritentare Stripe.
+            if (insErr && !/duplicate|unique|already exists/i.test(insErr.message)) {
+              throw new Error(insErr.message);
+            }
           }
           // Subscription objects are handled in subscription.* events below.
         }
@@ -75,13 +90,15 @@ export async function POST(req: Request) {
 
         const planId = sub.metadata?.planId ?? null;
         const plan = VERTICAL_LIST.flatMap((v) => v.plans).find((p) => p.id === planId);
-        const vertical = plan ? VERTICAL_LIST.find((v) => v.plans.includes(plan))?.key : 'medical';
+        const vertical = plan ? VERTICAL_LIST.find((v) => v.plans.includes(plan))?.key : null;
+        // niente vertical affidabile → non attivare un prodotto a caso (era 'medical')
+        if (!vertical) break;
 
         await supabase.from('subscriptions').upsert({
           id: sub.id,
           user_id: userId,
           product_id: planId,
-          vertical: vertical ?? 'medical',
+          vertical,
           status: sub.status,
           current_period_start: new Date(sub.current_period_start * 1000).toISOString(),
           current_period_end: new Date(sub.current_period_end * 1000).toISOString(),

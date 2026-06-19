@@ -6,7 +6,8 @@ import { priceForDuration } from '@/lib/billing';
 
 const Body = z.object({
   planId: z.string(),
-  months: z.number().int().optional(),
+  // SOLO durate vendibili (1/3/6/12) — vedi nota di sicurezza in /api/checkout
+  months: z.union([z.literal(1), z.literal(3), z.literal(6), z.literal(12)]).optional(),
 });
 
 /**
@@ -40,6 +41,21 @@ export async function POST(req: Request) {
   const vertical = VERTICAL_LIST.find((v) => v.plans.some((p) => p.id === plan.id))?.key ?? null;
 
   const admin = createSupabaseServiceClient();
+
+  // Deduplica: se c'è già un ordine in attesa per lo stesso cliente e piano,
+  // non ne creiamo un altro (evita doppioni da doppio click / refresh / più tab).
+  const { data: existing } = await admin
+    .from('orders')
+    .select('id')
+    .eq('user_id', user.id)
+    .eq('product_id', plan.id)
+    .eq('status', 'pending')
+    .limit(1)
+    .maybeSingle();
+  if (existing) {
+    return NextResponse.json({ ok: true, amount, months, deduped: true });
+  }
+
   const { error } = await admin.from('orders').insert({
     user_id: user.id,
     product_id: plan.id,

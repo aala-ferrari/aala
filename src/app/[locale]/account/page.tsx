@@ -26,12 +26,26 @@ export default async function AccountPage({ params }: { params: { locale: string
   const subs = subsRes.data ?? [];
   const orders = ordersRes.data ?? [];
 
+  const now = Date.now();
   const ownedVerticals = new Set<VerticalKey>([
-    ...subs.filter((s) => s.status === 'active' || s.status === 'trialing').map((s) => s.vertical as VerticalKey),
-    ...orders.filter((o) => o.status === 'paid' || o.status === 'fulfilled').map((o) => {
-      const v = VERTICAL_LIST.find((v) => v.plans.some((p) => p.id === o.product_id));
-      return v?.key as VerticalKey;
-    }).filter(Boolean),
+    ...subs
+      .filter((s) => s.status === 'active' || s.status === 'trialing')
+      .map((s) => s.vertical as VerticalKey),
+    ...orders
+      .filter((o) => {
+        if (o.status !== 'paid' && o.status !== 'fulfilled') return false;
+        // gli abbonamenti a blocco hanno period_end: attivi solo se non scaduti.
+        // gli acquisti una-tantum non hanno period_end → restano attivi.
+        const pe = (o.metadata as Record<string, unknown> | null)?.period_end as
+          | string
+          | undefined;
+        return !pe || new Date(pe).getTime() > now;
+      })
+      .map((o) => {
+        const v = VERTICAL_LIST.find((v) => v.plans.some((p) => p.id === o.product_id));
+        return v?.key as VerticalKey;
+      })
+      .filter(Boolean),
   ]);
 
   return (

@@ -29,35 +29,44 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
   const body = Body.safeParse(await req.json().catch(() => ({})));
   if (!body.success) return NextResponse.json({ error: 'Invalid payload' }, { status: 400 });
 
+  // l'ordine deve esistere (e leggo i metadata per la durata)
+  const { data: order } = await admin
+    .from('orders')
+    .select('metadata, status')
+    .eq('id', params.id)
+    .maybeSingle();
+  if (!order) {
+    return NextResponse.json({ error: 'Ordine non trovato' }, { status: 404 });
+  }
+
   if (body.data.action === 'cancel') {
-    await admin.from('orders').update({ status: 'failed' }).eq('id', params.id);
+    const { error } = await admin
+      .from('orders')
+      .update({ status: 'failed' })
+      .eq('id', params.id);
+    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
     return NextResponse.json({ ok: true, status: 'failed' });
   }
 
-  // confirm: leggo l'ordine per calcolare la scadenza periodo dai mesi
-  const { data: order } = await admin
-    .from('orders')
-    .select('metadata')
-    .eq('id', params.id)
-    .single();
-
-  const months = Number((order?.metadata as Record<string, unknown> | null)?.months ?? 1) || 1;
+  // confirm: calcolo la scadenza periodo dai mesi salvati
+  const months = Number((order.metadata as Record<string, unknown> | null)?.months ?? 1) || 1;
   const paidAt = new Date();
   const periodEnd = new Date(paidAt);
   periodEnd.setMonth(periodEnd.getMonth() + months);
 
-  await admin
+  const { error } = await admin
     .from('orders')
     .update({
       status: 'paid',
       paid_at: paidAt.toISOString(),
       metadata: {
-        ...((order?.metadata as Record<string, unknown> | null) ?? {}),
+        ...((order.metadata as Record<string, unknown> | null) ?? {}),
         period_end: periodEnd.toISOString(),
         confirmed_by: user.id,
       },
     })
     .eq('id', params.id);
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
   return NextResponse.json({ ok: true, status: 'paid' });
 }
