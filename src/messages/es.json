@@ -739,5 +739,19 @@
     "expires": "vence",
     "orders": "Pedidos",
     "noOrders": "Sin pedidos."
+  },
+  "demoLanding": {
+    "back": "Código",
+    "accessConfirmed": "Acceso confirmado",
+    "inside": "Ya estás <gold>dentro</gold>.",
+    "previewOf": "Estás viendo la vista previa de <b>{product}</b>.",
+    "liveYes": " El producto ya está en línea: haz clic abajo para entrar en la demo en vivo.",
+    "liveNo": " El producto estará disponible en versión alojada pronto. Mientras tanto, te contactaremos para una incorporación personalizada.",
+    "openLive": "Abrir demo en vivo",
+    "nextStep": "Siguiente paso",
+    "likedTitle": "¿Te ha gustado? Mira los precios.",
+    "likedSubtitle": "Elige un plan o habla con nosotros para una solución a medida.",
+    "seePackages": "Ver paquetes",
+    "talkToUs": "Habla con nosotros"
   }
 }

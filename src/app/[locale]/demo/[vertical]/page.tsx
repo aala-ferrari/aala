@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 import { Stethoscope, Car, Scale, Smile, Smartphone, PhoneCall, ExternalLink, ArrowLeft } from 'lucide-react';
 import { VERTICALS, type VerticalKey } from '@/lib/products';
 import { MedicalMockup } from '@/components/mockups/MedicalMockup';
@@ -30,7 +31,7 @@ const LIVE_PRODUCT_URL: Partial<Record<VerticalKey, string>> = {
   nabuel: process.env.NEXT_PUBLIC_URL_PRODUCT_NABUEL || 'https://nabuel.com',
 };
 
-export default function DemoLandingPage({
+export default async function DemoLandingPage({
   params,
 }: {
   params: { vertical: string; locale: string };
@@ -38,6 +39,13 @@ export default function DemoLandingPage({
   const key = params.vertical as VerticalKey;
   const vertical = VERTICALS[key];
   if (!vertical) notFound();
+
+  const tc = await getTranslations('catalog');
+  const t = await getTranslations('demoLanding');
+  const label = tc.has(`${key}.heroEyebrow`) ? tc(`${key}.heroEyebrow`) : vertical.hero.eyebrow;
+  const features = tc.has(`${key}.features`)
+    ? (tc.raw(`${key}.features`) as { title: string; desc: string }[])
+    : vertical.features;
 
   const Icon = ICONS[key];
   const Mockup = MOCKUPS[key];
@@ -58,7 +66,7 @@ export default function DemoLandingPage({
             href={`/${params.locale}/demo`}
             className="mb-6 inline-flex items-center gap-1.5 text-xs text-ink-soft hover:text-ink"
           >
-            <ArrowLeft className="h-3 w-3" /> Codice
+            <ArrowLeft className="h-3 w-3" /> {t('back')}
           </Link>
 
           <div className="mx-auto max-w-3xl text-center">
@@ -76,16 +84,14 @@ export default function DemoLandingPage({
               className="mt-6 text-xs font-medium uppercase tracking-[0.25em]"
               style={{ color: vertical.accent }}
             >
-              Accesso confermato · {vertical.hero.eyebrow}
+              {t('accessConfirmed')} · {label}
             </p>
             <h1 className="mt-4 font-display text-5xl leading-[1.05] tracking-tight text-balance text-ink sm:text-6xl">
-              Sei <span className="gold-text">dentro</span>.
+              {t.rich('inside', { gold: (c) => <span className="gold-text">{c}</span> })}
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg text-ink-soft">
-              Stai vedendo l'anteprima di <strong>{vertical.hero.eyebrow}</strong>.
-              {liveUrl
-                ? ' Il prodotto è già online — clicca sotto per entrare nella demo dal vivo.'
-                : " Il prodotto sarà disponibile in versione hostata a breve. Nel frattempo ti contatteremo per un onboarding personalizzato."}
+              {t.rich('previewOf', { product: label, b: (c) => <strong>{c}</strong> })}
+              {liveUrl ? t('liveYes') : t('liveNo')}
             </p>
 
             {liveUrl && (
@@ -96,7 +102,7 @@ export default function DemoLandingPage({
                   rel="noopener noreferrer"
                   className="btn-primary"
                 >
-                  Apri demo dal vivo
+                  {t('openLive')}
                   <ExternalLink className="h-4 w-4" />
                 </a>
               </div>
@@ -115,7 +121,7 @@ export default function DemoLandingPage({
           <Mockup />
 
           <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {vertical.features.map((f) => (
+            {features.map((f) => (
               <div key={f.title} className="card-paper p-6">
                 <h3 className="font-display text-lg text-ink">{f.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-ink-soft">{f.desc}</p>
@@ -124,19 +130,15 @@ export default function DemoLandingPage({
           </div>
 
           <div className="mt-12 rounded-2xl bg-canvas-soft p-8 text-center">
-            <p className="text-xs uppercase tracking-widest text-ink-mute">Prossimo passo</p>
-            <h2 className="mt-2 font-display text-3xl text-ink">
-              Ti è piaciuto? Vedi i prezzi.
-            </h2>
-            <p className="mt-3 text-ink-soft">
-              Scegli un piano oppure parla con noi per una soluzione su misura.
-            </p>
+            <p className="text-xs uppercase tracking-widest text-ink-mute">{t('nextStep')}</p>
+            <h2 className="mt-2 font-display text-3xl text-ink">{t('likedTitle')}</h2>
+            <p className="mt-3 text-ink-soft">{t('likedSubtitle')}</p>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link href={`/${params.locale}/servizi/${vertical.slug}#prezzi`} className="btn-primary">
-                Vedi pacchetti
+                {t('seePackages')}
               </Link>
               <Link href={`/${params.locale}/contatti`} className="btn-ghost">
-                Parla con noi
+                {t('talkToUs')}
               </Link>
             </div>
           </div>

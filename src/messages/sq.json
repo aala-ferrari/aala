@@ -739,5 +739,19 @@
     "expires": "skadon",
     "orders": "Porositë",
     "noOrders": "Asnjë porosi."
+  },
+  "demoLanding": {
+    "back": "Kodi",
+    "accessConfirmed": "Qasja u konfirmua",
+    "inside": "Je <gold>brenda</gold>.",
+    "previewOf": "Po shikon pamjen paraprake të <b>{product}</b>.",
+    "liveYes": " Produkti është tashmë online — kliko më poshtë për të hyrë në demon e drejtpërdrejtë.",
+    "liveNo": " Produkti do të jetë së shpejti i disponueshëm në version të hostuar. Ndërkohë do të të kontaktojmë për një onboarding të personalizuar.",
+    "openLive": "Hap demon e drejtpërdrejtë",
+    "nextStep": "Hapi tjetër",
+    "likedTitle": "Të pëlqeu? Shih çmimet.",
+    "likedSubtitle": "Zgjidh një plan ose fol me ne për një zgjidhje të personalizuar.",
+    "seePackages": "Shih paketat",
+    "talkToUs": "Fol me ne"
   }
 }

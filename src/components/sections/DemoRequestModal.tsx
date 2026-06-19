@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Check } from 'lucide-react';
 import type { Vertical } from '@/lib/products';
+import { useCatalog } from '@/lib/use-catalog';
 
 export function DemoRequestModal({
   open,
@@ -16,6 +17,7 @@ export function DemoRequestModal({
 }) {
   const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [error, setError] = useState<string | null>(null);
+  const label = useCatalog().hero(vertical).eyebrow;
 
   useEffect(() => {
     if (!open) return;
@@ -41,7 +43,7 @@ export function DemoRequestModal({
         body: JSON.stringify({
           ...data,
           service: vertical.key,
-          message: `Richiesta demo per ${vertical.hero.eyebrow}. ${data.message ?? ''}`,
+          message: `Richiesta demo per ${label}. ${data.message ?? ''}`,
         }),
       });
       if (!res.ok) {
@@ -101,7 +103,7 @@ export function DemoRequestModal({
                       className="text-[10px] font-medium uppercase tracking-[0.25em]"
                       style={{ color: vertical.accent }}
                     >
-                      {vertical.hero.eyebrow}
+                      {label}
                     </p>
                     <h3 className="mt-2 font-display text-2xl text-ink">
                       Richiedi accesso demo

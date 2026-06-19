@@ -12,6 +12,9 @@ export const dynamic = 'force-dynamic';
 
 export default async function AccountPage({ params }: { params: { locale: string } }) {
   const t = await getTranslations('account');
+  const tcat = await getTranslations('catalog');
+  const productLabel = (v: (typeof VERTICAL_LIST)[number]) =>
+    tcat.has(`${v.key}.heroEyebrow`) ? tcat(`${v.key}.heroEyebrow`) : v.hero.eyebrow;
   const supabase = createSupabaseServerClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect(`/${params.locale}/login`);
@@ -103,7 +106,7 @@ export default async function AccountPage({ params }: { params: { locale: string
                 >
                   <Icon className="h-5 w-5" />
                 </div>
-                <h3 className="mt-4 font-display text-lg">{v.hero.eyebrow}</h3>
+                <h3 className="mt-4 font-display text-lg">{productLabel(v)}</h3>
                 <p className="mt-1 text-xs text-ink-mute">
                   {owned ? t('active') : t('inactive')}
                 </p>

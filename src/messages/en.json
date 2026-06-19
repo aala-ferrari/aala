@@ -739,5 +739,19 @@
     "expires": "expires",
     "orders": "Orders",
     "noOrders": "No orders."
+  },
+  "demoLanding": {
+    "back": "Code",
+    "accessConfirmed": "Access confirmed",
+    "inside": "You're <gold>in</gold>.",
+    "previewOf": "You're viewing the preview of <b>{product}</b>.",
+    "liveYes": " The product is already online — click below to enter the live demo.",
+    "liveNo": " The product will be available as a hosted version soon. In the meantime, we'll contact you for personalized onboarding.",
+    "openLive": "Open live demo",
+    "nextStep": "Next step",
+    "likedTitle": "Liked it? See the pricing.",
+    "likedSubtitle": "Choose a plan or talk to us for a tailored solution.",
+    "seePackages": "See packages",
+    "talkToUs": "Talk to us"
   }
 }

@@ -739,5 +739,19 @@
     "expires": "läuft ab",
     "orders": "Bestellungen",
     "noOrders": "Keine Bestellungen."
+  },
+  "demoLanding": {
+    "back": "Code",
+    "accessConfirmed": "Zugang bestätigt",
+    "inside": "Sie sind <gold>drin</gold>.",
+    "previewOf": "Sie sehen die Vorschau von <b>{product}</b>.",
+    "liveYes": " Das Produkt ist bereits online — klicken Sie unten, um zur Live-Demo zu gelangen.",
+    "liveNo": " Das Produkt wird in Kürze als gehostete Version verfügbar sein. In der Zwischenzeit kontaktieren wir Sie für ein persönliches Onboarding.",
+    "openLive": "Live-Demo öffnen",
+    "nextStep": "Nächster Schritt",
+    "likedTitle": "Gefällt es Ihnen? Preise ansehen.",
+    "likedSubtitle": "Wählen Sie einen Plan oder sprechen Sie mit uns für eine maßgeschneiderte Lösung.",
+    "seePackages": "Pakete ansehen",
+    "talkToUs": "Sprechen Sie mit uns"
   }
 }

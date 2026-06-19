@@ -403,5 +403,19 @@
     "expires": "scade",
     "orders": "Ordini",
     "noOrders": "Nessun ordine."
+  },
+  "demoLanding": {
+    "back": "Codice",
+    "accessConfirmed": "Accesso confermato",
+    "inside": "Sei <gold>dentro</gold>.",
+    "previewOf": "Stai vedendo l'anteprima di <b>{product}</b>.",
+    "liveYes": " Il prodotto è già online — clicca sotto per entrare nella demo dal vivo.",
+    "liveNo": " Il prodotto sarà disponibile in versione hostata a breve. Nel frattempo ti contatteremo per un onboarding personalizzato.",
+    "openLive": "Apri demo dal vivo",
+    "nextStep": "Prossimo passo",
+    "likedTitle": "Ti è piaciuto? Vedi i prezzi.",
+    "likedSubtitle": "Scegli un piano oppure parla con noi per una soluzione su misura.",
+    "seePackages": "Vedi pacchetti",
+    "talkToUs": "Parla con noi"
   }
 }
