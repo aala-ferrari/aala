@@ -5,8 +5,8 @@ export const metadata: Metadata = { title: 'Registrati' };
 
 export default function SignupPage() {
   return (
-    <section className="flex min-h-screen items-center justify-center pt-24 pb-16">
-      <div className="container-aala max-w-md">
+    <section className="flex min-h-screen items-start justify-center px-4 pt-28 pb-28 sm:items-center sm:pt-24 sm:pb-16">
+      <div className="w-full max-w-md">
         <AuthForm mode="signup" />
       </div>
     </section>

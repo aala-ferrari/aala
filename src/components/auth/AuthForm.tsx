@@ -46,8 +46,8 @@ export function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
   }
 
   return (
-    <div className="card-paper p-8">
-      <h1 className="font-display text-3xl text-ink">
+    <div className="card-paper p-6 sm:p-8">
+      <h1 className="font-display text-2xl sm:text-3xl text-ink">
         {mode === 'login' ? 'Bentornato' : 'Crea il tuo account'}
       </h1>
       <p className="mt-2 text-sm text-ink-soft">
