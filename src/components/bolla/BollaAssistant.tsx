@@ -412,7 +412,7 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
       ) : (
         <>
           {/* Messaggi */}
-          <div ref={scrollRef} className="min-h-0 flex-1 space-y-3 overflow-y-auto px-5 py-4">
+          <div ref={scrollRef} data-lenis-prevent className="min-h-0 flex-1 space-y-3 overflow-y-auto px-5 py-4">
             {messages.map((m, i) => (
               <MessageBubble key={i} role={m.role} text={m.content} color={color} />
             ))}
@@ -627,7 +627,7 @@ function ConsultantGate({
   };
 
   return (
-    <div className="min-h-0 flex-1 overflow-y-auto px-5 py-5">
+    <div data-lenis-prevent className="min-h-0 flex-1 overflow-y-auto px-5 py-5">
       {view === 'menu' && (
         <motion.div
           initial={{ opacity: 0, y: 8 }}

@@ -13,6 +13,7 @@ import { Footer } from '@/components/layout/Footer';
 import { FloatingActions } from '@/components/layout/FloatingActions';
 import { BollaLauncher } from '@/components/bolla/BollaLauncher';
 import { LuxeBackground } from '@/components/layout/LuxeBackground';
+import { SmoothScroll } from '@/components/layout/SmoothScroll';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
 const fraunces = Fraunces({
@@ -66,6 +67,7 @@ export default async function LocaleLayout({
     <html lang={locale} className={`${inter.variable} ${fraunces.variable}`}>
       <body className="min-h-screen overflow-x-hidden">
         <NextIntlClientProvider messages={messages} locale={locale}>
+          <SmoothScroll />
           <LuxeBackground />
           <Nav isLoggedIn={isLoggedIn} isAdmin={isAdmin} />
           <main className="relative">{children}</main>
