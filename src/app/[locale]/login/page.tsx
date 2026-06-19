@@ -1,8 +1,13 @@
 import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 import { AuthForm } from '@/components/auth/AuthForm';
 
-export const metadata: Metadata = { title: 'Accedi' };
 export const dynamic = 'force-dynamic';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('auth');
+  return { title: t('metaLogin') };
+}
 
 export default function LoginPage() {
   return (

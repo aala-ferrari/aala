@@ -3,13 +3,14 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { createSupabaseBrowserClient } from '@/lib/supabase/client';
 import { cn } from '@/lib/utils';
 
 export function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
   const router = useRouter();
   const locale = useLocale();
+  const t = useTranslations('auth');
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -53,23 +54,23 @@ export function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
   return (
     <div className="card-paper p-6 sm:p-8">
       <h1 className="font-display text-2xl sm:text-3xl text-ink">
-        {mode === 'login' ? 'Bentornato' : 'Crea il tuo account'}
+        {mode === 'login' ? t('loginTitle') : t('signupTitle')}
       </h1>
       <p className="mt-2 text-sm text-ink-soft">
-        {mode === 'login' ? 'Accedi alla tua area cliente AALA.' : 'Bastano 30 secondi.'}
+        {mode === 'login' ? t('loginSubtitle') : t('signupSubtitle')}
       </p>
 
       <form onSubmit={onSubmit} className="mt-8 space-y-4">
-        {mode === 'signup' && <Field name="full_name" label="Nome e cognome" required />}
-        <Field name="email" type="email" label="Email" required />
-        <Field name="password" type="password" label="Password" required />
+        {mode === 'signup' && <Field name="full_name" label={t('fullName')} required />}
+        <Field name="email" type="email" label={t('email')} required />
+        <Field name="password" type="password" label={t('password')} required />
 
         <button
           type="submit"
           disabled={loading}
           className={cn('btn-primary w-full justify-center', loading && 'opacity-60')}
         >
-          {loading ? 'Attendi...' : mode === 'login' ? 'Accedi' : 'Crea account'}
+          {loading ? t('loading') : mode === 'login' ? t('loginSubmit') : t('signupSubmit')}
         </button>
 
         {error && <p className="text-sm text-red-600">{error}</p>}
@@ -78,16 +79,16 @@ export function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
       <div className="mt-6 text-center text-sm text-ink-soft">
         {mode === 'login' ? (
           <>
-            Nuovo qui?{' '}
+            {t('newHere')}{' '}
             <Link href={`/${locale}/signup`} className="text-gold hover:underline">
-              Crea un account
+              {t('createAccount')}
             </Link>
           </>
         ) : (
           <>
-            Hai già un account?{' '}
+            {t('haveAccount')}{' '}
             <Link href={`/${locale}/login`} className="text-gold hover:underline">
-              Accedi
+              {t('signIn')}
             </Link>
           </>
         )}

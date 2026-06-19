@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { Check, CreditCard, Handshake, ShieldCheck, Loader2 } from 'lucide-react';
 import {
   DURATIONS,
@@ -28,6 +29,7 @@ export function CheckoutConfigurator({
   plan: PlanInfo;
   vertical: { key: string; label: string; accent: string };
 }) {
+  const t = useTranslations('checkout');
   const hasDuration = plan.billing === 'monthly';
   const [months, setMonths] = useState<number>(DEFAULT_DURATION_MONTHS);
   const [loading, setLoading] = useState<null | 'card' | 'manual'>(null);
@@ -36,6 +38,9 @@ export function CheckoutConfigurator({
 
   const breakdown = hasDuration ? priceForDuration(plan.price, months) : null;
   const total = breakdown ? breakdown.total : plan.price;
+  // etichetta durata tradotta (1 mese / 3 mesi / 6 mesi / 1 anno)
+  const durLabel = (m: number) => t(`m${m}` as 'm1' | 'm3' | 'm6' | 'm12');
+  const monthsLabel = (m: number) => t('months', { count: m });
 
   async function payCard() {
     setLoading('card');
@@ -47,10 +52,10 @@ export function CheckoutConfigurator({
         body: JSON.stringify({ planId: plan.id, locale, months: hasDuration ? months : undefined }),
       });
       const json = await res.json();
-      if (!res.ok) throw new Error(json.error ?? 'Errore checkout');
+      if (!res.ok) throw new Error(json.error ?? t('errCheckout'));
       window.location.href = json.url;
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Errore');
+      setError(err instanceof Error ? err.message : t('err'));
       setLoading(null);
     }
   }
@@ -65,10 +70,10 @@ export function CheckoutConfigurator({
         body: JSON.stringify({ planId: plan.id, months: hasDuration ? months : undefined }),
       });
       const json = await res.json();
-      if (!res.ok) throw new Error(json.error ?? 'Errore ordine');
+      if (!res.ok) throw new Error(json.error ?? t('errOrder'));
       setDone(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Errore');
+      setError(err instanceof Error ? err.message : t('err'));
       setLoading(null);
     }
   }
@@ -84,21 +89,21 @@ export function CheckoutConfigurator({
           >
             <Check className="h-7 w-7" />
           </div>
-          <h1 className="mt-5 font-display text-2xl sm:text-3xl">Richiesta ricevuta!</h1>
+          <h1 className="mt-5 font-display text-2xl sm:text-3xl">{t('doneTitle')}</h1>
           <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-            Abbiamo registrato il tuo ordine per <strong>{plan.name}</strong>
-            {hasDuration ? <> · {months} {months === 1 ? 'mese' : 'mesi'}</> : null}. Ti
-            contatteremo a breve per completare il pagamento e attivare il servizio.
+            {t('doneBody', {
+              plan: `${plan.name}${hasDuration ? ` · ${monthsLabel(months)}` : ''}`,
+            })}
           </p>
           <div className="mt-5 rounded-xl bg-canvas-warm/50 p-4">
-            <p className="text-xs uppercase tracking-widest text-ink-mute">Totale</p>
+            <p className="text-xs uppercase tracking-widest text-ink-mute">{t('total')}</p>
             <p className="mt-1 font-display text-3xl">€ {formatEur(total)}</p>
           </div>
           <Link
             href={`/${locale}/account`}
             className="btn-primary mt-6 w-full justify-center"
           >
-            Vai all'area cliente
+            {t('doneCta')}
           </Link>
         </div>
       </section>
@@ -108,14 +113,14 @@ export function CheckoutConfigurator({
   return (
     <section className="flex min-h-screen items-start justify-center px-4 pt-28 pb-28 sm:pt-32">
       <div className="w-full max-w-lg">
-        <p className="text-xs uppercase tracking-widest text-ink-mute">Acquisto · {vertical.label}</p>
+        <p className="text-xs uppercase tracking-widest text-ink-mute">{t('eyebrow')} · {vertical.label}</p>
         <h1 className="mt-2 font-display text-3xl sm:text-4xl">{plan.name}</h1>
 
         {/* Durata (solo abbonamenti) */}
         {hasDuration && (
           <div className="mt-8">
             <p className="mb-3 text-sm font-medium uppercase tracking-widest text-ink-mute">
-              Scegli la durata
+              {t('chooseDuration')}
             </p>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               {DURATIONS.map((d) => {
@@ -139,7 +144,7 @@ export function CheckoutConfigurator({
                         {off}
                       </span>
                     )}
-                    <span className="block text-sm font-semibold text-ink">{d.fallback}</span>
+                    <span className="block text-sm font-semibold text-ink">{durLabel(d.months)}</span>
                     <span className="mt-1 block text-xs text-ink-soft">€ {formatEur(b.total)}</span>
                   </button>
                 );
@@ -152,7 +157,7 @@ export function CheckoutConfigurator({
         <div className="card-paper mt-8 p-5">
           <div className="flex items-baseline justify-between">
             <span className="text-sm text-ink-soft">
-              {hasDuration ? `${months} ${months === 1 ? 'mese' : 'mesi'}` : 'Totale'}
+              {hasDuration ? monthsLabel(months) : t('total')}
             </span>
             <span className="font-display text-3xl">€ {formatEur(total)}</span>
           </div>
@@ -160,20 +165,20 @@ export function CheckoutConfigurator({
             <div className="mt-2 flex items-center justify-between text-xs">
               <span className="text-ink-mute line-through">€ {formatEur(breakdown.fullTotal)}</span>
               <span className="font-semibold text-green-700">
-                Risparmi € {formatEur(breakdown.saved)} ({discountLabel(months)})
+                {t('save', { amount: `€ ${formatEur(breakdown.saved)}`, off: discountLabel(months) })}
               </span>
             </div>
           )}
           {hasDuration && (
             <p className="mt-3 text-xs text-ink-mute">
-              ≈ € {formatEur(breakdown!.effectiveMonthly)}/mese · pagamento unico per il periodo
+              {t('perMonth', { amount: `€ ${formatEur(breakdown!.effectiveMonthly)}` })}
             </p>
           )}
         </div>
 
         {/* Metodi di pagamento */}
         <div className="mt-8 space-y-3">
-          <p className="text-sm font-medium uppercase tracking-widest text-ink-mute">Come vuoi pagare</p>
+          <p className="text-sm font-medium uppercase tracking-widest text-ink-mute">{t('howToPay')}</p>
 
           <button
             type="button"
@@ -185,10 +190,8 @@ export function CheckoutConfigurator({
               {loading === 'card' ? <Loader2 className="h-5 w-5 animate-spin" /> : <CreditCard className="h-5 w-5" />}
             </span>
             <span className="flex-1">
-              <span className="block font-semibold text-ink">Paga con carta</span>
-              <span className="block text-xs text-ink-soft">
-                Carta di credito, debito o prepagata · pagamento sicuro
-              </span>
+              <span className="block font-semibold text-ink">{t('payCard')}</span>
+              <span className="block text-xs text-ink-soft">{t('payCardDesc')}</span>
             </span>
           </button>
 
@@ -202,10 +205,8 @@ export function CheckoutConfigurator({
               {loading === 'manual' ? <Loader2 className="h-5 w-5 animate-spin" /> : <Handshake className="h-5 w-5" />}
             </span>
             <span className="flex-1">
-              <span className="block font-semibold text-ink">Ordina e ti contattiamo</span>
-              <span className="block text-xs text-ink-soft">
-                Confermi l'ordine, completiamo insieme il pagamento e attiviamo
-              </span>
+              <span className="block font-semibold text-ink">{t('payManual')}</span>
+              <span className="block text-xs text-ink-soft">{t('payManualDesc')}</span>
             </span>
           </button>
 
@@ -213,7 +214,7 @@ export function CheckoutConfigurator({
         </div>
 
         <p className="mt-6 flex items-center justify-center gap-2 text-xs text-ink-mute">
-          <ShieldCheck className="h-3.5 w-3.5" /> Pagamento protetto · dati al sicuro
+          <ShieldCheck className="h-3.5 w-3.5" /> {t('secure')}
         </p>
       </div>
     </section>
