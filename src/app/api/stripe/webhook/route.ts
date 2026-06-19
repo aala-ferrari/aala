@@ -36,14 +36,29 @@ export async function POST(req: Request) {
 
         if (userId && planId && plan) {
           if (session.mode === 'payment') {
+            const months = parseInt(session.metadata?.months ?? '1', 10) || 1;
+            // importo realmente pagato (include sconto durata e promo), non il listino
+            const amountEur =
+              session.amount_total != null
+                ? Math.round(session.amount_total / 100)
+                : plan.price;
+            const paidAt = new Date();
+            const periodEnd = new Date(paidAt);
+            periodEnd.setMonth(periodEnd.getMonth() + months);
             await supabase.from('orders').insert({
               user_id: userId,
               product_id: planId,
               stripe_session_id: session.id,
               stripe_payment_intent: session.payment_intent as string | null,
-              amount_eur: plan.price,
+              amount_eur: amountEur,
               status: 'paid',
-              paid_at: new Date().toISOString(),
+              paid_at: paidAt.toISOString(),
+              metadata: {
+                months,
+                vertical: session.metadata?.vertical || null,
+                period_end: periodEnd.toISOString(),
+                method: 'stripe',
+              },
             });
           }
           // Subscription objects are handled in subscription.* events below.

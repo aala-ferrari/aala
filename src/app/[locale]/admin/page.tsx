@@ -95,12 +95,21 @@ export default async function AdminPage({ params }: { params: { locale: string }
             </div>
             <ArrowUpRight className="h-5 w-5 text-gold transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
-        </div>
 
-        <p className="mt-12 text-sm text-ink-soft">
-          Le altre viste (clienti, ordini, abbonamenti) arriveranno nelle prossime
-          iterazioni.
-        </p>
+          <Link
+            href={`/${params.locale}/admin/orders`}
+            className="card-paper group flex items-center justify-between p-6 transition hover:shadow-lift"
+          >
+            <div>
+              <p className="text-xs uppercase tracking-widest text-ink-mute">Gestisci</p>
+              <p className="mt-1 font-display text-xl text-ink">Ordini & abbonamenti</p>
+              <p className="mt-1 text-xs text-ink-soft">
+                Conferma gli ordini assistiti, attiva i servizi ai clienti
+              </p>
+            </div>
+            <ArrowUpRight className="h-5 w-5 text-gold transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </Link>
+        </div>
       </div>
     </section>
   );
