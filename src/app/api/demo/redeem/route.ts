@@ -83,12 +83,18 @@ export async function POST(req: Request) {
         { status: 410 }
       );
     }
-    // primo avvio → parte il cronometro delle 12h
+    // primo avvio → parte il cronometro delle 12h.
+    // `.is('used_at', null)` rende l'attivazione atomica: con due click contemporanei
+    // solo il primo scrive, niente doppio cronometro.
     activatedAt = now;
-    await supabase
+    const { error: useErr } = await supabase
       .from('demo_codes')
       .update({ used_at: now.toISOString() })
-      .eq('code', row.code);
+      .eq('code', row.code)
+      .is('used_at', null);
+    if (useErr) {
+      return NextResponse.json({ error: 'Attivazione non riuscita, riprova.' }, { status: 500 });
+    }
   }
 
   const demoExpiresAt = new Date(activatedAt.getTime() + DEMO_WINDOW_MS).toISOString();

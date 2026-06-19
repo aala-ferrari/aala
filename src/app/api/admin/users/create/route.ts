@@ -46,6 +46,7 @@ export async function POST(req: Request) {
       redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? ''}/it/account`,
     });
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    if (!data?.user) return NextResponse.json({ error: 'Invito non riuscito' }, { status: 500 });
     userId = data.user.id;
   } else {
     if (!password) {
@@ -58,6 +59,7 @@ export async function POST(req: Request) {
       user_metadata: { full_name },
     });
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    if (!data?.user) return NextResponse.json({ error: 'Creazione utente non riuscita' }, { status: 500 });
     userId = data.user.id;
   }
 

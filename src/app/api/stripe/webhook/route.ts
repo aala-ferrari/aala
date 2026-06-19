@@ -100,8 +100,13 @@ export async function POST(req: Request) {
           product_id: planId,
           vertical,
           status: sub.status,
-          current_period_start: new Date(sub.current_period_start * 1000).toISOString(),
-          current_period_end: new Date(sub.current_period_end * 1000).toISOString(),
+          // su subscription 'incomplete' i campi periodo sono assenti → guardia anti-crash
+          current_period_start: sub.current_period_start
+            ? new Date(sub.current_period_start * 1000).toISOString()
+            : null,
+          current_period_end: sub.current_period_end
+            ? new Date(sub.current_period_end * 1000).toISOString()
+            : null,
           cancel_at_period_end: sub.cancel_at_period_end,
         });
         break;

@@ -364,6 +364,10 @@ export function act(action: string, state: BollaState): BollaReply {
 
   if (action.startsWith('service:')) {
     const key = action.split(':')[1] as keyof typeof KW;
+    // guardia: azione manipolata (service:xyz) → niente pitch → torna alla conversazione
+    if (!key || !SERVICE_PITCH[key]) {
+      return think('', state);
+    }
     return {
       text: SERVICE_PITCH[key],
       colorKey: key,

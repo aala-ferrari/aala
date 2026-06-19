@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { createSupabaseServerClient, createSupabaseServiceClient } from '@/lib/supabase/server';
 import { Users, ShoppingCart, Repeat, Inbox, ArrowUpRight } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminPage({ params }: { params: { locale: string } }) {
   const supabase = createSupabaseServerClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -20,15 +22,15 @@ export default async function AdminPage({ params }: { params: { locale: string }
 
   const [usersRes, ordersRes, subsRes, leadsRes] = await Promise.all([
     admin.from('profiles').select('id', { count: 'exact', head: true }),
-    admin.from('orders').select('amount_eur', { count: 'exact' }),
+    admin.from('orders').select('amount_eur, status', { count: 'exact' }),
     admin.from('subscriptions').select('id', { count: 'exact', head: true }).eq('status', 'active'),
     admin.from('leads').select('id', { count: 'exact', head: true }).eq('status', 'new'),
   ]);
 
-  const totalRevenue = (ordersRes.data ?? []).reduce(
-    (sum, o) => sum + (o.amount_eur ?? 0),
-    0
-  );
+  // solo incassato davvero: ordini pagati/evasi (non pending/failed/refunded)
+  const totalRevenue = (ordersRes.data ?? [])
+    .filter((o) => o.status === 'paid' || o.status === 'fulfilled')
+    .reduce((sum, o) => sum + (o.amount_eur ?? 0), 0);
 
   const stats = [
     { label: 'Utenti', value: usersRes.count ?? 0, icon: Users },

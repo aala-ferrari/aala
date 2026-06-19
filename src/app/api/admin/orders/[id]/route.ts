@@ -38,6 +38,14 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
   if (!order) {
     return NextResponse.json({ error: 'Ordine non trovato' }, { status: 404 });
   }
+  // si agisce solo su ordini in attesa: evita di riconfermare (sposta period_end)
+  // o di "riattivare" un ordine già pagato/annullato.
+  if (order.status !== 'pending') {
+    return NextResponse.json(
+      { error: `Ordine già ${order.status}, nessuna azione possibile.` },
+      { status: 409 }
+    );
+  }
 
   if (body.data.action === 'cancel') {
     const { error } = await admin

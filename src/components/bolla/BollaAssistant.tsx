@@ -44,6 +44,7 @@ const SERVICE_LABELS: Record<string, string> = {
   legal: 'Super Avokati',
   dental: 'il Dental Tourism',
   taxi: 'la Taxi App',
+  nabuel: "l'agente vocale AI Nabuel",
   webpages: 'un sito web su misura',
 };
 
@@ -152,11 +153,12 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ code: consult.code, messages: nextMsgs, locale }),
           });
-          const data = await res.json();
+          // se il server risponde non-OK (500/502 con HTML) non provare a leggere JSON
+          const data = res.ok ? await res.json().catch(() => null) : null;
 
-          if (!data.ok) {
-            // esaurito / scaduto → upsell WhatsApp
-            const reason = data.reason as string;
+          if (!data || !data.ok) {
+            // esaurito / scaduto / errore server → upsell WhatsApp (no crash se data null)
+            const reason = data?.reason as string | undefined;
             const msg = reason === 'expired' ? tc('expired') : tc('exhausted');
             setMessages((m) => [...m, { role: 'assistant', content: msg }]);
             if (voiceOut) voice.speak(msg);

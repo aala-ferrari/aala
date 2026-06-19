@@ -8,22 +8,30 @@ import type { Plan, Vertical } from '@/lib/products';
 import { useCatalog } from '@/lib/use-catalog';
 import { cn } from '@/lib/utils';
 
-export function PlanGrid({ vertical }: { vertical: Vertical }) {
+export function PlanGrid({
+  vertical,
+  showHeader = true,
+}: {
+  vertical: Vertical;
+  showHeader?: boolean;
+}) {
   const t = useTranslations('pricing');
   const locale = useLocale();
 
   return (
-    <section className="py-24">
+    <section className={showHeader ? 'py-24' : 'pb-12'}>
       <div className="container-aala">
-        <div className="text-center">
-          <div className="gold-rule mx-auto mb-6 w-24" />
-          <h2 className="font-display text-4xl tracking-tight text-ink sm:text-5xl">
-            {t('title')}
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-ink-soft">{t('subtitle')}</p>
-        </div>
+        {showHeader && (
+          <div className="text-center">
+            <div className="gold-rule mx-auto mb-6 w-24" />
+            <h2 className="font-display text-4xl tracking-tight text-ink sm:text-5xl">
+              {t('title')}
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-ink-soft">{t('subtitle')}</p>
+          </div>
+        )}
 
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
+        <div className={cn('grid gap-6 md:grid-cols-3', showHeader && 'mt-14')}>
           {vertical.plans.map((plan, i) => (
             <PlanCard key={plan.id} plan={plan} vertical={vertical} index={i} locale={locale} />
           ))}

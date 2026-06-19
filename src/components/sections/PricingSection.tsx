@@ -23,7 +23,7 @@ export function PricingSection({ vertical }: { vertical: Vertical }) {
         </div>
         <h2 className="font-display text-3xl tracking-tight sm:text-4xl">{hero.title}</h2>
       </div>
-      <PlanGrid vertical={vertical} />
+      <PlanGrid vertical={vertical} showHeader={false} />
     </section>
   );
 }

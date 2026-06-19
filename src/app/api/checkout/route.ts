@@ -39,6 +39,7 @@ export async function POST(req: Request) {
     .eq('id', user.id)
     .single();
 
+  try {
   let customerId = profile?.stripe_customer_id ?? null;
   if (!customerId) {
     const customer = await stripe.customers.create({
@@ -91,4 +92,16 @@ export async function POST(req: Request) {
   });
 
   return NextResponse.json({ url: session.url });
+  } catch (err) {
+    // Stripe non configurato / chiave non valida / errore rete → messaggio leggibile
+    return NextResponse.json(
+      {
+        error:
+          err instanceof Error
+            ? `Pagamento con carta non disponibile al momento (${err.message}). Usa "Ordina e ti contattiamo".`
+            : 'Pagamento non disponibile. Usa "Ordina e ti contattiamo".',
+      },
+      { status: 502 }
+    );
+  }
 }

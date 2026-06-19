@@ -1,13 +1,15 @@
 import { NextResponse } from 'next/server';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 
+// Fallback ai domini di produzione se l'env non è impostato (evita 404 su SSO).
+// dental è lead-gen (medicalalbania.com), non ha login SSO: resta senza target.
 const PRODUCT_URLS: Record<string, string | undefined> = {
-  auto: process.env.URL_PRODUCT_AUTO,
-  medical: process.env.URL_PRODUCT_CRM_MEDICAL,
-  legal: process.env.URL_PRODUCT_LEGAL,
+  auto: process.env.URL_PRODUCT_AUTO || 'https://auto.aala.global',
+  medical: process.env.URL_PRODUCT_CRM_MEDICAL || 'https://crm.aala.global',
+  legal: process.env.URL_PRODUCT_LEGAL || 'https://superavokati.ai',
   dental: process.env.URL_PRODUCT_DENTAL,
-  taxi: process.env.URL_PRODUCT_TAXI,
-  nabuel: process.env.URL_PRODUCT_NABUEL,
+  taxi: process.env.URL_PRODUCT_TAXI || 'https://taxi.aala.global',
+  nabuel: process.env.URL_PRODUCT_NABUEL || 'https://nabuel.com',
 };
 
 // In prod Next sta dietro a nginx → req.url restituisce localhost:3000
@@ -31,15 +33,16 @@ export async function GET(
   req: Request,
   { params }: { params: { product: string } }
 ) {
+  const base = PUBLIC_ORIGIN || new URL(req.url).origin;
   const target = PRODUCT_URLS[params.product];
   if (!target) {
-    return NextResponse.json({ error: 'Unknown product' }, { status: 404 });
+    // prodotto senza accesso diretto (es. dental): niente 404 nudo, torna al sito
+    return NextResponse.redirect(new URL('/', base));
   }
 
   const supabase = createSupabaseServerClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) {
-    const base = PUBLIC_ORIGIN || new URL(req.url).origin;
     return NextResponse.redirect(new URL('/it/login', base));
   }
 
