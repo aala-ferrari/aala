@@ -62,7 +62,7 @@ export async function sendDemoCodeEmail(opts: {
     `    ${opts.code}`,
     '',
     `Vai su ${demoUrl} e inseriscilo per entrare.`,
-    `Il codice è valido ${opts.expiresInDays} giorni ed è a uso singolo.`,
+    `Attivalo entro ${opts.expiresInDays} giorni: una volta avviato, l'accesso demo dura 12 ore.`,
     '',
     'Un saluto,',
     'Albania Auto Legal Alliance',
@@ -263,7 +263,7 @@ function renderDemoEmailHtml(o: {
                     ${escapeHtml(o.code)}
                   </div>
                   <div style="margin-top:8px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8f9e;">
-                    Valido ${o.expiresInDays} giorni · uso singolo
+                    12 ore dall'avvio · attiva entro ${o.expiresInDays} giorni
                   </div>
                 </td>
               </tr>

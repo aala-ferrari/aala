@@ -42,7 +42,8 @@ export default async function AdminLeadsPage({ params }: { params: { locale: str
           </h1>
           <p className="mt-2 max-w-2xl text-sm text-ink-soft">
             Quando approvi un lead, il sistema genera un codice univoco di accesso demo
-            (valido 7 giorni). Copia il codice e invialo al cliente via email o WhatsApp.
+            (da attivare entro 7 giorni; una volta avviato vale 12 ore). Copia il codice e
+            invialo al cliente via email o WhatsApp.
           </p>
         </header>
 
