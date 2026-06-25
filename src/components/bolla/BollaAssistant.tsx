@@ -443,7 +443,7 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
               e.preventDefault();
               send(input);
             }}
-            className="flex shrink-0 items-center gap-2 border-t border-ink-line/60 bg-canvas-paper/60 p-3"
+            className="flex shrink-0 items-center gap-1.5 border-t border-ink-line/60 bg-canvas-paper/60 px-3 py-3 sm:gap-2"
           >
             {/* altoparlante: leggi le risposte a voce (mani libere / alla guida).
                 Spento di default → l'audio parte SOLO se l'utente lo accende. */}
@@ -480,7 +480,7 @@ export function BollaAssistant({ onClose }: { onClose: () => void }) {
                   : t('placeholder')
               }
               disabled={inputDisabled}
-              className="flex-1 rounded-full border border-ink-line bg-white px-4 py-2.5 text-sm text-ink outline-none transition focus:border-gold disabled:opacity-60"
+              className="min-w-0 flex-1 rounded-full border border-ink-line bg-white px-3.5 py-2.5 text-sm text-ink outline-none transition focus:border-gold disabled:opacity-60"
             />
             {/* microfono: premi e parla invece di scrivere */}
             {voice.sttSupported && (
