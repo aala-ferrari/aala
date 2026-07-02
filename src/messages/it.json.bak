@@ -1,0 +1,439 @@
+{
+  "brand": {
+    "name": "Albania Auto Legal Alliance",
+    "short": "AALA",
+    "tagline": "Auto · Legal · CRM · Medical · Webpages · Taxi App — una sola alleanza."
+  },
+  "nav": {
+    "services": "Servizi",
+    "pricing": "Prezzi",
+    "about": "Chi siamo",
+    "contact": "Contatti",
+    "login": "Accedi",
+    "signup": "Registrati",
+    "account": "Area cliente",
+    "admin": "Admin",
+    "logout": "Esci"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Un solo partner. Sei servizi premium.",
+      "title": "Tecnologia che <gold>protegge</gold>, <gold>vende</gold> e <gold>fa crescere</gold> la tua impresa.",
+      "subtitle": "CRM su misura, gestionali per noleggi auto, software legale in abbonamento e turismo dentale con clienti qualificati. Tutto sotto una sola alleanza.",
+      "ctaPrimary": "Scopri i servizi",
+      "ctaSecondary": "Parla con noi"
+    },
+    "services": {
+      "title": "Sei verticali. Una sola promessa: affidabilità.",
+      "subtitle": "Scegli il servizio che ti serve oggi. Aggiungi gli altri quando vorrai.",
+      "medical": {
+        "name": "CRM · Webpages",
+        "desc": "CRM su misura per ogni settore — studi medici, cliniche, qualsiasi azienda. Più siti web 100% customizzati, niente template pronti."
+      },
+      "auto": {
+        "name": "Gestionale Auto",
+        "desc": "Software per noleggio auto: flotta, prenotazioni, contratti, manutenzione, mobile inclusa."
+      },
+      "taxi": {
+        "name": "Taxi App",
+        "desc": "Applicazione mobile e backend per gestire flotte taxi in stile Bolt: corsa istantanea, autisti, pagamenti, mappa live, valutazioni."
+      },
+      "legal": {
+        "name": "Super Avokati",
+        "desc": "Suite SaaS per studi legali: pratiche, scadenze, calendario, ricerca documentale assistita. Affianca l'avvocato nella risoluzione di cause civili, penali e amministrative grazie all'intelligenza artificiale integrata di Super Avokati. <em>Attualmente disponibile solo per il diritto albanese — coming soon anche Italia.</em>"
+      },
+      "dental": {
+        "name": "Dental Tourism",
+        "desc": "Agenzia turismo dentale: portiamo pazienti qualificati internazionali alla tua clinica."
+      },
+      "learnMore": "Scopri di più",
+      "nabuel": {
+        "name": "Nabuel",
+        "desc": "Agente vocale AI multi-settore: risponde alle chiamate, fissa appuntamenti (reception 24/7) e fa chiamate in uscita per ricontattare lead e vendere contratti — hotel, dentisti, trapianto capelli, luce/gas."
+      }
+    },
+    "values": {
+      "eyebrow": "I nostri valori",
+      "title": "Perché scegliere AALA",
+      "subtitle": "Da Tirana al mondo: un'alleanza di servizi premium per imprese che non accettano compromessi.",
+      "legendAala": "AALA · 10 città",
+      "legendWorld": "Capitali mondiali",
+      "items": {
+        "trust": {
+          "title": "Affidabilità",
+          "desc": "Non vendiamo promesse. Quattro prodotti già operativi, anni di iterazioni con clienti veri. Quello che mostriamo, funziona — oggi."
+        },
+        "luxury": {
+          "title": "Qualità",
+          "desc": "L'eleganza è ciò che resta quando togli il superfluo. Software disegnati per essere intuitivi al primo sguardo, indispensabili al primo utilizzo."
+        },
+        "security": {
+          "title": "Sicurezza",
+          "desc": "Cifratura at-rest e in-transit, GDPR, backup geo-ridondanti, SSO unificato. La sicurezza dei vostri dati non è una caratteristica: è la fondazione."
+        },
+        "support": {
+          "title": "Supporto",
+          "desc": "Un solo nome, un solo numero. Niente bot, niente ticket smarriti. Quando vi serve aiuto, parlate con chi può davvero risolvere."
+        }
+      }
+    },
+    "cta": {
+      "badge": "In sintonia con la tua impresa",
+      "title": "Pronto a iniziare?",
+      "subtitle": "Una telefonata, un percorso su misura.",
+      "button": "Richiedi una consulenza"
+    }
+  },
+  "pricing": {
+    "title": "Prezzi trasparenti",
+    "subtitle": "Una-tantum per progetti custom, abbonamenti per i prodotti SaaS.",
+    "monthly": "Mensile",
+    "annual": "Annuale",
+    "annualSave": "risparmia 20%",
+    "perMonth": "/mese",
+    "perYear": "/anno",
+    "oneTime": "una tantum",
+    "buy": "Acquista",
+    "subscribe": "Abbonati",
+    "contact": "Contatta",
+    "popular": "Più richiesto"
+  },
+  "about": {
+    "eyebrow": "Chi siamo",
+    "titlePre": "Una ",
+    "titleHighlight": "alleanza",
+    "titlePost": " di competenze.",
+    "p1": "Quattro mondi che, a prima vista, non si parlano: studi medici, concessionarie d'auto, avvocati, cliniche di turismo dentale. Linguaggi diversi, ritmi diversi, regole diverse.",
+    "p2": "Eppure, scava sotto la superficie e troverai la stessa ossessione in ognuno di loro — <strong>governare il tempo</strong>, <strong>custodire la fiducia</strong>, <strong>mantenere il controllo</strong> quando le cose si complicano. È in quella radice comune che AALA è nata.",
+    "p3": "<brand>Albania Auto Legal Alliance</brand> non è uno studio di sviluppo software qualunque. È un'alleanza di competenze costruite negli anni, prodotto dopo prodotto, cliente dopo cliente. Quando un imprenditore ci sceglie, non firma per un fornitore: firma per un partner che parla quattro lingue professionali e ne capisce ognuna.",
+    "p4": "Lavoriamo a una regola semplice e implacabile: <em>niente template, niente soluzioni «quasi giuste» adattate al ribasso</em>. Ogni CRM, ogni gestionale, ogni applicazione legale, ogni sito web nasce per il contesto in cui dovrà vivere — e durare. La qualità non è un'aspirazione: è la condizione di esistenza.",
+    "p5": "<strong>Da Tirana al mondo</strong>, una sola promessa di servizio. Una sola persona di riferimento. Una sola alleanza che cresce insieme alla tua impresa. Perché chi gestisce qualcosa di importante non ha tempo per coordinare dieci fornitori — vuole sapere che dietro tutto c'è un nome, un volto, una mano sicura.",
+    "quote": "Costruiamo software che durano,\nnon che stupiscono e basta."
+  },
+  "contact": {
+    "eyebrow": "Contatti",
+    "titleHighlight": "Parliamone.",
+    "subtitle": "Raccontaci il tuo progetto. Ti rispondiamo entro 24 ore con un percorso su misura.",
+    "phone": "+39 — da configurare",
+    "location": "Tirana · Milano",
+    "form": {
+      "name": "Nome",
+      "company": "Azienda",
+      "email": "Email",
+      "phone": "Telefono",
+      "service": "Servizio di interesse",
+      "message": "Messaggio",
+      "send": "Invia messaggio",
+      "sending": "Invio...",
+      "received": "Messaggio ricevuto.",
+      "willReply": "Ti risponderemo entro 24 ore.",
+      "services": {
+        "medical": "CRM su misura (qualsiasi settore)",
+        "webpages": "Sito web customizzato",
+        "auto": "Gestionale Auto",
+        "taxi": "Taxi App (stile Bolt)",
+        "legal": "Super Avokati (studio legale)",
+        "dental": "Dental Tourism (clinica)",
+        "other": "Altro / Non so",
+        "nabuel": "Nabuel · Agente AI per chiamate"
+      }
+    }
+  },
+  "pricingPage": {
+    "eyebrow": "Prezzi",
+    "titlePre": "",
+    "titleHighlight": "Prezzi",
+    "titlePost": " trasparenti",
+    "subtitle": "Una-tantum per progetti custom. Abbonamenti mensili per i prodotti SaaS. Nessun costo nascosto, nessuna sorpresa."
+  },
+  "demoEntry": {
+    "eyebrow": "Accesso demo",
+    "titlePre": "Hai un ",
+    "titleHighlight": "codice?",
+    "subtitle": "Inserisci il codice che ti abbiamo inviato. Una volta avviato, l'accesso demo dura 12 ore.",
+    "placeholder": "ES-A4F8B2",
+    "submit": "Entra",
+    "verifying": "Verifico...",
+    "openingProduct": "Apro il prodotto...",
+    "fallbackLink": "Se non parte, click qui",
+    "noCodeYet": "Non hai ancora un codice?",
+    "requestAccess": "Richiedi accesso"
+  },
+  "legalPages": {
+    "privacy": {
+      "title": "Privacy Policy",
+      "lastUpdated": "Ultimo aggiornamento: da definire",
+      "placeholder1": "Questo è un placeholder. Il testo definitivo va redatto con un legale in base ai trattamenti effettivi (raccolta lead, pagamenti, cookies, servizi cloud Supabase/Stripe/Vercel).",
+      "placeholder2": "Punti minimi da coprire: titolare del trattamento, base giuridica, categorie di dati, conservazione, diritti GDPR, contatti DPO."
+    },
+    "terms": {
+      "title": "Termini di servizio",
+      "placeholder": "Placeholder — da redigere con consulenza legale."
+    },
+    "cookie": {
+      "title": "Cookie policy",
+      "placeholder": "Placeholder — da redigere e linkare a banner consensi."
+    }
+  },
+  "notFound": {
+    "label": "404",
+    "title": "Pagina non trovata",
+    "subtitle": "La pagina che stai cercando non esiste o è stata spostata.",
+    "back": "Torna alla home"
+  },
+  "footer": {
+    "rights": "Tutti i diritti riservati.",
+    "privacy": "Privacy",
+    "terms": "Termini",
+    "cookies": "Cookie"
+  },
+  "bolla": {
+    "title": "La Bolla di AALA",
+    "statusIdle": "assistente · sempre attiva",
+    "statusThinking": "sta pensando…",
+    "welcome": "Ciao! Sono la Bolla di AALA 🫧 Raccontami della tua impresa o chiedimi dei nostri servizi — capisco di cosa hai bisogno e ti guido.",
+    "placeholder": "Scrivi alla Bolla…",
+    "whatsappChip": "📱 Scrivici su WhatsApp",
+    "error": "Ops, ho perso il collegamento un istante. Riprova tra poco 🙂",
+    "listen": "Ascolta",
+    "voiceOn": "Lettura a voce attiva — tocca per spegnere",
+    "voiceOff": "Ascolta le risposte a voce",
+    "chips": {
+      "medical": "🩺 Studio medico",
+      "legal": "⚖️ Studio legale",
+      "auto": "🚗 Noleggio auto",
+      "dental": "🦷 Clinica dentale",
+      "taxi": "🚕 Taxi / NCC",
+      "webpages": "🌐 Sito web",
+      "nabuel": "🤖 Agente AI Nabuel"
+    },
+    "consultant": {
+      "open": "Super Consulente",
+      "openSub": "Analisi AI su misura della tua impresa",
+      "badge": "Super Consulente",
+      "title": "La tua consulenza, su misura.",
+      "intro": "Descrivimi la tua impresa e ti preparo un'analisi concreta: dove perdi tempo e denaro, quanto puoi risparmiare, e la soluzione giusta per te.",
+      "benefit1": "2-3 sprechi reali nel tuo modo di lavorare",
+      "benefit2": "Una stima di quanto puoi risparmiare",
+      "benefit3": "Il prodotto AALA giusto, e perché",
+      "haveCode": "Hai già un codice di accesso?",
+      "codePlaceholder": "CONS-XXXXXX",
+      "unlock": "Sblocca",
+      "unlocking": "Verifico…",
+      "or": "oppure",
+      "requestAccess": "Richiedi l'accesso",
+      "backToChat": "Torna alla chat",
+      "back": "Indietro",
+      "requestTitle": "Richiedi il tuo accesso",
+      "requestIntro": "Lasciaci due righe sulla tua impresa: ti inviamo un codice via email o WhatsApp.",
+      "fieldName": "Il tuo nome",
+      "fieldEmail": "La tua email",
+      "fieldBusiness": "Di cosa si occupa la tua impresa?",
+      "requestSend": "Invia richiesta",
+      "requestSending": "Invio…",
+      "requestInvalid": "Controlla i dati e riprova.",
+      "requestDoneTitle": "Richiesta ricevuta!",
+      "requestDone": "Ti inviamo il codice di accesso via email o WhatsApp a breve.",
+      "requestWhatsapp": "Richiedi su WhatsApp",
+      "welcome": "Sono il tuo Super Consulente 🧠 Raccontami della tua impresa: settore, dimensione, e dove senti di perdere tempo o denaro. Più mi dici, più l'analisi sarà precisa.",
+      "placeholder": "Descrivi la tua impresa…",
+      "exhaustedPlaceholder": "Domande esaurite — scrivici su WhatsApp",
+      "exhausted": "Hai usato tutte le domande di questo accesso. Per continuare l'analisi con un nostro consulente, scrivici su WhatsApp 👇",
+      "expired": "Questo accesso è scaduto. Richiedine uno nuovo o scrivici su WhatsApp 👇",
+      "invalidCode": "Codice non valido. Controlla e riprova.",
+      "questionsLeft": "{n, plural, one {# domanda rimasta} other {# domande rimaste}}",
+      "tierName": {
+        "smart": "Smart",
+        "medium": "Medium",
+        "max": "Max",
+        "unlimited": "Illimitato"
+      },
+      "questionsUnlimited": "domande illimitate"
+    }
+  },
+  "showcase": {
+    "openLiveDemo": "Apri demo dal vivo",
+    "requestDemoAccess": "Richiedi accesso demo",
+    "tryDemo": "Prova demo",
+    "seePricing": "Vedi i prezzi",
+    "haveCodeHint": "Hai già il codice? Click su \"Prova demo\" e incollalo."
+  },
+  "mockup": {
+    "medical": {
+      "agenda": "Agenda",
+      "patients": "Pazienti",
+      "records": "Cartelle",
+      "reminders": "Promemoria",
+      "today": "Oggi",
+      "visitsScheduled": "visite in agenda",
+      "search": "Cerca paziente, visita, prescrizione...",
+      "day": "Giorno",
+      "week": "Settimana",
+      "month": "Mese",
+      "newVisit": "Nuova visita"
+    },
+    "auto": {
+      "fleet": "Flotta",
+      "onTrip": "In viaggio",
+      "bookingToday": "Booking oggi",
+      "margin": "Margine",
+      "activeCars": "{n} auto attive",
+      "available": "Disponibile",
+      "maintenance": "Manutenzione",
+      "addCar": "Aggiungi auto"
+    },
+    "legal": {
+      "cases": "Pratiche",
+      "inProgress": "In corso",
+      "search": "Cerca pratica...",
+      "aiAssistant": "AI Assistant",
+      "docSearch": "Ricerca documentale",
+      "administrative": "Amministrativo",
+      "civil": "Civile",
+      "tax": "Tributario",
+      "labor": "Lavoro",
+      "caseRef": "Pratica",
+      "urgent": "Urgente",
+      "deadline": "Scadenza",
+      "documents": "{n} documenti",
+      "hearingCalendar": "Calendario udienze"
+    },
+    "dental": {
+      "leadsMonth": "Lead mese",
+      "conversion": "Conversione",
+      "pipelineValue": "Valore pipeline",
+      "callsToday": "Chiamate oggi",
+      "patientOrigin": "Provenienza pazienti",
+      "last30days": "Ultimi 30 giorni",
+      "newCol": "Nuovi",
+      "contacted": "Contattati",
+      "qualified": "Qualificati",
+      "won": "Vinti",
+      "treatment": "Impianti · 2 elementi"
+    },
+    "taxi": {
+      "ridesToday": "Corse oggi",
+      "activeDrivers": "Driver attivi",
+      "dailyRevenue": "Incasso giornaliero",
+      "avgRating": "Rating medio",
+      "driversInArea": "{n} driver in zona",
+      "liveRides": "Corse in tempo reale",
+      "driversOnline": "Driver online",
+      "onRide": "In corsa",
+      "available": "Disponibile",
+      "onBreak": "Pausa"
+    },
+    "nabuel": {
+      "callsToday": "Chiamate oggi",
+      "booked": "Prenotati",
+      "agentsActive": "Agenti attivi",
+      "avgDuration": "Durata media",
+      "liveCall": "Chiamata in corso",
+      "aiSpeaking": "AI sta parlando",
+      "transcript": "Certo, le fisso un appuntamento per giovedì alle 15. Le invio la conferma.",
+      "recentCalls": "Chiamate recenti",
+      "today": "oggi",
+      "qualified": "Qualificato",
+      "rescheduled": "Riprogrammato",
+      "agents": "Agenti vocali",
+      "inCall": "In chiamata",
+      "available": "Disponibile",
+      "funnelTitle": "Funnel chiamate",
+      "answered": "Risposte",
+      "qualifiedLabel": "Qualificati",
+      "bookedLabel": "Prenotati",
+      "insight": "Picco di chiamate 17-19: valuta un secondo agente."
+    }
+  },
+  "auth": {
+    "metaLogin": "Accedi",
+    "metaSignup": "Registrati",
+    "loginTitle": "Bentornato",
+    "loginSubtitle": "Accedi alla tua area cliente AALA.",
+    "signupTitle": "Crea il tuo account",
+    "signupSubtitle": "Bastano 30 secondi.",
+    "fullName": "Nome e cognome",
+    "email": "Email",
+    "password": "Password",
+    "loginSubmit": "Accedi",
+    "signupSubmit": "Crea account",
+    "loading": "Attendi...",
+    "newHere": "Nuovo qui?",
+    "createAccount": "Crea un account",
+    "haveAccount": "Hai già un account?",
+    "signIn": "Accedi",
+    "networkError": "Connessione non riuscita. Controlla la rete e riprova."
+  },
+  "checkout": {
+    "eyebrow": "Acquisto",
+    "chooseDuration": "Scegli la durata",
+    "m1": "1 mese",
+    "m3": "3 mesi",
+    "m6": "6 mesi",
+    "m12": "1 anno",
+    "total": "Totale",
+    "save": "Risparmi {amount} ({off})",
+    "perMonth": "≈ {amount}/mese · pagamento unico per il periodo",
+    "howToPay": "Come vuoi pagare",
+    "payCard": "Paga con carta",
+    "payCardDesc": "Carta di credito, debito o prepagata · pagamento sicuro",
+    "payManual": "Ordina e ti contattiamo",
+    "payManualDesc": "Confermi l'ordine, completiamo insieme il pagamento e attiviamo",
+    "secure": "Pagamento protetto · dati al sicuro",
+    "doneTitle": "Richiesta ricevuta!",
+    "doneBody": "Abbiamo registrato il tuo ordine per {plan}. Ti contatteremo a breve per completare il pagamento e attivare il servizio.",
+    "doneCta": "Vai all'area cliente",
+    "errCheckout": "Errore checkout",
+    "errOrder": "Errore ordine",
+    "err": "Errore",
+    "months": "{count, plural, one {# mese} other {# mesi}}"
+  },
+  "account": {
+    "eyebrow": "Area cliente",
+    "greetingPre": "Ciao,",
+    "welcome": "benvenuto",
+    "adminPanel": "Pannello Admin · Lead & Codici",
+    "backoffice": "Backoffice",
+    "products": "I tuoi prodotti",
+    "active": "Attivo",
+    "inactive": "Non attivo",
+    "open": "Apri prodotto",
+    "discover": "Scopri",
+    "subscriptions": "Abbonamenti",
+    "noSubscriptions": "Nessun abbonamento attivo.",
+    "expires": "scade",
+    "orders": "Ordini",
+    "noOrders": "Nessun ordine."
+  },
+  "demoLanding": {
+    "back": "Codice",
+    "accessConfirmed": "Accesso confermato",
+    "inside": "Sei <gold>dentro</gold>.",
+    "previewOf": "Stai vedendo l'anteprima di <b>{product}</b>.",
+    "liveYes": " Il prodotto è già online — clicca sotto per entrare nella demo dal vivo.",
+    "liveNo": " Il prodotto sarà disponibile in versione hostata a breve. Nel frattempo ti contatteremo per un onboarding personalizzato.",
+    "openLive": "Apri demo dal vivo",
+    "nextStep": "Prossimo passo",
+    "likedTitle": "Ti è piaciuto? Vedi i prezzi.",
+    "likedSubtitle": "Scegli un piano oppure parla con noi per una soluzione su misura.",
+    "seePackages": "Vedi pacchetti",
+    "talkToUs": "Parla con noi",
+    "needCode": "Per provare la demo dal vivo serve un codice di accesso.",
+    "requestAccess": "Richiedi accesso demo",
+    "haveCode": "Ho un codice"
+  },
+  "demoModal": {
+    "error": "Si è verificato un errore. Riprova.",
+    "close": "Chiudi",
+    "sentTitle": "Richiesta ricevuta.",
+    "sentBody": "Ti contatteremo entro 24 ore con un link demo personalizzato.",
+    "title": "Richiedi accesso demo",
+    "subtitle": "Compila il form, ti contattiamo entro 24 ore con credenziali e un piccolo onboarding.",
+    "name": "Nome",
+    "email": "Email",
+    "company": "Azienda / studio",
+    "notes": "Note (opzionale)",
+    "sending": "Invio...",
+    "submit": "Invia richiesta"
+  }
+}

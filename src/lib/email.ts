@@ -394,3 +394,25 @@ function escapeHtml(s: string) {
     c === '&' ? '&amp;' : c === '<' ? '&lt;' : c === '>' ? '&gt;' : c === '"' ? '&quot;' : '&#39;'
   );
 }
+
+
+/**
+ * Invia il codice a 6 cifre per il reset della password.
+ * NB: con Resend in modalità test (onboarding@resend.dev) arriva solo a info@aala.global;
+ * verificare il dominio aala.global su Resend per inviare ai clienti reali.
+ */
+export async function sendPasswordResetCode(opts: { to: string; code: string }) {
+  const resend = getResend();
+  const from = process.env.RESEND_FROM_EMAIL;
+  if (!resend || !from) return { ok: false, skipped: true } as const;
+  const subject = 'Codice di reset password · AALA';
+  const html = `<div style="font-family:Inter,Arial,sans-serif;max-width:480px;margin:auto">
+    <h2 style="color:#0f172a">Reimposta la tua password</h2>
+    <p style="color:#475569">Usa questo codice per reimpostare la password del tuo account AALA. Scade tra 15 minuti.</p>
+    <div style="font-size:32px;font-weight:800;letter-spacing:8px;color:#0f172a;background:#f8fafc;border-radius:12px;padding:16px;text-align:center">${opts.code}</div>
+    <p style="color:#94a3b8;font-size:12px;margin-top:16px">Se non hai richiesto tu il reset, ignora questa email.</p>
+  </div>`;
+  const text = `Il tuo codice di reset password AALA: ${opts.code} (valido 15 minuti).`;
+  const { error } = await resend.emails.send({ from, to: opts.to, subject, html, text });
+  return { ok: !error, error } as const;
+}
