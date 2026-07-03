@@ -3,14 +3,16 @@
 import { useEffect, useRef } from 'react';
 
 // ─────────────────────────────────────────────────────────────────────────
-// CursorFx — cometa dorata che segue il mouse + micro "big bang" di scintille
-// oro al click. Colori AALA (oro champagne su fondo crema). Canvas unico,
-// leggero (requestAnimationFrame). Disattivo su touch e con reduced-motion.
+// CursorFx — cometa dorata (movimento a "catena elastica" come nel taxi) che
+// segue il mouse + micro "big bang" di scintille oro al click. Colori AALA
+// (oro champagne su fondo crema). Canvas unico, leggero (RAF). Off su touch
+// e con reduced-motion.
 // ─────────────────────────────────────────────────────────────────────────
 
-// Palette oro AALA
 const GOLD = ['#B08A3E', '#C9A24B', '#D9B968', '#E7CE8E', '#8A6717'];
 const CHAMPAGNE = '#F3E7C9';
+const CHAIN = 10;         // punti della cometa (come i "6 dots" del taxi, più fluido)
+const LERP = 0.4;         // rincorsa: più alto = più scattante (stile taxi)
 
 function rgba(hex: string, a: number): string {
   const m = hex.replace('#', '').match(/.{1,2}/g)!;
@@ -26,7 +28,7 @@ export function CursorFx() {
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const coarse = window.matchMedia('(pointer: coarse)').matches;
-    if (reduce || coarse) return; // niente effetto su mobile / reduced motion
+    if (reduce || coarse) return;
 
     const canvas = ref.current!;
     const ctx = canvas.getContext('2d')!;
@@ -41,8 +43,8 @@ export function CursorFx() {
     window.addEventListener('resize', resize);
 
     const mouse = { x: W / 2, y: H / 2, seen: false };
-    const head = { x: W / 2, y: H / 2 };
-    const trail: { x: number; y: number }[] = [];
+    // catena elastica: ogni punto rincorre il precedente (come il taxi)
+    const chain = Array.from({ length: CHAIN }, () => ({ x: W / 2, y: H / 2 }));
     const parts: P[] = [];
 
     const onMove = (e: MouseEvent) => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.seen = true; };
@@ -51,55 +53,61 @@ export function CursorFx() {
     window.addEventListener('mousedown', onDown, { passive: true });
 
     function burst(x: number, y: number) {
-      const n = 13 + Math.floor(Math.random() * 5);
+      const n = 17 + Math.floor(Math.random() * 6);      // un po' più numerose
       for (let i = 0; i < n; i++) {
-        const a = (Math.PI * 2 * i) / n + Math.random() * 0.6;
-        const sp = 1.4 + Math.random() * 3.2;
-        parts.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: 0, max: 26 + Math.random() * 20, size: 1.3 + Math.random() * 2.2, color: GOLD[(Math.random() * GOLD.length) | 0] });
+        const a = (Math.PI * 2 * i) / n + Math.random() * 0.5;
+        const sp = 1.6 + Math.random() * 3.6;
+        parts.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: 0, max: 30 + Math.random() * 22, size: 1.7 + Math.random() * 2.8, color: GOLD[(Math.random() * GOLD.length) | 0] });
       }
-      // flash centrale champagne (bagliore breve)
-      parts.push({ x, y, vx: 0, vy: 0, life: 0, max: 16, size: 13, color: CHAMPAGNE, flash: true });
-      // anello sottile
-      parts.push({ x, y, vx: 0, vy: 0, life: 0, max: 20, size: 4, color: '#D9B968', flash: true });
+      parts.push({ x, y, vx: 0, vy: 0, life: 0, max: 18, size: 16, color: CHAMPAGNE, flash: true }); // flash centrale
+      parts.push({ x, y, vx: 0, vy: 0, life: 0, max: 24, size: 5, color: '#D9B968', flash: true });   // anello
     }
 
     let raf = 0;
     const frame = () => {
-      head.x += (mouse.x - head.x) * 0.16;
-      head.y += (mouse.y - head.y) * 0.16;
-      if (mouse.seen) { trail.push({ x: head.x, y: head.y }); if (trail.length > 16) trail.shift(); }
+      // catena: testa rincorre il mouse, gli altri rincorrono il precedente
+      chain[0].x += (mouse.x - chain[0].x) * LERP;
+      chain[0].y += (mouse.y - chain[0].y) * LERP;
+      for (let i = 1; i < CHAIN; i++) {
+        chain[i].x += (chain[i - 1].x - chain[i].x) * LERP;
+        chain[i].y += (chain[i - 1].y - chain[i].y) * LERP;
+      }
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, W, H);
 
-      // scia cometa (oro che sfuma)
       if (mouse.seen) {
-        for (let i = 0; i < trail.length; i++) {
-          const p = trail[i]; const t = i / trail.length; const r = (1.5 + t * 5) * 2.4;
+        // coda cometa: ogni anello della catena, dal grande (testa) al piccolo
+        for (let i = CHAIN - 1; i >= 0; i--) {
+          const p = chain[i]; const t = 1 - i / CHAIN; // 1 alla testa, →0 in coda
+          const r = 3 + t * 11;
           const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r);
-          g.addColorStop(0, rgba('#B08A3E', 0.13 * t));
+          g.addColorStop(0, rgba('#C9A24B', 0.16 * t + 0.02));
+          g.addColorStop(0.5, rgba('#B08A3E', 0.10 * t));
           g.addColorStop(1, rgba('#B08A3E', 0));
           ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, 6.2832); ctx.fill();
         }
-        // testa: alone oro + cuore champagne
-        const hg = ctx.createRadialGradient(head.x, head.y, 0, head.x, head.y, 15);
-        hg.addColorStop(0, rgba('#E7CE8E', 0.42));
-        hg.addColorStop(0.45, rgba('#B08A3E', 0.22));
+        // testa: alone oro caldo + cuore champagne
+        const h = chain[0];
+        const hg = ctx.createRadialGradient(h.x, h.y, 0, h.x, h.y, 17);
+        hg.addColorStop(0, rgba('#E7CE8E', 0.5));
+        hg.addColorStop(0.45, rgba('#B08A3E', 0.26));
         hg.addColorStop(1, rgba('#B08A3E', 0));
-        ctx.fillStyle = hg; ctx.beginPath(); ctx.arc(head.x, head.y, 15, 0, 6.2832); ctx.fill();
-        ctx.fillStyle = rgba('#FFF8E6', 0.85); ctx.beginPath(); ctx.arc(head.x, head.y, 2, 0, 6.2832); ctx.fill();
+        ctx.fillStyle = hg; ctx.beginPath(); ctx.arc(h.x, h.y, 17, 0, 6.2832); ctx.fill();
+        ctx.fillStyle = rgba('#FFF8E6', 0.9); ctx.beginPath(); ctx.arc(h.x, h.y, 2.3, 0, 6.2832); ctx.fill();
       }
 
-      // scintille del big-bang
+      // scintille del big-bang (un filo più visibili)
       for (let i = parts.length - 1; i >= 0; i--) {
         const p = parts[i];
         p.life++;
         const t = 1 - p.life / p.max;
         if (t <= 0) { parts.splice(i, 1); continue; }
         if (!p.flash) { p.x += p.vx; p.y += p.vy; p.vx *= 0.9; p.vy = p.vy * 0.9 + 0.04; }
-        const rr = p.flash ? p.size * t + 1 : (p.size * 2.2 + 1);
+        const rr = p.flash ? p.size * t + 1 : p.size * 2.3 + 1.5;
         const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, rr);
-        g.addColorStop(0, rgba(p.color, (p.flash ? 0.55 : 0.85) * t));
+        g.addColorStop(0, rgba(p.color, (p.flash ? 0.6 : 1.0) * t));
+        g.addColorStop(0.6, rgba(p.color, 0.45 * t));
         g.addColorStop(1, rgba(p.color, 0));
         ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, p.y, rr, 0, 6.2832); ctx.fill();
       }
