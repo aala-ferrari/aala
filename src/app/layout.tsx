@@ -7,7 +7,7 @@ const DESC =
 
 export const metadata: Metadata = {
   title: {
-    default: 'AALA — Software, AI e Servizi Premium per l\u2019Impresa in Albania',
+    default: 'AALA — Software, AI e Servizi Premium per l’Impresa in Albania',
     template: '%s · AALA',
   },
   description: DESC,
@@ -23,9 +23,9 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website', siteName: 'AALA', url: SITE.url, locale: 'it_IT',
-    title: 'AALA — Software, AI e Servizi Premium per l\u2019Impresa in Albania', description: DESC,
+    title: 'AALA — Software, AI e Servizi Premium per l’Impresa in Albania', description: DESC,
   },
-  twitter: { card: 'summary_large_image', title: 'AALA — Software e AI per l\u2019Impresa', description: DESC },
+  twitter: { card: 'summary_large_image', title: 'AALA — Software e AI per l’Impresa', description: DESC },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

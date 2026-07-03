@@ -10,11 +10,11 @@ const HOME_DESC =
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   return {
-    title: 'AALA — Software, AI e Servizi Premium per l\u2019Impresa in Albania',
+    title: 'AALA — Software, AI e Servizi Premium per l’Impresa in Albania',
     description: HOME_DESC,
     keywords: SITE_KEYWORDS,
     alternates: { canonical: canonical(params.locale, ''), languages: altLanguages('') },
-    openGraph: { type: 'website', siteName: 'AALA', url: canonical(params.locale, ''), title: 'AALA — Software e AI per l\u2019Impresa in Albania', description: HOME_DESC },
+    openGraph: { type: 'website', siteName: 'AALA', url: canonical(params.locale, ''), title: 'AALA — Software e AI per l’Impresa in Albania', description: HOME_DESC },
   };
 }
 
