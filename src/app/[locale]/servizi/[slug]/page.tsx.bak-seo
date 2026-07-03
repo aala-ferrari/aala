@@ -2,8 +2,6 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { VERTICAL_LIST } from '@/lib/products';
-import { verticalMeta, VERTICAL_SEO, altLanguages, canonical, type VerticalSeoKey } from '@/lib/seo';
-import { ServiceJsonLd } from '@/components/seo/StructuredData';
 import { ProductShowcase } from '@/components/sections/ProductShowcase';
 import { ServiceFeatures } from '@/components/sections/ServiceFeatures';
 import { PlanGrid } from '@/components/sections/PlanGrid';
@@ -20,25 +18,21 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const vertical = VERTICAL_LIST.find((v) => v.slug === params.slug);
   if (!vertical) return {};
-  const m = verticalMeta(vertical.key as VerticalSeoKey, params.locale);
-  const path = `/servizi/${vertical.slug}`;
+  // titolo/descrizione SEO tradotti dal catalogo, con fallback all'italiano
+  const t = await getTranslations({ locale: params.locale, namespace: 'catalog' });
+  const k = vertical.key;
   return {
-    title: m.title,
-    description: m.description,
-    keywords: VERTICAL_SEO[vertical.key as VerticalSeoKey]?.keywords,
-    alternates: { canonical: canonical(params.locale, path), languages: altLanguages(path) },
-    openGraph: { type: 'website', siteName: 'AALA', url: canonical(params.locale, path), title: m.title, description: m.description },
-    twitter: { card: 'summary_large_image', title: m.title, description: m.description },
+    title: t.has(`${k}.heroEyebrow`) ? t(`${k}.heroEyebrow`) : vertical.hero.eyebrow,
+    description: t.has(`${k}.heroSubtitle`) ? t(`${k}.heroSubtitle`) : vertical.hero.subtitle,
   };
 }
 
-export default function ServicePage({ params }: { params: { slug: string; locale: string } }) {
+export default function ServicePage({ params }: { params: { slug: string } }) {
   const vertical = VERTICAL_LIST.find((v) => v.slug === params.slug);
   if (!vertical) notFound();
 
   return (
     <>
-      <ServiceJsonLd vertical={vertical.key as VerticalSeoKey} locale={params.locale} slug={vertical.slug} />
       {/* Hero + grande mockup + dual CTA */}
       <ProductShowcase vertical={vertical} />
 

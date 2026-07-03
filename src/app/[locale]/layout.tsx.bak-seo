@@ -14,7 +14,6 @@ import { FloatingActions } from '@/components/layout/FloatingActions';
 import { BollaLauncher } from '@/components/bolla/BollaLauncher';
 import { LuxeBackground } from '@/components/layout/LuxeBackground';
 import { SmoothScroll } from '@/components/layout/SmoothScroll';
-import { GlobalJsonLd } from '@/components/seo/StructuredData';
 import { CursorFx } from '@/components/CursorFx';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
@@ -71,7 +70,6 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages} locale={locale}>
           <SmoothScroll />
           <CursorFx />
-          <GlobalJsonLd />
           <LuxeBackground />
           <Nav isLoggedIn={isLoggedIn} isAdmin={isAdmin} />
           <main className="relative">{children}</main>
