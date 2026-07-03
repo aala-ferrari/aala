@@ -182,7 +182,6 @@
     "back": "Torna alla home"
   },
   "footer": {
-    "owns": "Albania Auto Legal Alliance è proprietaria e coordina anche le piattaforme <sa>superavokati.ai</sa> e <nb>nabuel.com</nb>.",
     "rights": "Tutti i diritti riservati.",
     "privacy": "Privacy",
     "terms": "Termini",
@@ -436,6 +435,5 @@
     "notes": "Note (opzionale)",
     "sending": "Invio...",
     "submit": "Invia richiesta"
-  },
-  "catalog": {}
+  }
 }

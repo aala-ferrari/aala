@@ -44,17 +44,9 @@ export function Footer() {
       </div>
 
       <div className="border-t border-ink-line/70">
-        <div className="container-aala py-6">
-          <p className="mb-4 text-center text-[13px] leading-relaxed text-ink-soft">
-            {t.rich('owns', {
-              sa: (c) => <a href="https://superavokati.ai" className="font-medium text-gold hover:underline">{c}</a>,
-              nb: (c) => <a href="https://nabuel.com" className="font-medium text-gold hover:underline">{c}</a>,
-            })}
-          </p>
-          <div className="flex flex-col items-center justify-between gap-2 text-xs text-ink-mute md:flex-row">
-            <p>© {year} {tBrand('short')}. {t('rights')}</p>
-            <p>Auto · Legal · CRM · Medical · Webpages · Taxi App</p>
-          </div>
+        <div className="container-aala flex flex-col items-center justify-between gap-2 py-6 text-xs text-ink-mute md:flex-row">
+          <p>© {year} {tBrand('short')}. {t('rights')}</p>
+          <p>Auto · Legal · CRM · Medical · Webpages · Taxi App</p>
         </div>
       </div>
     </footer>
