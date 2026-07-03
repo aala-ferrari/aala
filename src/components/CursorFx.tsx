@@ -77,24 +77,28 @@ export function CursorFx() {
       ctx.clearRect(0, 0, W, H);
 
       if (mouse.seen) {
-        // coda cometa: ogni anello della catena, dal grande (testa) al piccolo
+        // coda cometa: palline oro PIENE e visibili, dalla testa (grande) alla coda (piccola)
         for (let i = CHAIN - 1; i >= 0; i--) {
           const p = chain[i]; const t = 1 - i / CHAIN; // 1 alla testa, →0 in coda
-          const r = 3 + t * 11;
-          const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r);
-          g.addColorStop(0, rgba('#C9A24B', 0.16 * t + 0.02));
-          g.addColorStop(0.5, rgba('#B08A3E', 0.10 * t));
+          const r = 2.5 + t * 6;
+          // alone morbido
+          const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 3.2);
+          g.addColorStop(0, rgba('#C9A24B', 0.32 * t + 0.06));
           g.addColorStop(1, rgba('#B08A3E', 0));
-          ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, 6.2832); ctx.fill();
+          ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, p.y, r * 3.2, 0, 6.2832); ctx.fill();
+          // pallina oro piena (ben visibile sul crema)
+          ctx.fillStyle = rgba('#9A7220', 0.6 * t + 0.22);
+          ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, 6.2832); ctx.fill();
         }
-        // testa: alone oro caldo + cuore champagne
+        // testa: alone oro caldo + cuore oro/champagne marcato
         const h = chain[0];
-        const hg = ctx.createRadialGradient(h.x, h.y, 0, h.x, h.y, 17);
-        hg.addColorStop(0, rgba('#E7CE8E', 0.5));
-        hg.addColorStop(0.45, rgba('#B08A3E', 0.26));
+        const hg = ctx.createRadialGradient(h.x, h.y, 0, h.x, h.y, 18);
+        hg.addColorStop(0, rgba('#E7CE8E', 0.6));
+        hg.addColorStop(0.45, rgba('#B08A3E', 0.34));
         hg.addColorStop(1, rgba('#B08A3E', 0));
-        ctx.fillStyle = hg; ctx.beginPath(); ctx.arc(h.x, h.y, 17, 0, 6.2832); ctx.fill();
-        ctx.fillStyle = rgba('#FFF8E6', 0.9); ctx.beginPath(); ctx.arc(h.x, h.y, 2.3, 0, 6.2832); ctx.fill();
+        ctx.fillStyle = hg; ctx.beginPath(); ctx.arc(h.x, h.y, 18, 0, 6.2832); ctx.fill();
+        ctx.fillStyle = rgba('#8A6717', 0.9); ctx.beginPath(); ctx.arc(h.x, h.y, 3.6, 0, 6.2832); ctx.fill();
+        ctx.fillStyle = rgba('#FFF8E6', 0.95); ctx.beginPath(); ctx.arc(h.x, h.y, 1.8, 0, 6.2832); ctx.fill();
       }
 
       // scintille del big-bang (un filo più visibili)
