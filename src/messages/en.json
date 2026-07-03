@@ -2,7 +2,7 @@
   "brand": {
     "name": "Albania Auto Legal Alliance",
     "short": "AALA",
-    "tagline": "Auto · Legal · CRM · Medical · Webpages · Taxi App — one alliance."
+    "tagline": "Auto · Legal · CRM · Medical · Webpages · Taxi App · AI Agent — one alliance."
   },
   "nav": {
     "services": "Services",
@@ -19,7 +19,7 @@
     "hero": {
       "eyebrow": "One partner. Six premium services.",
       "title": "Technology that <gold>protects</gold>, <gold>sells</gold> and <gold>grows</gold> your business.",
-      "subtitle": "Tailor-made CRMs, car rental management, subscription legal software, and dental tourism with qualified clients. All under one alliance.",
+      "subtitle": "Tailor-made CRMs, car rental management, subscription legal software, AI voice agents, and dental tourism with qualified clients. All under one alliance.",
       "ctaPrimary": "Explore services",
       "ctaSecondary": "Talk to us"
     },

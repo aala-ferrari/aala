@@ -53,7 +53,7 @@ export function Footer() {
           </p>
           <div className="flex flex-col items-center justify-between gap-2 text-xs text-ink-mute md:flex-row">
             <p>© {year} {tBrand('short')}. {t('rights')}</p>
-            <p>Auto · Legal · CRM · Medical · Webpages · Taxi App</p>
+            <p>Auto · Legal · CRM · Medical · Webpages · Taxi App · AI Agent</p>
           </div>
         </div>
       </div>
