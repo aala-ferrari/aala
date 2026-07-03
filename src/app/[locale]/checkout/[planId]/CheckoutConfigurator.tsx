@@ -108,14 +108,12 @@ export function CheckoutConfigurator({
     setLoading('card');
     setError(null);
     try {
-      // Registra l'ordine (assistito) con i dati del cliente, poi redirect al gateway banca.
-      const res = await fetch('/api/order/manual', {
+      const res = await fetch('/api/checkout/credins', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           planId: plan.id,
           months: hasDuration ? months : undefined,
-          method: 'card',
           customer: {
             firstName: cust.firstName,
             lastName: cust.lastName,
@@ -126,7 +124,25 @@ export function CheckoutConfigurator({
       });
       const json = await res.json();
       if (!res.ok) throw new Error(json.error ?? t('errOrder'));
-      // Redirect alla sessione del gateway bancario (come fanno le banche)
+
+      // Gateway Credins attivo → POST del form al 3D Secure della banca.
+      if (json.configured && json.action && json.fields) {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = json.action;
+        Object.entries(json.fields as Record<string, string>).forEach(([k, v]) => {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = k;
+          input.value = String(v);
+          form.appendChild(input);
+        });
+        document.body.appendChild(form);
+        form.submit();
+        return;
+      }
+
+      // Gateway non ancora attivo → placeholder (ordine già registrato come pending).
       const qs = new URLSearchParams({
         plan: plan.name,
         total: String(total),
