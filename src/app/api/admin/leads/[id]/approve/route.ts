@@ -75,6 +75,24 @@ export async function POST(
     );
   }
 
+  // ---- legal: provisiona l'account demo (6h) nel container Super Avokati ----
+  // AALA genera il codice, ma Super Avokati e un container separato con login
+  // proprio: senza questo passo il codice inviato darebbe "credenziali non valide".
+  if (vertical === 'legal') {
+    try {
+      await fetch('http://127.0.0.1:5050/api/provision-demo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Provision-Secret': process.env.DEMO_PROVISION_SECRET || '',
+        },
+        body: JSON.stringify({ email: lead.email, code, hours: 6 }),
+      });
+    } catch {
+      // best-effort: se fallisce, l'account si puo creare a mano da CLI
+    }
+  }
+
   // ---- invia email (best-effort, non blocca il flusso) ----
   const emailResult = await sendDemoCodeEmail({
     to: lead.email,
