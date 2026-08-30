@@ -1,0 +1,7 @@
+30 3 * * * /opt/backup-aala.sh >> /var/log/aala-backup.log 2>&1
+0 9 1 * * /root/sa-backups/check-decisions.sh
+0 4 * * * /opt/backup-super-avvocato-db.sh >> /var/log/sa-db-backup.log 2>&1
+10 4 * * * /opt/backup-crm-db.sh >> /var/log/crm-db-backup.log 2>&1
+*/5 * * * * /bin/bash /opt/uptime-monitor.sh >> /var/log/uptime-monitor.log 2>&1
+*/2 * * * * /usr/bin/python3 /var/www/apps/taxi/backend/tools/muovi_test.py >/dev/null 2>&1
+50 1-23/2 * * * curl -s -m 280 -X POST "http://127.0.0.1:8018/api/cron/refresh?key=<CHIAVE — sta nel crontab sul VPS>&count=10" >> /var/log/korauto-refresh.log 2>&1
