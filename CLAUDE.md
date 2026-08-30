@@ -15,6 +15,44 @@ Palette **cream + oro + navy** (mai dark/nero). Cuore visivo = la **"bolla di Zh
 - Illuminazione bolla = morbida (no spotlight forti che appiattiscono il morphing)
 - Hero = layout split: testo a sinistra, bolla a destra (mai testo sopra la bolla)
 
+## ⚠️ Middleware e lingue — NON rimettere `next-intl/middleware` (31 ago 2026)
+
+**Il sito era giù su OGNI pagina e per OGNI visitatore, e nessuno se n'era
+accorto.** Scoperto per caso aggiungendo un link; Googlebot prendeva 500.
+
+`next-intl/middleware` costruiva URL **assoluti** su un'origine che Next si
+inventa da sé — **`localhost:3000`** — invece che sull'host della richiesta.
+Due effetti, entrambi misurati:
+1. chi apriva `https://aala.global/` veniva rimandato a
+   `https://localhost:3000/it`, cioè a casa propria;
+2. sulle pagine con prefisso lingua la riscrittura sembrava a Next
+   **esterna** (origine ≠ quella della richiesta) → la proxava **verso sé
+   stesso** → anello → timeout 30s → **500 su tutto il sito**.
+
+**Rimedi che NON funzionano** (provati tutti, uno per uno): `Host` corretto ·
+`X-Forwarded-Host` · `__NEXT_PRIVATE_ORIGIN`. E la macchina è sana:
+`crm-medical` ha un middleware suo e gira.
+
+Ora `src/middleware.ts` è nostro: sceglie la lingua (**cookie > header paese >
+Accept-Language > `it`**) e costruisce il redirect **dagli header** (`host` +
+`x-forwarded-proto`), dove l'host vero c'è. Un `Location` **relativo** sarebbe
+più pulito e legittimo per l'HTTP, ma **Next lo rifiuta** con
+`ERR_INVALID_URL`: lo analizza come URL assoluto.
+
+**⚠️ LA TRAPPOLA DENTRO LA TRAPPOLA.** Togliendo quel middleware si perde
+l'header **`X-NEXT-INTL-LOCALE`**, che è il modo in cui next-intl comunica la
+lingua a `getRequestConfig` → `requestLocale`. Senza, si cade sulla lingua
+predefinita e **tutte e sei le lingue servono la stessa pagina italiana**:
+URL giusto, `<title>` giusto (viene da `lib/seo.ts`, non dai messaggi) e
+**contenuto sbagliato** — il modo peggiore di rompersi, perché sembra
+funzionare. Il middleware ora lo imposta a mano. Verifica: le sei lingue
+devono avere `<h1>` e **dimensioni diverse** (`/prezzi`: 130k it · 140k sq ·
+138k en · 140k de · 141k fr · 140k es).
+
+`src/i18n-config.ts` tiene lingue e lingua predefinita **senza dipendenze**:
+il middleware gira nel runtime edge e non deve tirarsi dentro
+`next-intl/server` né i file di messaggi. `i18n.ts` riesporta da lì.
+
 ## Struttura
 ```
 src/
