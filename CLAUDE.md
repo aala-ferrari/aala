@@ -153,8 +153,41 @@ Trovato e chiuso: **Docker scavalca UFW** → i container `taxi_postgres` (5432)
 - Già attivi: UFW (solo 22/80/443), unattended-upgrades, Supabase su 127.0.0.1.
 - **SSH**: scelta utente = password + fail2ban (no key-only, per non rischiare lockout). DA FARE: 2 update sicurezza apt (serve reboot pianificato). Dettagli in memoria [[security-hardening-vps]].
 
+## 📡 Monitoraggio — «risponde» ≠ «funziona» (31/08/2026)
+
+`/opt/uptime-monitor.sh`, cron ogni 5 min. **Copia versionata in
+`deploy/ops/`** (con il suo README: com'è fatto, come si aggiunge un
+controllo).
+
+⚠️ **Perché è stato riscritto.** Accettava qualunque `2xx`/`3xx` **senza
+seguire il redirect**, ed è rimasto cieco su **due siti irraggiungibili
+insieme** (aala.global e auto.aala.global → `localhost`). Nel log c'è la
+prova: `2026-08-25 03:25 auto.aala.global: down -> up (HTTP 307)`. Quel
+«tornato su» **era** il redirect verso localhost: il sito è rimasto giù
+**sei giorni** con l'email verde già mandata.
+
+Ora **quattro prove**: `200` seguendo i redirect · si finisce **sul dominio
+giusto** (è questa che prende il redirect a localhost) · **marcatore** nel
+corpo · **dimensione minima**. Più: secondo tentativo dopo 20s, `flock`
+contro i giri accavallati, e il **motivo** dentro l'email. **9 controlli**
+(aggiunte una pagina interna di AALA e `superavokati.ai/legale`: la home può
+stare in piedi mentre il resto è a terra).
+
+`send_alert` **non è più muto**: se Resend rifiuta lo scrive nel log e
+`test` dice `❌` invece di `✅`. Un allarme che fallisce in silenzio è lo
+stesso difetto un livello più su — ed era già successo, quando il dominio
+non era ancora verificato in Resend.
+
+Prova: `/opt/uptime-monitor.sh verbose` · email di prova:
+`/opt/uptime-monitor.sh test`.
+
+**Quando aggiungi un controllo**, il marcatore si sceglie **guardando la
+pagina vera**, e poi si verifica che il controllo morda (marcatore
+impossibile → deve fallire). Un controllo che non fallisce mai è com'era
+prima.
+
 ## 🛡️ Backup (26/06/2026)
-`/opt/backup-aala.sh` (cron giornaliero 03:30): dump DB supabase/taxi/auto + sqlite super-avvocato + .env/secrets + nginx + **codice Nabuel** (gateway src/public + homepage) → `/opt/backups/aala-FULL-<TS>.tar.gz` (rotazione 10). Copia off-site sul Mac `Desktop/multi service/_backups/`. Ripristino DB: `cat supabase_all.sql | docker exec -i supabase-db psql -U postgres`.
+`/opt/backup-aala.sh` (cron giornaliero 03:30): dump DB supabase/taxi/auto + sqlite super-avvocato + .env/secrets + nginx + **codice Nabuel** (gateway src/public + homepage) + **`ops-scripts/`** (monitor, gli script di backup stessi, ripristino, permessi, `docker-port-guard.sh`, il **crontab** e `sshd_config.d`) — buco chiuso il 31 ago: prima dopo un disastro si recuperavano i dati e **non il modo di rimetterli a posto**, perché la procedura di ripristino sarebbe sparita insieme a ciò che deve ripristinare → `/opt/backups/aala-FULL-<TS>.tar.gz` (rotazione 10). Copia off-site sul Mac `Desktop/multi service/_backups/`. Ripristino DB: `cat supabase_all.sql | docker exec -i supabase-db psql -U postgres`.
 
 ## 💾 Salvataggio versione (25/06/2026) — tag `live-20260625`
 Commit+tag su VPS: **AALA** `8194fb6` (Bolla responsive, catalog it fallback) · **Taxi** (domini, demo, responsive, lato cliente, OwnerAssistant) · **Super Avokati** = immagine Docker **`super-avvocato:v9.5`** (+ `run.sh`). ⚠️ Commit LOCALI sul VPS (non pushati a origin): NON fare `git reset --hard origin/main` su AALA senza prima allineare. pm2 `save` + startup → riparte al reboot.
