@@ -60,6 +60,21 @@ Tutto online su **UN VPS: `root@31.220.90.246`** (Ubuntu, nginx, SSH dal Mac del
 
 **🧠 Auth cervelli Claude CLI (IMPORTANTE):** tutti i cervelli (Bolla, Consulente, Nabuel, Taxi OwnerAssistant, Super Avokati) si autenticano col **token lungo `CLAUDE_CODE_OAUTH_TOKEN`** (`sk-ant-oat...`, ~1 anno) nei rispettivi `.env` — NON col file `~/.claude/.credentials.json` (login interattivo, scade in giorni → quelli su VPS sono scaduti ma irrilevanti). Super Avokati (container) lo riceve via `--env-file /opt/super-avvocato.env` (600). Se un cervello dà **401**: il token oat è scaduto → serve nuovo `claude setup-token` dell'utente + aggiornarlo nei `.env`. Dettaglio in memoria [[super-avokati-models]].
 
+**🧠 Quale modello gira (fissato il 30 ago 2026):** tutti i cervelli sono
+ancorati a **`claude-opus-5`**. Bolla e Super Consulente leggono `BOLLA_MODEL`
+(in `.env.local`); Nabuel `NABUEL_MODEL`/`_SMART` (+ `NABUEL_MODEL_FAST`
+= `claude-sonnet-5`); il Taxi `TAXI_MODEL`.
+**⚠️ Il fallback nel CODICE deve dire la stessa cosa dell'env.** Erano fermi a
+`claude-opus-4-8`: cambiando solo l'ambiente, alla prima perdita di un `.env` —
+o su una macchina nuova — i prodotti sarebbero tornati al modello vecchio **in
+silenzio**. Per il Taxi va toccato anche `dist/`: è quello che gira, `src/` è
+quello che sopravvive al prossimo build.
+**⚠️ Costo misurato**: Opus 5 impiega **17-19s** contro i **7s** di Opus 4.8 su
+una domanda tipo, e la Bolla ha un **timeout di 45s** oltre il quale ripiega su
+risposte a regole (`source: "rules"` invece di `"claude"`). Misurato dopo il
+cambio: Bolla 10-14s, Nabuel 9-19s, sempre col modello. **Se la Bolla comincia a
+rispondere con frasi generiche, guardare per primo quel timeout.**
+
 **Database:** **AALA + Nabuel** usano **Supabase self-hosted** sul VPS (Docker, `/opt/supabase-nabuel`, kong su 127.0.0.1:8000, secrets in `/opt/supabase-nabuel/.secrets.json`) — NON più Supabase cloud. nginx aala.global/nabuel.com proxano `^/(auth|rest|realtime)/v1/`→kong. auto ha un postgres docker dedicato (`auto_postgres`); taxi ha `taxi_postgres`; super-avvocato gira in container con SQLite.
 
 **Domini live:** aala.global · nabuel.com (6° servizio, prodotto vero deployato) · superavokati.ai · auto/crm/taxi.aala.global · api.taxi.aala.global · taxi.aala.global/app (cliente).
