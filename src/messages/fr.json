@@ -188,6 +188,10 @@
     "terms": "Conditions",
     "cookies": "Cookies"
   },
+  "legalDocsNote": {
+    "text": "Avant de signer, vous pouvez lire les conditions d'utilisation, la politique de confidentialité et l'accord relatif au traitement des données de vos clients.",
+    "link": "Documents juridiques de Super Avokati"
+  },
   "bolla": {
     "title": "La Bulle d'AALA",
     "statusIdle": "assistante · toujours active",

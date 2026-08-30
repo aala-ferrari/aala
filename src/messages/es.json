@@ -188,6 +188,10 @@
     "terms": "Términos",
     "cookies": "Cookies"
   },
+  "legalDocsNote": {
+    "text": "Antes de firmar puedes leer las condiciones de uso, la información sobre privacidad y el acuerdo sobre el tratamiento de los datos de tus clientes.",
+    "link": "Documentos legales de Super Avokati"
+  },
   "bolla": {
     "title": "La Burbuja de AALA",
     "statusIdle": "asistente · siempre activa",

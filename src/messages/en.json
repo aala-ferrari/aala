@@ -188,6 +188,10 @@
     "terms": "Terms",
     "cookies": "Cookies"
   },
+  "legalDocsNote": {
+    "text": "Before signing, you can read the terms of use, the privacy notice and the agreement covering your own clients' data.",
+    "link": "Super Avokati legal documents"
+  },
   "bolla": {
     "title": "The AALA Bubble",
     "statusIdle": "assistant · always on",

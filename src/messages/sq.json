@@ -188,6 +188,10 @@
     "terms": "Kushtet",
     "cookies": "Cookie"
   },
+  "legalDocsNote": {
+    "text": "Para se të nënshkruash, mund të lexosh kushtet e përdorimit, informacionin mbi privatësinë dhe marrëveshjen për përpunimin e të dhënave të klientëve të tu.",
+    "link": "Dokumentet ligjore të Super Avokatit"
+  },
   "bolla": {
     "title": "Flluska e AALA-s",
     "statusIdle": "asistente · gjithmonë aktive",

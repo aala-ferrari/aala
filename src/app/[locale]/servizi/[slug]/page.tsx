@@ -8,6 +8,7 @@ import { ProductShowcase } from '@/components/sections/ProductShowcase';
 import { ServiceFeatures } from '@/components/sections/ServiceFeatures';
 import { PlanGrid } from '@/components/sections/PlanGrid';
 import { CallToAction } from '@/components/sections/CallToAction';
+import { LegalDocsNote } from '@/components/sections/LegalDocsNote';
 
 export function generateStaticParams() {
   return VERTICAL_LIST.map((v) => ({ slug: v.slug }));
@@ -49,6 +50,10 @@ export default function ServicePage({ params }: { params: { slug: string; locale
       <div id="prezzi">
         <PlanGrid vertical={vertical} />
       </div>
+
+      {/* Solo il legale: i suoi documenti si leggono prima di firmare.
+          Nel footer sarebbe su ogni pagina, anche taxi e dental — la' e' rumore. */}
+      {vertical.key === 'legal' && <LegalDocsNote locale={params.locale} />}
 
       <CallToAction />
     </>

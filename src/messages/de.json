@@ -188,6 +188,10 @@
     "terms": "AGB",
     "cookies": "Cookies"
   },
+  "legalDocsNote": {
+    "text": "Vor der Unterzeichnung können Sie die Nutzungsbedingungen, die Datenschutzerklärung und die Vereinbarung zur Verarbeitung der Daten Ihrer Mandanten lesen.",
+    "link": "Rechtsdokumente von Super Avokati"
+  },
   "bolla": {
     "title": "Die AALA-Blase",
     "statusIdle": "Assistentin · immer aktiv",

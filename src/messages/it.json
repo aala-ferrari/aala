@@ -188,6 +188,10 @@
     "terms": "Termini",
     "cookies": "Cookie"
   },
+  "legalDocsNote": {
+    "text": "Prima di firmare puoi leggere le condizioni d'uso, l'informativa privacy e l'accordo sul trattamento dei dati dei tuoi clienti.",
+    "link": "Documenti legali di Super Avokati"
+  },
   "bolla": {
     "title": "La Bolla di AALA",
     "statusIdle": "assistente · sempre attiva",
