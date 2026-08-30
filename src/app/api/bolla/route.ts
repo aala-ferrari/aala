@@ -6,7 +6,7 @@ import { createSupabaseServerClient } from '@/lib/supabase/server';
 export const runtime = 'nodejs';
 export const maxDuration = 60;
 
-const MODEL = process.env.BOLLA_MODEL || 'claude-opus-4-8';
+const MODEL = process.env.BOLLA_MODEL || 'claude-opus-5';
 
 interface ChatMessage {
   role: 'user' | 'assistant';

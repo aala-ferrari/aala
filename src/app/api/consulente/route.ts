@@ -7,7 +7,7 @@ import { isUnlimited } from '@/lib/demo-codes';
 export const runtime = 'nodejs';
 export const maxDuration = 120;
 
-const MODEL = process.env.BOLLA_MODEL || 'claude-opus-4-8';
+const MODEL = process.env.BOLLA_MODEL || 'claude-opus-5';
 
 interface ChatMessage {
   role: 'user' | 'assistant';
