@@ -56,6 +56,8 @@ CHECKS=(
   "api.taxi.aala.global|https://api.taxi.aala.global/health|api.taxi.aala.global|\"ok\":true|10"
   "crm.aala.global|https://crm.aala.global|crm.aala.global|Medical Albania|3000"
   "nabuel.com|https://nabuel.com|nabuel.com|Nabuel|3000"
+  "corea.aala.global|https://corea.aala.global|corea.aala.global|encar|40000"
+  "corea.aala.global/cars|https://corea.aala.global/sq/cars|corea.aala.global|encar|40000"
 )
 
 send_alert() {

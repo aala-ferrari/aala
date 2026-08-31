@@ -181,10 +181,25 @@ non era ancora verificato in Resend.
 Prova: `/opt/uptime-monitor.sh verbose` · email di prova:
 `/opt/uptime-monitor.sh test`.
 
+**11 controlli** (31 ago): aggiunto **corea.aala.global** (KorAuto), che non
+era sorvegliato da nessuno pur essendo un prodotto vivo con dominio pubblico.
+
 **Quando aggiungi un controllo**, il marcatore si sceglie **guardando la
 pagina vera**, e poi si verifica che il controllo morda (marcatore
 impossibile → deve fallire). Un controllo che non fallisce mai è com'era
 prima.
+
+⚠️ **La prova del marcatore va fatta con lo STESSO grep del controllo.** Ho
+scelto `Encar` con un `grep -i` e l'ho messo in un confronto
+case-sensitive: sulla pagina del catalogo `Encar` maiuscolo non compare mai
+(le auto arrivano dal CDN `encar` minuscolo) e il monitor ha segnalato un
+guasto inesistente — con email. Misurare con uno strumento diverso da quello
+che deciderà è misurare un'altra cosa.
+
+Il marcatore migliore è quello che **sparisce quando il sito si rompe per
+davvero**: per KorAuto sono gli indirizzi delle foto delle auto (`encar`,
+276 occorrenze sul catalogo), non una scritta dell'intestazione fissa —
+quella resterebbe lì anche con il catalogo vuoto.
 
 ## 🛡️ Backup (26/06/2026)
 `/opt/backup-aala.sh` (cron giornaliero 03:30): dump DB supabase/taxi/auto + sqlite super-avvocato + .env/secrets + nginx + **codice Nabuel** (gateway src/public + homepage) + **`ops-scripts/`** (monitor, gli script di backup stessi, ripristino, permessi, `docker-port-guard.sh`, il **crontab** e `sshd_config.d`) — buco chiuso il 31 ago: prima dopo un disastro si recuperavano i dati e **non il modo di rimetterli a posto**, perché la procedura di ripristino sarebbe sparita insieme a ciò che deve ripristinare → `/opt/backups/aala-FULL-<TS>.tar.gz` (rotazione 10). Copia off-site sul Mac `Desktop/multi service/_backups/`. Ripristino DB: `cat supabase_all.sql | docker exec -i supabase-db psql -U postgres`.
