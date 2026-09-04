@@ -44,6 +44,7 @@ interface Lead {
   message: string;
   status: string;
   created_at: string;
+  tessera_file?: string | null;
 }
 
 interface DemoCode {
@@ -278,6 +279,25 @@ export function LeadsTable({
                     <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-soft">
                       {lead.message}
                     </p>
+                  )}
+
+                  {/* Tessera dell'ordine: chi la allega chiede l'attivazione
+                      prioritaria — verifica il documento prima di approvare */}
+                  {lead.tessera_file ? (
+                    <a
+                      href={`/api/admin/leads/tessera/${lead.tessera_file}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-3 inline-flex items-center gap-1.5 rounded-lg border border-gold/40 bg-gold/10 px-3 py-1.5 text-xs font-semibold text-ink transition hover:border-gold hover:bg-gold/20"
+                    >
+                      🪪 Tessera dell'ordine allegata — verifica
+                    </a>
+                  ) : (
+                    lead.service === 'legal' && (
+                      <p className="mt-3 text-[10px] uppercase tracking-widest text-ink-mute">
+                        Senza tessera — verifica manuale
+                      </p>
+                    )
                   )}
                 </div>
 

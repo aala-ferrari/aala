@@ -31,6 +31,7 @@ export async function sendLeadNotificationEmail(lead: {
   message: string;
   locale?: string | null;
   source?: string | null;
+  tessera?: boolean;
 }): Promise<{ sent: boolean; skipped?: string; error?: string }> {
   const to = process.env.ADMIN_NOTIFY_EMAIL || 'info@aala.global';
   const from = process.env.RESEND_FROM_EMAIL;
@@ -53,6 +54,7 @@ export async function sendLeadNotificationEmail(lead: {
       lead.company ? ['Azienda', lead.company] : null,
       ['Servizio', serviceLabel],
       lead.locale ? ['Lingua', lead.locale] : null,
+      lead.tessera ? ['Tessera ordine', 'ALLEGATA \u2014 verificala nel pannello'] : null,
     ].filter(Boolean) as [string, string][]
   );
 
