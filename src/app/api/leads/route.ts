@@ -61,28 +61,33 @@ async function salvaTessera(file: File): Promise<string | null> {
   return nome;
 }
 
+interface EsitoTessera {
+  eshte_tesere?: boolean;
+  profesioni?: string;
+  duket_si?: string;
+  [k: string]: unknown;
+}
+
 // Il cervello di Super Avokati GUARDA il documento e dice se è davvero una
-// tessera professionale (avvocato/notaio) o un documento qualsiasi — una
-// carta d'identità non passa come tessera. Fire-and-forget: l'esito arriva
-// nel pannello quando è pronto; a decidere resta sempre l'admin.
-async function verificaTessera(leadId: string, nomeFile: string, file: File): Promise<void> {
+// tessera professionale (avvocato/notaio) o un documento qualsiasi. La
+// verifica è IN LINEA: il video/la richiesta passano solo a tessera vera —
+// un'immagine qualunque viene respinta subito, prima di salvare il lead.
+// Ritorna null su guasto tecnico (timeout/CLI occupato): in quel caso il
+// dubbio va a favore del cliente e decide l'admin dal pannello.
+async function verificaTessera(nomeFile: string, file: File): Promise<EsitoTessera | null> {
   const segreto = process.env.DEMO_PROVISION_SECRET;
-  if (!segreto) return;
+  if (!segreto) return null;
   const fd = new FormData();
   fd.append('tessera', new Blob([await file.arrayBuffer()], { type: file.type }), nomeFile);
   const res = await fetch('http://127.0.0.1:5050/api/verify-tessera', {
     method: 'POST',
     headers: { 'X-Provision-Secret': segreto },
     body: fd,
-    signal: AbortSignal.timeout(180_000),
+    signal: AbortSignal.timeout(45_000),
   });
   const esito = await res.json().catch(() => null);
-  if (!res.ok || !esito) throw new Error(esito?.error ?? `verify ${res.status}`);
-  const admin = createSupabaseServiceClient();
-  await admin
-    .from('leads')
-    .update({ tessera_check: JSON.stringify(esito) })
-    .eq('id', leadId);
+  if (!res.ok || !esito?.ok) return null;
+  return esito as EsitoTessera;
 }
 
 export async function POST(req: Request) {
@@ -112,6 +117,7 @@ export async function POST(req: Request) {
   }
 
   let tesseraFile: string | null = null;
+  let tesseraCheck: string | null = null;
   if (tessera) {
     tesseraFile = await salvaTessera(tessera).catch(() => null);
     if (!tesseraFile) {
@@ -120,29 +126,33 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
+    // Verifica IN LINEA: se il cervello dice che NON è una tessera, il lead
+    // non si salva e il chiamante riceve il verdetto (il form spiega e fa
+    // riprovare). File farlocco eliminato subito dal disco.
+    const esito = await verificaTessera(tesseraFile, tessera).catch(() => null);
+    if (esito && esito.eshte_tesere === false) {
+      const { unlink } = await import('fs/promises');
+      await unlink(path.join(TESSERA_DIR, tesseraFile)).catch(() => {});
+      return NextResponse.json({
+        ok: false,
+        tessera_ok: false,
+        duket_si: esito.duket_si ?? 'tjeter',
+      });
+    }
+    if (esito) tesseraCheck = JSON.stringify(esito);
   }
 
   const supabase = createSupabaseServiceClient();
   const { source, ...lead } = parsed.data;
-  const { data: inserito, error } = await supabase
-    .from('leads')
-    .insert({
-      ...lead,
-      source: source ?? 'contact-form',
-      tessera_file: tesseraFile,
-    })
-    .select('id')
-    .single();
+  const { error } = await supabase.from('leads').insert({
+    ...lead,
+    source: source ?? 'contact-form',
+    tessera_file: tesseraFile,
+    tessera_check: tesseraCheck,
+  });
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
-  }
-
-  // Verifica della tessera in background — non facciamo aspettare il cliente.
-  if (tessera && tesseraFile && inserito?.id) {
-    void verificaTessera(inserito.id, tesseraFile, tessera).catch(() => {
-      /* senza esito il pannello mostra "in verifica" e decide l'admin */
-    });
   }
 
   // Notifica in tempo reale all'admin (info@aala.global) — fire-and-forget:
