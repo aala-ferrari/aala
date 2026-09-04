@@ -45,6 +45,28 @@ interface Lead {
   status: string;
   created_at: string;
   tessera_file?: string | null;
+  tessera_check?: string | null;
+}
+
+// Esito della verifica AI della tessera (JSON in leads.tessera_check).
+// Assistivo: il badge aiuta, l'admin decide.
+interface TesseraCheck {
+  eshte_tesere?: boolean;
+  profesioni?: string;
+  emri?: string;
+  numri?: string;
+  leshuar_nga?: string;
+  duket_si?: string;
+  konfidenca?: number;
+}
+
+function parseTesseraCheck(raw?: string | null): TesseraCheck | null {
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw) as TesseraCheck;
+  } catch {
+    return null;
+  }
 }
 
 interface DemoCode {
@@ -281,21 +303,26 @@ export function LeadsTable({
                     </p>
                   )}
 
-                  {/* Tessera dell'ordine: chi la allega chiede l'attivazione
-                      prioritaria — verifica il documento prima di approvare */}
+                  {/* Tessera dell'ordine: il cervello la legge e dice se è
+                      davvero una tessera professionale — l'admin decide */}
                   {lead.tessera_file ? (
-                    <a
-                      href={`/api/admin/leads/tessera/${lead.tessera_file}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-3 inline-flex items-center gap-1.5 rounded-lg border border-gold/40 bg-gold/10 px-3 py-1.5 text-xs font-semibold text-ink transition hover:border-gold hover:bg-gold/20"
-                    >
-                      🪪 Tessera dell'ordine allegata — verifica
-                    </a>
+                    <div className="mt-3 flex flex-wrap items-center gap-2">
+                      <a
+                        href={`/api/admin/leads/tessera/${lead.tessera_file}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-lg border border-gold/40 bg-gold/10 px-3 py-1.5 text-xs font-semibold text-ink transition hover:border-gold hover:bg-gold/20"
+                      >
+                        🪪 Apri la tessera
+                      </a>
+                      <TesseraEsito check={parseTesseraCheck(lead.tessera_check)} />
+                    </div>
                   ) : (
                     lead.service === 'legal' && (
                       <p className="mt-3 text-[10px] uppercase tracking-widest text-ink-mute">
-                        Senza tessera — verifica manuale
+                        {lead.message.includes('PROKUROR')
+                          ? 'Procuratore — senza documento (incontro di persona)'
+                          : 'Senza tessera — verifica manuale'}
                       </p>
                     )
                   )}
@@ -602,6 +629,38 @@ function ConsultantPanel({
         Annulla
       </button>
     </div>
+  );
+}
+
+function TesseraEsito({ check }: { check: TesseraCheck | null }) {
+  if (!check) {
+    return (
+      <span className="inline-flex items-center gap-1 rounded-full bg-canvas-warm px-2.5 py-1 text-[10px] uppercase tracking-widest text-ink-mute">
+        🧠 Verifica AI in corso…
+      </span>
+    );
+  }
+  if (check.eshte_tesere) {
+    return (
+      <span
+        className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-medium"
+        style={{ background: '#2a7a5c1a', color: '#2a7a5c' }}
+        title={`Rilasciata da: ${check.leshuar_nga || '—'} · confidenza ${Math.round((check.konfidenca ?? 0) * 100)}%`}
+      >
+        ✓ Tessera {check.profesioni}
+        {check.emri ? ` — ${check.emri}` : ''}
+        {check.numri ? ` · nr. ${check.numri}` : ''}
+      </span>
+    );
+  }
+  return (
+    <span
+      className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-medium"
+      style={{ background: '#a85a1a1a', color: '#a85a1a' }}
+      title={`Confidenza ${Math.round((check.konfidenca ?? 0) * 100)}%`}
+    >
+      ⚠️ NON sembra una tessera ({check.duket_si || 'altro'})
+    </span>
   );
 }
 

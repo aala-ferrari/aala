@@ -6,6 +6,8 @@ import path from 'path';
 import { createSupabaseServiceClient } from '@/lib/supabase/server';
 import { sendLeadNotificationEmail } from '@/lib/email';
 
+export const maxDuration = 60;
+
 const LeadSchema = z.object({
   name: z.string().min(2).max(120),
   email: z.string().email(),
@@ -14,7 +16,9 @@ const LeadSchema = z.object({
   service: z.enum(['medical', 'webpages', 'auto', 'taxi', 'legal', 'dental', 'nabuel', 'other']).optional(),
   message: z.string().min(5).max(4000),
   locale: z.string().max(5).optional(),
-  source: z.enum(['contact-form', 'consultant-request']).optional(),
+  // ⚠️ 'demo-video' mancava: il form del video su superavokati.ai mandava
+  // quel source, riceveva 400 e il lead SPARIVA in silenzio (0 nel DB).
+  source: z.enum(['contact-form', 'consultant-request', 'demo-video']).optional(),
 });
 
 // Tessera dell'ordine (avvocati/notai): documento professionale, non d'identità.
@@ -57,6 +61,30 @@ async function salvaTessera(file: File): Promise<string | null> {
   return nome;
 }
 
+// Il cervello di Super Avokati GUARDA il documento e dice se è davvero una
+// tessera professionale (avvocato/notaio) o un documento qualsiasi — una
+// carta d'identità non passa come tessera. Fire-and-forget: l'esito arriva
+// nel pannello quando è pronto; a decidere resta sempre l'admin.
+async function verificaTessera(leadId: string, nomeFile: string, file: File): Promise<void> {
+  const segreto = process.env.DEMO_PROVISION_SECRET;
+  if (!segreto) return;
+  const fd = new FormData();
+  fd.append('tessera', new Blob([await file.arrayBuffer()], { type: file.type }), nomeFile);
+  const res = await fetch('http://127.0.0.1:5050/api/verify-tessera', {
+    method: 'POST',
+    headers: { 'X-Provision-Secret': segreto },
+    body: fd,
+    signal: AbortSignal.timeout(180_000),
+  });
+  const esito = await res.json().catch(() => null);
+  if (!res.ok || !esito) throw new Error(esito?.error ?? `verify ${res.status}`);
+  const admin = createSupabaseServiceClient();
+  await admin
+    .from('leads')
+    .update({ tessera_check: JSON.stringify(esito) })
+    .eq('id', leadId);
+}
+
 export async function POST(req: Request) {
   // Il modulo può arrivare in due vesti: JSON (com'è sempre stato) oppure
   // multipart/form-data quando il professionista allega la tessera dell'ordine.
@@ -96,14 +124,25 @@ export async function POST(req: Request) {
 
   const supabase = createSupabaseServiceClient();
   const { source, ...lead } = parsed.data;
-  const { error } = await supabase.from('leads').insert({
-    ...lead,
-    source: source ?? 'contact-form',
-    tessera_file: tesseraFile,
-  });
+  const { data: inserito, error } = await supabase
+    .from('leads')
+    .insert({
+      ...lead,
+      source: source ?? 'contact-form',
+      tessera_file: tesseraFile,
+    })
+    .select('id')
+    .single();
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  // Verifica della tessera in background — non facciamo aspettare il cliente.
+  if (tessera && tesseraFile && inserito?.id) {
+    void verificaTessera(inserito.id, tesseraFile, tessera).catch(() => {
+      /* senza esito il pannello mostra "in verifica" e decide l'admin */
+    });
   }
 
   // Notifica in tempo reale all'admin (info@aala.global) — fire-and-forget:
