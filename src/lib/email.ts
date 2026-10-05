@@ -391,6 +391,95 @@ function renderDemoEmailHtml(o: {
 </html>`;
 }
 
+// ──────────────────────────────────────────────────────────────
+// Super Avokati (5 ott 2026): l'email della prova per gli AVVOCATI. Quella generica diceva «inserisci il codice su
+// aala.global/it/demo» e poi l'avvocato arrivava al login di Super Avokati senza sapere le credenziali (nome utente =
+// email, password = codice); ed era solo in italiano anche per gli albanesi. Nella lingua della landing (sq/it/en).
+// La durata la conta Super Avokati: entro 7 giorni il primo accesso, da lì 12 ore.
+// ──────────────────────────────────────────────────────────────
+const LEGAL_TXT = {
+  sq: {
+    subject: 'Qasja juaj në Super Avokati — prova falas',
+    hi: (n?: string) => (n ? `Përshëndetje ${n},` : 'Përshëndetje,'),
+    intro: 'Llogaria juaj e provës në Super Avokati është gati. Hyni me këto të dhëna:',
+    user: 'Përdoruesi', pass: 'Fjalëkalimi',
+    rule: (d: number, h: number) => `Hyni për herë të parë brenda ${d} ditëve: nga hyrja e parë, prova zgjat ${h} orë.`,
+    cta: 'Hyr në Super Avokati →',
+    tip: 'Në faqen e hyrjes zgjidhni 🇦🇱 ose 🇮🇹 sipas juridiksionit ku punoni. Kopjoni fjalëkalimin saktësisht si më sipër.',
+    help: 'Për ndihmë: info@aala.global · +355 69 955 5777',
+  },
+  it: {
+    subject: 'Il tuo accesso a Super Avokati — prova gratuita',
+    hi: (n?: string) => (n ? `Ciao ${n},` : 'Ciao,'),
+    intro: 'Il tuo account di prova su Super Avokati è pronto. Accedi con questi dati:',
+    user: 'Nome utente', pass: 'Password',
+    rule: (d: number, h: number) => `Entra per la prima volta entro ${d} giorni: dal primo accesso la prova dura ${h} ore.`,
+    cta: 'Entra in Super Avokati →',
+    tip: 'Nella pagina di accesso scegli 🇮🇹 o 🇦🇱 secondo la giurisdizione in cui lavori. Copia la password esattamente com’è scritta qui sopra.',
+    help: 'Per assistenza: info@aala.global · +355 69 955 5777',
+  },
+  en: {
+    subject: 'Your Super Avokati access — free trial',
+    hi: (n?: string) => (n ? `Hello ${n},` : 'Hello,'),
+    intro: 'Your Super Avokati trial account is ready. Sign in with:',
+    user: 'Username', pass: 'Password',
+    rule: (d: number, h: number) => `Sign in for the first time within ${d} days: from the first sign-in the trial lasts ${h} hours.`,
+    cta: 'Open Super Avokati →',
+    tip: 'On the sign-in page choose 🇦🇱 or 🇮🇹 for the jurisdiction you work in. Copy the password exactly as written above.',
+    help: 'Help: info@aala.global · +355 69 955 5777',
+  },
+} as const;
+
+export async function sendLegalTrialEmail(opts: {
+  to: string | null | undefined;
+  name?: string | null;
+  code: string;
+  locale?: string | null;
+  activationDays: number;
+  windowHours: number;
+}): Promise<DemoEmailResult> {
+  if (!opts.to) return { sent: false, skipped: 'no-recipient' };
+  const from = process.env.RESEND_FROM_EMAIL;
+  if (!from) return { sent: false, skipped: 'no-from' };
+  const resend = getResend();
+  if (!resend) return { sent: false, skipped: 'no-api-key' };
+
+  const lang = (['sq', 'it', 'en'].includes(String(opts.locale || '').slice(0, 2))
+    ? String(opts.locale).slice(0, 2) : 'sq') as keyof typeof LEGAL_TXT;
+  const T = LEGAL_TXT[lang];
+  const url = (process.env.URL_PRODUCT_LEGAL || 'https://superavokati.ai').replace(/\/$/, '') + '/login';
+  const name = opts.name ? escapeHtml(opts.name) : undefined;
+  const row = (k: string, v: string) =>
+    `<tr><td style="padding:6px 0;font-size:13px;color:#8a8f9e;width:120px;">${k}</td>` +
+    `<td style="padding:6px 0;font-family:'Courier New',Courier,monospace;font-size:17px;font-weight:700;color:#15192a;word-break:break-all;">${escapeHtml(v)}</td></tr>`;
+
+  const html = `<!DOCTYPE html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Super Avokati</title></head>
+<body style="margin:0;padding:0;background:#f6f1e6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:#15192a;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f6f1e6;padding:40px 16px;"><tr><td align="center">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#fff;border-radius:16px;overflow:hidden;">
+<tr><td style="padding:30px 36px 16px;border-bottom:1px solid #e7e0cf;font-family:Georgia,serif;font-size:20px;">⚖️ Super Avokati</td></tr>
+<tr><td style="padding:28px 36px;">
+<p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#3a4055;">${T.hi(name)}<br>${T.intro}</p>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 18px;background:#f6f1e6;border:1px solid #d8c08e;border-radius:12px;padding:14px 18px;">
+${row(T.user, String(opts.to))}${row(T.pass, opts.code)}</table>
+<p style="margin:0 0 22px;font-size:14px;line-height:1.6;color:#3a4055;"><strong>${T.rule(opts.activationDays, opts.windowHours)}</strong></p>
+<p style="margin:0 0 22px;text-align:center;"><a href="${url}" style="display:inline-block;background:linear-gradient(135deg,#ecdcb0,#c9a849,#a07a26);color:#15192a;text-decoration:none;font-weight:600;font-size:15px;padding:14px 30px;border-radius:999px;">${T.cta}</a></p>
+<p style="margin:0 0 10px;font-size:13px;line-height:1.6;color:#5a6072;">${T.tip}</p>
+<p style="margin:0;font-size:13px;color:#5a6072;"><a href="${url}" style="color:#b08a3e;">${url}</a><br>${T.help}</p>
+</td></tr></table></td></tr></table></body></html>`;
+
+  const text = [T.hi(opts.name ?? undefined), '', T.intro, '', `${T.user}: ${opts.to}`, `${T.pass}: ${opts.code}`, '',
+    T.rule(opts.activationDays, opts.windowHours), '', url, '', T.tip, '', T.help].join('\n');
+
+  try {
+    const { data, error } = await resend.emails.send({ from, to: opts.to, subject: T.subject, html, text });
+    if (error) return { sent: false, error: error.message };
+    return { sent: true, id: data?.id };
+  } catch (err) {
+    return { sent: false, error: err instanceof Error ? err.message : 'Errore' };
+  }
+}
+
 function escapeHtml(s: string) {
   return s.replace(/[&<>"']/g, (c) =>
     c === '&' ? '&amp;' : c === '<' ? '&lt;' : c === '>' ? '&gt;' : c === '"' ? '&quot;' : '&#39;'

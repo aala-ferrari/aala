@@ -4,7 +4,7 @@ import {
   createSupabaseServiceClient,
 } from '@/lib/supabase/server';
 import { generateDemoCode } from '@/lib/demo-codes';
-import { sendDemoCodeEmail } from '@/lib/email';
+import { sendDemoCodeEmail, sendLegalTrialEmail } from '@/lib/email';
 import type { VerticalKey } from '@/lib/products';
 
 const VALID_VERTICALS: VerticalKey[] = ['medical', 'auto', 'legal', 'dental', 'taxi', 'nabuel'];
@@ -94,13 +94,23 @@ export async function POST(
   }
 
   // ---- invia email (best-effort, non blocca il flusso) ----
-  const emailResult = await sendDemoCodeEmail({
-    to: lead.email,
-    name: lead.name,
-    code,
-    vertical,
-    expiresInDays: EXPIRES_DAYS,
-  });
+  // Super Avokati: email dedicata (credenziali esplicite, lingua della landing); le altre restano come prima
+  const emailResult = vertical === 'legal'
+    ? await sendLegalTrialEmail({
+        to: lead.email,
+        name: lead.name,
+        code,
+        locale: lead.locale,
+        activationDays: EXPIRES_DAYS,
+        windowHours: 12,
+      })
+    : await sendDemoCodeEmail({
+        to: lead.email,
+        name: lead.name,
+        code,
+        vertical,
+        expiresInDays: EXPIRES_DAYS,
+      });
 
   // ---- aggiorna stato lead ----
   await admin.from('leads').update({ status: 'qualified' }).eq('id', lead.id);
