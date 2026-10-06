@@ -529,7 +529,10 @@ function ConsultantPanel({
             </p>
           ) : (
             <p className="mt-2 inline-flex items-center gap-1.5 text-[10px] text-ink-mute">
-              <MailX className="h-3 w-3" /> Email non configurata — usa WhatsApp qui sopra
+              <MailX className="h-3 w-3" />{' '}
+              {shown.emailError && !['no-api-key', 'no-from'].includes(String(shown.emailError))
+                ? `Email NON inviata (${String(shown.emailError).slice(0, 120)}) — usa WhatsApp qui sopra`
+                : 'Email non configurata — usa WhatsApp qui sopra'}
             </p>
           ))}
 
