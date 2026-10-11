@@ -395,7 +395,7 @@ function renderDemoEmailHtml(o: {
 // Super Avokati (5 ott 2026): l'email della prova per gli AVVOCATI. Quella generica diceva «inserisci il codice su
 // aala.global/it/demo» e poi l'avvocato arrivava al login di Super Avokati senza sapere le credenziali (nome utente =
 // email, password = codice); ed era solo in italiano anche per gli albanesi. Nella lingua della landing (sq/it/en).
-// La durata la conta Super Avokati: entro 7 giorni il primo accesso, da lì 12 ore.
+// La durata la conta Super Avokati: entro 7 giorni il primo accesso, da lì 72 ore (11 ott 2026; era 12).
 // ──────────────────────────────────────────────────────────────
 const LEGAL_TXT = {
   sq: {

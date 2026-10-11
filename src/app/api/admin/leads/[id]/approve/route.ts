@@ -9,6 +9,9 @@ import type { VerticalKey } from '@/lib/products';
 
 const VALID_VERTICALS: VerticalKey[] = ['medical', 'auto', 'legal', 'dental', 'taxi', 'nabuel'];
 const EXPIRES_DAYS = 7;
+// Super Avokati (11 ott 2026, decisione del titolare per il lancio agli avvocati albanesi): la prova dura 72 ORE dal primo
+// accesso (DEMO_WINDOW_HOURS di Super Avokati, che conta la durata); gli altri servizi restano a 12 ore (demo/redeem)
+const LEGAL_WINDOW_HOURS = 72;
 
 export async function POST(
   _req: Request,
@@ -75,7 +78,7 @@ export async function POST(
     );
   }
 
-  // ---- legal: provisiona l'account demo (6h) nel container Super Avokati ----
+  // ---- legal: provisiona l'account di prova nel container Super Avokati (7 giorni per attivarla, 72 ore dal primo accesso) ----
   // AALA genera il codice, ma Super Avokati e un container separato con login
   // proprio: senza questo passo il codice inviato darebbe "credenziali non valide".
   if (vertical === 'legal') {
@@ -102,7 +105,7 @@ export async function POST(
         code,
         locale: lead.locale,
         activationDays: EXPIRES_DAYS,
-        windowHours: 12,
+        windowHours: LEGAL_WINDOW_HOURS,
       })
     : await sendDemoCodeEmail({
         to: lead.email,

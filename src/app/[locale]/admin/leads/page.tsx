@@ -42,7 +42,7 @@ export default async function AdminLeadsPage({ params }: { params: { locale: str
           </h1>
           <p className="mt-2 max-w-2xl text-sm text-ink-soft">
             Quando approvi un lead, il sistema genera un codice univoco di accesso demo
-            (da attivare entro 7 giorni; una volta avviato vale 12 ore). Copia il codice e
+            (da attivare entro 7 giorni; una volta avviato vale 12 ore — Super Avokati 72 ore dal primo accesso). Copia il codice e
             invialo al cliente via email o WhatsApp.
           </p>
         </header>
