@@ -406,7 +406,7 @@ const LEGAL_TXT = {
     rule: (d: number, h: number) => `Hyni për herë të parë brenda ${d} ditëve: nga hyrja e parë, prova zgjat ${h} orë.`,
     cta: 'Hyr në Super Avokati →',
     tip: 'Në faqen e hyrjes zgjidhni 🇦🇱 ose 🇮🇹 sipas juridiksionit ku punoni. Kopjoni fjalëkalimin saktësisht si më sipër.',
-    help: 'Për ndihmë: info@aala.global · +355 69 955 5777',
+    help: 'Për ndihmë: Albania Auto Legal Alliance sh.p.k. · info@aala.global · +355 69 955 5777',
   },
   it: {
     subject: 'Il tuo accesso a Super Avokati — prova gratuita',
@@ -416,7 +416,7 @@ const LEGAL_TXT = {
     rule: (d: number, h: number) => `Entra per la prima volta entro ${d} giorni: dal primo accesso la prova dura ${h} ore.`,
     cta: 'Entra in Super Avokati →',
     tip: 'Nella pagina di accesso scegli 🇮🇹 o 🇦🇱 secondo la giurisdizione in cui lavori. Copia la password esattamente com’è scritta qui sopra.',
-    help: 'Per assistenza: info@aala.global · +355 69 955 5777',
+    help: 'Per assistenza: Deltalux Srl · info@aala.global · +39 380 635 8654',
   },
   en: {
     subject: 'Your Super Avokati access — free trial',
@@ -426,7 +426,7 @@ const LEGAL_TXT = {
     rule: (d: number, h: number) => `Sign in for the first time within ${d} days: from the first sign-in the trial lasts ${h} hours.`,
     cta: 'Open Super Avokati →',
     tip: 'On the sign-in page choose 🇦🇱 or 🇮🇹 for the jurisdiction you work in. Copy the password exactly as written above.',
-    help: 'Help: info@aala.global · +355 69 955 5777',
+    help: 'Help: Deltalux Srl · info@aala.global · +39 380 635 8654',
   },
 } as const;
 
