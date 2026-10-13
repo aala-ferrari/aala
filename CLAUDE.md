@@ -115,6 +115,10 @@ rispondere con frasi generiche, guardare per primo quel timeout.**
 
 **Database:** **AALA + Nabuel** usano **Supabase self-hosted** sul VPS (Docker, `/opt/supabase-nabuel`, kong su 127.0.0.1:8000, secrets in `/opt/supabase-nabuel/.secrets.json`) — NON più Supabase cloud. nginx aala.global/nabuel.com proxano `^/(auth|rest|realtime)/v1/`→kong. auto ha un postgres docker dedicato (`auto_postgres`); taxi ha `taxi_postgres`; super-avvocato gira in container con SQLite.
 
+⚠️ **Supabase fermo = login, registrazione, ordini e lead in 502, con le pagine verdi.** Dal 21/9 al 13/10/2026 gli 11 container sono rimasti fermi (`unless-stopped`: fermati a mano non ripartono nemmeno col riavvio del server) e nessuno se n'è accorto per tre settimane. Riaccenderli: `cd /opt/supabase-nabuel && docker compose start`. Mai fermarli per liberare memoria senza riaccenderli subito. Il monitor ora controlla anche le API (`supabase-auth`, `supabase-rest`, vedi `deploy/ops/README.md`).
+
+**Pacchetti per famiglia (13/10/2026):** in «CRM · Webpages» (vertical `medical`) i pacchetti Sito web (`website-basic` 350 €, `website-medium` 750 €, `website-premium` da 970 € su richiesta) stanno PRIMA dei pacchetti CRM: `Plan.group` + `Vertical.planGroups` in `src/lib/products.ts`, titoli tradotti in `catalog.<vertical>.groups`. Un ordine `group: 'web'` non attiva il CRM nell'area cliente. Prezzi e pacchetti vanno anche nei prompt di Bolla e Super Consulente.
+
 **Domini live:** aala.global · nabuel.com (6° servizio, prodotto vero deployato) · superavokati.ai · auto/crm/taxi.aala.global · api.taxi.aala.global · taxi.aala.global/app (cliente).
 
 ## 🚕 TAXI — struttura, demo, deploy (giugno 2026)
