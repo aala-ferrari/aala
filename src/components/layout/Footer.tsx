@@ -44,7 +44,9 @@ export function Footer() {
       </div>
 
       <div className="border-t border-ink-line/70">
-        <div className="container-aala py-6">
+        {/* pb-28: lo spazio dei pulsanti fluttuanti (Bolla, WhatsApp, torna su),
+            che altrimenti coprono l'ultima riga */}
+        <div className="container-aala pt-6 pb-28">
           <p className="mb-4 text-center text-[13px] leading-relaxed text-ink-soft">
             {t.rich('owns', {
               sa: (c) => <a href="https://superavokati.ai" className="font-medium text-gold hover:underline">{c}</a>,

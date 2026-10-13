@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Check, CreditCard, Handshake, ShieldCheck, Loader2, ChevronDown } from 'lucide-react';
 import {
   DURATIONS,
@@ -44,7 +44,28 @@ const COUNTRIES = [
 function CountrySelect({ value, onChange }: { value: typeof COUNTRIES[number]; onChange: (c: typeof COUNTRIES[number]) => void }) {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState('');
-  const list = COUNTRIES.filter((c) => `${c.name} ${c.dial} ${c.c}`.toLowerCase().includes(q.toLowerCase()));
+  const t = useTranslations('checkout');
+  const locale = useLocale();
+  // nomi dei paesi nella lingua della pagina (l'elenco qui sopra è in albanese:
+  // resta come riserva e per la ricerca)
+  const nomi = useMemo(() => {
+    // in albanese l'elenco è già giusto; e Chrome non ha i nomi dei paesi in
+    // albanese: ripiegherebbe sulla lingua del browser (provato: italiano)
+    if (locale === 'sq') return null;
+    try {
+      if (!Intl.DisplayNames.supportedLocalesOf([locale]).length) return null;
+      return new Intl.DisplayNames([locale], { type: 'region' });
+    } catch {
+      return null;
+    }
+  }, [locale]);
+  const nome = (c: (typeof COUNTRIES)[number]) => {
+    const n = nomi?.of(c.c);
+    return n && n !== c.c ? n : c.name;
+  };
+  const list = COUNTRIES.filter((c) =>
+    `${nome(c)} ${c.name} ${c.dial} ${c.c}`.toLowerCase().includes(q.toLowerCase())
+  );
   return (
     <div className="relative">
       <button type="button" onClick={() => setOpen((o) => !o)}
@@ -58,18 +79,18 @@ function CountrySelect({ value, onChange }: { value: typeof COUNTRIES[number]; o
           <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
           <div className="absolute left-0 top-full z-20 mt-1 max-h-64 w-64 overflow-auto rounded-xl border border-ink-line bg-white shadow-xl">
             <div className="sticky top-0 bg-white p-2">
-              <input autoFocus value={q} onChange={(e) => setQ(e.target.value)} placeholder="Cerca paese…"
+              <input autoFocus value={q} onChange={(e) => setQ(e.target.value)} placeholder={t('searchCountry')}
                 className="w-full rounded-lg border border-ink-line px-2.5 py-1.5 text-sm outline-none focus:border-gold" />
             </div>
             {list.map((c) => (
               <button key={c.c} type="button" onClick={() => { onChange(c); setOpen(false); setQ(''); }}
                 className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm hover:bg-canvas-warm/60">
                 <span className="text-base">{c.flag}</span>
-                <span className="flex-1 text-ink">{c.name}</span>
+                <span className="flex-1 text-ink">{nome(c)}</span>
                 <span className="text-ink-mute">{c.dial}</span>
               </button>
             ))}
-            {list.length === 0 && <p className="px-3 py-3 text-sm text-ink-mute">Nessun paese</p>}
+            {list.length === 0 && <p className="px-3 py-3 text-sm text-ink-mute">{t('noCountry')}</p>}
           </div>
         </>
       )}
@@ -264,17 +285,17 @@ export function CheckoutConfigurator({
           <form onSubmit={payNowBank} className="card-paper mt-8 p-5 sm:p-6">
             <div className="mb-4 flex items-center gap-2">
               <CreditCard className="h-5 w-5 text-gold" />
-              <h2 className="font-display text-lg text-ink">Dati per il pagamento</h2>
+              <h2 className="font-display text-lg text-ink">{t('cardTitle')}</h2>
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <label className="block"><span className="mb-1.5 block text-xs font-medium uppercase tracking-widest text-ink-mute">Nome</span>
+              <label className="block"><span className="mb-1.5 block text-xs font-medium uppercase tracking-widest text-ink-mute">{t('firstName')}</span>
                 <input required value={cust.firstName} onChange={(e) => setCust({ ...cust, firstName: e.target.value })} className="w-full rounded-lg border border-ink-line bg-white px-3 py-3 text-sm outline-none focus:border-gold" /></label>
-              <label className="block"><span className="mb-1.5 block text-xs font-medium uppercase tracking-widest text-ink-mute">Cognome</span>
+              <label className="block"><span className="mb-1.5 block text-xs font-medium uppercase tracking-widest text-ink-mute">{t('lastName')}</span>
                 <input required value={cust.lastName} onChange={(e) => setCust({ ...cust, lastName: e.target.value })} className="w-full rounded-lg border border-ink-line bg-white px-3 py-3 text-sm outline-none focus:border-gold" /></label>
             </div>
-            <label className="mt-3 block"><span className="mb-1.5 block text-xs font-medium uppercase tracking-widest text-ink-mute">Email</span>
+            <label className="mt-3 block"><span className="mb-1.5 block text-xs font-medium uppercase tracking-widest text-ink-mute">{t('email')}</span>
               <input required type="email" value={cust.email} onChange={(e) => setCust({ ...cust, email: e.target.value })} className="w-full rounded-lg border border-ink-line bg-white px-3 py-3 text-sm outline-none focus:border-gold" /></label>
-            <label className="mt-3 block"><span className="mb-1.5 block text-xs font-medium uppercase tracking-widest text-ink-mute">Telefono</span>
+            <label className="mt-3 block"><span className="mb-1.5 block text-xs font-medium uppercase tracking-widest text-ink-mute">{t('phone')}</span>
               <div className="flex">
                 <CountrySelect value={country} onChange={setCountry} />
                 <input required type="tel" value={cust.phone} onChange={(e) => setCust({ ...cust, phone: e.target.value.replace(/[^0-9 ]/g, '') })} placeholder="69 123 4567"
@@ -283,9 +304,9 @@ export function CheckoutConfigurator({
             </label>
             {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
             <button type="submit" disabled={loading !== null} className="btn-primary mt-5 w-full justify-center">
-              {loading === 'card' ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Reindirizzamento…</> : `Paga adesso · € ${formatEur(total)}`}
+              {loading === 'card' ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t('redirecting')}</> : t('payNow', { amount: formatEur(total) })}
             </button>
-            <button type="button" onClick={() => setShowCard(false)} className="mt-2 w-full text-center text-xs text-ink-mute hover:text-ink">← Torna ai metodi di pagamento</button>
+            <button type="button" onClick={() => setShowCard(false)} className="mt-2 w-full text-center text-xs text-ink-mute hover:text-ink">{t('backToMethods')}</button>
           </form>
         )}
 

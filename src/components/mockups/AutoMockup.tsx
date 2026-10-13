@@ -18,11 +18,11 @@ export function AutoMockup() {
   const t = useTranslations('mockup.auto');
   return (
     <BrowserFrame url="auto.aala.io/fleet">
-      <div className="grid h-[560px] grid-cols-[60%_40%]">
+      <div className="grid md:h-[560px] md:grid-cols-[60%_40%]">
         {/* left: stats + map */}
-        <div className="border-r border-ink-line/60 p-6">
+        <div className="border-b border-ink-line/60 p-4 md:border-b-0 md:border-r md:p-6">
           {/* KPIs */}
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
             {[
               { label: t('fleet'), value: '64', icon: Car, color: '#a85a1a' },
               { label: t('onTrip'), value: '38', icon: Activity, color: '#0e7c8a' },
@@ -44,7 +44,7 @@ export function AutoMockup() {
 
           {/* map */}
           <div
-            className="relative mt-5 h-[380px] overflow-hidden rounded-xl border border-ink-line/60"
+            className="relative mt-5 h-[240px] overflow-hidden rounded-xl border border-ink-line/60 md:h-[380px]"
             style={{
               background:
                 'radial-gradient(ellipse 60% 50% at 30% 40%, rgba(168,90,26,0.18), transparent 60%), linear-gradient(180deg, #f1ead7 0%, #e8dec0 100%)',
@@ -89,7 +89,7 @@ export function AutoMockup() {
         </div>
 
         {/* right: fleet list */}
-        <div className="p-6">
+        <div className="p-4 md:p-6">
           <div className="mb-4 flex items-center justify-between">
             <h3 className="font-display text-lg text-ink">{t('fleet')}</h3>
             <button className="rounded-full bg-[#a85a1a] px-3 py-1 text-[10px] font-medium text-white">

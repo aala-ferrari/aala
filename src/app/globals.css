@@ -294,3 +294,26 @@
 @media (prefers-reduced-motion: reduce) {
   .lux-bubble { animation: none; opacity: 0.4; }
 }
+
+/* ------------------------------------------------------------------ telefono
+   iPhone: un campo col testo sotto i 16 px fa ingrandire la pagina appena lo
+   si tocca, e la pagina resta ingrandita e «tagliata» a destra (accesso,
+   registrazione, contatti, pagamento, Bolla). Dai 768 px in su restano i
+   14 px del disegno. */
+@media (max-width: 767px) {
+  input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='file']),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Una parola più lunga della riga (il tedesco «Verwaltungssoftware» in un
+   titolo grande) va a capo invece di uscire dallo schermo tagliata; nei
+   titoli in tedesco col trattino giusto (la lingua sta in <html lang>). */
+body {
+  overflow-wrap: break-word;
+}
+:lang(de) :is(h1, h2, h3) {
+  hyphens: auto;
+}

@@ -15,10 +15,10 @@ export function LegalMockup() {
   const t = useTranslations('mockup.legal');
   return (
     <BrowserFrame url="legal.aala.io/pratiche">
-      <div className="grid h-[560px] grid-cols-[55%_45%]">
+      <div className="grid md:h-[560px] md:grid-cols-[55%_45%]">
         {/* left: cases */}
-        <div className="border-r border-ink-line/60 p-6">
-          <div className="mb-4 flex items-center justify-between">
+        <div className="border-b border-ink-line/60 p-4 md:border-b-0 md:border-r md:p-6">
+          <div className="mb-4 flex items-center justify-between gap-3">
             <div>
               <p className="text-[10px] uppercase tracking-widest text-ink-mute">{t('cases')}</p>
               <h3 className="font-display text-lg text-ink">{t('inProgress')} · 47</h3>
@@ -67,7 +67,7 @@ export function LegalMockup() {
         </div>
 
         {/* right: AI search panel */}
-        <div className="bg-canvas-soft/60 p-6">
+        <div className="bg-canvas-soft/60 p-4 md:p-6">
           <div className="mb-3 flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#8a6717] text-white">
               <Sparkles className="h-4 w-4" />

@@ -40,7 +40,7 @@
       },
       "legal": {
         "name": "Super Avokati",
-        "desc": "SaaS-Suite für Kanzleien: Fälle, Fristen, Kalender, KI-gestützte Dokumentensuche. Unterstützt den Anwalt bei der Lösung zivil-, straf- und verwaltungsrechtlicher Fälle dank der integrierten künstlichen Intelligenz von Super Avokati. <em>Derzeit nur für albanisches Recht verfügbar — Italien folgt bald.</em>"
+        "desc": "SaaS-Suite für Kanzleien: Fälle, Fristen, Kalender, KI-gestützte Dokumentensuche. Unterstützt den Anwalt bei der Lösung zivil-, straf- und verwaltungsrechtlicher Fälle dank der integrierten künstlichen Intelligenz von Super Avokati. <em>Albanisches und italienisches Recht, jeweils mit eigenen Gesetzen und eigener Rechtsprechung.</em>"
       },
       "dental": {
         "name": "Dentaltourismus",
@@ -50,7 +50,8 @@
       "nabuel": {
         "name": "Nabuel",
         "desc": "Multisektoraler KI-Sprachagent: nimmt Anrufe entgegen, bucht Termine (24/7-Empfang) und tätigt Ausgangsanrufe, um Leads nachzufassen und Verträge zu verkaufen — Hotels, Zahnmedizin, Haartransplantation, Strom/Gas."
-      }
+      },
+      "eyebrow": "Leistungen"
     },
     "values": {
       "eyebrow": "Unsere Werte",
@@ -423,7 +424,7 @@
     "legal": {
       "heroEyebrow": "Super Avokati",
       "heroTitle": "Die SaaS-Suite, die Ihre Kanzlei entlastet.",
-      "heroSubtitle": "Akten, Fristen, Verhandlungskalender, KI-Dokumentensuche, Abrechnung. Alles integriert, alles sicher. Derzeit für albanisches Recht verfügbar — italienische Version bald.",
+      "heroSubtitle": "Akten, Fristen, Verhandlungskalender, KI-Dokumentensuche, Abrechnung. Alles integriert, alles sicher. Albanisches und italienisches Recht, jeweils mit eigenen Gesetzen und eigener Rechtsprechung.",
       "features": [
         {
           "title": "Akten & Fristen",
@@ -661,7 +662,8 @@
       "day": "Tag",
       "week": "Woche",
       "month": "Monat",
-      "newVisit": "Neuer Termin"
+      "newVisit": "Neuer Termin",
+      "dayTitle": "Dienstag, 14. Mai"
     },
     "auto": {
       "fleet": "Flotte",
@@ -777,7 +779,17 @@
     "errCheckout": "Checkout-Fehler",
     "errOrder": "Bestellfehler",
     "err": "Fehler",
-    "months": "{count, plural, one {# Monat} other {# Monate}}"
+    "months": "{count, plural, one {# Monat} other {# Monate}}",
+    "cardTitle": "Zahlungsdaten",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "searchCountry": "Land suchen…",
+    "noCountry": "Kein Land gefunden",
+    "redirecting": "Weiterleitung…",
+    "payNow": "Jetzt bezahlen · € {amount}",
+    "backToMethods": "← Zurück zu den Zahlungsarten"
   },
   "account": {
     "eyebrow": "Kundenbereich",

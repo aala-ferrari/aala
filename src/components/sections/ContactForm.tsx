@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Send, Check } from 'lucide-react';
+import { Send, Check, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { VERTICAL_LIST } from '@/lib/products';
 
@@ -75,18 +75,22 @@ export function ContactForm() {
         <span className="mb-2 block text-xs font-medium uppercase tracking-widest text-ink-mute">
           {t('service')}
         </span>
-        <select
-          name="service"
-          value={service}
-          onChange={(e) => setService(e.target.value)}
-          className="w-full rounded-lg border border-ink-line bg-white px-4 py-3 text-sm text-ink outline-none transition focus:border-gold"
-        >
-          {SERVICE_VALUES.map((v) => (
-            <option key={v} value={v}>
-              {t(`services.${v}` as any)}
-            </option>
-          ))}
-        </select>
+        {/* appearance-none: su iPhone il menu nativo era più basso degli altri campi */}
+        <div className="relative">
+          <select
+            name="service"
+            value={service}
+            onChange={(e) => setService(e.target.value)}
+            className="w-full appearance-none rounded-lg border border-ink-line bg-white py-3 pl-4 pr-10 text-sm text-ink outline-none transition focus:border-gold"
+          >
+            {SERVICE_VALUES.map((v) => (
+              <option key={v} value={v}>
+                {t(`services.${v}` as any)}
+              </option>
+            ))}
+          </select>
+          <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-mute" />
+        </div>
       </label>
 
       <label className="block">

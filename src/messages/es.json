@@ -40,7 +40,7 @@
       },
       "legal": {
         "name": "Super Avokati",
-        "desc": "Suite SaaS para despachos: expedientes, vencimientos, calendario, búsqueda documental con IA. Acompaña al abogado en la resolución de causas civiles, penales y administrativas gracias a la inteligencia artificial integrada de Super Avokati. <em>Actualmente disponible solo para el derecho albanés — Italia próximamente.</em>"
+        "desc": "Suite SaaS para despachos: expedientes, vencimientos, calendario, búsqueda documental con IA. Acompaña al abogado en la resolución de causas civiles, penales y administrativas gracias a la inteligencia artificial integrada de Super Avokati. <em>Derecho albanés y derecho italiano, cada uno con sus leyes y su jurisprudencia.</em>"
       },
       "dental": {
         "name": "Turismo Dental",
@@ -50,7 +50,8 @@
       "nabuel": {
         "name": "Nabuel",
         "desc": "Agente de voz IA multisector: contesta llamadas, agenda citas (recepción 24/7) y hace llamadas salientes para recontactar leads y vender contratos — hoteles, dental, injerto capilar, luz/gas."
-      }
+      },
+      "eyebrow": "Servicios"
     },
     "values": {
       "eyebrow": "Nuestros valores",
@@ -423,7 +424,7 @@
     "legal": {
       "heroEyebrow": "Super Avokati",
       "heroTitle": "La suite SaaS que hace trabajar menos a tu despacho.",
-      "heroSubtitle": "Casos, plazos, calendario de vistas, búsqueda documental con IA, facturación. Todo integrado, todo seguro. Actualmente disponible para el derecho albanés — versión italiana muy pronto.",
+      "heroSubtitle": "Casos, plazos, calendario de vistas, búsqueda documental con IA, facturación. Todo integrado, todo seguro. Derecho albanés y derecho italiano, cada uno con sus leyes y su jurisprudencia.",
       "features": [
         {
           "title": "Casos y plazos",
@@ -661,7 +662,8 @@
       "day": "Día",
       "week": "Semana",
       "month": "Mes",
-      "newVisit": "Nueva visita"
+      "newVisit": "Nueva visita",
+      "dayTitle": "Martes, 14 de mayo"
     },
     "auto": {
       "fleet": "Flota",
@@ -777,7 +779,17 @@
     "errCheckout": "Error en el pago",
     "errOrder": "Error en el pedido",
     "err": "Error",
-    "months": "{count, plural, one {# mes} other {# meses}}"
+    "months": "{count, plural, one {# mes} other {# meses}}",
+    "cardTitle": "Datos de pago",
+    "firstName": "Nombre",
+    "lastName": "Apellidos",
+    "email": "Correo electrónico",
+    "phone": "Teléfono",
+    "searchCountry": "Buscar país…",
+    "noCountry": "Ningún país",
+    "redirecting": "Redirigiendo…",
+    "payNow": "Pagar ahora · € {amount}",
+    "backToMethods": "← Volver a los métodos de pago"
   },
   "account": {
     "eyebrow": "Área de cliente",

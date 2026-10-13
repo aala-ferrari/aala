@@ -40,7 +40,7 @@
       },
       "legal": {
         "name": "Super Avokati",
-        "desc": "Suite SaaS per studi legali: pratiche, scadenze, calendario, ricerca documentale assistita. Affianca l'avvocato nella risoluzione di cause civili, penali e amministrative grazie all'intelligenza artificiale integrata di Super Avokati. <em>Attualmente disponibile solo per il diritto albanese — coming soon anche Italia.</em>"
+        "desc": "Suite SaaS per studi legali: pratiche, scadenze, calendario, ricerca documentale assistita. Affianca l'avvocato nella risoluzione di cause civili, penali e amministrative grazie all'intelligenza artificiale integrata di Super Avokati. <em>Diritto albanese e diritto italiano, ognuno con le sue leggi e le sue sentenze.</em>"
       },
       "dental": {
         "name": "Dental Tourism",
@@ -50,7 +50,8 @@
       "nabuel": {
         "name": "Nabuel",
         "desc": "Agente vocale AI multi-settore: risponde alle chiamate, fissa appuntamenti (reception 24/7) e fa chiamate in uscita per ricontattare lead e vendere contratti — hotel, dentisti, trapianto capelli, luce/gas."
-      }
+      },
+      "eyebrow": "I servizi"
     },
     "values": {
       "eyebrow": "I nostri valori",
@@ -278,7 +279,8 @@
       "day": "Giorno",
       "week": "Settimana",
       "month": "Mese",
-      "newVisit": "Nuova visita"
+      "newVisit": "Nuova visita",
+      "dayTitle": "Martedì, 14 Maggio"
     },
     "auto": {
       "fleet": "Flotta",
@@ -394,7 +396,17 @@
     "errCheckout": "Errore checkout",
     "errOrder": "Errore ordine",
     "err": "Errore",
-    "months": "{count, plural, one {# mese} other {# mesi}}"
+    "months": "{count, plural, one {# mese} other {# mesi}}",
+    "cardTitle": "Dati per il pagamento",
+    "firstName": "Nome",
+    "lastName": "Cognome",
+    "email": "Email",
+    "phone": "Telefono",
+    "searchCountry": "Cerca paese…",
+    "noCountry": "Nessun paese",
+    "redirecting": "Reindirizzamento…",
+    "payNow": "Paga adesso · € {amount}",
+    "backToMethods": "← Torna ai metodi di pagamento"
   },
   "account": {
     "eyebrow": "Area cliente",

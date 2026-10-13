@@ -24,11 +24,11 @@ export function NabuelMockup() {
   const t = useTranslations('mockup.nabuel');
   return (
     <BrowserFrame url="nabuel.com/dashboard">
-      <div className="grid h-[560px] grid-cols-[56%_44%]">
+      <div className="grid md:h-[560px] md:grid-cols-[56%_44%]">
         {/* left: KPI + live calls */}
-        <div className="border-r border-ink-line/60 p-5">
+        <div className="border-b border-ink-line/60 p-4 md:border-b-0 md:border-r md:p-5">
           {/* KPI strip */}
-          <div className="mb-4 grid grid-cols-4 gap-2">
+          <div className="mb-4 grid grid-cols-2 gap-2 md:grid-cols-4">
             {[
               { label: t('callsToday'), value: '312', icon: PhoneCall },
               { label: t('booked'), value: '87', icon: CalendarCheck },
@@ -110,7 +110,7 @@ export function NabuelMockup() {
         </div>
 
         {/* right: agents + funnel */}
-        <div className="p-5">
+        <div className="p-4 md:p-5">
           <h3 className="mb-3 font-display text-base text-ink">{t('agents')}</h3>
           <div className="space-y-2">
             {AGENTS.map((a, i) => (

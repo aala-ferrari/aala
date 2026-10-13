@@ -40,7 +40,7 @@
       },
       "legal": {
         "name": "Super Avokati",
-        "desc": "SaaS suite for law firms: cases, deadlines, calendar, AI-assisted document search. Supports the lawyer in resolving civil, criminal and administrative cases through Super Avokati's integrated artificial intelligence. <em>Currently available for Albanian law only — Italy coming soon.</em>"
+        "desc": "SaaS suite for law firms: cases, deadlines, calendar, AI-assisted document search. Supports the lawyer in resolving civil, criminal and administrative cases through Super Avokati's integrated artificial intelligence. <em>Albanian and Italian law, each with its own statutes and case law.</em>"
       },
       "dental": {
         "name": "Dental Tourism",
@@ -50,7 +50,8 @@
       "nabuel": {
         "name": "Nabuel",
         "desc": "Multi-sector AI voice agent: answers calls, books appointments (24/7 reception) and makes outbound calls to follow up leads and sell contracts — hotels, dental, hair transplant, energy/gas."
-      }
+      },
+      "eyebrow": "Services"
     },
     "values": {
       "eyebrow": "Our values",
@@ -416,7 +417,7 @@
     "legal": {
       "heroEyebrow": "Super Avokati",
       "heroTitle": "The SaaS suite that makes your law firm work less.",
-      "heroSubtitle": "Cases, deadlines, hearing calendar, AI document search, invoicing. Fully integrated, fully secure. Currently available for Albanian law — Italian version coming soon.",
+      "heroSubtitle": "Cases, deadlines, hearing calendar, AI document search, invoicing. Fully integrated, fully secure. Albanian and Italian law, each with its own statutes and case law.",
       "features": [
         {
           "title": "Cases & deadlines",
@@ -661,7 +662,8 @@
       "day": "Day",
       "week": "Week",
       "month": "Month",
-      "newVisit": "New visit"
+      "newVisit": "New visit",
+      "dayTitle": "Tuesday, 14 May"
     },
     "auto": {
       "fleet": "Fleet",
@@ -777,7 +779,17 @@
     "errCheckout": "Checkout error",
     "errOrder": "Order error",
     "err": "Error",
-    "months": "{count, plural, one {# month} other {# months}}"
+    "months": "{count, plural, one {# month} other {# months}}",
+    "cardTitle": "Payment details",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "phone": "Phone",
+    "searchCountry": "Search country…",
+    "noCountry": "No country found",
+    "redirecting": "Redirecting…",
+    "payNow": "Pay now · € {amount}",
+    "backToMethods": "← Back to payment methods"
   },
   "account": {
     "eyebrow": "Client area",

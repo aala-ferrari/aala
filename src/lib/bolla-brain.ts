@@ -104,7 +104,7 @@ const SERVICE_PITCH: Record<string, string[]> = {
   ],
   legal: [
     'Super Avokati è la suite per studi legali: pratiche, scadenze, calendario udienze e ricerca documentale con intelligenza artificiale.',
-    'Affianca l\'avvocato nella risoluzione di cause civili, penali e amministrative. Da €100/mese. Oggi disponibile per il diritto albanese — Italia in arrivo.',
+    'Affianca l\'avvocato nella risoluzione di cause civili, penali e amministrative. Da €100/mese. Diritto albanese e diritto italiano, ognuno con le sue leggi e le sue sentenze.',
   ],
   nabuel: [
     'Nabuel è il tuo agente vocale AI: risponde alle chiamate, fissa appuntamenti e fa anche chiamate in uscita per ricontattare lead e vendere contratti — 24 ore su 24, in ogni lingua.',

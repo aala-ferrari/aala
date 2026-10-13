@@ -95,8 +95,9 @@ export function UsersTable({
         </div>
       )}
 
-      <div className="card-paper overflow-hidden">
-        <table className="w-full">
+      {/* sul telefono la tabella scorre di lato invece di perdere le colonne */}
+      <div className="card-paper overflow-x-auto">
+        <table className="w-full min-w-[680px]">
           <thead className="border-b border-ink-line/70 bg-canvas-warm/40">
             <tr className="text-left text-[10px] uppercase tracking-widest text-ink-mute">
               <th className="px-5 py-3">Utente</th>

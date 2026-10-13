@@ -219,7 +219,7 @@ export const VERTICALS: Record<VerticalKey, Vertical> = {
       eyebrow: 'Super Avokati',
       title: 'La suite SaaS che fa lavorare meno il tuo studio legale.',
       subtitle:
-        'Pratiche, scadenze, calendario udienze, ricerca documentale con AI, fatturazione. Tutto integrato, tutto sicuro. Attualmente disponibile per il diritto albanese — versione italiana coming soon.',
+        'Pratiche, scadenze, calendario udienze, ricerca documentale con AI, fatturazione. Tutto integrato, tutto sicuro. Diritto albanese e diritto italiano, ognuno con le sue leggi e le sue sentenze.',
     },
     features: [
       { title: 'Pratiche & scadenze', desc: 'Gestione fascicoli, scadenzario automatico, alert su udienze e termini.' },

@@ -95,7 +95,7 @@ export function Services() {
           className="mx-auto max-w-3xl text-center"
         >
           <div className="gold-rule mx-auto mb-8 w-24" />
-          <p className="mb-3 text-xs uppercase tracking-[0.2em] text-gold">I servizi</p>
+          <p className="mb-3 text-xs uppercase tracking-[0.2em] text-gold">{t('eyebrow')}</p>
           <h2 className="font-display text-4xl tracking-tight text-ink sm:text-5xl">
             {t('title')}
           </h2>
@@ -176,13 +176,13 @@ function ServiceCard({
           }}
         />
 
-        <div className="relative grid grid-cols-[100px_1fr] gap-5 p-8">
+        <div className="relative grid grid-cols-[64px_1fr] gap-4 p-6 sm:grid-cols-[100px_1fr] sm:gap-5 sm:p-8">
           {/* mini-bolla 3D — più piccola ma "viva" come il hero */}
           <div className="flex flex-col items-center gap-3">
             <MiniBolla
               color={vertical.color}
               hover={hover}
-              className="h-24 w-24 rounded-full"
+              className="h-16 w-16 rounded-full sm:h-24 sm:w-24"
             />
             <div
               className="inline-flex h-9 w-9 items-center justify-center rounded-xl"

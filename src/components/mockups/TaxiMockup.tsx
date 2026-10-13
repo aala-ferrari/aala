@@ -20,11 +20,11 @@ export function TaxiMockup() {
   const t = useTranslations('mockup.taxi');
   return (
     <BrowserFrame url="taxi.aala.io/dispatch">
-      <div className="grid h-[560px] grid-cols-[55%_45%]">
+      <div className="grid md:h-[560px] md:grid-cols-[55%_45%]">
         {/* left: live map + KPI */}
-        <div className="border-r border-ink-line/60 p-5">
+        <div className="border-b border-ink-line/60 p-4 md:border-b-0 md:border-r md:p-5">
           {/* KPI strip */}
-          <div className="mb-4 grid grid-cols-4 gap-2">
+          <div className="mb-4 grid grid-cols-2 gap-2 md:grid-cols-4">
             {[
               { label: t('ridesToday'), value: '247', icon: Navigation },
               { label: t('activeDrivers'), value: '38', icon: User },
@@ -48,7 +48,7 @@ export function TaxiMockup() {
 
           {/* live map */}
           <div
-            className="relative h-[420px] overflow-hidden rounded-xl border border-ink-line/60"
+            className="relative h-[260px] overflow-hidden rounded-xl border border-ink-line/60 md:h-[420px]"
             style={{
               background:
                 'radial-gradient(ellipse 60% 50% at 35% 40%, rgba(245,184,0,0.20), transparent 60%), linear-gradient(180deg, #fdf4d6 0%, #f3e3a8 100%)',
@@ -110,7 +110,7 @@ export function TaxiMockup() {
         </div>
 
         {/* right: live rides + drivers */}
-        <div className="p-5">
+        <div className="p-4 md:p-5">
           {/* live rides */}
           <div className="mb-4">
             <div className="mb-3 flex items-center justify-between">

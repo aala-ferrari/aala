@@ -29,9 +29,9 @@ export function DentalMockup() {
   const t = useTranslations('mockup.dental');
   return (
     <BrowserFrame url="dental.aala.io/leads">
-      <div className="h-[560px] p-6">
+      <div className="p-4 md:h-[560px] md:p-6">
         {/* KPI strip */}
-        <div className="mb-5 grid grid-cols-4 gap-3">
+        <div className="mb-5 grid grid-cols-2 gap-3 md:grid-cols-4">
           {[
             { label: t('leadsMonth'), value: '127', icon: Users, color: '#0e7c8a' },
             { label: t('conversion'), value: '34%', icon: TrendingUp, color: '#2a7a5c' },
@@ -52,7 +52,7 @@ export function DentalMockup() {
         </div>
 
         {/* Pipeline kanban */}
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
           {(Object.keys(PIPELINE) as (keyof typeof PIPELINE)[]).map((col) => {
             const color = COL_COLORS[col as string];
             const leads = PIPELINE[col];
@@ -99,7 +99,7 @@ export function DentalMockup() {
             </div>
             <Globe className="h-5 w-5 text-[#2a7a5c]" />
           </div>
-          <div className="mt-3 flex gap-2">
+          <div className="mt-3 flex flex-wrap gap-2">
             {[
               { c: '🇬🇧', n: 'UK', pct: 38 },
               { c: '🇩🇪', n: 'DE', pct: 24 },
@@ -107,7 +107,7 @@ export function DentalMockup() {
               { c: '🇺🇸', n: 'US', pct: 12 },
               { c: '🇪🇸', n: 'ES', pct: 8 },
             ].map((c) => (
-              <div key={c.n} className="flex-1">
+              <div key={c.n} className="min-w-[28%] flex-1 md:min-w-0">
                 <div className="flex items-baseline justify-between">
                   <span className="text-xs">{c.c} {c.n}</span>
                   <span className="text-[10px] text-ink-soft">{c.pct}%</span>

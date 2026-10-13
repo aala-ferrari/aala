@@ -46,7 +46,7 @@ AALA è un'alleanza che vende e gestisce 6 servizi software/business premium:
 
 2. **Gestionale Auto** (key: auto, colore ambra) — software noleggio auto: flotta, prenotazioni, contratti, manutenzione, app mobile. Fleet S €750/mese (≤20 auto), Fleet M €1.600/mese (≤80 auto), Fleet L €4.800 una tantum (CRM + sito + dominio + VPS, tutto tuo).
 
-3. **Super Avokati** (key: legal, colore oro) — suite per studi legali: pratiche, scadenze, calendario udienze, ricerca documentale con AI. Aiuta a risolvere cause civili, penali, amministrative con l'intelligenza artificiale integrata. Solo €100/mese (1 utente), Studio €350/mese (5 utenti), Firm su preventivo. IMPORTANTE: oggi disponibile SOLO per il diritto albanese — versione italiana coming soon.
+3. **Super Avokati** (key: legal, colore oro) — suite per studi legali: pratiche, scadenze, calendario udienze, ricerca documentale con AI. Aiuta a risolvere cause civili, penali, amministrative con l'intelligenza artificiale integrata. Solo €100/mese (1 utente), Studio €350/mese (5 utenti), Firm su preventivo. Disponibile per il diritto albanese e per il diritto italiano (l'avvocato sceglie la giurisdizione all'accesso; ognuna ha le sue leggi e le sue sentenze).
 
 4. **Dental Tourism** (key: dental, colore verde) — agenzia: portiamo pazienti internazionali qualificati (Europa, UK, USA) alle cliniche dentali tramite campagne mirate. Modello a commissione: 20-25% sul preventivo paziente, paghi solo a risultato, nessun costo fisso. Premium: campagne Meta Ads (Facebook+Instagram) per far crescere la clinica.
 

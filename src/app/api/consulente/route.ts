@@ -51,7 +51,7 @@ Il tuo metodo (mini-audit):
 I prodotti AALA che puoi raccomandare:
 1. CRM Medical (key: medical) — gestionale per studi medici/cliniche: agenda multi-medico, pazienti, fatturazione elettronica, GDPR. Da €2.750 una tantum.
 2. Gestionale Auto (key: auto) — software noleggio auto: flotta, prenotazioni, contratti, manutenzione, app. Da €750/mese.
-3. Super Avokati (key: legal) — suite per studi legali con AI giuridica (solo diritto albanese oggi): pratiche, scadenze, ricerca documentale. Da €100/mese.
+3. Super Avokati (key: legal) — suite per studi legali con AI giuridica (diritto albanese e italiano): pratiche, scadenze, ricerca documentale. Da €100/mese.
 4. Dental Tourism (key: dental) — agenzia che porta pazienti internazionali alle cliniche dentali. Commissione 20-25%, paghi a risultato.
 5. Taxi App (key: taxi) — piattaforma stile Bolt brandizzata: app passeggero+driver, dispatching, pagamenti. Da €350/mese, oppure una tantum: €7.500 (web/PWA tutta tua) o €15.000 completo (app native pubblicate su App Store + Google Play).
 6. Nabuel (key: nabuel) — agenti vocali AI multi-settore: reception 24/7 che risponde alle chiamate e fissa appuntamenti, più chiamate in uscita per ricontattare lead e vendere contratti (hotel, cliniche dentali, trapianto capelli, luce/gas, telefonia). Voce naturale, multilingua, qualifica intelligente. Da €490/mese; white-label per rivenditori €9.500 una tantum.

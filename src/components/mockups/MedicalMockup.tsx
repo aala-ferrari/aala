@@ -15,9 +15,9 @@ export function MedicalMockup() {
   const t = useTranslations('mockup.medical');
   return (
     <BrowserFrame url="medical.aala.io/agenda">
-      <div className="flex h-[560px]">
+      <div className="flex md:h-[560px]">
         {/* sidebar */}
-        <aside className="w-56 shrink-0 border-r border-ink-line/60 bg-canvas-warm/40 p-4">
+        <aside className="hidden w-56 shrink-0 border-r border-ink-line/60 bg-canvas-warm/40 p-4 md:block">
           <div className="mb-6 flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0e7c8a] text-white">
               <Heart className="h-4 w-4" />
@@ -52,22 +52,22 @@ export function MedicalMockup() {
         </aside>
 
         {/* main */}
-        <div className="flex-1">
+        <div className="min-w-0 flex-1">
           {/* topbar */}
-          <div className="flex items-center justify-between border-b border-ink-line/60 px-6 py-3">
-            <div className="flex items-center gap-2 text-xs text-ink-soft">
-              <Search className="h-3.5 w-3.5" />
-              <span>{t('search')}</span>
+          <div className="flex items-center justify-between gap-3 border-b border-ink-line/60 px-4 py-3 md:px-6">
+            <div className="flex min-w-0 items-center gap-2 text-xs text-ink-soft">
+              <Search className="h-3.5 w-3.5 shrink-0" />
+              <span className="truncate">{t('search')}</span>
             </div>
-            <button className="flex items-center gap-1 rounded-full bg-[#0e7c8a] px-3 py-1.5 text-[10px] font-medium text-white">
+            <button className="flex shrink-0 items-center gap-1 rounded-full bg-[#0e7c8a] px-3 py-1.5 text-[10px] font-medium text-white">
               <Plus className="h-3 w-3" /> {t('newVisit')}
             </button>
           </div>
 
           {/* agenda */}
-          <div className="p-6">
-            <div className="mb-4 flex items-center justify-between">
-              <h3 className="font-display text-lg text-ink">Martedì, 14 Maggio</h3>
+          <div className="p-4 md:p-6">
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+              <h3 className="font-display text-lg text-ink">{t('dayTitle')}</h3>
               <div className="flex gap-1">
                 <button className="rounded-md border border-ink-line/60 px-2 py-1 text-[10px] text-ink-soft">{t('day')}</button>
                 <button className="rounded-md bg-ink/90 px-2 py-1 text-[10px] text-white">{t('week')}</button>

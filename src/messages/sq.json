@@ -40,7 +40,7 @@
       },
       "legal": {
         "name": "Super Avokati",
-        "desc": "Suitë SaaS për studio ligjore: praktika, afate, kalendar, kërkim dokumentesh i asistuar. Ndihmon avokatin në zgjidhjen e çështjeve civile, penale dhe administrative falë inteligjencës artificiale të integruar të Super Avokatit. <em>Aktualisht i disponueshëm vetëm për të drejtën shqiptare — së shpejti edhe Itali.</em>"
+        "desc": "Suitë SaaS për studio ligjore: praktika, afate, kalendar, kërkim dokumentesh i asistuar. Ndihmon avokatin në zgjidhjen e çështjeve civile, penale dhe administrative falë inteligjencës artificiale të integruar të Super Avokatit. <em>E drejta shqiptare dhe e drejta italiane, secila me ligjet dhe vendimet e veta.</em>"
       },
       "dental": {
         "name": "Dental Tourism",
@@ -50,7 +50,8 @@
       "nabuel": {
         "name": "Nabuel",
         "desc": "Asistent zëri AI shumësektorial: përgjigjet në telefonata, cakton takime (recepsion 24/7) dhe bën telefonata dalëse për të rikontaktuar lead-et dhe shitur kontrata — hotele, dentistë, transplant flokësh, energji/gaz."
-      }
+      },
+      "eyebrow": "Shërbimet"
     },
     "values": {
       "eyebrow": "Vlerat tona",
@@ -416,7 +417,7 @@
     "legal": {
       "heroEyebrow": "Super Avokati",
       "heroTitle": "Suita SaaS që e bën studion tënde ligjore të punojë më pak.",
-      "heroSubtitle": "Praktika, afate, kalendar seancash, kërkim dokumentesh me AI, faturim. Gjithçka e integruar, gjithçka e sigurt. Aktualisht i disponueshëm për të drejtën shqiptare — versioni italian së shpejti.",
+      "heroSubtitle": "Praktika, afate, kalendar seancash, kërkim dokumentesh me AI, faturim. Gjithçka e integruar, gjithçka e sigurt. E drejta shqiptare dhe e drejta italiane, secila me ligjet dhe vendimet e veta.",
       "features": [
         {
           "title": "Praktika & afate",
@@ -661,7 +662,8 @@
       "day": "Ditë",
       "week": "Javë",
       "month": "Muaj",
-      "newVisit": "Vizitë e re"
+      "newVisit": "Vizitë e re",
+      "dayTitle": "E martë, 14 maj"
     },
     "auto": {
       "fleet": "Flota",
@@ -777,7 +779,17 @@
     "errCheckout": "Gabim në pagesë",
     "errOrder": "Gabim në porosi",
     "err": "Gabim",
-    "months": "{count, plural, one {# muaj} other {# muaj}}"
+    "months": "{count, plural, one {# muaj} other {# muaj}}",
+    "cardTitle": "Të dhënat e pagesës",
+    "firstName": "Emri",
+    "lastName": "Mbiemri",
+    "email": "Email",
+    "phone": "Telefoni",
+    "searchCountry": "Kërko shtetin…",
+    "noCountry": "Asnjë shtet",
+    "redirecting": "Po ju dërgojmë…",
+    "payNow": "Paguaj tani · € {amount}",
+    "backToMethods": "← Kthehu te mënyrat e pagesës"
   },
   "account": {
     "eyebrow": "Zona e klientit",

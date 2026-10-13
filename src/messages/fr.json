@@ -40,7 +40,7 @@
       },
       "legal": {
         "name": "Super Avokati",
-        "desc": "Suite SaaS pour cabinets d'avocats : dossiers, échéances, calendrier, recherche documentaire IA. Accompagne l'avocat dans la résolution des affaires civiles, pénales et administratives grâce à l'intelligence artificielle intégrée de Super Avokati. <em>Actuellement disponible uniquement pour le droit albanais — Italie bientôt.</em>"
+        "desc": "Suite SaaS pour cabinets d'avocats : dossiers, échéances, calendrier, recherche documentaire IA. Accompagne l'avocat dans la résolution des affaires civiles, pénales et administratives grâce à l'intelligence artificielle intégrée de Super Avokati. <em>Droit albanais et droit italien, chacun avec ses lois et sa jurisprudence.</em>"
       },
       "dental": {
         "name": "Tourisme Dentaire",
@@ -50,7 +50,8 @@
       "nabuel": {
         "name": "Nabuel",
         "desc": "Agent vocal IA multi-secteur : répond aux appels, prend les rendez-vous (réception 24/7) et passe des appels sortants pour relancer les leads et vendre des contrats — hôtels, dentaire, greffe de cheveux, énergie/gaz."
-      }
+      },
+      "eyebrow": "Services"
     },
     "values": {
       "eyebrow": "Nos valeurs",
@@ -423,7 +424,7 @@
     "legal": {
       "heroEyebrow": "Super Avokati",
       "heroTitle": "La suite SaaS qui allège le travail de votre cabinet.",
-      "heroSubtitle": "Dossiers, échéances, calendrier d’audiences, recherche documentaire par IA, facturation. Tout intégré, tout sécurisé. Actuellement disponible pour le droit albanais — version italienne bientôt.",
+      "heroSubtitle": "Dossiers, échéances, calendrier d’audiences, recherche documentaire par IA, facturation. Tout intégré, tout sécurisé. Droit albanais et droit italien, chacun avec ses lois et sa jurisprudence.",
       "features": [
         {
           "title": "Dossiers & échéances",
@@ -661,7 +662,8 @@
       "day": "Jour",
       "week": "Semaine",
       "month": "Mois",
-      "newVisit": "Nouvelle visite"
+      "newVisit": "Nouvelle visite",
+      "dayTitle": "Mardi 14 mai"
     },
     "auto": {
       "fleet": "Flotte",
@@ -777,7 +779,17 @@
     "errCheckout": "Erreur de paiement",
     "errOrder": "Erreur de commande",
     "err": "Erreur",
-    "months": "{count, plural, one {# mois} other {# mois}}"
+    "months": "{count, plural, one {# mois} other {# mois}}",
+    "cardTitle": "Informations de paiement",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "searchCountry": "Rechercher un pays…",
+    "noCountry": "Aucun pays",
+    "redirecting": "Redirection…",
+    "payNow": "Payer maintenant · € {amount}",
+    "backToMethods": "← Retour aux moyens de paiement"
   },
   "account": {
     "eyebrow": "Espace client",
