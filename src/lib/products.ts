@@ -10,6 +10,16 @@ export interface Plan {
   popular?: boolean;
   premium?: boolean;
   stripePriceId?: string;
+  /** Famiglia dentro il servizio (es. 'web' e 'crm' in CRM · Webpages): la griglia le separa. */
+  group?: string;
+  /** Prezzo «a partire da»: mostra «da N €» e il pulsante porta al contatto (billing 'contact'). */
+  priceFrom?: boolean;
+}
+
+export interface PlanGroup {
+  key: string;
+  title: string;
+  subtitle: string;
 }
 
 export interface Vertical {
@@ -20,6 +30,8 @@ export interface Vertical {
   hero: { iconKey: VerticalKey; eyebrow: string; title: string; subtitle: string };
   features: { title: string; desc: string }[];
   plans: Plan[];
+  /** Ordine e titoli delle famiglie di pacchetti; senza, una griglia unica. */
+  planGroups?: PlanGroup[];
 }
 
 export const VERTICALS: Record<VerticalKey, Vertical> = {
@@ -41,9 +53,77 @@ export const VERTICALS: Record<VerticalKey, Vertical> = {
       { title: 'Fatturazione', desc: 'Fatturazione elettronica, sistema TS, scadenzario, esportazione commercialista.' },
       { title: 'Sicurezza', desc: 'Cifratura at-rest, backup giornalieri, log di accesso, conformità GDPR.' },
     ],
+    planGroups: [
+      {
+        key: 'web',
+        title: 'Siti web',
+        subtitle: 'Siti 100% su misura, niente template pronti: scegli il pacchetto, al resto pensiamo noi.',
+      },
+      {
+        key: 'crm',
+        title: 'CRM su misura',
+        subtitle: 'Gestionali costruiti sul tuo lavoro: studi medici, cliniche, qualsiasi azienda.',
+      },
+    ],
     plans: [
       {
+        id: 'website-basic',
+        group: 'web',
+        name: 'Sito Semplice',
+        price: 350,
+        currency: 'EUR',
+        billing: 'one-time',
+        features: [
+          'Fino a 5 pagine (Home, Chi siamo, Servizi, Galleria, Contatti)',
+          'Design professionale con il tuo logo e i tuoi colori',
+          'Perfetto su smartphone, tablet e computer',
+          'Modulo contatti, pulsante WhatsApp e mappa',
+          'SEO di base: titoli, descrizioni, sitemap, Google',
+          'HTTPS, privacy e cookie a norma GDPR',
+          'Messa online sul tuo dominio + 1 giro di modifiche',
+        ],
+      },
+      {
+        id: 'website-medium',
+        group: 'web',
+        name: 'Sito Medium',
+        price: 750,
+        currency: 'EUR',
+        billing: 'one-time',
+        features: [
+          'Tutto il pacchetto Semplice +',
+          'Fino a 10 pagine',
+          'Design personalizzato, disegnato da zero per il tuo marchio',
+          'Sviluppo su misura (coding) con sezioni e funzioni dedicate',
+          'Animazioni 3D ed effetti interattivi',
+          'Sito in 2 lingue',
+          'SEO avanzata: velocità, dati strutturati, Google Analytics',
+          '2 giri di modifiche',
+        ],
+        popular: true,
+      },
+      {
+        id: 'website-premium',
+        group: 'web',
+        name: 'Sito Premium',
+        price: 970,
+        currency: 'EUR',
+        billing: 'contact',
+        priceFrom: true,
+        premium: true,
+        features: [
+          'Tutto il pacchetto Medium +',
+          'Progetto su misura, senza limiti fissi di pagine e sezioni',
+          'Esperienze 3D avanzate e animazioni su misura',
+          'E-commerce, prenotazioni online o area clienti',
+          'Integrazioni: pagamenti, CRM, gestionali',
+          'Tutte le lingue che ti servono',
+          'Preventivo dopo una call, assistenza dedicata',
+        ],
+      },
+      {
         id: 'crm-medical-starter',
+        group: 'crm',
         name: 'Starter (1 medico)',
         price: 2750,
         currency: 'EUR',
@@ -52,6 +132,7 @@ export const VERTICALS: Record<VerticalKey, Vertical> = {
       },
       {
         id: 'crm-medical-clinic',
+        group: 'crm',
         name: 'Clinica completa',
         price: 3550,
         currency: 'EUR',
@@ -67,6 +148,7 @@ export const VERTICALS: Record<VerticalKey, Vertical> = {
       },
       {
         id: 'crm-medical-enterprise',
+        group: 'crm',
         name: 'Enterprise',
         price: 0,
         currency: 'EUR',

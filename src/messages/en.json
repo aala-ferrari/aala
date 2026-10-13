@@ -96,7 +96,10 @@
     "buy": "Buy",
     "subscribe": "Subscribe",
     "contact": "Contact",
-    "popular": "Most popular"
+    "popular": "Most popular",
+    "quote": "Custom quote",
+    "from": "from",
+    "onRequest": "on request"
   },
   "about": {
     "eyebrow": "About",
@@ -280,6 +283,43 @@
         }
       ],
       "plans": {
+        "website-basic": {
+          "name": "Simple Website",
+          "features": [
+            "Up to 5 pages (Home, About, Services, Gallery, Contact)",
+            "Professional design with your logo and colours",
+            "Perfect on smartphone, tablet and computer",
+            "Contact form, WhatsApp button and map",
+            "Basic SEO: titles, descriptions, sitemap, Google",
+            "HTTPS, GDPR-compliant privacy and cookies",
+            "Go-live on your domain + 1 round of changes"
+          ]
+        },
+        "website-medium": {
+          "name": "Medium Website",
+          "features": [
+            "Everything in Simple +",
+            "Up to 10 pages",
+            "Custom design, drawn from scratch for your brand",
+            "Custom development (coding) with dedicated sections and features",
+            "3D animations and interactive effects",
+            "Website in 2 languages",
+            "Advanced SEO: speed, structured data, Google Analytics",
+            "2 rounds of changes"
+          ]
+        },
+        "website-premium": {
+          "name": "Premium Website",
+          "features": [
+            "Everything in Medium +",
+            "Tailor-made project, no fixed limit on pages and sections",
+            "Advanced 3D experiences and custom animations",
+            "E-commerce, online booking or client area",
+            "Integrations: payments, CRM, management software",
+            "All the languages you need",
+            "Quote after a call, dedicated support"
+          ]
+        },
         "crm-medical-starter": {
           "name": "Starter (1 doctor)",
           "features": [
@@ -307,6 +347,16 @@
             "Dedicated SLA",
             "Optional on-premise hosting"
           ]
+        }
+      },
+      "groups": {
+        "web": {
+          "title": "Websites",
+          "subtitle": "100% custom websites, no ready-made templates: pick the package, we take care of the rest."
+        },
+        "crm": {
+          "title": "Custom CRM",
+          "subtitle": "Management software built around your work: medical practices, clinics, any business."
         }
       }
     },

@@ -112,7 +112,7 @@ const SERVICE_PITCH: Record<string, string[]> = {
   ],
   webpages: [
     'Realizziamo siti web 100% su misura — niente template pronti. Disegnati per la tua impresa, dal codice al design.',
-    'Raccontami che tipo di sito ti serve e ti preparo un percorso dedicato.',
+    'Tre pacchetti: Semplice €350, Medium €750 con design su misura e animazioni 3D, Premium su richiesta da €970. Raccontami che sito ti serve e ti indico quello giusto.',
   ],
 };
 

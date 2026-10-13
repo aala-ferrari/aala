@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import type { Plan, Vertical } from './products';
+import type { Plan, PlanGroup, Vertical } from './products';
 
 // Traduzioni del catalogo prodotti (hero, caratteristiche, piani) con FALLBACK
 // all'italiano di products.ts: se manca la traduzione, mostra l'originale —
@@ -29,6 +29,14 @@ export function useCatalog() {
     planFeatures(v: Vertical, plan: Plan): string[] {
       const key = `${v.key}.plans.${plan.id}.features`;
       return t.has(key) ? (t.raw(key) as string[]) : plan.features;
+    },
+    groupTitle(v: Vertical, g: PlanGroup): string {
+      const key = `${v.key}.groups.${g.key}.title`;
+      return t.has(key) ? t(key) : g.title;
+    },
+    groupSubtitle(v: Vertical, g: PlanGroup): string {
+      const key = `${v.key}.groups.${g.key}.subtitle`;
+      return t.has(key) ? t(key) : g.subtitle;
     },
   };
 }

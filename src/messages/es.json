@@ -96,7 +96,10 @@
     "buy": "Comprar",
     "subscribe": "Suscribirse",
     "contact": "Contactar",
-    "popular": "Más popular"
+    "popular": "Más popular",
+    "quote": "Bajo presupuesto",
+    "from": "desde",
+    "onRequest": "bajo petición"
   },
   "about": {
     "eyebrow": "Nosotros",
@@ -287,6 +290,43 @@
         }
       ],
       "plans": {
+        "website-basic": {
+          "name": "Sitio web Sencillo",
+          "features": [
+            "Hasta 5 páginas (Inicio, Quiénes somos, Servicios, Galería, Contacto)",
+            "Diseño profesional con tu logo y tus colores",
+            "Perfecto en smartphone, tablet y ordenador",
+            "Formulario de contacto, botón de WhatsApp y mapa",
+            "SEO básico: títulos, descripciones, sitemap, Google",
+            "HTTPS, privacidad y cookies conformes al RGPD",
+            "Publicación en tu dominio + 1 ronda de cambios"
+          ]
+        },
+        "website-medium": {
+          "name": "Sitio web Medium",
+          "features": [
+            "Todo el paquete Sencillo +",
+            "Hasta 10 páginas",
+            "Diseño personalizado, creado desde cero para tu marca",
+            "Desarrollo a medida (código) con secciones y funciones dedicadas",
+            "Animaciones 3D y efectos interactivos",
+            "Web en 2 idiomas",
+            "SEO avanzado: velocidad, datos estructurados, Google Analytics",
+            "2 rondas de cambios"
+          ]
+        },
+        "website-premium": {
+          "name": "Sitio web Premium",
+          "features": [
+            "Todo el paquete Medium +",
+            "Proyecto a medida, sin límites fijos de páginas y secciones",
+            "Experiencias 3D avanzadas y animaciones a medida",
+            "E-commerce, reservas online o área de clientes",
+            "Integraciones: pagos, CRM, software de gestión",
+            "Todos los idiomas que necesites",
+            "Presupuesto tras una llamada, asistencia dedicada"
+          ]
+        },
         "crm-medical-starter": {
           "name": "Starter (1 médico)",
           "features": [
@@ -314,6 +354,16 @@
             "SLA dedicado",
             "Hosting on-premise opcional"
           ]
+        }
+      },
+      "groups": {
+        "web": {
+          "title": "Sitios web",
+          "subtitle": "Sitios 100 % a medida, sin plantillas prefabricadas: elige el paquete, del resto nos encargamos nosotros."
+        },
+        "crm": {
+          "title": "CRM a medida",
+          "subtitle": "Software de gestión construido sobre tu trabajo: consultas médicas, clínicas, cualquier empresa."
         }
       }
     },

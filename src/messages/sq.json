@@ -96,7 +96,10 @@
     "buy": "Bli",
     "subscribe": "Abonohu",
     "contact": "Kontakto",
-    "popular": "Më i kërkuari"
+    "popular": "Më i kërkuari",
+    "quote": "Me ofertë",
+    "from": "nga",
+    "onRequest": "me kërkesë"
   },
   "about": {
     "eyebrow": "Rreth nesh",
@@ -280,6 +283,43 @@
         }
       ],
       "plans": {
+        "website-basic": {
+          "name": "Faqe web e Thjeshtë",
+          "features": [
+            "Deri në 5 faqe (Kryefaqja, Rreth nesh, Shërbimet, Galeria, Kontakti)",
+            "Dizajn profesional me logon dhe ngjyrat e tua",
+            "E përsosur në smartphone, tablet dhe kompjuter",
+            "Formular kontakti, buton WhatsApp dhe hartë",
+            "SEO bazë: tituj, përshkrime, sitemap, Google",
+            "HTTPS, privatësi dhe cookie sipas GDPR",
+            "Publikim në domenin tënd + 1 raund ndryshimesh"
+          ]
+        },
+        "website-medium": {
+          "name": "Faqe web Medium",
+          "features": [
+            "Gjithçka nga paketa e Thjeshtë +",
+            "Deri në 10 faqe",
+            "Dizajn i personalizuar, i krijuar nga zero për markën tënde",
+            "Zhvillim sipas nevojës (kodim) me seksione dhe funksione të dedikuara",
+            "Animacione 3D dhe efekte interaktive",
+            "Faqe në 2 gjuhë",
+            "SEO e avancuar: shpejtësi, të dhëna të strukturuara, Google Analytics",
+            "2 raunde ndryshimesh"
+          ]
+        },
+        "website-premium": {
+          "name": "Faqe web Premium",
+          "features": [
+            "Gjithçka nga paketa Medium +",
+            "Projekt sipas nevojës, pa kufi të caktuar faqesh dhe seksionesh",
+            "Përvoja 3D të avancuara dhe animacione të personalizuara",
+            "E-commerce, rezervime online ose zonë klientësh",
+            "Integrime: pagesa, CRM, programe menaxhimi",
+            "Të gjitha gjuhët që të duhen",
+            "Ofertë pas një telefonate, asistencë e dedikuar"
+          ]
+        },
         "crm-medical-starter": {
           "name": "Starter (1 mjek)",
           "features": [
@@ -307,6 +347,16 @@
             "SLA i dedikuar",
             "Hosting on-premise opsional"
           ]
+        }
+      },
+      "groups": {
+        "web": {
+          "title": "Faqe web",
+          "subtitle": "Faqe 100% të personalizuara, pa shabllone të gatshme: zgjidh paketën, për të tjerat kujdesemi ne."
+        },
+        "crm": {
+          "title": "CRM sipas nevojës",
+          "subtitle": "Programe menaxhimi të ndërtuara për punën tënde: studio mjekësore, klinika, çdo biznes."
         }
       }
     },

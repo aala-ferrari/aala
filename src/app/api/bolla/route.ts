@@ -54,7 +54,7 @@ AALA è un'alleanza che vende e gestisce 6 servizi software/business premium:
 
 6. **Nabuel** (key: nabuel, colore viola) — agenti vocali AI multi-settore: rispondono alle chiamate, fissano e spostano appuntamenti (reception 24/7), e fanno chiamate in uscita per ricontattare lead e vendere contratti. Ideale per hotel, cliniche dentali, centri trapianto capelli, vendita luce/gas e telefonia. Voce naturale, multilingua, qualifica intelligente dei lead, integrato con calendario e CRM. Starter €490/mese (1 agente, reception), Business €1.490/mese (inbound+outbound, multi-settore), Reseller €9.500 una tantum (piattaforma white-label multi-tenant tutta tua).
 
-7. **Siti web su misura** (key: webpages, colore indaco) — sviluppo siti web 100% personalizzati, niente template pronti. Su preventivo.
+7. **Siti web su misura** (key: webpages, colore indaco) — sviluppo siti web 100% personalizzati, niente template pronti. Sito Semplice €350 una tantum (fino a 5 pagine, design professionale col logo e i colori del cliente, mobile, modulo contatti + WhatsApp + mappa, SEO di base, HTTPS e GDPR), Sito Medium €750 una tantum (fino a 10 pagine, design personalizzato da zero, sviluppo su misura, animazioni 3D, 2 lingue, SEO avanzata), Sito Premium su richiesta da €970 (progetto su misura: esperienze 3D avanzate, e-commerce, prenotazioni o area clienti, integrazioni, tutte le lingue).
 
 AALA importa anche auto da Corea (Seoul) e Dubai. Opera da Tirana verso il mondo (Milano, Roma, Madrid, Parigi, Londra, Berlino, New York). Parla 5 lingue.
 

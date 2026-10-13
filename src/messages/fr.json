@@ -96,7 +96,10 @@
     "buy": "Acheter",
     "subscribe": "S'abonner",
     "contact": "Contacter",
-    "popular": "Le plus demandé"
+    "popular": "Le plus demandé",
+    "quote": "Sur devis",
+    "from": "à partir de",
+    "onRequest": "sur demande"
   },
   "about": {
     "eyebrow": "À propos",
@@ -287,6 +290,43 @@
         }
       ],
       "plans": {
+        "website-basic": {
+          "name": "Site web Simple",
+          "features": [
+            "Jusqu'à 5 pages (Accueil, À propos, Services, Galerie, Contact)",
+            "Design professionnel avec votre logo et vos couleurs",
+            "Parfait sur smartphone, tablette et ordinateur",
+            "Formulaire de contact, bouton WhatsApp et carte",
+            "SEO de base : titres, descriptions, sitemap, Google",
+            "HTTPS, confidentialité et cookies conformes au RGPD",
+            "Mise en ligne sur votre domaine + 1 série de modifications"
+          ]
+        },
+        "website-medium": {
+          "name": "Site web Medium",
+          "features": [
+            "Tout le pack Simple +",
+            "Jusqu'à 10 pages",
+            "Design personnalisé, dessiné de zéro pour votre marque",
+            "Développement sur mesure (code) avec sections et fonctions dédiées",
+            "Animations 3D et effets interactifs",
+            "Site en 2 langues",
+            "SEO avancé : vitesse, données structurées, Google Analytics",
+            "2 séries de modifications"
+          ]
+        },
+        "website-premium": {
+          "name": "Site web Premium",
+          "features": [
+            "Tout le pack Medium +",
+            "Projet sur mesure, sans limite fixe de pages et de sections",
+            "Expériences 3D avancées et animations sur mesure",
+            "E-commerce, réservation en ligne ou espace client",
+            "Intégrations : paiements, CRM, logiciels de gestion",
+            "Toutes les langues dont vous avez besoin",
+            "Devis après un appel, assistance dédiée"
+          ]
+        },
         "crm-medical-starter": {
           "name": "Starter (1 médecin)",
           "features": [
@@ -314,6 +354,16 @@
             "SLA dédié",
             "Hébergement on-premise en option"
           ]
+        }
+      },
+      "groups": {
+        "web": {
+          "title": "Sites web",
+          "subtitle": "Sites 100 % sur mesure, sans modèles tout faits : choisissez la formule, nous nous occupons du reste."
+        },
+        "crm": {
+          "title": "CRM sur mesure",
+          "subtitle": "Logiciels de gestion construits autour de votre activité : cabinets médicaux, cliniques, toute entreprise."
         }
       }
     },

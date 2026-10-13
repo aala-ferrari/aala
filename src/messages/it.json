@@ -96,7 +96,10 @@
     "buy": "Acquista",
     "subscribe": "Abbonati",
     "contact": "Contatta",
-    "popular": "Più richiesto"
+    "popular": "Più richiesto",
+    "quote": "Su preventivo",
+    "from": "da",
+    "onRequest": "su richiesta"
   },
   "about": {
     "eyebrow": "Chi siamo",

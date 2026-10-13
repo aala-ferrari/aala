@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Send, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { VERTICAL_LIST } from '@/lib/products';
 
 const SERVICE_VALUES = ['medical', 'webpages', 'auto', 'taxi', 'legal', 'dental', 'nabuel', 'other'] as const;
 
@@ -11,6 +12,17 @@ export function ContactForm() {
   const t = useTranslations('contact.form');
   const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [error, setError] = useState<string | null>(null);
+
+  // Arrivando dal pulsante di un pacchetto (/contatti?plan=website-premium) il
+  // servizio giusto è già scelto: il lead dice subito di cosa si parla.
+  const [service, setService] = useState<string>(SERVICE_VALUES[0]);
+  useEffect(() => {
+    const plan = new URLSearchParams(window.location.search).get('plan') || '';
+    const v = plan.startsWith('website-')
+      ? 'webpages'
+      : VERTICAL_LIST.find((x) => x.plans.some((p) => p.id === plan))?.key;
+    if (v && (SERVICE_VALUES as readonly string[]).includes(v)) setService(v);
+  }, []);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -65,6 +77,8 @@ export function ContactForm() {
         </span>
         <select
           name="service"
+          value={service}
+          onChange={(e) => setService(e.target.value)}
           className="w-full rounded-lg border border-ink-line bg-white px-4 py-3 text-sm text-ink outline-none transition focus:border-gold"
         >
           {SERVICE_VALUES.map((v) => (

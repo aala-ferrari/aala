@@ -39,6 +39,9 @@ export default async function AccountPage({ params }: { params: { locale: string
     ...orders
       .filter((o) => {
         if (o.status !== 'paid' && o.status !== 'fulfilled') return false;
+        // un sito web è un progetto che consegniamo noi: non apre l'accesso al CRM
+        const piano = VERTICAL_LIST.flatMap((v) => v.plans).find((p) => p.id === o.product_id);
+        if (piano?.group === 'web') return false;
         // gli abbonamenti a blocco hanno period_end: attivi solo se non scaduti.
         // gli acquisti una-tantum non hanno period_end → restano attivi.
         const pe = (o.metadata as Record<string, unknown> | null)?.period_end as

@@ -17,6 +17,16 @@ export function PlanGrid({
 }) {
   const t = useTranslations('pricing');
   const locale = useLocale();
+  const catalog = useCatalog();
+
+  // Più famiglie di pacchetti nello stesso servizio (CRM · Webpages: prima i
+  // siti web, poi il CRM): una griglia per famiglia, ognuna col suo titolo.
+  // Senza famiglie resta la griglia unica di sempre.
+  const groups = vertical.planGroups?.length
+    ? vertical.planGroups
+        .map((g) => ({ group: g, plans: vertical.plans.filter((p) => p.group === g.key) }))
+        .filter((x) => x.plans.length > 0)
+    : [{ group: null, plans: vertical.plans }];
 
   return (
     <section className={showHeader ? 'py-24' : 'pb-12'}>
@@ -31,11 +41,28 @@ export function PlanGrid({
           </div>
         )}
 
-        <div className={cn('grid gap-6 md:grid-cols-3', showHeader && 'mt-14')}>
-          {vertical.plans.map((plan, i) => (
-            <PlanCard key={plan.id} plan={plan} vertical={vertical} index={i} locale={locale} />
-          ))}
-        </div>
+        {groups.map(({ group, plans }, gi) => (
+          <div
+            key={group?.key ?? 'all'}
+            className={cn(gi > 0 ? 'mt-16' : showHeader ? 'mt-14' : group ? 'mt-6' : '')}
+          >
+            {group && (
+              <div className={cn('mb-8', showHeader && 'text-center')}>
+                <h3 className="font-display text-2xl tracking-tight text-ink sm:text-3xl">
+                  {catalog.groupTitle(vertical, group)}
+                </h3>
+                <p className={cn('mt-2 max-w-xl text-sm text-ink-soft', showHeader && 'mx-auto')}>
+                  {catalog.groupSubtitle(vertical, group)}
+                </p>
+              </div>
+            )}
+            <div className="grid gap-6 md:grid-cols-3">
+              {plans.map((plan, i) => (
+                <PlanCard key={plan.id} plan={plan} vertical={vertical} index={i} locale={locale} />
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
@@ -72,7 +99,7 @@ function PlanCard({
   // Formattazione deterministica (stessa su server e client): raggruppamento
   // a migliaia con il punto, niente Intl/ICU che causava mismatch di hydration.
   const formattedPrice =
-    plan.billing === 'contact'
+    plan.billing === 'contact' && !plan.priceFrom
       ? null
       : `${plan.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')} €`;
 
@@ -121,15 +148,18 @@ function PlanCard({
 
       <h3 className="font-display text-2xl text-ink">{planName}</h3>
 
-      <div className="mt-6 flex items-baseline gap-1">
+      <div className="mt-6 flex flex-wrap items-baseline gap-1">
         {formattedPrice ? (
           <>
+            {plan.priceFrom && <span className="text-sm text-ink-soft">{t('from')}</span>}
             <span className="font-display text-5xl tracking-tight text-ink">{formattedPrice}</span>
-            <span className="text-sm text-ink-soft">{period}</span>
+            <span className="text-sm text-ink-soft">
+              {plan.priceFrom ? ` · ${t('onRequest')}` : period}
+            </span>
           </>
         ) : (
           <span className="font-display text-3xl tracking-tight text-ink-soft">
-            Su preventivo
+            {t('quote')}
           </span>
         )}
       </div>

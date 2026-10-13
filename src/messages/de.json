@@ -96,7 +96,10 @@
     "buy": "Kaufen",
     "subscribe": "Abonnieren",
     "contact": "Kontakt",
-    "popular": "Am beliebtesten"
+    "popular": "Am beliebtesten",
+    "quote": "Auf Anfrage",
+    "from": "ab",
+    "onRequest": "auf Anfrage"
   },
   "about": {
     "eyebrow": "Über uns",
@@ -287,6 +290,43 @@
         }
       ],
       "plans": {
+        "website-basic": {
+          "name": "Website Einfach",
+          "features": [
+            "Bis zu 5 Seiten (Start, Über uns, Leistungen, Galerie, Kontakt)",
+            "Professionelles Design mit Ihrem Logo und Ihren Farben",
+            "Perfekt auf Smartphone, Tablet und Computer",
+            "Kontaktformular, WhatsApp-Button und Karte",
+            "Basis-SEO: Titel, Beschreibungen, Sitemap, Google",
+            "HTTPS, Datenschutz und Cookies DSGVO-konform",
+            "Veröffentlichung auf Ihrer Domain + 1 Änderungsrunde"
+          ]
+        },
+        "website-medium": {
+          "name": "Website Medium",
+          "features": [
+            "Alles aus Einfach +",
+            "Bis zu 10 Seiten",
+            "Individuelles Design, von Grund auf für Ihre Marke entworfen",
+            "Entwicklung nach Maß (Coding) mit eigenen Bereichen und Funktionen",
+            "3D-Animationen und interaktive Effekte",
+            "Website in 2 Sprachen",
+            "Erweitertes SEO: Geschwindigkeit, strukturierte Daten, Google Analytics",
+            "2 Änderungsrunden"
+          ]
+        },
+        "website-premium": {
+          "name": "Website Premium",
+          "features": [
+            "Alles aus Medium +",
+            "Projekt nach Maß, ohne feste Grenze bei Seiten und Bereichen",
+            "Fortgeschrittene 3D-Erlebnisse und Animationen nach Maß",
+            "E-Commerce, Online-Buchung oder Kundenbereich",
+            "Integrationen: Zahlungen, CRM, Verwaltungssoftware",
+            "Alle Sprachen, die Sie brauchen",
+            "Angebot nach einem Gespräch, persönlicher Support"
+          ]
+        },
         "crm-medical-starter": {
           "name": "Starter (1 Arzt)",
           "features": [
@@ -314,6 +354,16 @@
             "Dediziertes SLA",
             "Optionales On-Premise-Hosting"
           ]
+        }
+      },
+      "groups": {
+        "web": {
+          "title": "Websites",
+          "subtitle": "100 % maßgeschneiderte Websites, keine fertigen Vorlagen: Paket wählen, um den Rest kümmern wir uns."
+        },
+        "crm": {
+          "title": "CRM nach Maß",
+          "subtitle": "Verwaltungssoftware, gebaut für Ihre Arbeit: Arztpraxen, Kliniken, jedes Unternehmen."
         }
       }
     },

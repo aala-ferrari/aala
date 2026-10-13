@@ -27,7 +27,16 @@ export default async function CheckoutPage({
   // Nome servizio e piano dal catalogo tradotto (fallback all'italiano di products.ts)
   const tc = await getTranslations('catalog');
   const k = vertical.key;
-  const label = tc.has(`${k}.heroEyebrow`) ? tc(`${k}.heroEyebrow`) : vertical.hero.eyebrow;
+  // Un pacchetto con la sua famiglia (Siti web, CRM su misura) mostra quella,
+  // non il nome del servizio: chi compra un sito non legge «CRM Medical».
+  const gruppo = plan.group ? vertical.planGroups?.find((g) => g.key === plan.group) : undefined;
+  const label = gruppo
+    ? tc.has(`${k}.groups.${gruppo.key}.title`)
+      ? tc(`${k}.groups.${gruppo.key}.title`)
+      : gruppo.title
+    : tc.has(`${k}.heroEyebrow`)
+      ? tc(`${k}.heroEyebrow`)
+      : vertical.hero.eyebrow;
   const planName = tc.has(`${k}.plans.${plan.id}.name`)
     ? tc(`${k}.plans.${plan.id}.name`)
     : plan.name;
