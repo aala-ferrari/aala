@@ -40,13 +40,36 @@ i giri, l'email dice **quale** prova è fallita, e se l'invio a Resend non va a
 buon fine **lo scrive nel log** invece di tacere — un allarme che fallisce in
 silenzio è lo stesso difetto un livello più su.
 
+## Supabase: le pagine verdi non bastano
+
+Dal **21 settembre al 13 ottobre 2026** i container di Supabase
+(`/opt/supabase-nabuel`) sono rimasti **fermi** — fermati tutti insieme
+alle 22:21 UTC, uscita 137, politica `unless-stopped`, quindi un riavvio
+non li avrebbe riaccesi. Per tre settimane login, registrazione, ordini e
+lead di aala.global hanno risposto **502**, e il monitor era tutto verde:
+guardava solo le pagine, che si costruiscono anche senza database. L'ha
+scoperto il titolare, che non riusciva più a iscriversi né a entrare come
+admin.
+
+Ora ci sono due controlli sulle API di Supabase (`supabase-auth` e
+`supabase-rest`). Le API vogliono la chiave pubblica (anon) nell'intestazione,
+altrimenti rispondono 401: lo dice il sesto campo `supabase` della riga, e lo
+script la legge da `.env.local`. Provato che mordano: marcatore impossibile →
+giù; senza chiave → «HTTP 401».
+
+⚠️ **Mai fermare Supabase per liberare memoria** senza riaccenderlo subito
+dopo (`cd /opt/supabase-nabuel && docker compose start`): con
+`unless-stopped` un container fermato a mano resta fermo per sempre.
+
 ## Aggiungere un controllo
 
 Una riga nell'array `CHECKS`:
 
 ```
-"nome | url | dominio_finale_atteso | marcatore | byte_minimi"
+"nome | url | dominio_finale_atteso | marcatore | byte_minimi [| supabase]"
 ```
+
+Il sesto campo, facoltativo, `supabase` aggiunge l'intestazione `apikey`.
 
 Il marcatore va **scelto guardando la pagina vera**, non immaginato: deve
 essere una stringa che sparisce se il sito si rompe. Poi verifica che il

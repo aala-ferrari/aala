@@ -37,6 +37,9 @@ flock -n 9 || { echo "$(date '+%F %T') giro precedente ancora in corso, salto"; 
 
 KEY=$(grep -E '^RESEND_API_KEY=' /var/www/apps/aala/.env.local | cut -d= -f2- | tr -d '" ')
 FROM="AALA Monitor <njoftim@aala.global>"
+# Chiave pubblica di Supabase (la stessa che il browser riceve): le API
+# /auth/v1 e /rest/v1 senza questa intestazione rispondono 401.
+ANON=$(grep -E '^NEXT_PUBLIC_SUPABASE_ANON_KEY=' /var/www/apps/aala/.env.local | cut -d= -f2- | tr -d '" ')
 TO="info@aala.global"
 STATE=/var/lib/uptime-monitor
 mkdir -p "$STATE"
@@ -50,6 +53,7 @@ CHECKS=(
   "aala.global|https://aala.global|aala.global|AALA|40000"
   "aala.global/servizi|https://aala.global/it/servizi/legal|aala.global|Super Avokati|40000"
   "superavokati.ai|https://superavokati.ai|superavokati.ai|Super Avokati|20000"
+  "superavokati.ai/verifikimi|https://superavokati.ai/verifikimi|superavokati.ai|verifikojm|8000"
   "superavokati.ai/legale|https://superavokati.ai/legale|superavokati.ai|Kushtet|5000"
   "auto.aala.global|https://auto.aala.global|auto.aala.global|Auto Rental|8000"
   "taxi.aala.global|https://taxi.aala.global|taxi.aala.global|Taxi|5000"
@@ -58,6 +62,11 @@ CHECKS=(
   "nabuel.com|https://nabuel.com|nabuel.com|Nabuel|3000"
   "corea.aala.global|https://corea.aala.global|corea.aala.global|encar|40000"
   "corea.aala.global/cars|https://corea.aala.global/sq/cars|corea.aala.global|encar|40000"
+  "gym.aala.global|https://gym.aala.global|gym.aala.global|TrainUp|3000"
+  # Supabase (login, registrazione, ordini, lead di AALA; dati di Nabuel).
+  # Fermo dal 21/9 al 13/10/2026 con le pagine tutte verdi.
+  "supabase-auth|https://aala.global/auth/v1/health|aala.global|GoTrue|60|supabase"
+  "supabase-rest|https://aala.global/rest/v1/|aala.global|swagger|1000|supabase"
 )
 
 send_alert() {
@@ -86,11 +95,13 @@ send_alert() {
 
 # Esegue le quattro prove. Stampa "" se tutto bene, altrimenti il motivo.
 verifica() {
-  local url="$1" dominio="$2" marcatore="$3" minimo="$4"
+  local url="$1" dominio="$2" marcatore="$3" minimo="$4" extra="$5"
+  local intest=()
+  [ "$extra" = supabase ] && intest=(-H "apikey: $ANON")
   local corpo=$(mktemp)
   local r code fine size host
 
-  r=$(curl -sL --max-redirs 5 -m 25 -o "$corpo" \
+  r=$(curl -sL --max-redirs 5 -m 25 "${intest[@]}" -o "$corpo" \
       -w '%{http_code}|%{url_effective}|%{size_download}' "$url" 2>/dev/null)
   IFS='|' read -r code fine size <<< "$r"
 
@@ -124,14 +135,14 @@ TEST_MODE="$1"
 GUASTI=0
 
 for row in "${CHECKS[@]}"; do
-  IFS='|' read -r name url dominio marcatore minimo <<< "$row"
+  IFS='|' read -r name url dominio marcatore minimo extra <<< "$row"
 
-  motivo=$(verifica "$url" "$dominio" "$marcatore" "$minimo")
+  motivo=$(verifica "$url" "$dominio" "$marcatore" "$minimo" "$extra")
   # Seconda occasione: le prove severe sono anche piu' fragili a un
   # singhiozzo di rete, e un allarme che grida per niente viene ignorato.
   if [ -n "$motivo" ]; then
     sleep 20
-    motivo=$(verifica "$url" "$dominio" "$marcatore" "$minimo")
+    motivo=$(verifica "$url" "$dominio" "$marcatore" "$minimo" "$extra")
   fi
 
   if [ -z "$motivo" ]; then cur=up; else cur=down; GUASTI=$((GUASTI+1)); fi
